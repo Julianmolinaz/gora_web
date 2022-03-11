@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./css/styles.css">
+  {% block styles %} {% endblock %}
+  <title>{% block title %} title {% endblock %}</title>
+</head>
+<body>
+  <main>
+    <header>{% include "./navbar.html" %}</header>
+    {% block content %}
+      Poner contenido acá
+    {% endblock %}
+  </main>
+  {% block scripts %} {%endblock%}
+</body>
+</html>

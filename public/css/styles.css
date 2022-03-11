@@ -1,0 +1,121 @@
+/***************
+ * VARIABLES
+ ***************/
+:root {
+  /************
+   * COLORES
+   ************/
+  --night: #000000;
+  --dark: #313030;
+  --medium: #4D4D4D;
+  --grayum: #838588;
+  --gray: #C2C2C2;
+  --min: #E5E5E5;
+  --light: #FFFFFF;
+  --sun: #FCEE21;
+  --sky: #0375FA;
+  --natural: #34D22C;
+}
+
+/*************
+ * FONTS
+ *************/
+@font-face {
+    font-family: "Light";
+    src: url("../fuentes/Open_Sans/static/OpenSans/OpenSans-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Regular";
+  src: url("../fuentes/Open_Sans/static/OpenSans/OpenSans-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Semibold";
+  src: url("../fuentes/Open_Sans/static/OpenSans/OpenSans-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Bold";
+  src: url("../fuentes/Open_Sans/static/OpenSans/OpenSans-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fuentes/Material_Icons/MaterialIcons.woff2") format('woff2');
+}
+@font-face {
+  font-family: 'Material Icons Outlined';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fuentes//Material_Icons/MaterialIconsOutlined.woff2") format('woff2');
+}
+@font-face {
+  font-family: 'Material Icons Round';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fuentes/Material_Icons/MaterialIconsRound.woff2") format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+.material-icons-round {
+  font-family: 'Material Icons Round';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/******************
+ * GENERAL
+ ******************/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 62.5%;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

@@ -1,0 +1,45 @@
+.nav {
+    display: none;
+}
+.desk-nav {
+    display: block;
+    height: 10.8rem;
+    background-color: var(--sun);
+    padding: 1.4rem 0;
+}
+.desk-nav__container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem 11.4rem;
+    background-color: var(--light);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
+}
+.desk-nav__logo {
+    width: 13.9rem;
+    height: 7.5rem;
+}
+.desk-nav__right {
+    display: flex;
+    align-items: center;
+    gap: 7rem;
+}
+.desk-nav__options {
+    display: flex;
+    text-align: center;
+    gap: 2rem;
+}
+.desk-nav__options-item {
+    text-decoration: none;
+    font-family: Bold;
+    font-size: 1.6rem;
+    color: var(--medium);
+}
+.desk-nav__social-network {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.desk-nav__social-network-item img {
+    width: 3.2rem;
+    height: 3.2rem;
+}
