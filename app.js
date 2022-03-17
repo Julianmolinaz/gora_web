@@ -37,7 +37,6 @@ app.use(express.urlencoded({ extended: true }));
 webRouter(app);
 apiRouter(app);
 
-
 app.listen(PORT, () => {
   console.log(`Server on port ${PORT}`);
 });

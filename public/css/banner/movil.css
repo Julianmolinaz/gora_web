@@ -1,0 +1,29 @@
+.banner-container {
+  width: 100%;
+  height: calc(100vh - 8.4rem);
+  background-image: url("../../imagenes/biker.jpeg"); 
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+}
+.banner-title {
+  padding: 2.4rem;
+  height: 100%;
+}
+.banner-title {
+  font-family: Bold;
+  font-size: 4rem;
+  color: var(--light);
+}
+.banner-simulador {
+  display: flex;
+  justify-content: center;
+}
+.banner-simulador__container {
+}
+.banner-simulador__title {
+  display: none;
+}
+.banner-simulador__container {
+  margin-top: 2.2rem;
+}

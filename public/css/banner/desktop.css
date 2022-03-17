@@ -1,0 +1,28 @@
+.banner-container {
+  display: none;
+}
+.banner-simulador__title {
+  display: block;
+  color: var(--light);
+  padding: 2.4rem;
+  height: 100%;
+  font-family: Bold;
+  font-size: 4rem;
+}
+.banner-simulador {
+  padding: 2.2rem 0;
+  background-image: url("../../imagenes/biker.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  justify-content: space-between;
+}
+.banner-simulador__box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;  
+  padding: 0.2rem 11.4rem;
+}
+.banner-simulador__container {
+  margin: 0;
+}
+

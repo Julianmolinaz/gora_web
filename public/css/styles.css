@@ -119,3 +119,41 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+
+/******************
+ * FORM
+ ******************/
+ 
+.input-group {
+    margin: 0 0 1.5rem 0;
+    height: 5rem;
+    position: relative;
+    border: .1rem solid var(--min);
+    border-radius: .4rem;
+}
+.input-group__textarea {
+  height: 9.6rem; 
+}
+.input-group label {
+  font-size: 1.3rem;
+  color: var(--grayum);
+  position: absolute;
+  top: .4rem;
+  left: 1.5rem;
+  bottom: 0;
+  height: 1.8rem;
+  font-family: SemiBold;
+}
+.input-group input, select, textarea {
+  border: none;
+  font-size: 1.6rem;
+  margin-top: 2.2rem;
+  margin-left: 1.5rem;
+  outline-style: none;
+  color: var(--medium);
+}
+.input-group select {
+  margin-left: 1.2rem;
+  width: calc(100% - .4rem - 1.5rem);
+  font-family: SemiBold;
+}

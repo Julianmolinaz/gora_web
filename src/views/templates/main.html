@@ -3,13 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./css/styles.css">
-  {% block styles %} {% endblock %}
+  <link rel="stylesheet" href="./css/navbar/movil.css">
+
+  <link 
+	rel="stylesheet"
+	href="./css/navbar/desktop.css" 
+	media="screen and (min-width: 800px)"
+  >
+
+  {% block adicionalHeader %} {% endblock %}
   <title>{% block title %} title {% endblock %}</title>
 </head>
 <body>
+  <header>{% include "./navbar.html" %}</header>
   <main>
-    <header>{% include "./navbar.html" %}</header>
-    {% block content %}
+   {% block content %}
       Poner contenido acá
     {% endblock %}
   </main>
