@@ -1,0 +1,84 @@
+.contacto-general {
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+  background-color: var(--sun);
+  padding: 2.2rem 2rem 3rem 2rem;
+}
+.contacto-general__titulo {
+  font-family: Bold;
+  font-size: 3.2rem;
+  color: var(--dark);
+}
+.contacto-general__icono {
+  width: 8rem;
+  height: 8rem;
+  color: var(--dark);
+}
+.contacto-general__horario {
+  padding: 3rem 2rem;
+}
+.contacto-general__horario p {
+  font-family: Light;
+  font-size: 1.6rem;
+}
+.contacto-general__horario :nth-child(2) {
+  margin-top: 1.6rem;
+}
+.contacto-general__horario :nth-child(2) a {
+  text-decoration: none;
+  color: var(--sky);
+}
+.contactos {
+  padding: 2rem 2rem;
+}
+
+/**************************
+ * FORMULARIO DE CONTACTO
+ **************************/
+.mensaje-container {
+  margin: 3rem 2rem;
+  padding: 2.4rem 1.6rem;
+  border-radius: 1rem;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.mensaje-icono {
+  width: 4.6rem;
+  height: 4.6rem;
+}
+.mensaje-titulo {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.mensaje-titulo__principal {
+  display: block;
+  font-family: Bold;
+  font-size: 1.8rem;
+  color: var(--dark);
+  margin-bottom: 0.8rem;
+}
+.mensaje-titulo__texto {
+  font-family: Light;
+  font-size: 1.6rem;
+  color: var(--dark);
+  margin-bottom: 1.4rem;
+}
+.mensaje-terminos {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.mensaje-terminos__label {
+  font-family: Light;
+  font-size: 1.4rem;
+}
+.mensaje-terminos__label a {
+  text-decoration: none;
+  color: var(--sky);
+}
+.mensaje-enviar {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+}

@@ -8,8 +8,12 @@
 	<form class="calc-form">
 	  <!--PRODUCTO-->
 	  <div class="input-group">
-		<select>
-		  <option value="">SOAT
+		<select v-model="simulador.productoId">
+		  <option
+			:value="producto.id"
+			v-for="(producto, i) in insumos.productos"
+		  >
+			{{ producto.nombre }}
 		  </option>
 		</select>
 		<label for="producto">Producto</label>
@@ -17,31 +21,68 @@
 	  <div class="calc-form__2col">
 		<!-- TIPO DE VEHICULO -->
 		<div class="input-group">
-		  <select id="" name="">
-		    <option value=""></option>
+		  <select v-model="simulador.tipoVehiculoId">
+		    <option
+			  v-for="(tipo, i) in insumos.tipoVehiculos"
+			  :value="tipo.id"
+			>
+			  {{ tipo.nombre }}
+			</option>
 		  </select>
 		  <label for="tipo de vehículo">Tipo de vehículo</label>
 		</div>
 		<!-- MODELO -->
 		<div class="input-group">
-		  <input type="number">
+		  <input type="number" v-model="simulador.modelo">
 		  <label for="modelo">Modelo</label>
 		</div>
 	  </div>
 	  <div class="calc-form__2col">
 		<!-- CILINDRAJE -->
 		<div class="input-group">
-		  <input id="" type="number" name="">
+		  <input type="number" v-model="simulador.cilindraje">
 		  <label for="cilindraje">Cilindraje</label>
 		</div>
 		<!-- PERIODO -->
 		<div class="input-group">
-		  <select id="" name="">
-		    <option value=""></option>
+		  <select v-model="simulador.periodo">
+		    <option :value="periodo" v-for="(periodo, i) in insumos.periodos" :key="i">
+			  {{ periodo }}
+			</option>
 		  </select>
 		  <label for="Periodo">Periodo</label>
 		</div>
 	  </div>
+	  <div class="calc-form__cuotas">
+		<a
+		  href="javascript:void(0);"
+		  class="calc-form__cuotas-bt"
+		  @click="decrementar"
+		>
+		  <span>-</span>
+		</a>
+		<div class="calc-form__txt">
+		  <p class="calc-form__txt-numcuotas">{{ getCuotas }}</p>
+		  <p class="calc-form__txt-cuotas">CUOTAS</p>
+		</div>
+		<a 
+		  class="calc-form__cuotas-bt"
+		  href="javascript:void(0);"
+		  @click="incrementar"
+		>
+		  <span>+</span>
+		</a>
+	  </div>
+	  <div class="calc-form__info-cuota">
+	    <div class="calc-form__valor-cuota">
+	      <p>Valor cuota:</p>
+		  <p>{{ valorCuota }}</p>
+	    </div>
+		<div class="calc-form__detalle-cuota"></div>
+	  </div>
+	  <button class="bt bt__night calc-form__submit" @click="calcularCuota($event)">
+		Calcular Cuota
+	  </button>
 	</form>
   </div>
 </script>
@@ -64,17 +105,66 @@ app.component("simulador", {
   template: "#calc-template",
   data:() => ({
 	  insumos: {},
-	  simulador: new Simulador({})
+	  simulador: new Simulador({}),
+	  valorCuota: 0,
   }),
-  computed: {},
-  methods: {}
+  computed: {
+	getCuotas() {
+	  if (this.simulador.numCuotas && this.simulador.periodo === "Quincenal") {
+		return this.simulador.numCuotas * 2;
+	  } else {
+		return this.simulador.numCuotas;
+	  }
+	}
+  },
+  methods: {
+	initCuotas() {
+	  this.simulador.numCuotas = Math.floor(this.insumos.maxCuotas / 2);
+	},
+	incrementar() {
+	  if (this.simulador.numCuotas >= this.insumos.maxCuotas) {
+		return false;
+	  } 
+	  this.simulador.numCuotas++;
+	},
+	decrementar() {
+	  if (this.simulador.numCuotas <= this.insumos.minCuotas) {
+		return false;
+	  }
+	  this.simulador.numCuotas--;
+	},
+	calcularCuota(e) {
+	  e.preventDefault();
+	  this.getValorCuota();
+	},
+	getValorCuota() {
+	  axios.post("/api/simulador/get-valor-cuota", this.simulador)
+		.then(res => {
+			console.log(res);
+		  this.valorCuota = res.data.valorCuota;
+		}).catch(err => {
+		  const error = err.response.data.error;
+		  alert(error);
+  	    });
+	},
+	getInsumos() {
+	  axios.get("/api/simulador/insumos")
+		.then(res => {
+		  this.insumos = res.data.insumos;
+		  this.initCuotas();
+		})
+	} 
+  },
+  created() {
+	this.getInsumos();
+  }
 });
 </script>
 <style scoped>
   .calc-container {
 	width: 100%;
 	min-width: 32rem;
-	max-width: 42rem;
+	max-width: 36rem;
 	border-radius: 1rem;
 	padding: 2.2rem;
 	border: .1rem solid rgba(229, 229, 229, 1);
@@ -103,7 +193,71 @@ app.component("simulador", {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1.3rem;
-}
-
+  }
+  .calc-form__cuotas {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	margin-top: 1.2rem;
+  }
+  .calc-form__cuotas-bt {
+	position: relative;
+	display: block;
+	width: 7rem;
+	height: 7rem;
+	background: var(--sun);
+	border-radius: 50%;
+	box-shadow: 0 .4rem .4rem rgba(0, 0, 0, 0.12);
+  }
+  .calc-form__cuotas-bt:active {
+	transform: scale(.96);
+  }
+  .calc-form__cuotas-bt span {
+	position: absolute;
+	font-size: 4.8rem;
+	font-family: Bold;
+	text-align: center;
+	width: 100%;
+	vertical-align: middle;
+	color: var(--dark);
+  }
+  .calc-form__txt {
+	text-align: center;
+	color: var(--medium);
+  }
+  .calc-form__txt-numcuotas {
+	font-family: Bold;
+	font-size: 3.6rem;
+  }
+  .calc-form__txt-cuotas {
+	font-family: Regular;
+	font-size: 1.2rem;
+  }
+  .calc-form__info-cuota {
+	margin-top: 1rem;
+  }
+  .calc-form__valor-cuota :nth-child(1) {
+	font-family: Light;
+	font-size: 1.4rem;
+  }
+  .calc-form__valor-cuota :nth-child(2) {
+	margin-top: .4rem;
+	font-family: Bold;
+	font-size: 2rem;
+  }
+  .calc-form__submit {
+	margin-top: 1.8rem;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+  }
+  .input-group {
+	min-width: 10rem;
+	max-with: 18rem;
+  }
+  .input-group input {
+	width: 80%;
+  }
 </style>
 {% endverbatim %}

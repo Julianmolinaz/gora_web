@@ -1,3 +1,7 @@
+/*************
+ * BANNER
+ *************/
+
 .banner-container {
   width: 100%;
   height: calc(100vh - 8.4rem);
@@ -26,4 +30,76 @@
 }
 .banner-simulador__container {
   margin-top: 2.2rem;
+}
+
+/****************
+ * STEPS
+ ****************/
+
+.section-steps {
+  margin: 5rem 0;
+}
+.steps__head {
+  text-align: center;
+}
+.steps__title {
+  font-family: Bold;
+  font-size: 3.6rem;
+  color: var(--night);
+  display: block;
+}
+.steps__icon-question {
+  margin-top: 1rem;
+  width: 9.6rem;
+}
+.steps__head-div {
+  margin-top: 2rem;
+  width: 2.26rem;
+  height: .2rem;
+  background: var(--sun);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.steps__list {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.step__item {
+  width: 18.5rem;
+  margin-bottom: 4rem;
+}
+.step__icon {
+  width: 10rem;
+  height: 10rem;
+  background: var(--sun);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 4rem;
+  margin-bottom: 2rem;
+}
+.step__icon img {
+  width: 6rem;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+}
+.step__text {
+  text-align: center;
+  font-family: SemiBold;
+  font-size: 2rem;
+  color: var(--medium);
+  padding: 0 1rem;
+}
+.steps__submit {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }

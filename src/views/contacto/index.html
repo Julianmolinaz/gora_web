@@ -1,0 +1,30 @@
+{% extends "../templates/main.html" %}
+
+{% block adicionalHeader %}
+  <link
+	rel="stylesheet"
+	href="./css/contacto/movil.css"
+  >
+  <link
+	rel="stylesheet"
+	href="./css/contacto/tablet.css"
+	media="screen and (min-width: 768px)"
+  >
+  <link
+	rel="stylesheet"
+	href="./css/contacto/desktop.css"
+	media="screen and (min-width: 992px)"
+  >
+  
+{% endblock %}
+
+{% block content %}
+  <div class="contacto-container">
+	{% include "./general.html" %}
+	{% include "./contactos.html" %}
+  </div>
+  <div class="mensaje">
+	{% include "./mensaje.html" %}
+  </div>  
+  {% include "../templates/footer.html" %}
+{% endblock %}
