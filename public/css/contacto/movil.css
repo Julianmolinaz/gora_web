@@ -1,3 +1,11 @@
+.bloque-contacto {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+/**************************
+ * CONTACTO GENERAL
+ **************************/
+
 .contacto-general {
   display: flex;
   gap: 1.6rem;
@@ -37,7 +45,7 @@
  * FORMULARIO DE CONTACTO
  **************************/
 .mensaje-container {
-  margin: 3rem 2rem;
+  margin: 2rem 2rem;
   padding: 2.4rem 1.6rem;
   border-radius: 1rem;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);

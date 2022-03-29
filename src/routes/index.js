@@ -14,9 +14,11 @@ const webRouter = (app) => {
  **********/
 
 const SimuladorApi = require("./api/simulador");
+const ContactosApi = require("./api/contactos");
 
 const apiRouter = (app) => {
   app.use("/api/simulador", SimuladorApi);
+  app.use("/api/contactos", ContactosApi);
 }
 
 module.exports = {

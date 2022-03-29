@@ -1,10 +1,31 @@
+/*******************
+ * GENERAL
+ *******************/
+.contacto-general__horario {
+  padding: 3rem 11.4rem;
+}
+.contacto-general {
+  padding: 0.2rem 11.4rem;
+}
+/*******************
+ * CONTACTOS
+ *******************/
+.contactos {
+  padding: 0.2rem 11.4rem;
+}
 .contactos form > .input-group {
   max-width: 50rem;  
 }
-
+/*******************
+* MENSAJES 
+*******************/
+.mensaje {
+  padding: 2rem 11.4rem;
+}
 .mensaje-container {
+  margin: 0;
   max-width: 50rem;
 }
-  
+
 
 

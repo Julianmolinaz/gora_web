@@ -1,16 +1,59 @@
-<section class="contactos">
+<div id="app-contactos">
+  <form-contactos-component />
+</div>
+
+<script src="../../../js/vue3.js"></script>
+<script src="../../../js/axios.min.js"></script> 
+
+<script type="text/x-template" id="form-contactos-template">
   <form action="">
 	<div class="input-group">
-	  <select>
-	    <option value=""></option>
+	  <select v-model="departamentoId" @change="getCiudades">
+		{% for departamento in insumos.departamentos %}
+		<option value="{{ departamento.id }}">{{ departamento.nombre }}</option>
+		{% endfor %}
 	  </select>  
 	  <label for="departamentos">Departamentos</label>  
 	</div> 
 	<div class="input-group">
-	  <select>
-	    <option value=""></option>
+	  <select v-model="ciudadId">
+		<option
+		  :value="ciudad.id"
+		  v-for="(ciudad, i) in ciudades"
+		>
+		  [[ ciudad.nombre ]]
+		</option>
 	  </select>  
 	  <label for="ciudad">Ciudad</label>  
 	</div> 	
-  </form>  
-</section>  
+  </form>
+</script>
+<script>
+  const { createApp } = Vue;
+  const app = createApp({ 
+	setup() {} 
+  });
+  app.component("form-contactos-component", {
+	template: "#form-contactos-template",
+	  delimiters: ['[[', ']]'],
+	  data: () => ({
+		departamentoId: null,
+		ciudadId: null,
+		ciudades: []
+	  }),
+	  methods: {
+		getCiudades() {
+		  axios.get(`/api/contactos/get-ciudades/${this.departamentoId}`)
+			.then(res => this.ciudades = res.data.ciudades)
+			.catch(error => alert(error.message)) 
+		},
+		getSucursales() {
+		  axios.get(`/api/contactos/get-sucursales/${this.municipioId}`)
+			.then(res => this.sucursales = res.data.sucursales)
+			.catch(error => aler(error.message));
+		}
+	  },
+  });
+
+  app.mount("#app-contactos");
+</script>

@@ -1,6 +1,7 @@
 {% extends "../templates/main.html" %}
 
 {% block adicionalHeader %}
+  
   <link
 	rel="stylesheet"
 	href="./css/contacto/movil.css"
@@ -19,12 +20,20 @@
 {% endblock %}
 
 {% block content %}
-  <div class="contacto-container">
-	{% include "./general.html" %}
-	{% include "./contactos.html" %}
+  <div class="bloque-contacto">
+	<div class="contacto-container">
+	  <section class="general">
+		{% include "./general.html" %}
+	  </section>
+	  <section class="contactos">
+		{% include "./contactos.html" %}
+	  </section>
+	</div>
+	<div class="mensaje">
+	  {% include "./mensaje.html" %}
+	</div>  
   </div>
-  <div class="mensaje">
-	{% include "./mensaje.html" %}
-  </div>  
+  
   {% include "../templates/footer.html" %}
+
 {% endblock %}

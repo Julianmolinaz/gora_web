@@ -1,0 +1,29 @@
+.bloque-contacto {
+  padding: 2rem 11.4rem;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+}
+
+/*************************
+ * CONTACTO GENERAL 
+ *************************/
+.contacto-general {
+  background-color: var(--light);
+  padding: 0;
+}
+.contacto-general__horario {
+  padding: 3rem 0;
+}
+.contactos {
+  padding: 0;
+}
+
+/********************
+ * MENSAJES
+ ********************/
+.mensaje {
+  padding: 0;
+}
+.mensaje-container {
+  margin: 0; 
+}
