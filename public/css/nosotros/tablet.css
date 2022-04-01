@@ -1,0 +1,22 @@
+/*******************
+ * ITEM
+ *******************/
+.nosotros-item {
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  height: 31.2rem;
+  padding-left: 11.4rem;
+  padding-right: 11.4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+}
+.nosotros-item__imagen {
+  width: 50%;
+  height: auto;
+  max-height: 31.2rem;
+  border-radius: 4px;
+  padding: 5rem 2rem 5rem 0;
+}
+

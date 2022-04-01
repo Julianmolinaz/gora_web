@@ -1,0 +1,50 @@
+{% extends "../templates/main.html" %}
+
+{% block adicionalHeader %}
+  <link rel="stylesheet" href="./css/nosotros/movil.css">
+  <link 
+	rel="stylesheet" 
+	href="./css/nosotros/tablet.css"
+	media="screen and (min-width: 768px)"
+  >
+  <link 
+	rel="stylesheet"
+	href="./css/nosotros/desktop.css"
+	media="screen and (min-width: 992px)"
+  >
+{% endblock %}
+
+{% block content %}
+  <div class="nosotros-container">
+	<section class="nosotros-header">
+	  <div class="nosotros-header__titulo">Sobre Nosotros</div>
+	  <div class="nosotros-header__icono">
+		<div class="nosotros-div"></div>
+		<span class="material-icons-outlined">groups</span>
+		<div class="nosotros-div"></div>
+	  </div>
+	</section>
+	<!-- MISION -->
+	<section class="nosotros-item">
+	  <img src="/imagenes/business.jpeg" alt="" class="nosotros-item__imagen">
+	  <div class="nosotros-item__desc">
+		<span class="nosotros-item__titulo">Misión</span>
+		<p class="nosotros-item__parrafo">
+		  Facilitar la disminución de riesgos de los motociclistas, mediante el pago de cuotas periódicas
+		</p>
+	  </div>
+	</section>
+	<!-- VISION -->
+	<section class="nosotros-item vision-container">
+	  <div class="nosotros-item__desc">
+		<span class="nosotros-item__titulo">Visión</span>
+		<p class="nosotros-item__parrafo">
+		  Maximizar la seguridad de los motociclistas y transeúntes en las vias.
+		</p>
+	  </div> 
+	  <img src="/imagenes/business.jpeg" alt="" class="nosotros-item__imagen">
+	</section>
+	<section class="nosotros-principios"></section>
+	<section class="nosotros-aliados"></section>
+  </div>
+{% endblock %}

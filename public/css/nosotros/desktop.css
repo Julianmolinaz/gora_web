@@ -1,0 +1,24 @@
+/*******************
+ * DESKTOP
+ *******************/
+.nosotros-header {
+  padding-left: 11.4rem;
+  padding-right: 11.4rem;
+}
+.nosotros-header__titulo {
+  font-size: 3rem;
+}
+.nosotros-header__icono {
+  display: block;
+}
+.nosotros-div {
+  width: 20rem;
+}
+/*****************
+ * ITEM
+ *****************/
+.nosotros-item {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
