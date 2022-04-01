@@ -2,7 +2,8 @@
  * ITEM
  *******************/
 .nosotros-item {
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 3rem;
   height: 31.2rem;
@@ -13,10 +14,16 @@
   justify-content: space-between;
 }
 .nosotros-item__imagen {
-  width: 50%;
-  height: auto;
+  display: block;
+  object-fit: cover;
   max-height: 31.2rem;
   border-radius: 4px;
-  padding: 5rem 2rem 5rem 0;
+  max-height: 24rem;
 }
-
+.principios-container {
+  flex-direction: row; 
+  flex-wrap: wrap;
+  gap: 2.8rem; 
+  margin-left: 11.4rem;
+  margin-right: 11.4rem;
+}

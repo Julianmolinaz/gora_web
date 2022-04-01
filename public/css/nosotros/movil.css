@@ -1,7 +1,7 @@
 .nosotros-container {}
 
 /*******************
- * NOSOTROS MOVIL
+ * NOSOTROS
  *******************/
 .nosotros-header {
   display: flex;
@@ -14,7 +14,7 @@
 }
 .nosotros-header__titulo {
   font-family: Bold;
-  font-size: 2rem;
+  font-size: 3rem;
   color: var(--dark);
 }
 .nosotro-header__icon {
@@ -43,8 +43,8 @@
   padding: 2.4rem 1.6rem;
 }
 .nosotros-item__imagen {
-  width: auto;
-  height: 100%;
+  width: 100%;
+  height: auto;
 }
 .nosotros-item__desc {
     
@@ -62,4 +62,57 @@
 }
 .vision-container {
   background-color: #F8F8F8;
+}
+
+/***************
+ * PRINCIPIOS
+ **************/
+.nosotros-principios {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+.principios-header {
+  text-align: center; 
+}
+.principios-header .divider {
+  margin: 1rem auto 0;
+  height: 2px;
+  width: 100px;
+  background-color: var(--sun);
+}
+.principios-titulo {
+  font-family: Bold;
+  font-size: 3rem;
+  color: var(--dark);
+}
+.principios-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.principio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 20rem;
+  height: 20rem;
+  border: 0.2px solid #FEFEFE;
+  border-radius: 4px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  padding: 0 1.5rem; 
+}
+.principio-icono {
+  width: 6rem;
+  height: 6rem;
+}
+.principio-parrafo {
+  font-family: Regular;
+  font-size: 2rem;
+  text-align: center;
 }
