@@ -1,4 +1,4 @@
-const CiudadesRepository = require("../../database/repositories/ciudades.repository");
+const ContactosRepository = require("../../database/repositories/contactos.repository");
 
 class GetCiudadesPorDepartamento {
   constructor(departamentoId) {
@@ -11,7 +11,7 @@ class GetCiudadesPorDepartamento {
   }
 
   async getCiudades() {
-    const ciudades = await CiudadesRepository.getCiudadesPorDepartamento(this.departamentoId);
+    const ciudades = await ContactosRepository.getCiudadesConPresencia(this.departamentoId);
     return ciudades;
   }
 

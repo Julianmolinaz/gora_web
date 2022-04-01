@@ -1,5 +1,6 @@
 const GetInsumosVistaContacto = require("../services/contacto/get_insumos_vista_contacto");
 const GetCiudadesPorDepartamento = require("../services/contacto/get_ciudades_por_departamento");
+const GetContactosPorCiudad = require("../services/contacto/get_contactos_por_ciudad");
 
 class ContactoController {
   static async index(req, res) {
@@ -15,9 +16,12 @@ class ContactoController {
     return res.json({ciudades});
   }
 
-  static async getSucursalesPorCiudad(req, res) {
+  static async getContactos(req, res) {
     const ciudadId = req.params.ciudadId;
-    return res.json({ciudadId});
+    const useCase = new GetContactosPorCiudad(ciudadId);
+    await useCase.execute();
+    const contactos = useCase.contactos;
+    return res.json({ contactos });
   }
 }
 

@@ -1,5 +1,5 @@
 const VariablesRepository = require("../../database/repositories/variables.repository");
-const DepartamentosRepository = require("../../database/repositories/departamentos.repository");
+const ContactosRepository = require("../../database/repositories/contactos.repository");
 
 class GetInsumosVistaContacto {
   async execute() {
@@ -10,7 +10,7 @@ class GetInsumosVistaContacto {
   }
 
   async getDepartamentos() {
-    const departamentos = await DepartamentosRepository.listDepartamentos();
+    const departamentos = await ContactosRepository.getDepartamentosPresencia();
     return departamentos;
   }
 

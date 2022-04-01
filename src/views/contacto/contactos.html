@@ -16,7 +16,7 @@
 	  <label for="departamentos">Departamentos</label>  
 	</div> 
 	<div class="input-group">
-	  <select v-model="ciudadId">
+	  <select v-model="ciudadId" @change="getContacto">
 		<option
 		  :value="ciudad.id"
 		  v-for="(ciudad, i) in ciudades"
@@ -39,9 +39,15 @@
 	  data: () => ({
 		departamentoId: null,
 		ciudadId: null,
-		ciudades: []
+		ciudades: [],
+		contactos: [],
 	  }),
 	  methods: {
+		getContacto() {
+		  axios.get(`/api/contactos/get-contactos/${this.ciudadId}`)
+			.then(res => this.contactos = res.data.contactos)
+			.catch(error => alert(error.message));
+		},
 		getCiudades() {
 		  axios.get(`/api/contactos/get-ciudades/${this.departamentoId}`)
 			.then(res => this.ciudades = res.data.ciudades)
