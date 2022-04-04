@@ -40,7 +40,53 @@
 .contactos {
   padding: 2rem 2rem;
 }
-
+/****************
+ * CONTACTO ITEM
+ ****************/
+.contacto-list {
+  margin: 3.4rem 0 0 0;
+}
+.contacto-container {
+  margin-top: 1.6rem;
+}
+.contacto-municipio {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.contacto-municipio__icono {
+  font-size: 3.3rem;
+  color: #FFC107;
+}
+.contacto-municipio__texto {
+  font-family: Bold;
+  font-size: 1.6rem;
+  color: var(--dark);
+}
+.contacto-info {
+  padding-left: 4.1rem;
+  font-family: Regular;
+  font-size: 1.4rem;
+  color: var(--dark);
+  line-height: 162%;
+}
+.contacto-telefono {
+  display: flex; 
+  align-items: center;
+  gap: 0.8rem;
+}
+.contacto-whatsapp {
+  color: #4CAF50;
+  font-size: 2rem;
+}
+.contacto-direccion {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem; 
+}
+.contacto-locationico {
+  color: #1a73e8;
+}
 /**************************
  * FORMULARIO DE CONTACTO
  **************************/

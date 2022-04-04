@@ -7,6 +7,7 @@
 
 <script type="text/x-template" id="form-contactos-template">
   <form action="">
+	<!-- DEPARTAMENTO -->
 	<div class="input-group">
 	  <select v-model="departamentoId" @change="getCiudades">
 		{% for departamento in insumos.departamentos %}
@@ -15,6 +16,7 @@
 	  </select>  
 	  <label for="departamentos">Departamentos</label>  
 	</div> 
+	<!-- CIUDADES -->
 	<div class="input-group">
 	  <select v-model="ciudadId" @change="getContacto">
 		<option
@@ -27,11 +29,65 @@
 	  <label for="ciudad">Ciudad</label>  
 	</div> 	
   </form>
+  <div class="contacto-list">
+	<contacto-component
+	  v-for="(contacto, i) in contactos"
+	  :key="i"
+	  :info="contacto"
+	></contacto-component>
+  </div>
 </script>
+
+<script type="text/x-template" id="contacto-template">
+  <div class="contacto-container">
+	<div class="contacto-municipio">
+	  <span class="material-icons-outlined contacto-municipio__icono">
+		location_on
+	  </span>
+	  <span class="contacto-municipio__texto">
+		[[ info.municipio_nombre ]] -
+		[[ info.departamento_nombre ]]
+	  </span>
+	</div>
+	<div class="contacto-info">
+	  <p class="contacto-nombre">[[ info.nombre ]]</p>
+	  <div class="contacto-telefono">
+		<p>
+		  Cel: [[ info.telefono1 ]] 
+		  [[ (info.telefono2) ? ' - ' + info.telefono2 : '' ]]
+		</p>
+		<a :href="'https://wa.me/' + info.telefono1" target="_blank">
+		  <span class="material-icons-outlined contacto-whatsapp">
+			whatsapp
+	      </span>
+		</a>
+	  </div>
+	  <div class="contacto-direccion">
+		<p>Dirección: [[ info.direccion ]]</p>
+		<a 
+		  :href="info.localizacion"
+		  v-if="info.localizacion"
+		  class="contacto-locationico"
+		  target="_blank"
+		>
+		  <span class="material-icons-outlined">
+			location_on
+		  </span>
+		</a>
+	  </div>
+	</div>
+  </div>  
+</script>
+
 <script>
   const { createApp } = Vue;
   const app = createApp({ 
 	setup() {} 
+  });
+  app.component("contacto-component", {
+	template: "#contacto-template",
+	delimiters: ['[[', ']]'],
+	props: ['info'],
   });
   app.component("form-contactos-component", {
 	template: "#form-contactos-template",
@@ -56,7 +112,7 @@
 		getSucursales() {
 		  axios.get(`/api/contactos/get-sucursales/${this.municipioId}`)
 			.then(res => this.sucursales = res.data.sucursales)
-			.catch(error => aler(error.message));
+			.catch(error => alert(error.message));
 		}
 	  },
   });

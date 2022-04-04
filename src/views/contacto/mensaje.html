@@ -1,3 +1,8 @@
+<div id="app-mensaje">
+  <mensaje-component></mensaje-component>
+</div>
+
+<script type="text/x-template" id="mensaje-template">
 <section class="mensaje-container">
   <img src="iconos/icon-email.png" alt="icono email" class="mensaje-icono">
   <div class="mensaje-titulo">
@@ -8,21 +13,23 @@
   <div class="mensaje-form">
 	<form action="">
 	  <div class="input-group">
-		<input type="text">
+		<input type="text" v-model="mensaje.nombre">
 		<label for="nombre">Nombre</label>  
 	  </div>
 	  <div class="input-group">
-		<input type="text">
+		<input type="text" v-model="mensaje.email">
 		<label for="correo electrónico">Correo electrónico</label>  
 	  </div> 
 	  <div class="input-group input-group__textarea">
-		<textarea></textarea>  
+		<textarea v-model="mensaje.contenido"></textarea>  
 		<label for="nombre">Mensaje</label>  
 	  </div> 
 	  <div class="mensaje-terminos">
-		<input type="checkbox">
+		<input type="checkbox" v-model="terminos">
 		<label for="aceptar términos y condiciones" class="mensaje-terminos__label">
-		  <a href="">He leido y acepto los términos y condiciones</a>
+		  <a href="javascript:void(0);">
+			He leido y acepto los términos y condiciones
+		  </a>
 		</label>
 	  </div>
 	  <div class="mensaje-enviar">
@@ -31,3 +38,26 @@
 	</form>
   </div>
 </section>  
+</script>
+
+<script>
+  class Mensaje {
+	constructor() {
+	  this.nombre = "";
+	  this.email = "";
+	  this.contenido = "";
+	} 
+  }
+  const appMensaje = createApp({
+	setup() {}
+  });
+  appMensaje.component("mensaje-component", {
+	template: "#mensaje-template",
+	delimiters: ['[[', ']]'],
+	data: () => ({
+	  mensaje: new Mensaje(),
+	  terminos: false,
+	}),
+  });
+  appMensaje.mount("#app-mensaje");
+</script>

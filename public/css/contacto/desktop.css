@@ -17,7 +17,12 @@
 .contactos {
   padding: 0;
 }
-
+/****************
+ * CONTACTO ITEM
+ ****************/
+.contacto-list {
+  margin-bottom: 2.4rem;
+}
 /********************
  * MENSAJES
  ********************/
