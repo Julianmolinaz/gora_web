@@ -151,6 +151,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin-left: 1.5rem;
   outline-style: none;
   color: var(--medium);
+  width: 93%;
 }
 .input-group select {
   margin-left: 1.2rem;
@@ -163,6 +164,7 @@ input[type=number]::-webkit-outer-spin-button {
   width: calc(100% - 0.4rem - 1.5rem);
   height: 6rem;
   font-family: SemiBold;
+  width: 93%;
 }
 
 /***************

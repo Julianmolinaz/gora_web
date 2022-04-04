@@ -1,6 +1,7 @@
 const GetInsumosVistaContacto = require("../services/contacto/get_insumos_vista_contacto");
 const GetCiudadesPorDepartamento = require("../services/contacto/get_ciudades_por_departamento");
 const GetContactosPorCiudad = require("../services/contacto/get_contactos_por_ciudad");
+const SendMensaje = require("../services/contacto/send_mensaje");
 
 class ContactoController {
   static async index(req, res) {
@@ -22,6 +23,20 @@ class ContactoController {
     await useCase.execute();
     const contactos = useCase.contactos;
     return res.json({ contactos });
+  }
+
+  static async sendMensaje(req, res) {
+    try {
+      const body = req.body;
+      const useCase = new SendMensaje(body);
+      await useCase.execute();
+      return res.json({
+	success: true, 
+	mensaje: "Se envió el mensaje exitosamente"
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

@@ -33,7 +33,12 @@
 		</label>
 	  </div>
 	  <div class="mensaje-enviar">
-		<button class="bt bt__night">Enviar</button>
+		<a
+		  href="javascript:void(0);"
+		  class="bt bt__night"
+		  @click="sendMensaje"
+		>Enviar
+		</a>
 	  </div>
 	</form>
   </div>
@@ -58,6 +63,39 @@
 	  mensaje: new Mensaje(),
 	  terminos: false,
 	}),
+	methods: {
+	  sendMensaje() {
+		if (!this.validacion()) return false;
+		axios.post("/api/contactos/send-mensaje", this.mensaje)
+		  .then(res => {
+			  console.log({res});
+			}).catch(error => {
+			  console.log(error);
+			});		  
+	  },
+	  validacion() {
+		let str = "";
+
+		if (!this.mensaje.nombre) {
+		  str += "Se requiere su nombre completo";
+		}
+		if (!this.mensaje.email) {
+		  str += "Se requiere su correo electrónico";
+		}
+		if (!this.mensaje.contenido) {
+		  str += "El mensaje es requerido";
+		}
+		if (!this.terminos) {
+		  str += "Debe aceptar términos y condiciones";
+		}
+		if (str.length) {
+		  alert(str);
+		  return false;
+		}
+
+		return true;
+	  }
+	}
   });
   appMensaje.mount("#app-mensaje");
 </script>
