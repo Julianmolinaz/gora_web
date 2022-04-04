@@ -9,8 +9,16 @@ class SendMensaje {
     const result = await Mailer.send(
       this.email,
       "test.free.pablo@gmail.com",
-      this.contenido     
+      `Mensaje desde la web ${this.nombre}`,
+      this.getMensaje()
     );
+  }
+
+  getMensaje() {
+    const mensaje = this.contenido + "\n\n" +
+    "Nombre remitente: " + this.nombre + "\n" +
+    "Correo remitente: " + this.email;
+    return mensaje;
   }
 
   setData(payload) {

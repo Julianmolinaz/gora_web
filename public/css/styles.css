@@ -110,6 +110,7 @@
   margin: 0;
   padding: 0;
 }
+
 html {
   font-size: 62.5%;
 }
@@ -123,7 +124,6 @@ input[type=number]::-webkit-outer-spin-button {
 /******************
  * FORM
  ******************/
- 
 .input-group {
     margin: 0 0 1.5rem 0;
     height: 5rem;
@@ -236,4 +236,18 @@ input[type=number]::-webkit-outer-spin-button {
   width: 4rem;
   height: 0.3rem;
   background-color: var(--sun);
+}
+/***********
+ * ALERTIFY
+ ***********/
+.ajs-header,
+.ajs-buttons,
+.ajs-message {
+  font-family: Regular;
+  font-size: 1.6rem;
+}
+.ajs-content {
+  line-height: 2rem;
+  font-family: Light;
+  font-size: 1.4rem;
 }

@@ -11,13 +11,17 @@
 	media="screen and (min-width: 800px)"
   >
 
+  <!-- Alertify -->
+  <link rel="stylesheet" href="./libs/alertify/alertify.min.css">
+  <script src="./libs/alertify/alertify.min.js"></script>
+
   {% block adicionalHeader %} {% endblock %}
 
   <script src="js/axios.min.js"></script>
 
   <title>{% block title %} title {% endblock %}</title>
 </head>
-<body>
+<body class="body">
   <header>{% include "./navbar.html" %}</header>
   <main>
    {% block content %}

@@ -68,31 +68,30 @@
 		if (!this.validacion()) return false;
 		axios.post("/api/contactos/send-mensaje", this.mensaje)
 		  .then(res => {
-			  console.log({res});
+			  alertify.success(res.data.message, 5);
+			  this.mensaje = new Mensaje();
 			}).catch(error => {
 			  console.log(error);
 			});		  
 	  },
 	  validacion() {
 		let str = "";
-
 		if (!this.mensaje.nombre) {
-		  str += "Se requiere su nombre completo";
+		  str += "Se requiere su nombre completo<br>";
 		}
 		if (!this.mensaje.email) {
-		  str += "Se requiere su correo electrónico";
+		  str += "Se requiere su correo electrónico<br>";
 		}
 		if (!this.mensaje.contenido) {
-		  str += "El mensaje es requerido";
+		  str += "El mensaje es requerido<br>";
 		}
 		if (!this.terminos) {
-		  str += "Debe aceptar términos y condiciones";
+		  str += "Debe aceptar términos y condiciones<br>";
 		}
 		if (str.length) {
-		  alert(str);
+		  alertify.alert("Atención", str);
 		  return false;
 		}
-
 		return true;
 	  }
 	}

@@ -11,11 +11,11 @@ const config = {
 }
 
 class Mailer {
-  static async send(from, to, text, html = null) {
+  static async send(from, to, subject, text, html = null) {
     let transporter = nodemailer.createTransport(config);
 
     let info = await transporter.sendMail({
-      from, to, text, html
+      from, to, subject, text, html
     });
   }
 }

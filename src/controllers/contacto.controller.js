@@ -32,7 +32,7 @@ class ContactoController {
       await useCase.execute();
       return res.json({
 	success: true, 
-	mensaje: "Se envió el mensaje exitosamente"
+	message: "Se envió el mensaje exitosamente"
       });
     } catch (error) {
       console.log(error);
