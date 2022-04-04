@@ -16,6 +16,7 @@
     "express-nunjucks": "^2.2.5",
     "moment": "^2.29.1",
     "mysql2": "^2.3.3",
+    "nodemailer": "^6.7.3",
     "nunjucks": "^3.2.3"
   },
   "devDependencies": {
