@@ -194,27 +194,33 @@ input[type=number]::-webkit-outer-spin-button {
   background: var(--dark);
   color: var(--light);
 }
+/*************
+ * FOOTER
+ *************/
 .footer {
-    background-color: var(--min);
-    padding: 1.8rem 0 0 0;
-    text-align: center;
+  background-color: var(--min);
+  padding: 1.8rem 0 0 0;
+  text-align: center;
 }
 .footer__logo {
-    height: 7rem;
-    width: 12.25rem;
+  height: 7rem;
+  width: 12.25rem;
 }
 .footer__text p:nth-child(1) {
-    margin-top: .8rem;
+  margin-top: .8rem;
 }
 .footer__text {
-    font-family: Light;
-    font-size: 1.2rem;
+  font-family: Light;
+  font-size: 1.2rem;
 }
 .footer__networks {
-    margin-top: .6rem;
+  margin-top: .6rem;
 }
 .footer__networks img {
-    width: 3.2rem;
+  width: 3.2rem;
+}
+.footer__networks a {
+  text-decoration: none; 
 }
 .footer__copyright {
     margin-top: .4rem;

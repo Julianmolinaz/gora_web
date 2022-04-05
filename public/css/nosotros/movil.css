@@ -67,25 +67,30 @@
 /***************
  * PRINCIPIOS
  **************/
-.nosotros-principios {
+.nosotros-principios,
+.nosotros-aliados {
   margin-top: 6rem;
   margin-bottom: 6rem;
 }
-.principios-header {
+.principios-header, 
+.aliados-header {
   text-align: center; 
 }
-.principios-header .divider {
+.principios-header .divider,
+.aliados-header .divider {
   margin: 1rem auto 0;
   height: 2px;
   width: 100px;
   background-color: var(--sun);
 }
-.principios-titulo {
+.principios-titulo,
+.aliados-titulo {
   font-family: Bold;
   font-size: 3rem;
   color: var(--dark);
 }
-.principios-container {
+.principios-container,
+.aliados-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -115,4 +120,15 @@
   font-family: Regular;
   font-size: 2rem;
   text-align: center;
+}
+.aliados-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.aliado-item {
+  width: 13rem;
+  height: auto;
 }

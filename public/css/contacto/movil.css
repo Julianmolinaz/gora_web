@@ -5,7 +5,6 @@
 /**************************
  * CONTACTO GENERAL
  **************************/
-
 .contacto-general {
   display: flex;
   gap: 1.6rem;
@@ -47,7 +46,7 @@
   margin: 3.4rem 0 0 0;
 }
 .contacto-container {
-  margin-top: 1.6rem;
+  margin-top: 0rem;
 }
 .contacto-municipio {
   display: flex;

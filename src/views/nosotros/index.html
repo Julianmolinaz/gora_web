@@ -14,6 +14,8 @@
   >
 {% endblock %}
 
+{% block title %} Nosotros {% endblock %}
+
 {% block content %}
   <div class="nosotros-container">
 	<section class="nosotros-header">
@@ -72,7 +74,23 @@
 		</div>
 	  </div>
 	</section>
-	<section class="nosotros-aliados"></section>
+	<section class="nosotros-aliados">
+	  <div class="aliados-header">
+		<span class="aliados-titulo">Aliados</span>
+		<div class="divider"></div>
+	  </div>
+	  <div class="aliados-container">
+		<img class="aliado-item" src="imagenes/aliados/cda_la_27.jpeg" alt="">
+		<img class="aliado-item" src="imagenes/aliados/cda_control_autos.png" alt="">
+		<img class="aliado-item" src="imagenes/aliados/cda_pitalito.png" alt="">
+		<img class="aliado-item" src="imagenes/aliados/cda_san_isidro.jpg" alt="">
+		<img class="aliado-item" src="imagenes/aliados/cda_san_pedro_neiva.jpeg" alt="">
+		<img class="aliado-item" src="imagenes/aliados/cda_sur_del_tolima.jpeg" alt="">
+		<img class="aliado-item" src="imagenes/aliados/cda_team_advance.jpeg" alt="">
+		<img class="aliado-item" src="imagenes/aliados/cda_tecnimotors_quimbaya.jpeg" alt="">
+		<img class="aliado-item" src="imagenes/aliados/cda_unimotos.png" alt="">
+	  </div>
+	</section>
   </div>
 
   {% include "../templates/footer.html" %}
