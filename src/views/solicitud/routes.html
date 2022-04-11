@@ -1,0 +1,22 @@
+{% include "./pasos/index.html" %}
+{% include "./create/index.html" %}
+
+<script>
+  const routes = [
+    { 
+      path: "/",
+      name: "pasos",
+      component: objPasos,
+    },
+    {
+      path: "/create",
+      name: "create",
+      component: objCreate,
+    }
+  ];
+
+  const router = VueRouter.createRouter({
+    history: VueRouter.createWebHashHistory(),
+    routes,
+  });
+</script>

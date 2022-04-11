@@ -25,7 +25,7 @@
 		  <a
 			class="paso-edit"
 			href="javascript:void(0);"
-			@click="verComponente(item.componente)"
+			@click="showView(item.slug)"
 		  >editar
 		  </a>
 		</div>
@@ -38,13 +38,21 @@
 </script>
 
 <script>
+  const { useRouter } = VueRouter;
+
   const objPasos = {
 	template: "#pasos-template",
+    name: "PasosComponent",
 	delimiters: ['[[', ']]'],
     setup() {
+      const router = useRouter();
       const pasosSt = pasosStore();
+      function showView(slug) {
+          router.push({ name: slug });
+      }
       return {
         pasosSt,
+        showView,
       }
     },
   }  

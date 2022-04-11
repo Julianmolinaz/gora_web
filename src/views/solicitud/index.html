@@ -19,29 +19,32 @@
 {% block content %}
 
   <div id="app-solicitud">  
-	<pasos-component></pasos-component>  
+    <!--<pasos-component></pasos-component>-->
+    <router-view></router-view>
   </div>
 
   <script src="./../../js/vue3.js"></script>
-
   <script src="./../../js/demi.js"></script>
   <script src="./../../js/pinia.js"></script>
+  <script src="./../../js/vue-router.js"></script>
+
+  {% include "./routes.html" %}
 
   <script>
 	const { createApp } = Vue;
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
-
+    
 	const appSolicitud = createApp({ setup(){} });
-    appSolicitud.use(pinia);
+
   </script>
   
   {% include "./store/pasos.html" %}
-  {% include "./pasos/index.html" %}
 
-<script>
-  appSolicitud.component("pasos-component", objPasos);
-  appSolicitud.mount("#app-solicitud");
-</script>
+  <script>
+    appSolicitud.use(pinia);
+    appSolicitud.use(router);
+    appSolicitud.mount("#app-solicitud");
+  </script>
 
 {% endblock %}
