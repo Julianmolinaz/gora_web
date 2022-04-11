@@ -1,0 +1,43 @@
+{% extends "../templates/admin/main.html" %}
+
+{% block adicionalHeader %}
+  <link rel="stylesheet" href="../css/solicitud/movil.css">
+  <link
+	rel="stylesheet"
+	href="../css/solicitud/tablet.css"
+	media="screen and (min-width: 768px)"
+  >
+  <link 
+	rel="stylesheet" 
+	href="../css/solicitud/desktop.css"
+	media="screen and (min-width: 992px)"
+  >
+{% endblock %}
+
+{% block title %} Solicitud {% endblock %}
+
+{% block content %}
+
+  <div id="app-solicitud">  
+	<pasos-component></pasos-component>  
+  </div>
+
+  <script src="./../../js/vue3.js"></script>
+  {% include "./store/index.html" %}
+
+  <script>
+	const { createApp } = Vue;
+	const appSolicitud = createApp({ setup(){
+	  console.log({store});
+	} });
+  </script>
+
+  {% include "./pasos/index.html" %}
+
+<script>
+  appSolicitud.use(store);
+  appSolicitud.component("pasos-component", objPasos);
+  appSolicitud.mount("#app-solicitud");
+</script>
+
+{% endblock %}

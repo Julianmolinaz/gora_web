@@ -1,0 +1,81 @@
+.pasos-container {
+  padding: 2rem 1.8rem;
+}
+.pasos-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.pasos-header__icono {
+  width: 4.4rem;
+  height: 4.4rem;
+  margin: 1rem;
+}
+.pasos-header__titulo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-size: 2.4rem;
+  font-family: bold;
+  color: var(--dark);
+}
+.pasos-help {
+  font-family: regular;
+  font-size: 1.8rem;
+  color: var(--dark);
+  margin: 3rem 1rem;
+}
+.pasos-list {
+  margin: 4rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+.paso-item {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.paso-contenido {
+  width: 22rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.8rem;
+}
+.paso-desc {
+  font-family: regular;
+  color: var(--medium);
+}
+.paso-edit {
+  font-family: regular;
+  color: var(--sky);
+  text-decoration: none;
+}
+.paso-contenido {
+}
+.paso-indice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.3rem;
+  height: 6.3rem;
+  background-color: var(--grayum); 
+  border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12);
+}
+.paso--activo {
+  background-color: var(--natural); 
+}
+.paso-indice__num {
+  display: block;
+  font-size: 3.6rem;
+  font-family: bold;
+  color: var(--light);
+}
+.pasos-accion {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}

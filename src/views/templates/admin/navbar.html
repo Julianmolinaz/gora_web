@@ -1,0 +1,43 @@
+<nav class="nav">
+  <div class="nav__container">
+	<a href="#">
+	  <img class="nav__logo" src="../imagenes/logo.png" alt="logo gora">
+	</a>
+    <span class="material-icons-outlined nav__menu-icon" id="nav__menu-icon_">
+      menu
+    </span>
+  </div>
+</nav>
+<div class="nav__options" id="nav-options_">
+  <a class="nav__options-item" href="/">Inicio</a>
+  <a class="nav__options-item" href="javascript:void(0);">Ingresar</a>
+</div>
+
+<!-- DESKTOP -->
+<nav class="desk-nav">
+  <div class="desk-nav__container">
+    <a href="/">
+      <img
+        src="../imagenes/logo.png"
+        alt="logo gora"
+        class="desk-nav__logo"
+      />
+    </a>
+    <div class="desk-nav__right" id="desk-nav__right_">
+      <div class="desk-nav__options">
+        <a href="/" class="desk-nav__options-item">Inicio</a>
+        <a href="javascript:void(0);" class="desk-nav__options-item">Ingresar</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btnNavMenu = document.querySelector("#nav__menu-icon_");
+  if (btnNavMenu) {
+	btnNavMenu.addEventListener("click", () => {
+	  let navOptionsMovil = document.querySelector("#nav-options_");
+	  navOptionsMovil.classList.toggle("nav__options--active"); 
+	});
+  }
+</script>

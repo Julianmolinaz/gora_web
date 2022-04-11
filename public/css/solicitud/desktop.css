@@ -1,0 +1,19 @@
+.pasos-container {
+  padding: 4rem 11.4rem;
+}
+.pasos-list {
+  flex-direction: row;
+}
+.paso-item {
+  flex-direction: column;
+}
+.paso-contenido {
+  width: 100%;
+}
+.paso-contenido {
+  justify-content: center;
+}
+.paso-desc,
+.paso-edit {
+  text-align: center;
+}

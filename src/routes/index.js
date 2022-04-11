@@ -1,26 +1,20 @@
 /*********
  * WEB
  *********/
-const HomeWeb = require("./web/home");
-const ContactoWeb = require("./web/contacto");
-const NosotrosWeb = require("./web/nosotros");
-
 const webRouter = (app) => {
-  app.use("/", HomeWeb);
-  app.use("/contacto", ContactoWeb);
-  app.use("/nosotros", NosotrosWeb);
+  app.use("/", require("./web/home"));
+  app.use("/contacto", require("./web/contacto"));
+  app.use("/nosotros", require("./web/nosotros"));
+  app.use("/solicitudes", require("./web/solicitudes"));
 }
 
 /**********
  * API
  **********/
-
-const SimuladorApi = require("./api/simulador");
-const ContactosApi = require("./api/contactos");
-
 const apiRouter = (app) => {
-  app.use("/api/simulador", SimuladorApi);
-  app.use("/api/contactos", ContactosApi);
+  app.use("/api/simulador", require("./api/simulador"));
+  app.use("/api/contactos", require("./api/contactos"));
+  app.use("/api/solicitudes", require("./api/solicitudes"));
 }
 
 module.exports = {

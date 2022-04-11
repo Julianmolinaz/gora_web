@@ -1,0 +1,88 @@
+<script type="text/x-template" id="pasos-template">
+  <div class="pasos-container">
+	<div class="pasos-header">
+	  <img
+		src="../iconos/pasos.png"
+		alt="pasos de la solicitud"
+		class="pasos-header__icono"
+	  >
+	  <div class="pasos-header__titulo">
+		<span>Solicitud en proceso</span>
+		<div class="divider" style="--width-div: 19.4rem"></div>
+	  </div>
+	</div>
+	<div class="pasos-help">
+	  Para realizar su solicitud, complete cada uno de los 
+	  pasos dando click en continuar
+	</div>
+	<div class="pasos-list">
+	  <div class="paso-item" v-for="item in getItems">
+		<div :class="['paso-indice', (item.activo) ? 'paso--activo' : '']">
+		  <span class="paso-indice__num">[[ item.indice ]]</span>
+		</div>
+		<div class="paso-contenido">
+		  <p class="paso-desc">[[ item.desc ]]</p>
+		  <a
+			class="paso-edit"
+			href="javascript:void(0);"
+			@click="verComponente(item.componente)"
+		  >editar
+		  </a>
+		</div>
+	  </div>
+	</div>
+	<div class="pasos-accion">
+	  <a class="pasos-continuar bt bt__night" href="">Continuar</a>
+	</div>
+  </div>
+</script>
+
+<script>
+  const objPasos = {
+	template: "#pasos-template",
+	delimiters: ['[[', ']]'],
+	data: () => ({
+	  items: [
+		{
+		  indice: 1,
+		  desc: "Simule el valor de su cuota", 
+		  componente: "simulador", activo: true
+		},
+		{ 
+		  indice: 2, 
+		  desc: "Ingrese sus datos personales", 
+		  componente: "create", 
+		  activo: false
+		},
+		{
+		  indice: 3,
+		  desc: "Ingrese sus referencias personales",
+		  componente: "referencias", 
+		  activo: false
+		},
+		{
+		  indice: 4,
+		  desc: "Cargue los documentos",
+		  componente: "doscumentos",
+		  activo: false,
+		},
+		{
+		  indice: 5,
+		  desc: "Acepte términos y condiciones",
+		  componente: "terminos",
+		  activo: false
+		},
+	  ],
+	}),
+	computed: {
+	  getItems() {
+		return this.items;
+	  }
+	},
+	methods: {
+	  verComponente(componente) {
+		console.log(componente);
+	  } 
+	},
+  }  
+</script>
