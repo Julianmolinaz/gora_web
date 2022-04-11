@@ -1,0 +1,38 @@
+<script>
+const pasosStore = defineStore("pasos", {
+  state: () => ({
+    items: [
+		{
+		  indice: 1,
+		  desc: "Simule el valor de su cuota", 
+		  componente: "simulador",
+          activo: true
+		},
+		{ 
+		  indice: 2, 
+		  desc: "Ingrese sus datos personales", 
+		  componente: "create", 
+		  activo: false
+		},
+		{
+		  indice: 3,
+		  desc: "Ingrese sus referencias personales",
+		  componente: "referencias", 
+		  activo: false
+		},
+		{
+		  indice: 4,
+		  desc: "Cargue los documentos",
+		  componente: "doscumentos",
+		  activo: false,
+		},
+		{
+		  indice: 5,
+		  desc: "Acepte términos y condiciones",
+		  componente: "terminos",
+		  activo: false
+		},
+	  ],
+  }),
+}); 
+</script>

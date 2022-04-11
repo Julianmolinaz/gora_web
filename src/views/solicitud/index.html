@@ -23,19 +23,23 @@
   </div>
 
   <script src="./../../js/vue3.js"></script>
-  {% include "./store/index.html" %}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-demi/0.12.0/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pinia"></script>
 
   <script>
 	const { createApp } = Vue;
-	const appSolicitud = createApp({ setup(){
-	  console.log({store});
-	} });
-  </script>
+    const { createPinia, defineStore } = Pinia;
+    const pinia = createPinia();
 
+	const appSolicitud = createApp({ setup(){} });
+    appSolicitud.use(pinia);
+  </script>
+  
+  {% include "./store/pasos.html" %}
   {% include "./pasos/index.html" %}
 
 <script>
-  appSolicitud.use(store);
   appSolicitud.component("pasos-component", objPasos);
   appSolicitud.mount("#app-solicitud");
 </script>

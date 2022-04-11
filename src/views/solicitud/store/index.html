@@ -1,8 +1,9 @@
-<script src="../../../js/vuex.js"></script>
-
 <script>
-  const store = new Vuex.Store({
-	state: {},
+  const useMainStore = defineStore("main", {
+    state: () => ({
+      a: 123,
+    }),
+    actions: {},
   });
 </script>
 

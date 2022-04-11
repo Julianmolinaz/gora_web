@@ -16,7 +16,7 @@
 	  pasos dando click en continuar
 	</div>
 	<div class="pasos-list">
-	  <div class="paso-item" v-for="item in getItems">
+	  <div class="paso-item" v-for="item in pasosSt.items">
 		<div :class="['paso-indice', (item.activo) ? 'paso--activo' : '']">
 		  <span class="paso-indice__num">[[ item.indice ]]</span>
 		</div>
@@ -41,48 +41,11 @@
   const objPasos = {
 	template: "#pasos-template",
 	delimiters: ['[[', ']]'],
-	data: () => ({
-	  items: [
-		{
-		  indice: 1,
-		  desc: "Simule el valor de su cuota", 
-		  componente: "simulador", activo: true
-		},
-		{ 
-		  indice: 2, 
-		  desc: "Ingrese sus datos personales", 
-		  componente: "create", 
-		  activo: false
-		},
-		{
-		  indice: 3,
-		  desc: "Ingrese sus referencias personales",
-		  componente: "referencias", 
-		  activo: false
-		},
-		{
-		  indice: 4,
-		  desc: "Cargue los documentos",
-		  componente: "doscumentos",
-		  activo: false,
-		},
-		{
-		  indice: 5,
-		  desc: "Acepte términos y condiciones",
-		  componente: "terminos",
-		  activo: false
-		},
-	  ],
-	}),
-	computed: {
-	  getItems() {
-		return this.items;
-	  }
-	},
-	methods: {
-	  verComponente(componente) {
-		console.log(componente);
-	  } 
-	},
+    setup() {
+      const pasosSt = pasosStore();
+      return {
+        pasosSt,
+      }
+    },
   }  
 </script>
