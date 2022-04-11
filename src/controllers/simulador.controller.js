@@ -17,13 +17,13 @@ class SimuladorController {
       const precio = await getPrecioUseCase.execute();
 
       const cuota = new GetValorCuota(
-	precio, body.numCuotas, body.periodo
+    	precio, body.numCuotas, body.periodo
       );
       await cuota.execute();
 
       return res.json({
-	precio: cuota.precioProducto,
-	valorCuota: cuota.valorCuota,
+        precio: cuota.precioProducto,
+        valorCuota: cuota.valorCuota,
       });
     } catch (error) {
       return res.status(400).json({ error: error.toString() });

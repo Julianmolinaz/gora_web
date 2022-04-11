@@ -1,4 +1,4 @@
-<section class="banner">
+<section class="banner" id="banner">
   <div class="banner-container">
 	<h1 class="banner-title">Crédito para su SOAT</h1>
   </div>
@@ -6,8 +6,31 @@
 	<div class="banner-simulador__box">
 	  <h1 class="banner-simulador__title">Crédito para su SOAT</h1>
 	  <div class="banner-simulador__container">
-		{% include "../simulador/index.html" %}
+        <simulador-component></simulador-component>
 	  </div>
 	</div>
   </div>
 </section>
+
+<script src="./../../js/vue3.js"></script>
+<script src="./../../js/demi.js"></script>
+<script src="./../../js/pinia.js"></script>
+
+{% include "../simulador/component.html" %}
+{% include "../simulador/store.html" %}
+
+<script>
+  const { createApp } = Vue;
+  const { createPinia, defineStore } = Pinia;
+
+  const homeApp = createApp({
+    setup() {}
+  });
+
+  const simuladorStore = defineStore("simulador", simuladorObjStore);
+
+  homeApp.use(createPinia());
+  homeApp.component("simulador-component", objSimulador);
+  homeApp.mount("#banner");
+</script>
+

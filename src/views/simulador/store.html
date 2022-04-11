@@ -1,0 +1,74 @@
+<script>
+  class Simulador {
+    constructor(payload) {
+      this.productoId = payload.ProductoId || "";
+      this.tipoVehiculoId = payload.tipoVehiculoId || "";
+      this.modelo = payload.modelo || "";
+      this.cilindraje = payload.cilindraje || "";
+      this.periodo = payload.periodo || "";
+      this.numCuotas = payload.numCuotas || "";
+      this.precio = payload.precio || "";
+      this.valorCuota = payload.valorCuota || "";
+    }
+  }
+
+  const simuladorObjStore = {
+    state: () => ({
+      insumos: {},
+      simulador: new Simulador({}),
+      valorCuota: 0,
+    }),
+    getters: {
+      getCuotas() {
+        if (
+            this.simulador.numCuotas &&
+            this.simulador.periodo === "Quincenal"
+        ) {
+            return this.simulador.numCuotas * 2;
+          } else {
+            return this.simulador.numCuotas;
+          }
+      }
+    },
+    actions: {
+      initCuotas() {
+        this.simulador.numCuotas = Math.floor(this.insumos.maxCuotas / 2);
+      },
+      incrementar() {
+        if (this.simulador.numCuotas >= this.insumos.maxCuotas) {
+          return false;
+        }
+        this.simulador.numCuotas++;
+      },
+      decrementar() {
+        if (this.simulador.numCuotas <= this.insumos.minCuotas) {
+          return false;
+        }
+        this.simulador.numCuotas--;
+      },
+      calcularCuota(e) {
+        e.preventDefault();
+        this.getValorCuota();
+      },
+      getValorCuota() {
+        console.log("simulador", this.simulador);
+        axios.post("/api/simulador/get-valor-cuota", this.simulador)
+        .then((res) => {
+          console.log({res});
+          this.valorCuota = res.data.valorCuota;
+        })
+        .catch((err) => {
+          const error = err.response.data.error;
+          alert(error);
+        });
+      },
+      getInsumos() {
+        axios.get("/api/simulador/insumos")
+          .then((res) => {
+            this.insumos = res.data.insumos;
+            this.initCuotas();
+          })
+      }
+    }
+  }
+</script>
