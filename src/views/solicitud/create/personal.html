@@ -13,13 +13,13 @@
             <div class="input-group">
               <input
                 type="date"
-                v-model="solicitudSt.cliente.fecha_exp"
+                v-model="clienteSt.el.fecha_exp"
               >
               <label for="">Fecha exped. identificación *</label>
             </div>
             <!-- LUGAR_EXP -->
             <div class="input-group">
-              <select v-model="solicitudSt.cliente.lugar_exp">
+              <select v-model="clienteSt.el.lugar_exp">
                 <option value=""></option>
               </select>
               <label for="">Ciudad de exped *</label>
@@ -31,13 +31,13 @@
             <div class="input-group">
               <input
                 type="date"
-                v-model="solicitudSt.cliente.fecha_nacimiento"
+                v-model="clienteSt.el.fecha_nacimiento"
               >
               <label for="">Fecha de nacimiento *</label>
             </div>
             <!-- LUGAR_NACIMIENTO -->
             <div class="input-group">
-              <select v-model="solicitudSt.cliente.lugar_nacimiento">
+              <select v-model="clienteSt.el.lugar_nacimiento">
                 <option value=""></option>
               </select>
               <label for="">Lugar de nacimiento</label>
@@ -46,7 +46,7 @@
           <div class="col">
             <!-- NIVEL_ESTUDIOS -->
             <div class="input-group">
-              <select v-model="solicitudSt.cliente.nivel_estudios">
+              <select v-model="clienteSt.el.nivel_estudios">
                 <option value=""></option>
               </select>
               <label for="">Nivel de estudios *</label>
@@ -57,7 +57,7 @@
             <div class="input-group">
               <input
                 type="text"
-                v-model="solicitudSt.cliente.antiguedad_movil"
+                v-model="clienteSt.el.antiguedad_movil"
               >
               <label for="">Antiguedad teléfono celular *</label>
             </div>
@@ -67,7 +67,7 @@
             <div class="input-checkbox">
               <input
                 type="checkbox"
-                v-model="solicitudSt.cliente.reportado"
+                v-model="clienteSt.el.reportado"
               >
               <label for="">
                 ¿Esta usted reportado en centrales de riesgo?
@@ -96,10 +96,10 @@
       NodosComponent: objNodos,
     },
     setup() {
-      const solicitudSt = solicitudStore();
+      const clienteSt = clienteStore();
 
       return {
-        solicitudSt,
+        clienteSt,
       }
     },
   }

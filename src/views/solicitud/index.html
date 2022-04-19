@@ -31,12 +31,13 @@
   {% include "./routes.html" %}
 
   <script>
-	const { createApp, onMounted } = Vue;
+	const { ref, createApp, onMounted } = Vue;
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
   </script> 
 
   {% include "./store/solicitud.html" %}
+  {% include "./store/cliente.html" %}
   {% include "./store/pasos.html" %}
 
   <script>

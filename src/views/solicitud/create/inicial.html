@@ -13,7 +13,7 @@
             <div class="input-group">
               <input
                 type="text"
-                v-model="solicitudSt.cliente.primer_nombre"
+                v-model="clienteSt.el.primer_nombre"
               >
               <label for="">Primer nombre *</label>
             </div>
@@ -21,7 +21,7 @@
               <!-- SEGUNDO_NOMBRE -->
               <input
                 type="text"
-                v-model="solicitudSt.cliente.segundo_nombre"  
+                v-model="clienteSt.el.segundo_nombre"  
               >
               <label for="">Segundo nombre</label>
             </div>
@@ -31,15 +31,15 @@
             <div class="input-group">
               <input
                 type="text"
-                v-model="solicitudSt.cliente.primer_apellido"
+                v-model="clienteSt.el.primer_apellido"
               >
               <label for="">Primer apellido *</label>
             </div>
-            <!--  -->
+            <!-- SEGUNDO APELLIDO -->
             <div class="input-group">
               <input
                 type="text"
-                v-model="solicitudSt.cliente.segundo_apellido"
+                v-model="clienteSt.el.segundo_apellido"
               >
               <label for="">Segundo apellido</label>
             </div>
@@ -48,9 +48,12 @@
             <!-- TIPO_DOC -->
             <div class="input-group">
               <select
-                v-model="solicitudSt.cliente.tipo_doc"
+                v-model="clienteSt.el.tipo_doc"
               >
-                <option value=""></option>
+                <option
+                  v-for="tipo in clienteSt.insumos.listTipoDoc"
+                  :value="tipo"
+                >[[ tipo ]]</option>
               </select>
               <label for="">Tipo de identificación *</label>
             </div>
@@ -58,7 +61,7 @@
             <div class="input-group">
               <input
                 type="text"
-                v-model="solicitudSt.cliente.num_doc"
+                v-model="clienteSt.el.num_doc"
               >
               <label for="">Número de identificación</label>
             </div>
@@ -68,7 +71,7 @@
             <div class="input-group">
               <input 
                 type="text"
-                v-model="solicitudSt.cliente.movil"
+                v-model="clienteSt.el.movil"
               >
               <label for="">Teléfono celular *</label>
             </div>
@@ -78,7 +81,7 @@
             <div class="input-group">
               <input
                 type="text"
-                v-model="solicitudSt.cliente.email"
+                v-model="clienteSt.el.email"
               >
               <label for="">Correo electrónico *</label>
             </div>
@@ -105,10 +108,10 @@
       NodosComponent: objNodos,
     },
     setup() {
-      const solicitudSt = solicitudStore();
+      const clienteSt = clienteStore();
 
       return {
-        solicitudSt,
+        clienteSt,
       }
     }
   }

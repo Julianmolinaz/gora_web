@@ -9,61 +9,89 @@
       <div class="solicitud-form">
         <form action="">
           <div class="col-2">
-            <!--  -->
+            <!-- ESTRATO -->
             <div class="input-group">
-              <select id="" name="">
-                <option value=""></option>
+              <select v-model="clienteSt.el.estrato">
+                <option
+                  :value="estrato"
+                  v-for="estrato in clienteSt.insumos.listEstrato"
+                >[[ estrato ]]</option>
               </select>
               <label for="">Estrato *</label>
             </div>
-            <!--  -->
+            <!-- FIJO -->
             <div class="input-group">
-              <input id="" type="text" name="">
+              <input
+                type="text"
+                v-model="clienteSt.el.fijo"
+              >
               <label for="">Teléfono fijo</label>
             </div>
 
           </div>
           <div class="col-2">
-            <!--  -->
+            <!-- DEPARTAMENTO ID -->
             <div class="input-group">
-              <select id="" name="">
-                <option value=""></option>
+              <select 
+                v-model="departamentoId"
+                @change="getMunicipios"
+              >
+                <option
+                  :value="departamento.id"
+                  v-for="departamento in clienteSt.insumos.listDepartamentos"
+                >[[ departamento.nombre ]]</option>
               </select>
               <label for="">Departamento residencia *</label>
             </div>
-            <!--  -->
+            <!-- CIUDAD_ID -->
             <div class="input-group">
-              <select id="" name="">
-                <option value=""></option>
+              <select>
+                <option
+                    v-if="ciudades"
+                    :value="ciudad.id"
+                    v-for="ciudad in ciudades"
+                >[[ ciudad.nombre ]]</option>
               </select>
               <label for="">Ciudad residencia *</label>
             </div>
           </div>
           <div class="col">
-            <!--  -->
+            <!-- BARRIO -->
             <div class="input-group">
-              <input id="" type="text" name="">
+              <input
+                type="text"
+                v-model="clienteSt.el.barrio"
+              >
               <label for="">Barrio/Vereda</label>
             </div>
           </div>
           <div class="col">
-            <!-- -->
+            <!-- DIRECCION-->
             <div class="input-group">
-              <input id="" type="text" name="">
+              <input
+                type="text"
+                v-model="clienteSt.el.direccion"
+               >
               <label for="">Dirección de residencia</label>
             </div>
           </div>
           <div class="col-2">
-            <!-- -->
+            <!-- TIPO_VIVIENDA -->
             <div class="input-group">
-              <select id="" name="">
-                <option value=""></option>
+              <select v-model="clienteSt.el.tipo_vivienda">
+                <option
+                  :value="tipo"
+                  v-for="tipo in clienteSt.insumos.listTipoVivienda"
+                >[[ tipo ]]</option>
               </select>
               <label for="">Tipo de vivienda *</label>
             </div>
-            <!-- -->
+            <!-- MESES_RESIDENCIA -->
             <div class="input-group">
-              <input id="" type="number" name="">
+              <input
+                type="number"
+                v-model="clienteSt.el.meses_residencia"
+               >
               <label for="">Meses en residencia</label>
             </div>
           </div>
@@ -89,10 +117,27 @@
       NodosComponent: objNodos,
     },
     setup() {
-      const solicitudSt = solicitudStore();
+      const clienteSt = clienteStore();
+      const departamentoId = ref(null);
+      const ciudades = ref([]);
+
+      async function getMunicipios() {
+        try {
+          const res = await axios.get("/api/ciudades/get-departamento/" + departamentoId.value);
+          ciudades.value = res.data.ciudades;
+        } catch (err) {
+          alertify.error("Ha ocurrido un error, lo sentimos");
+          console.error(err);
+        }
+      };
 
       return {
-        solicitudSt,
+        // ......
+        departamentoId,
+        clienteSt,
+        ciudades,
+        // ......
+        getMunicipios,
       }
     },
   }

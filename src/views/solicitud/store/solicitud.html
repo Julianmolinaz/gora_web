@@ -1,7 +1,8 @@
 <script>
 const solicitudStore = defineStore("solicitud", {
   state: () => ({
-    cliente: new Cliente({}),
+    // cliente: new Cliente({}),
+    // insumos: [],
     nodos: [
       { indice: 1, activo: false, nombre: "Información inicial" },
       { indice: 2, activo: false, nombre: "Información personal" },
@@ -13,7 +14,6 @@ const solicitudStore = defineStore("solicitud", {
   getters: {},
   actions: {
     ir(indice) {
-      console.log("ir", indice);
       this.nodos.forEach((nodo) => {
         if (nodo.indice === indice) nodo.activo = true
         else nodo.activo = false;

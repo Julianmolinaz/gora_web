@@ -29,6 +29,21 @@
     },
     setup() {
       const solicitudSt = solicitudStore();
+      const clienteSt = clienteStore();
+
+      async function getInsumos() {
+        try {
+          const res = await axios.get("/api/clientes/create");
+          clienteSt.insumos = res.data.insumos;
+        } catch (err) {
+          alertify.error("Ocurrió un error");
+          console.error(err);
+        }
+      }
+
+      onMounted(() => {
+        getInsumos();
+      });
       return {
         solicitudSt,
       }

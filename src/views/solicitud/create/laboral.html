@@ -11,8 +11,11 @@
           <div class="col">
             <!--  OCUPACION -->
             <div class="input-group">
-              <select v-model="solicitudSt.cliente.ocupacion">
-                <option value=""></option>
+              <select v-model="clienteSt.el.ocupacion">
+                <option 
+                  :value="oficio.id"
+                  v-for="oficio in clienteSt.insumos.listOficios"
+                >[[ oficio.nombre ]]</option>
               </select>
               <label for="">Ocupación u oficio *</label>
             </div>
@@ -20,8 +23,11 @@
           <div class="col">
             <!-- TIPO ACTIVIDAD -->
             <div class="input-group">
-              <select v-model="solicitudSt.cliente.tipo_actividad>
-                <option value=""></option>
+              <select v-model="clienteSt.el.tipo_actividad">
+                <option
+                    :value="actividad"
+                    v-for="actividad in clienteSt.insumos.listTipoActividad"
+                >[[ actividad ]]</option>
               </select>
               <label for="">Actividad económica *</label>
             </div>
@@ -32,7 +38,7 @@
             <div class="input-group">
               <input
                 type="text"
-                v-model="solicitudSt.cliente.empresa"
+                v-model="clienteSt.el.empresa"
               >
               <label for="">Nombre de la empresa *</label>
             </div>
@@ -42,7 +48,7 @@
             <div class="input-group">
               <input
                 type="text"
-                v-model="solicitudSt.cliente.dir_empresa"
+                v-model="clienteSt.el.dir_empresa"
               >
               <label for="">Dirección de la empresa</label>
             </div>
@@ -52,7 +58,7 @@
             <div class="input-group">
               <input
                 type="tel"
-                v-model="solicitudSt.cliente.tel_empresa"
+                v-model="clienteSt.el.tel_empresa"
               >
               <label for="">Teléfono de la empresa *</label>
             </div>
@@ -62,7 +68,7 @@
             <div class="input-group">
               <input
                 type="date"
-                v-model="solicitudSt.cliente.fecha_vinculacion"
+                v-model="clienteSt.el.fecha_vinculacion"
               >
               <label for="">Fecha de vinculación *</label>
             </div>
@@ -70,7 +76,7 @@
           <div class="col">
             <div class="input-group input-group__textarea">
               <textarea
-                v-model="solicitudSt.cliente.descripcion_actividad"
+                v-model="clienteSt.el.descripcion_actividad"
               ></textarea>
               <label for="">Descripción de la actividad *</label>
             </div>
@@ -97,10 +103,10 @@
       NodosComponent: objNodos,
     },
     setup() {
-      const solicitudSt = solicitudStore();
+      const clienteSt = clienteStore();
 
       return {
-        solicitudSt,
+        clienteSt,
       }
     },
   }
