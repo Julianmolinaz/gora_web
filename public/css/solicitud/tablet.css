@@ -1,3 +1,18 @@
 .pasos-container {
   padding: 6rem 11.4rem;
 }
+.solicitud-board {
+  padding: 3rem 11.4rem;
+}
+.terminos-main {
+  width: 40rem;
+}
+.terminos-form {
+  justify-content: start;
+}
+.terminos__btn-reenviar {
+  justify-content: start;
+}
+.terminos__btn-aceptar {
+  justify-content: start;
+}

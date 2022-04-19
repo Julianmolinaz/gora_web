@@ -1,0 +1,25 @@
+<script type="text/x-template" id="nodos-template">
+<ul class="nodos">
+  <li 
+    :class="['nodo', (nodo.activo) ? 'nodo--active' : '']"
+    v-for="nodo in solicitudSt.nodos"
+    @click="solicitudSt.ir(nodo.indice)"
+  >[[ nodo.indice ]]
+  </li>
+</ul>
+</script>
+
+<script>
+  const objNodos = {
+    template: "#nodos-template",
+    name: "NodosComponent",
+    delimiters: ['[[', ']]'],
+    setup() {
+      const solicitudSt = solicitudStore();
+
+      return {
+        solicitudSt,
+      }
+    },
+  } 
+</script>

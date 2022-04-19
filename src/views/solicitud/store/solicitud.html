@@ -1,0 +1,24 @@
+<script>
+const solicitudStore = defineStore("solicitud", {
+  state: () => ({
+    cliente: new Cliente({}),
+    nodos: [
+      { indice: 1, activo: false, nombre: "Información inicial" },
+      { indice: 2, activo: false, nombre: "Información personal" },
+      { indice: 3, activo: false, nombre: "Información de ubicación" },
+      { indice: 4, activo: false, nombre: "Información laboral" },
+      { indice: 5, activo: false, nombre: "Términos y condiciones" },
+    ],
+  }),
+  getters: {},
+  actions: {
+    ir(indice) {
+      console.log("ir", indice);
+      this.nodos.forEach((nodo) => {
+        if (nodo.indice === indice) nodo.activo = true
+        else nodo.activo = false;
+      });
+    }
+  }
+});
+</script>

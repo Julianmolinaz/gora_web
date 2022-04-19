@@ -1,3 +1,6 @@
+/*************
+ * PASOS
+ *************/
 .pasos-container {
   padding: 2rem 1.8rem;
 }
@@ -78,4 +81,95 @@
   justify-content: center;
   margin-top: 4rem;
   margin-bottom: 4rem;
+}
+/***************^***
+ * CREAR SOLICITUD
+ *******************/
+.solicitud-container {
+  min-height: 100vh;
+}
+.solicitud-board {
+  padding: 3rem 1.6rem;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.solicitud-icono {
+  display: none;
+}
+.nodos {
+  display: flex;
+  flex-direction: row;
+  grid-gap: 0.8rem;
+  max-width: 26rem;
+  list-style: none;
+}
+.nodo {
+  font-family: bold;
+  font-size: 1.8rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--grayum); 
+  color: var(--light);
+  border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+.nodo--active {
+  background-color: var(--natural);
+}
+.solicitud-titulo {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+.solicitud-titulo span {
+  display: block;
+  font-family: bold;
+  font-size: 2.4rem;
+  color: var(--medium);
+  margin-bottom: 0.8rem;
+}
+.solicitud-form {
+  margin-top: 2rem;
+}
+.solicitud-bts {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+.terminos-txt, .terminos__pagare-txt {
+  font-family: Regular;
+  font-size: 1.6rem;
+  color: var(--dark);
+  max-width: 40rem;
+  margin-bottom: 2rem;
+  line-height: 160%;
+}
+.terminos-ok__txt {
+  color: var(--sky);
+  cursor: pointer;
+}
+.terminos-main {
+}
+.terminos-form {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.terminos__btn-reenviar {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.terminos__input-form {
+  height: 6rem;
+  width: 4rem;
+}
+.terminos__btn-aceptar {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
 }

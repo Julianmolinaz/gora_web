@@ -1,0 +1,115 @@
+<script type="text/x-template" id="template-inicial">
+  <div class="solicitud-board">
+    <div class="solicitud-main">
+      <NodosComponent /> 
+      <div class="solicitud-titulo">
+        <span>Información inicial</span>
+        <div class="divider" style="--width-div:100px"></div>
+      </div>
+      <div class="solicitud-form">
+        <form action="">
+          <div class="col-2">
+            <!-- PRIMER_NOMBRE -->
+            <div class="input-group">
+              <input
+                type="text"
+                v-model="solicitudSt.cliente.primer_nombre"
+              >
+              <label for="">Primer nombre *</label>
+            </div>
+            <div class="input-group">
+              <!-- SEGUNDO_NOMBRE -->
+              <input
+                type="text"
+                v-model="solicitudSt.cliente.segundo_nombre"  
+              >
+              <label for="">Segundo nombre</label>
+            </div>
+          </div>
+          <div class="col-2">
+            <!-- PRIMER_APELLIDO -->
+            <div class="input-group">
+              <input
+                type="text"
+                v-model="solicitudSt.cliente.primer_apellido"
+              >
+              <label for="">Primer apellido *</label>
+            </div>
+            <!--  -->
+            <div class="input-group">
+              <input
+                type="text"
+                v-model="solicitudSt.cliente.segundo_apellido"
+              >
+              <label for="">Segundo apellido</label>
+            </div>
+          </div>
+          <div class="col-2">
+            <!-- TIPO_DOC -->
+            <div class="input-group">
+              <select
+                v-model="solicitudSt.cliente.tipo_doc"
+              >
+                <option value=""></option>
+              </select>
+              <label for="">Tipo de identificación *</label>
+            </div>
+            <!-- NUM_DOC -->
+            <div class="input-group">
+              <input
+                type="text"
+                v-model="solicitudSt.cliente.num_doc"
+              >
+              <label for="">Número de identificación</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- MOVIL -->
+            <div class="input-group">
+              <input 
+                type="text"
+                v-model="solicitudSt.cliente.movil"
+              >
+              <label for="">Teléfono celular *</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- EMAIL -->
+            <div class="input-group">
+              <input
+                type="text"
+                v-model="solicitudSt.cliente.email"
+              >
+              <label for="">Correo electrónico *</label>
+            </div>
+          </div>
+          <div class="solicitud-bts">
+            <a href="" class="bt">Volver</a>
+            <a href="" class="bt bt__night">Continuar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="solicitud-icono">
+      <img src="./../iconos/virtual.svg" alt="icono virtualidad">
+    </div>
+  </div>
+</script>
+
+<script>
+  const objInicial = {
+    template: "#template-inicial",
+    name: "InforacionInicial",
+    delimiters: ['[[', ']]'],
+    components: {
+      NodosComponent: objNodos,
+    },
+    setup() {
+      const solicitudSt = solicitudStore();
+
+      return {
+        solicitudSt,
+      }
+    }
+  }
+</script>

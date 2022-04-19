@@ -1,0 +1,99 @@
+<script type="text/x-template" id="template-ubicacion">
+  <div class="solicitud-board">
+    <div class="solicitud-main">
+      <NodosComponent /> 
+      <div class="solicitud-titulo">
+        <span>Información de ubicación</span>
+        <div class="divider" style="--width-div:100px"></div>
+      </div>
+      <div class="solicitud-form">
+        <form action="">
+          <div class="col-2">
+            <!--  -->
+            <div class="input-group">
+              <select id="" name="">
+                <option value=""></option>
+              </select>
+              <label for="">Estrato *</label>
+            </div>
+            <!--  -->
+            <div class="input-group">
+              <input id="" type="text" name="">
+              <label for="">Teléfono fijo</label>
+            </div>
+
+          </div>
+          <div class="col-2">
+            <!--  -->
+            <div class="input-group">
+              <select id="" name="">
+                <option value=""></option>
+              </select>
+              <label for="">Departamento residencia *</label>
+            </div>
+            <!--  -->
+            <div class="input-group">
+              <select id="" name="">
+                <option value=""></option>
+              </select>
+              <label for="">Ciudad residencia *</label>
+            </div>
+          </div>
+          <div class="col">
+            <!--  -->
+            <div class="input-group">
+              <input id="" type="text" name="">
+              <label for="">Barrio/Vereda</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- -->
+            <div class="input-group">
+              <input id="" type="text" name="">
+              <label for="">Dirección de residencia</label>
+            </div>
+          </div>
+          <div class="col-2">
+            <!-- -->
+            <div class="input-group">
+              <select id="" name="">
+                <option value=""></option>
+              </select>
+              <label for="">Tipo de vivienda *</label>
+            </div>
+            <!-- -->
+            <div class="input-group">
+              <input id="" type="number" name="">
+              <label for="">Meses en residencia</label>
+            </div>
+          </div>
+          <div class="solicitud-bts">
+            <a href="" class="bt">Volver</a>
+            <a href="" class="bt bt__night">Continuar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="solicitud-icono">
+      <img src="./../iconos/place.svg" alt="icono persona">
+    </div>
+  </div>
+</script>
+
+<script>
+  const objUbicacion = {
+    template: "#template-ubicacion",
+    name: "InforacionUbicacion",
+    delimiters: ['[[', ']]'],
+    components: {
+      NodosComponent: objNodos,
+    },
+    setup() {
+      const solicitudSt = solicitudStore();
+
+      return {
+        solicitudSt,
+      }
+    },
+  }
+</script>

@@ -17,3 +17,25 @@
 .paso-edit {
   text-align: center;
 }
+/*******************
+ * CREAR SOLICITUD
+ *******************/
+.solicitud-board {
+  grid-template-columns: 1fr 1fr;
+}
+.solicitud-icono {
+  display: block;
+}
+.solicitud-main {
+  max-width: 45.2rem;
+}
+.solicitud-icono {
+  padding: 6rem 0 6rem 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.solicitud-icono img {
+  width: 100%;
+  max-width: 42rem;
+}

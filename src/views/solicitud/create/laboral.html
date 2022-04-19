@@ -1,0 +1,107 @@
+<script type="text/x-template" id="template-laboral">
+  <div class="solicitud-board">
+    <div class="solicitud-main">
+      <NodosComponent /> 
+      <div class="solicitud-titulo">
+        <span>Información laboral</span>
+        <div class="divider" style="--width-div:100px"></div>
+      </div>
+      <div class="solicitud-form">
+        <form action="">
+          <div class="col">
+            <!--  OCUPACION -->
+            <div class="input-group">
+              <select v-model="solicitudSt.cliente.ocupacion">
+                <option value=""></option>
+              </select>
+              <label for="">Ocupación u oficio *</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- TIPO ACTIVIDAD -->
+            <div class="input-group">
+              <select v-model="solicitudSt.cliente.tipo_actividad>
+                <option value=""></option>
+              </select>
+              <label for="">Actividad económica *</label>
+            </div>
+            <!--  -->
+          </div>
+          <div class="col">
+            <!-- EMPRESA -->
+            <div class="input-group">
+              <input
+                type="text"
+                v-model="solicitudSt.cliente.empresa"
+              >
+              <label for="">Nombre de la empresa *</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- -->
+            <div class="input-group">
+              <input
+                type="text"
+                v-model="solicitudSt.cliente.dir_empresa"
+              >
+              <label for="">Dirección de la empresa</label>
+            </div>
+          </div>
+          <div class="col">
+            <!--  TEL_EMPRESA -->
+            <div class="input-group">
+              <input
+                type="tel"
+                v-model="solicitudSt.cliente.tel_empresa"
+              >
+              <label for="">Teléfono de la empresa *</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- FECHA_VINCULACION -->
+            <div class="input-group">
+              <input
+                type="date"
+                v-model="solicitudSt.cliente.fecha_vinculacion"
+              >
+              <label for="">Fecha de vinculación *</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group input-group__textarea">
+              <textarea
+                v-model="solicitudSt.cliente.descripcion_actividad"
+              ></textarea>
+              <label for="">Descripción de la actividad *</label>
+            </div>
+          </div>
+          <div class="solicitud-bts">
+            <a href="" class="bt">Volver</a>
+            <a href="" class="bt bt__night">Continuar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="solicitud-icono">
+      <img src="./../iconos/teamwork.svg" alt="icono personas">
+    </div>
+  </div>
+</script>
+
+<script>
+  const objLaboral = {
+    template: "#template-laboral",
+    name: "InforacionLaboral",
+    delimiters: ['[[', ']]'],
+    components: {
+      NodosComponent: objNodos,
+    },
+    setup() {
+      const solicitudSt = solicitudStore();
+
+      return {
+        solicitudSt,
+      }
+    },
+  }
+</script>

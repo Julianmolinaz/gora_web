@@ -1,12 +1,37 @@
 <script type="text/x-template" id="create-template">
-  Create solicitud
+  <div class="solicitud-container">
+    <InformacionInicial v-show="solicitudSt.nodos[0].activo" />
+    <InformacionPersonal v-show="solicitudSt.nodos[1].activo"/>
+    <InformacionUbicacion v-show="solicitudSt.nodos[2].activo" />
+    <InformacionLaboral v-show="solicitudSt.nodos[3].activo"/>
+    <TerminosCondiciones v-show="solicitudSt.nodos[4].activo" />
+  </div>
 </script>
+
+{% include "./components/nodos.html" %}
+{% include "./inicial.html" %}
+{% include "./personal.html" %}
+{% include "./ubicacion.html" %}
+{% include "./laboral.html" %}
+{% include "./terminos.html" %}
 
 <script>
   const objCreate = {
     template: "#create-template",
     name: "CreateComponent",
     delimiters: ['[[', ']]'],
-    setup() {},
+    components: {
+      InformacionInicial: objInicial,
+      InformacionPersonal: objPersonal,
+      InformacionUbicacion: objUbicacion,
+      InformacionLaboral: objLaboral,
+      TerminosCondiciones: objTerminos,
+    },
+    setup() {
+      const solicitudSt = solicitudStore();
+      return {
+        solicitudSt,
+      }
+    },
   }
 </script>

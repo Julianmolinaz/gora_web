@@ -1,0 +1,106 @@
+<script type="text/x-template" id="template-personal">
+  <div class="solicitud-board">
+    <div class="solicitud-main">
+      <NodosComponent /> 
+      <div class="solicitud-titulo">
+        <span>Información personal</span>
+        <div class="divider" style="--width-div:100px"></div>
+      </div>
+      <div class="solicitud-form">
+        <form action="">
+          <div class="col-2">
+            <!-- FECHA_EXP -->
+            <div class="input-group">
+              <input
+                type="date"
+                v-model="solicitudSt.cliente.fecha_exp"
+              >
+              <label for="">Fecha exped. identificación *</label>
+            </div>
+            <!-- LUGAR_EXP -->
+            <div class="input-group">
+              <select v-model="solicitudSt.cliente.lugar_exp">
+                <option value=""></option>
+              </select>
+              <label for="">Ciudad de exped *</label>
+            </div>
+
+          </div>
+          <div class="col-2">
+            <!-- FECHA_NACIMIENTO -->
+            <div class="input-group">
+              <input
+                type="date"
+                v-model="solicitudSt.cliente.fecha_nacimiento"
+              >
+              <label for="">Fecha de nacimiento *</label>
+            </div>
+            <!-- LUGAR_NACIMIENTO -->
+            <div class="input-group">
+              <select v-model="solicitudSt.cliente.lugar_nacimiento">
+                <option value=""></option>
+              </select>
+              <label for="">Lugar de nacimiento</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- NIVEL_ESTUDIOS -->
+            <div class="input-group">
+              <select v-model="solicitudSt.cliente.nivel_estudios">
+                <option value=""></option>
+              </select>
+              <label for="">Nivel de estudios *</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- ANTIGUEDAD_MOVIL -->
+            <div class="input-group">
+              <input
+                type="text"
+                v-model="solicitudSt.cliente.antiguedad_movil"
+              >
+              <label for="">Antiguedad teléfono celular *</label>
+            </div>
+          </div>
+          <div class="col">
+            <!-- REPORTADO -->
+            <div class="input-checkbox">
+              <input
+                type="checkbox"
+                v-model="solicitudSt.cliente.reportado"
+              >
+              <label for="">
+                ¿Esta usted reportado en centrales de riesgo?
+              </label>
+            </div>
+          </div>
+          <div class="solicitud-bts">
+            <a href="" class="bt">Volver</a>
+            <a href="" class="bt bt__night">Continuar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="solicitud-icono">
+      <img src="./../iconos/chico.svg" alt="icono persona">
+    </div>
+  </div>
+</script>
+
+<script>
+  const objPersonal = {
+    template: "#template-personal",
+    name: "InforacionPersonal",
+    delimiters: ['[[', ']]'],
+    components: {
+      NodosComponent: objNodos,
+    },
+    setup() {
+      const solicitudSt = solicitudStore();
+
+      return {
+        solicitudSt,
+      }
+    },
+  }
+</script>

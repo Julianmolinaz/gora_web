@@ -156,21 +156,28 @@ input[type=number]::-webkit-outer-spin-button {
 .input-group select {
   margin-left: 1.2rem;
   width: calc(100% - .4rem - 1.5rem);
-  font-family: SemiBold;
+  font-family: Regular;
 }
 .input-group textarea {
   height: 2.2rem;
   resize: none;
   width: calc(100% - 0.4rem - 1.5rem);
   height: 6rem;
-  font-family: SemiBold;
+  font-family: Regular;
   width: 93%;
 }
-
+.input-checkbox { 
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--grayum);
+  font-family: Regular;
+  font-size: 1.6rem;
+  padding-bottom: 1.2rem;
+}
 /***************
  * BOTONES
  ***************/
-
 .bt {
   display: inline-flex;
   align-items: center;
@@ -193,6 +200,11 @@ input[type=number]::-webkit-outer-spin-button {
 .bt__night {
   background: var(--dark);
   color: var(--light);
+}
+.bt__sun {
+  background: var(--sun);
+  border-color: var(--sun);
+  color: var(--dark);
 }
 /*************
  * FOOTER
@@ -262,4 +274,13 @@ input[type=number]::-webkit-outer-spin-button {
   line-height: 2rem;
   font-family: Light;
   font-size: 1.4rem;
+}
+.col-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.col-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
 }
