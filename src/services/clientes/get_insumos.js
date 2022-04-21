@@ -15,7 +15,6 @@ class GetInsumos {
       listEstrato: await this.listEstrato(),
       listTipoVivienda: await this.listTipoVivienda(),
       listTipoContrato: await this.listTipoContrato(),
-      listReportado: await this.listReportado(),
     };
   }
 
@@ -57,10 +56,6 @@ class GetInsumos {
 
   listTipoContrato() {
     return ClientesRepository.getEnumValues("tipo_contrato");
-  }
-
-  listReportado() {
-    return ClientesRepository.getEnumValues("reportado");
   }
 }
 

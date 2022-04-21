@@ -5,51 +5,64 @@
 	<div class="calc-title__div"></div>
 	<form class="calc-form">
 	  <!--PRODUCTO-->
-	  <div class="input-group">
-		<select v-model="st.simulador.productoId">
-		  <option
-			:value="producto.id"
-			v-for="(producto, i) in st.insumos.productos"
-		  >
-			[[ producto.nombre ]]
-		  </option>
-		</select>
-		<label for="producto">Producto</label>
-	  </div>	
+    <div class="group">
+      <div class="input-group">
+        <select v-model="st.simulador.productoId">
+          <option
+          :value="producto.id"
+          v-for="(producto, i) in st.insumos.productos"
+          >
+          [[ producto.nombre ]]
+          </option>
+        </select>
+        <label for="producto">Producto</label>
+      </div>
+    </div>
 	  <div class="calc-form__2col">
-		<!-- TIPO DE VEHICULO -->
-		<div class="input-group">
-		  <select v-model="st.simulador.tipoVehiculoId">
-		    <option
-			  v-for="(tipo, i) in st.insumos.tipoVehiculos"
-			  :value="tipo.id"
-			>
-			  [[ tipo.nombre ]]
-			</option>
-		  </select>
-		  <label for="tipo de vehículo">Tipo de vehículo</label>
-		</div>
-		<!-- MODELO -->
-		<div class="input-group">
-		  <input type="number" v-model="st.simulador.modelo">
-		  <label for="modelo">Modelo</label>
-		</div>
+      <div class="group">
+        <!-- TIPO DE VEHICULO -->
+        <div class="input-group">
+          <select v-model="st.simulador.tipoVehiculoId">
+            <option
+            v-for="(tipo, i) in st.insumos.tipoVehiculos"
+            :value="tipo.id"
+          >
+            [[ tipo.nombre ]]
+          </option>
+          </select>
+          <label for="tipo de vehículo">Tipo de vehículo</label>
+        </div>
+      </div>
+      <div class="group">
+        <!-- MODELO -->
+        <div class="input-group">
+          <input type="number" v-model="st.simulador.modelo">
+          <label for="modelo">Modelo</label>
+        </div>
+      </div>
 	  </div>
 	  <div class="calc-form__2col">
-		<!-- CILINDRAJE -->
-		<div class="input-group">
-		  <input type="number" v-model="st.simulador.cilindraje">
-		  <label for="cilindraje">Cilindraje</label>
-		</div>
-		<!-- PERIODO -->
-		<div class="input-group">
-		  <select v-model="st.simulador.periodo">
-		    <option :value="periodo" v-for="(periodo, i) in st.insumos.periodos" :key="i">
-			  [[ periodo ]] 
-			</option>
-		  </select>
-		  <label for="Periodo">Periodo</label>
-		</div>
+      <div class="group">
+        <!-- CILINDRAJE -->
+        <div class="input-group">
+          <input type="number" v-model="st.simulador.cilindraje">
+          <label for="cilindraje">Cilindraje</label>
+        </div>
+      </div>
+      <div class="group">
+        <!-- PERIODO -->
+        <div class="input-group">
+          <select v-model="st.simulador.periodo">
+            <option
+              :value="periodo"
+              v-for="(periodo, i) in st.insumos.periodos"
+              :key="i"
+            >[[ periodo ]] 
+            </option>
+          </select>
+          <label for="Periodo">Periodo</label>
+        </div>
+      </div>
 	  </div>
 	  <div class="calc-form__cuotas">
 		<a

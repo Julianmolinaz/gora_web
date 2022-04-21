@@ -19,7 +19,7 @@ class Cliente {
     this.estado_civil = payload.estodo_civil || "";
     this.nivel_estudios = payload.nivel_estudios || "";
     this.antiguedad_movil = payload.antiguedad_movil || "";
-    this.reportado = payload.reportado || "";
+    this.reportado = payload.reportado || false;
 
     // Información de ubicación
     this.estrato = payload.estrato || "";
@@ -33,6 +33,7 @@ class Cliente {
 
     // Informacion de laboral
     this.ocupacion = payload.ocupacion || "";
+    this.doc_empresa = payload.doc_empresa || ""; //?????????
     this.tipo_actividad = payload.tipo_actividad || "";
     this.empresa = payload.empresa || "";
     this.dir_empresa = payload.dir_empresa || "";
@@ -41,7 +42,6 @@ class Cliente {
     this.descripcion_actividad = payload.descripcion_actividad || "";
 
     this.cargo = payload.cargo || ""; //??????????
-    this.doc_empresa = payload.doc_empresa || ""; //?????????
     this.tipo_contrato = payload.tipo_contrato || ""; //??????????
   }
 }

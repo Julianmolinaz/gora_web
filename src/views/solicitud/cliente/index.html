@@ -1,4 +1,4 @@
-<script type="text/x-template" id="create-template">
+<script type="text/x-template" id="cliente-template">
   <div class="solicitud-container">
     <InformacionInicial v-show="solicitudSt.nodos[0].activo" />
     <InformacionPersonal v-show="solicitudSt.nodos[1].activo"/>
@@ -16,9 +16,9 @@
 {% include "./terminos.html" %}
 
 <script>
-  const objCreate = {
-    template: "#create-template",
-    name: "CreateComponent",
+  const objCliente = {
+    template: "#cliente-template",
+    name: "ClienteComponent",
     delimiters: ['[[', ']]'],
     components: {
       InformacionInicial: objInicial,

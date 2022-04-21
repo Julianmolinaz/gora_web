@@ -7,34 +7,39 @@
 
 <script type="text/x-template" id="form-contactos-template">
   <form action="">
-	<!-- DEPARTAMENTO -->
-	<div class="input-group">
-	  <select v-model="departamentoId" @change="getCiudades">
-		{% for departamento in insumos.departamentos %}
-		<option value="{{ departamento.id }}">{{ departamento.nombre }}</option>
-		{% endfor %}
-	  </select>  
-	  <label for="departamentos">Departamentos</label>  
-	</div> 
-	<!-- CIUDADES -->
-	<div class="input-group">
-	  <select v-model="ciudadId" @change="getContacto">
-		<option
-		  :value="ciudad.id"
-		  v-for="(ciudad, i) in ciudades"
-		>
-		  [[ ciudad.nombre ]]
-		</option>
-	  </select>  
-	  <label for="ciudad">Ciudad</label>  
-	</div> 	
+    <div class="group">
+      <!-- DEPARTAMENTO -->
+      <div class="input-group">
+        <select v-model="departamentoId" @change="getCiudades">
+        {% for departamento in insumos.departamentos %}
+        <option value="{{ departamento.id }}">{{ departamento.nombre }}</option>
+        {% endfor %}
+        </select>  
+        <label for="departamentos">Departamentos</label>  
+      </div>
+    </div>
+    <div class="group">
+      <!-- CIUDADES -->
+      <div class="input-group">
+        <select v-model="ciudadId" @change="getContacto">
+        <option
+          :value="ciudad.id"
+          v-for="(ciudad, i) in ciudades"
+        >
+          [[ ciudad.nombre ]]
+        </option>
+        </select>  
+        <label for="ciudad">Ciudad</label>  
+      </div>
+    </div>
   </form>
+
   <div class="contacto-list">
-	<contacto-component
-	  v-for="(contacto, i) in contactos"
-	  :key="i"
-	  :info="contacto"
-	></contacto-component>
+    <contacto-component
+      v-for="(contacto, i) in contactos"
+      :key="i"
+      :info="contacto"
+    ></contacto-component>
   </div>
 </script>
 
@@ -42,11 +47,11 @@
   <div class="contacto-container">
 	<div class="contacto-municipio">
 	  <span class="material-icons-outlined contacto-municipio__icono">
-		location_on
+		  location_on
 	  </span>
 	  <span class="contacto-municipio__texto">
-		[[ info.municipio_nombre ]] -
-		[[ info.departamento_nombre ]]
+      [[ info.municipio_nombre ]] -
+      [[ info.departamento_nombre ]]
 	  </span>
 	</div>
 	<div class="contacto-info">
@@ -63,17 +68,17 @@
 		</a>
 	  </div>
 	  <div class="contacto-direccion">
-		<p>Dirección: [[ info.direccion ]]</p>
-		<a 
-		  :href="info.localizacion"
-		  v-if="info.localizacion"
-		  class="contacto-locationico"
-		  target="_blank"
-		>
-		  <span class="material-icons-outlined">
-			location_on
-		  </span>
-		</a>
+      <p>Dirección: [[ info.direccion ]]</p>
+      <a 
+        :href="info.localizacion"
+        v-if="info.localizacion"
+        class="contacto-locationico"
+        target="_blank"
+      >
+        <span class="material-icons-outlined">
+        location_on
+        </span>
+      </a>
 	  </div>
 	</div>
   </div>  

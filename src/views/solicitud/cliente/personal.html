@@ -1,0 +1,176 @@
+<script type="text/x-template" id="template-personal">
+  <div class="solicitud-board">
+    <div class="solicitud-main">
+      <NodosComponent /> 
+      <div class="solicitud-titulo">
+        <span>Información personal</span>
+        <div class="divider" style="--width-div:100px"></div>
+      </div>
+      <div class="solicitud-form">
+        <Form @submit="onSubmit">
+          <div class="col-2">
+            <div class="group">
+              <!-- FECHA_EXP -->
+              <div class="input-group">
+                <Field
+                  name="fecha_exp"
+                  type="date"
+                  :rules="_required,_yyyymmdd"
+                  v-model="clienteSt.el.fecha_exp"
+                ></Field>
+                <label for="">Fecha exped. identificación *</label>
+              </div>
+              <ErrorMessage
+                name="fecha_exp"
+                class="input-msg error"
+              />
+            </div>
+            <div class="group">
+              <!-- LUGAR_EXP -->
+              <div class="input-group">
+                <Field
+                  name="lugar_exp"
+                  type="text"
+                  :rules="_required"
+                  v-model="clienteSt.el.lugar_exp"
+                ></Field>
+                <label for="">Ciudad de exped *</label>
+              </div>
+              <ErrorMessage
+                name="lugar_exp"
+                class="input-msg error"
+              />
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="group">
+              <!-- FECHA_NACIMIENTO -->
+              <div class="input-group">
+                <Field
+                  name="fecha_nacimiento"
+                  type="date"
+                  :rules="_required"
+                  v-model="clienteSt.el.fecha_nacimiento"
+                ></Field>
+                <label for="">Fecha de nacimiento *</label>
+              </div>
+              <ErrorMessage
+                name="fecha_nacimiento"
+                class="input-msg error"
+              />
+            </div>
+            <div class="group">
+              <!-- LUGAR_NACIMIENTO -->
+              <div class="input-group">
+                <Field
+                  name="lugar_nacimiento"
+                  type="text"
+                  v-model="clienteSt.el.lugar_nacimiento"
+                ></Field>
+                <label for="">Lugar de nacimiento</label>
+              </div>
+              <ErrorMessage
+                name="lugar_nacimiento"
+                class="input-msg error"
+              />
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="group">
+              <!-- NIVEL_ESTUDIOS -->
+              <div class="input-group">
+                <Field
+                  name="nivel_estudios"
+                  v-model="clienteSt.el.nivel_estudios"
+                  :rules="_required"
+                  as="select"
+                >
+                  <option
+                    :value="nivel"
+                    v-for="nivel in clienteSt.insumos.listNivelEstudios"
+                  >[[ nivel ]]</option>
+                </Field>
+                <label for="">Nivel de estudios *</label>
+              </div>
+              <ErrorMessage
+                name="nivel_estudios"
+                class="input-msg error"
+              />
+            </div>
+            <div class="group">
+              <!-- ANTIGUEDAD_MOVIL -->
+              <div class="input-group">
+                <Field
+                  name="antiguedad_movil"
+                  type="text"
+                  :rules="_required"
+                  v-model="clienteSt.el.antiguedad_movil"
+                ></Field>
+                <label for="">Antiguedad celular (años)*</label>
+              </div>
+              <ErrorMessage
+                name="antiguedad_movil"
+                class="input-msg error"
+              />
+            </div>
+          </div>
+          <div class="col">
+            <div class="group">
+              <!-- REPORTADO -->
+              <div class="input-checkbox">
+                <Field
+                  name="reportado"
+                  type="checkbox"
+                  :rules="_required"
+                  v-model="clienteSt.el.reportado"
+                ></Field>
+                <label for="">
+                  ¿Esta usted reportado en centrales de riesgo?
+                </label>
+              </div>
+              <ErrorMessage
+                name="reportado"
+                class="input-msg error"
+              />
+            </div>
+          </div>
+          <div class="solicitud-bts">
+            <a href="" class="bt">Volver</a>
+            <button class="bt bt__night">Continuar</button>
+          </div>
+        </Form>
+      </div>
+    </div>
+    <div class="solicitud-icono">
+      <img src="./../iconos/chico.svg" alt="icono persona">
+    </div>
+  </div>
+</script>
+
+<script>
+  const objPersonal = {
+    template: "#template-personal",
+    name: "InforacionPersonal",
+    delimiters: ['[[', ']]'],
+    components: {
+      NodosComponent: objNodos,
+      Field: VeeValidate.Field,
+      Form: VeeValidate.Form,
+      ErrorMessage: VeeValidate.ErrorMessage,
+    },
+    setup() {
+      const clienteSt = clienteStore();
+
+      const onSubmit = () => {
+
+      }
+
+      return {
+        //.......
+        clienteSt,
+        //.......
+        onSubmit,
+      }
+    },
+  }
+</script>

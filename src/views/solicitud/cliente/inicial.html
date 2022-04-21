@@ -1,0 +1,191 @@
+<script type="text/x-template" id="template-inicial">
+  <div class="solicitud-board">
+    <div class="solicitud-main">
+      <NodosComponent /> 
+      <div class="solicitud-titulo">
+        <span>Información inicial</span>
+        <div class="divider" style="--width-div:100px"></div>
+      </div>
+      <div class="solicitud-form">
+        <Form @submit="onSubmit" v-slot="{ errors }">
+          <div class="col-2">
+            <!-- PRIMER_NOMBRE -->
+            <div class="group">
+              <div class="input-group">
+                <Field
+                  name="primer_nombre"
+                  type="text"
+                  :rules="_required"
+                  v-model="clienteSt.el.primer_nombre"
+                ></Field>
+                <label for="">Primer nombre *</label>
+              </div>
+              <ErrorMessage
+                name="primer_nombre"
+                class="input-msg error"
+              />
+            </div>
+            <div class="group">
+              <div class="input-group">
+                <!-- SEGUNDO_NOMBRE -->
+                <input
+                  name="segundo_nombre"
+                  type="text"
+                  v-model="clienteSt.el.segundo_nombre"  
+                >
+                <label for="">Segundo nombre</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="group">
+              <!-- PRIMER_APELLIDO -->
+              <div class="input-group">
+                <Field
+                  name="primer_apellido"
+                  type="text"
+                  :rules="_required"
+                  v-model="clienteSt.el.primer_apellido"
+                ></Field>
+                <label for="">Primer apellido *</label>
+              </div>
+              <ErrorMessage
+                name="primer_apellido"
+                class="input-msg error"
+              />
+            </div>
+            <div class="group">
+              <!-- SEGUNDO APELLIDO -->
+              <div class="input-group">
+                <input
+                  type="text"
+                  v-model="clienteSt.el.segundo_apellido"
+                >
+                <label for="">Segundo apellido</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="group">
+              <!-- TIPO_DOC -->
+              <div class="input-group">
+                <Field
+                  name="tipo_doc"
+                  :rules="_required"
+                  v-model="clienteSt.el.tipo_doc"
+                  as="select"
+                >
+                  <option
+                    v-for="tipo in clienteSt.insumos.listTipoDoc"
+                    :value="tipo"
+                  >[[ tipo ]]
+                  </option>
+                </Field>
+                <label for="">Tipo de identificación *</label>
+              </div>
+              <ErrorMessage
+                name="tipo_doc"
+                class="input-msg error"
+              />
+            </div>
+            <div class="group">
+              <!-- NUM_DOC -->
+              <div class="input-group">
+                <Field
+                  name="num_doc"
+                  type="text"
+                  :rules="_required"
+                  v-model="clienteSt.el.num_doc"
+                ></Field>
+                <label for="">Número de identificación</label>
+              </div>
+              <ErrorMessage
+                name="num_doc"
+                class="input-msg error"
+              />
+            </div>
+          </div>
+          <div class="col">
+            <div class="group">
+              <!-- MOVIL -->
+              <div class="input-group">
+                <Field 
+                  name="movil"
+                  type="text"
+                  :rules="_required"
+                  v-model="clienteSt.el.movil"
+                ></Field>
+                <label for="">Teléfono celular *</label>
+              </div>
+              <ErrorMessage
+                name="movil"
+                class="input-msg error"
+              />
+            </div>
+          </div>
+          <div class="col">
+            <div class="group">
+              <!-- EMAIL -->
+              <div class="input-group">
+                <Field
+                  name="email"
+                  type="text"
+                  :rules="_required, _email"
+                  v-model="clienteSt.el.email"
+                ></Field>
+                <label for="">Correo electrónico *</label>
+              </div>
+              <ErrorMessage
+                name="email"
+                class="input-msg error"
+              />
+            </div>
+          </div>
+          <div class="solicitud-bts">
+            <a href="" class="bt">Volver</a>
+            <button class="bt bt__night">Continuar</button>
+          </div>
+        </Form>
+      </div>
+    </div>
+    <div class="solicitud-icono">
+      <img src="./../iconos/virtual.svg" alt="icono virtualidad">
+    </div>
+  </div>
+</script>
+
+<script>
+  const objInicial = {
+    template: "#template-inicial",
+    name: "InforacionInicial",
+    delimiters: ['[[', ']]'],
+    components: {
+      NodosComponent: objNodos,
+      Field: VeeValidate.Field,
+      Form: VeeValidate.Form,
+      ErrorMessage: VeeValidate.ErrorMessage,
+    },
+    setup() {
+      const clienteSt = clienteStore();
+
+      const onSubmit = (values) => {
+        console.log(JSON.stringify(values, null, 2));
+      }
+
+      function isRequired(value) {
+        if (!value) {
+          return "El campo es requerido";
+        }
+        return true;
+      }
+
+      return {
+        //......
+        clienteSt,
+        //......
+        onSubmit,
+        isRequired,
+      }
+    }
+  }
+</script>
