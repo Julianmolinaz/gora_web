@@ -1,4 +1,8 @@
-.pasos-container {
+/*************
+ * PASOS / REFS
+ *************/
+.pasos-container,
+.refs-container {
   padding: 6rem 11.4rem;
 }
 .solicitud-board {
@@ -15,4 +19,10 @@
 }
 .terminos__btn-aceptar {
   justify-content: start;
+}
+/*******************
+ * REFERENCIAS (REF) 
+ *******************/
+.refs-list {
+  grid-template-columns: 1fr 1fr;
 }

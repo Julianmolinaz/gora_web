@@ -1,20 +1,24 @@
 /*************
- * PASOS
+ * PASOS / REFS
  *************/
-.pasos-container {
+.pasos-container,
+.refs-container {
   padding: 2rem 1.8rem;
 }
-.pasos-header {
+.pasos-header,
+.refs-header {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-.pasos-header__icono {
+.pasos-header__icono,
+.refs-header__icono{
   width: 4.4rem;
   height: 4.4rem;
   margin: 1rem;
 }
-.pasos-header__titulo {
+.pasos-header__titulo,
+.refs-header__titulo {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -22,7 +26,8 @@
   font-family: bold;
   color: var(--dark);
 }
-.pasos-help {
+.pasos-help,
+.refs-help {
   font-family: regular;
   font-size: 1.8rem;
   color: var(--dark);
@@ -172,4 +177,31 @@
   display: flex;
   justify-content: center;
   margin-top: 3rem;
+}
+/*********************
+ * REFERENCIAS (REFS)
+ *********************/ 
+.refs-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1.6rem;
+}
+.ref-container {
+  max-width: 44rem;
+  margin-bottom: 2rem;
+}
+.ref-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.2rem 0;
+}
+.ref-header__icono {
+  width: 3rem;
+  height: 3rem;
+}
+.ref-header__titulo {
+  font-family: bold;
+  font-size: 2.4rem;
+  color: var(--dark);
 }

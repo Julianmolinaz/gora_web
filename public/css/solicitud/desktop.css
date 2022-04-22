@@ -1,4 +1,9 @@
-.pasos-container {
+
+/*************
+ * PASOS / REFS
+ *************/
+.pasos-container,
+.refs-container {
   padding: 4rem 11.4rem;
 }
 .pasos-list {

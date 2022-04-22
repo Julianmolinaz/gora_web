@@ -7,52 +7,39 @@
         <div class="divider" style="--width-div:100px"></div>
       </div>
       <div class="solicitud-form">
-        <Form @submit="onSubmit">
+        <form> 
           <div class="col">
             <div class="group">
               <!-- OCUPACION -->
               <div class="input-group">
-                <Field 
-                  as="select"
+                <select
                   name="oficio"
-                  :rules="_required"
                   v-model="clienteSt.el.ocupacion"
                 >
                   <option 
                     :value="oficio.nombre"
                     v-for="oficio in clienteSt.insumos.listOficios"
                   >[[ oficio.nombre ]]</option>
-                </Field>
+                </select>
                 <label for="">Ocupación u oficio *</label>
               </div>
-              <ErrorMessage 
-                name="oficio"
-                class="input-msg error"
-              />
             </div>
           </div>
           <div class="col">
             <div class="group">
               <!-- TIPO ACTIVIDAD -->
               <div class="input-group">
-                <Field 
-                  as="select"
+                <select 
                   name="tipo_actividad"
-                  :rules="_required"
                   v-model="clienteSt.el.tipo_actividad"
-                  @change="addReglas"
                 >
                   <option
                       :value="actividad"
                       v-for="actividad in clienteSt.insumos.listTipoActividad"
                   >[[ actividad ]]</option>
-                </Field>
+                </select>
                 <label for="">Actividad económica *</label>
               </div>
-              <ErrorMessage 
-                name="tipo_actividad"
-                class="input-msg error"
-              />
             </div>
           </div>
           <div
@@ -68,18 +55,13 @@
               <div class="group">
                 <!-- EMPRESA -->
                 <div class="input-group">
-                  <Field
+                  <input
                     name="empresa"
                     type="text"
-                    :rules="reglas.empresa"
                     v-model="clienteSt.el.empresa"
-                  ></Field>
+                  >
                   <label for="">Nombre de la empresa *</label>
                 </div>
-                <ErrorMessage
-                  name="empresa"
-                  class="input-msg error"
-                />
               </div>
             </div>
             <div
@@ -89,18 +71,13 @@
               <div class="group">
                 <!-- DOC_EMPRESA -->
                 <div class="input-group">
-                  <Field
+                  <input
                     name="doc_empresa"
                     type="text"
-                    :rules="reglas.doc_empresa"
                     v-model="clienteSt.el.doc_empresa"
-                  ></Field>
+                  >
                   <label for="">Nit/Cedula *</label>
                 </div>
-                <ErrorMessage
-                  name="doc_empresa"
-                  class="input-msg error"
-                />
               </div>
             </div>
             <div 
@@ -112,12 +89,11 @@
               <div class="group">
                 <!-- DIR_EMPRESA -->
                 <div class="input-group">
-                  <Field
+                  <input
                     name="dir_empresa"
                     type="text"
-                    :rules="reglas.dir_empresa"
                     v-model="clienteSt.el.dir_empresa"
-                  ></Field>
+                  >
                   <label for="">Dirección de la empresa</label>
                 </div>
                 <ErrorMessage
@@ -135,18 +111,14 @@
               <div class="group">
                 <!--  TEL_EMPRESA -->
                 <div class="input-group">
-                  <Field
+                  <input
                     name="tel_empresa"
                     type="tel"
                     :rules="reglas.tel_empresa"
                     v-model="clienteSt.el.tel_empresa"
-                  ></Field>
+                  >
                   <label for="">Teléfono de la empresa *</label>
                 </div>
-                <ErrorMessage
-                  name="tel_empresa"
-                  class="input-msg error"
-                />
               </div>
             </div>
             <div
@@ -158,18 +130,13 @@
               <div class="group">
                 <!-- FECHA_VINCULACION -->
                 <div class="input-group">
-                  <Field
+                  <input
                     name="fecha_vinculacion"
                     type="date"
-                    :rules="reglas.fecha_vinculacion"
                     v-model="clienteSt.el.fecha_vinculacion"
-                  ></Field>
+                  >
                   <label for="">Fecha de vinculación *</label>
                 </div>
-                <ErrorMessage
-                  name="fecha_vinculacion"
-                  class="input-msg error"
-                />
               </div>
             </div>
             <div
@@ -179,20 +146,9 @@
               <div class="group">
                 <!-- DESCRIPCION_ACTIVIDAD -->
                 <div class="input-group input-group__textarea">
-                  <Field
-                    name="descripcion_actividad"
-                    v-slot="{ field }"
-                    :rules="reglas.descripcion_actividad"
-                    v-model="clienteSt.el.descripcion_actividad"
-                  >
-                    <textarea v-bind="field"></textarea>
-                  </Field>
+                  <textarea v-bind="field"></textarea>
                   <label for="">Descripción de la actividad *</label>
                 </div>
-                <ErrorMessage
-                  name="descripcion_actividad"
-                  class="input-msg error"
-                />
               </div>
             </div>
           </div>

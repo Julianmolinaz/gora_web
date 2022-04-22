@@ -1,0 +1,54 @@
+<script type="text/x-template" id="referencia-template">
+  <form class="ref-container">
+    <div class="ref-header">
+      <img
+        src="../iconos/perfil.png"
+        alt="icono persona"
+        class="ref-header__icono"
+      >
+      <span class="ref-header__titulo">Referencia [[props.index]]</span>
+    </div>
+    <div class="col">
+      <div class="group">
+        <div class="input-group">
+          <select
+            name="parentesco"
+          >
+            <option value=""></option>
+          </select>
+          <label for="parentesto">Parentesco</label>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="group">
+        <div class="input-group">
+          <input type="text">
+          <label for="nombre">Nombres y apellidos</label>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="group">
+        <div class="input-group">
+          <input type="text" name="telefonos">
+          <label for="telefonos">Teléfonos</label>
+        </div>
+      </div>
+    </div>
+  </form>
+</script>
+
+<script>
+  const objReferencia = {
+    template: "#referencia-template",
+    name: "ReferenciaComponent",
+    delimiters: ['[[', ']]'],
+    props: ['index'], 
+    setup(props) {
+      return {
+        props,
+      }
+    }    
+  }
+</script>
