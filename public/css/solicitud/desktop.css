@@ -1,9 +1,9 @@
-
-/*************
- * PASOS / REFS
- *************/
+/***************************
+ * PASOS / REFS / DOCUMENTOS
+ ***************************/
 .pasos-container,
-.refs-container {
+.refs-container,
+.docs-container {
   padding: 4rem 11.4rem;
 }
 .pasos-list {

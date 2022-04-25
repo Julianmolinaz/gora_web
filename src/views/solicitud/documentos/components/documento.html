@@ -1,0 +1,37 @@
+<script type="text/x-template" id="doc-template">
+  <div class="doc-container">
+    <div class="doc-header">
+      <img
+        src="../iconos/google-docs.png"
+        alt="documento"
+        class="doc-header__icono" 
+    >
+      <span class="doc-header__titulo">Nombre documento</span>
+    </div>
+    <div class="doc-body">
+      <img
+        src=""
+        alt=""
+        class=""
+      >
+      <p>Parte delantera de su cédula de ciudadanía</p>
+      <div>
+        <a
+          href=""
+          class="bt"
+        >
+          Subir desde archivo
+        </a>
+      </div>
+    </div>
+  </div>  
+</script>
+
+<script>
+  const objDocumento = {
+    template: "#doc-template",
+    delimiters: ['[[', ']]'],
+    components: {},
+    setup() {}
+  }
+</script>

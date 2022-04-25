@@ -7,13 +7,12 @@
         <div class="divider" style="--width-div:100px"></div>
       </div>
       <div class="solicitud-form">
-        <Form @submit="onSubmit">
+        <form @submit.prevent="onSubmit">
           <div class="col-2">
             <div class="group">
               <!-- ESTRATO -->
               <div class="input-group">
-                <Field
-                  as="select"
+                <select
                   name="estrato"
                   v-model="clienteSt.el.estrato"
                 >
@@ -21,37 +20,28 @@
                     :value="estrato"
                     v-for="estrato in clienteSt.insumos.listEstrato"
                   >[[ estrato ]]</option>
-                </Field>
+                </select>
                 <label for="">Estrato *</label>
               </div>
-              <ErrorMessage
-                name="estrato"
-                class="input-msg error"
-              />
             </div>
             <div class="group">
               <!-- FIJO -->
               <div class="input-group">
-                <Field
+                <input
                   name="fijo"
                   type="text"
                   v-model="clienteSt.el.fijo"
-                ></Field>
+                >
                 <label for="">Teléfono fijo</label>
               </div>
-              <ErrorMessage
-                name="fijo"
-                class="input-msg error"
-              />
             </div>
           </div>
           <div class="col-2">
             <div class="group">
               <!-- DEPARTAMENTO ID -->
               <div class="input-group">
-                <Field
+                <select
                   name="departamento_id"
-                  as="select"
                   v-model="departamentoId"
                   @change="getMunicipios"
                 >
@@ -59,20 +49,15 @@
                     :value="departamento.id"
                     v-for="departamento in clienteSt.insumos.listDepartamentos"
                   >[[ departamento.nombre ]]</option>
-                </Field>
+                </select>
                 <label for="">Departamento residencia *</label>
               </div>
-              <ErrorMessage
-                name="departamento_id"
-                class="input-msg error"
-              />
             </div>
             <div class="group">
               <!-- CIUDAD_ID -->
               <div class="input-group">
-                <Field
+                <select
                   name="ciudad_id"
-                  as="select"
                   v-model="clienteSt.el.municipio_id"
                 >
                   <option
@@ -80,84 +65,63 @@
                       :value="ciudad.id"
                       v-for="ciudad in ciudades"
                   >[[ ciudad.nombre ]]</option>
-                </Field>
+                </select>
                 <label for="">Ciudad residencia *</label>
               </div>
-              <ErrorMessage
-                name="ciudad_id"
-                class="input-msg error"
-              />
             </div>
           </div>
           <div class="col">
             <div class="group">
               <!-- BARRIO -->
               <div class="input-group">
-                <Field
+                <input
                   name="barrio"
                   type="text"
                   v-model="clienteSt.el.barrio"
-                ></Field>
+                >
                 <label for="">Barrio/Vereda</label>
               </div>
-              <ErrorMessage
-                name="barrio"
-                class="input-msg error"
-              />
             </div>
           </div>
           <div class="col">
             <div class="group">
               <!-- DIRECCION-->
               <div class="input-group">
-                <Field
+                <input
                   name="direccion"
                   type="text"
                   v-model="clienteSt.el.direccion"
-                 ></Field>
+                 >
                 <label for="">Dirección de residencia</label>
               </div>
-              <ErrorMessage
-                name="direccion"
-                class="input-msg error"
-              />
             </div>
           </div>
           <div class="col-2">
             <div class="group">
               <!-- TIPO_VIVIENDA -->
               <div class="input-group">
-                <Field
+                <select
                   name="tipo_vivienda"
-                  as="select"
                   v-model="clienteSt.el.tipo_vivienda"
                 >
                   <option
                     :value="tipo"
                     v-for="tipo in clienteSt.insumos.listTipoVivienda"
                   >[[ tipo ]]</option>
-                </Field>
+                </select>
                 <label for="">Tipo de vivienda *</label>
               </div>
-              <ErrorMessage
-                name="tipo_vivienda"
-                class="input-msg error"
-              />
             </div>
             <div class="group">
               <!-- MESES_RESIDENCIA -->
               <div class="input-group">
-                <Field
+                <input
                   name="meses_residencia"
                   type="number"
                   v-model="clienteSt.el.meses_residencia"
-                 ></Field>
+                 >
                 <label for="">Meses en residencia</label>
               </div>
-              <ErrorMessage
-                name="meses_residencia"
-                class="input-msg error"
-              />
             </div>
           </div>
           <div class="solicitud-bts">
@@ -180,12 +144,10 @@
     delimiters: ['[[', ']]'],
     components: {
       NodosComponent: objNodos,
-      Field: VeeValidate.Field,
-      Form: VeeValidate.Form,
-      ErrorMessage: VeeValidate.ErrorMessage,
     },
     setup() {
       const clienteSt = clienteStore();
+      const solicitudSt = solicitudStore();
       const departamentoId = ref(null);
       const ciudades = ref([]);
 
@@ -199,9 +161,7 @@
         }
       };
 
-      const onSubmit = () => {
-
-      }
+      const onSubmit = () => solicitudSt.ir(4); 
 
       return {
         // ......

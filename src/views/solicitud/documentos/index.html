@@ -1,0 +1,33 @@
+<script type="text/x-template" id="documentos-template">
+  <div class="docs-container">
+    <div class="docs-header">
+      <img
+        class="docs-header__icono"
+        src="../iconos/derechos-de-autor.png"
+        alt="icono click"
+      >
+      <div class="docs-header__titulo">
+        <span>Documentos</span>
+        <div class="divider" style="--width-div:19.4rem"></div>
+      </div>
+    </div>
+    <div class="docs-list">
+      <DocumentoComponent />
+    </div>
+  </div>
+</script>
+
+{% include "./components/documento.html" %}
+
+<script>
+  const objDocumentos = {
+    template: "#documentos-template",
+    delimiters: ['[[', ']]'],
+      components: {
+        DocumentoComponent: objDocumento,
+      },
+    setup() {
+
+    }
+  }
+</script>

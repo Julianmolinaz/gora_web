@@ -7,7 +7,7 @@
         <div class="divider" style="--width-div:100px"></div>
       </div>
       <div class="solicitud-form">
-        <form> 
+        <form @submit.prevent="onSubmit"> 
           <div class="col">
             <div class="group">
               <!-- OCUPACION -->
@@ -96,10 +96,6 @@
                   >
                   <label for="">Dirección de la empresa</label>
                 </div>
-                <ErrorMessage
-                  name="dir_empresa"
-                  class="input-msg error"
-                />
               </div>
             </div>
             <div
@@ -114,7 +110,6 @@
                   <input
                     name="tel_empresa"
                     type="tel"
-                    :rules="reglas.tel_empresa"
                     v-model="clienteSt.el.tel_empresa"
                   >
                   <label for="">Teléfono de la empresa *</label>
@@ -188,12 +183,10 @@
     delimiters: ['[[', ']]'],
     components: {
       NodosComponent: objNodos,
-      Field: VeeValidate.Field,
-      Form: VeeValidate.Form,
-      ErrorMessage: VeeValidate.ErrorMessage,
     },
     setup() {
       const clienteSt = clienteStore();
+      const solicitudSt = solicitudStore();
       const reglas = ref(reglasDependiente);
 
       const addReglas = () => {
@@ -203,9 +196,8 @@
           reglas.value = reglasDependiente;
         }
       };
-      const onSubmit = () => {
-        //
-      }
+
+      const onSubmit = () => solicitudSt.ir(5);
 
       return {
         //....

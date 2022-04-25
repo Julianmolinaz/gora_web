@@ -43,5 +43,9 @@ class Cliente {
 
     this.cargo = payload.cargo || ""; //??????????
     this.tipo_contrato = payload.tipo_contrato || ""; //??????????
+
+    // Contraseñas
+    this.password = payload.password || "";
+    this.password_confirmation = payload.password_confirmation || "";
   }
 }
