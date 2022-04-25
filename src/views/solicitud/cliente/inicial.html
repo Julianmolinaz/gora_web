@@ -183,7 +183,6 @@
     },
     setup() {
       const clienteSt = clienteStore();
-      const solicitudSt = solicitudStore();
 
       const rules = computed(() => {
         return {
@@ -231,6 +230,9 @@
       onSubmit() {
         this.v$.$validate();
         if (this.v$.$error) {
+        } else {
+          this.clienteSt.ir(2);
+          this.clienteSt.completar(1);
         }
       }
     }

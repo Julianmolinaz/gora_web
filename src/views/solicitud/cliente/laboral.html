@@ -186,7 +186,6 @@
     },
     setup() {
       const clienteSt = clienteStore();
-      const solicitudSt = solicitudStore();
       const reglas = ref(reglasDependiente);
 
       const addReglas = () => {
@@ -197,7 +196,7 @@
         }
       };
 
-      const onSubmit = () => solicitudSt.ir(5);
+      const onSubmit = () => clienteSt.ir(5);
 
       return {
         //....

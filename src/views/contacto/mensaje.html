@@ -3,104 +3,104 @@
 </div>
 
 <script type="text/x-template" id="mensaje-template">
-<section class="mensaje-container">
-  <img src="iconos/icon-email.png" alt="icono email" class="mensaje-icono">
-  <div class="mensaje-titulo">
-	<span class="mensaje-titulo__principal">¿Alguna pregunta?</span>  
-	<p class="mensaje-titulo__texto">Si tienes dudas, envíanos un mensaje.</p>
-	<div class="divider1"></div>
-  </div> 
-  <div class="mensaje-form">
-	<form action="">
-	  <div class="group">
-      <div class="input-group">
-        <input type="text" v-model="mensaje.nombre">
-        <label for="nombre">Nombre</label>  
+  <section class="mensaje-container">
+    <img src="iconos/icon-email.png" alt="icono email" class="mensaje-icono">
+    <div class="mensaje-titulo">
+    <span class="mensaje-titulo__principal">¿Alguna pregunta?</span>  
+    <p class="mensaje-titulo__texto">Si tienes dudas, envíanos un mensaje.</p>
+    <div class="divider1"></div>
+    </div> 
+    <div class="mensaje-form">
+    <form action="">
+      <div class="group">
+        <div class="input-group">
+          <input type="text" v-model="mensaje.nombre">
+          <label for="nombre">Nombre</label>  
+        </div>
       </div>
+      <div class="group">
+        <div class="input-group">
+          <input type="text" v-model="mensaje.email">
+          <label for="correo electrónico">Correo electrónico</label>  
+        </div> 
+      </div>
+      <div class="group">
+        <div class="input-group input-group__textarea">
+          <textarea v-model="mensaje.contenido"></textarea>  
+          <label for="nombre">Mensaje</label>  
+        </div> 
+      </div>
+      <div class="mensaje-terminos">
+        <input type="checkbox" v-model="terminos">
+        <label for="aceptar términos y condiciones" class="mensaje-terminos__label">
+          <a href="javascript:void(0);">
+          He leido y acepto los términos y condiciones
+          </a>
+        </label>
+      </div>
+      <div class="mensaje-enviar">
+      <a
+        href="javascript:void(0);"
+        class="bt bt__night"
+        @click="sendMensaje"
+      >Enviar
+      </a>
+      </div>
+    </form>
     </div>
-	  <div class="group">
-      <div class="input-group">
-        <input type="text" v-model="mensaje.email">
-        <label for="correo electrónico">Correo electrónico</label>  
-      </div> 
-    </div>
-    <div class="group">
-      <div class="input-group input-group__textarea">
-        <textarea v-model="mensaje.contenido"></textarea>  
-        <label for="nombre">Mensaje</label>  
-      </div> 
-    </div>
-	  <div class="mensaje-terminos">
-      <input type="checkbox" v-model="terminos">
-      <label for="aceptar términos y condiciones" class="mensaje-terminos__label">
-        <a href="javascript:void(0);">
-        He leido y acepto los términos y condiciones
-        </a>
-      </label>
-	  </div>
-	  <div class="mensaje-enviar">
-		<a
-		  href="javascript:void(0);"
-		  class="bt bt__night"
-		  @click="sendMensaje"
-		>Enviar
-		</a>
-	  </div>
-	</form>
-  </div>
-</section>  
+  </section>  
 </script>
 
 <script>
   class Mensaje {
-	constructor() {
-	  this.nombre = "";
-	  this.email = "";
-	  this.contenido = "";
-	} 
+    constructor() {
+      this.nombre = "";
+      this.email = "";
+      this.contenido = "";
+    } 
   }
   const appMensaje = createApp({
-	setup() {}
+	  setup() {}
   });
   appMensaje.component("mensaje-component", {
-	template: "#mensaje-template",
-	delimiters: ['[[', ']]'],
-	data: () => ({
-	  mensaje: new Mensaje(),
-	  terminos: false,
-	}),
-	methods: {
-	  sendMensaje() {
-		if (!this.validacion()) return false;
-		axios.post("/api/contactos/send-mensaje", this.mensaje)
-		  .then(res => {
-			  alertify.success(res.data.message, 5);
-			  this.mensaje = new Mensaje();
-			}).catch(error => {
-			  console.log(error);
-			});		  
-	  },
-	  validacion() {
-		let str = "";
-		if (!this.mensaje.nombre) {
-		  str += "Se requiere su nombre completo<br>";
-		}
-		if (!this.mensaje.email) {
-		  str += "Se requiere su correo electrónico<br>";
-		}
-		if (!this.mensaje.contenido) {
-		  str += "El mensaje es requerido<br>";
-		}
-		if (!this.terminos) {
-		  str += "Debe aceptar términos y condiciones<br>";
-		}
-		if (str.length) {
-		  alertify.alert("Atención", str);
-		  return false;
-		}
-		return true;
-	  }
-	}
+    template: "#mensaje-template",
+    delimiters: ['[[', ']]'],
+    data: () => ({
+      mensaje: new Mensaje(),
+      terminos: false,
+    }),
+    methods: {
+      sendMensaje() {
+      if (!this.validacion()) return false;
+      axios.post("/api/contactos/send-mensaje", this.mensaje)
+        .then(res => {
+          alertify.success(res.data.message, 5);
+          this.mensaje = new Mensaje();
+        }).catch(error => {
+          console.log(error);
+        });		  
+      },
+      validacion() {
+      let str = "";
+      if (!this.mensaje.nombre) {
+        str += "Se requiere su nombre completo<br>";
+      }
+      if (!this.mensaje.email) {
+        str += "Se requiere su correo electrónico<br>";
+      }
+      if (!this.mensaje.contenido) {
+        str += "El mensaje es requerido<br>";
+      }
+      if (!this.terminos) {
+        str += "Debe aceptar términos y condiciones<br>";
+      }
+      if (str.length) {
+        alertify.alert("Atención", str);
+        return false;
+      }
+      return true;
+      }
+    }
   });
   appMensaje.mount("#app-mensaje");
 </script>

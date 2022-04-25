@@ -51,13 +51,15 @@
 	  const appSolicitud = createApp({
       setup(){
         const solicitudSt = solicitudStore();
+        const clienteSt = clienteStore();
 
         onMounted(() => {
-          solicitudSt.nodos[0].activo = true;
+          clienteSt.nodos[0].activo = true;
         });
 
         return {
           solicitudSt,
+          clienteSt,
         }
       },
     });

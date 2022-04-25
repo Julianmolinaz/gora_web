@@ -3,8 +3,25 @@ const clienteStore = defineStore("cliente", {
   state: () => ({
     el: new Cliente({}),
     insumos: [],
+    nodos: [
+      { indice: 1, activo: false, nombre: "Información inicial", completo: false},
+      { indice: 2, activo: false, nombre: "Información personal", completo: false},
+      { indice: 3, activo: false, nombre: "Información de ubicación", completo: false},
+      { indice: 4, activo: false, nombre: "Información laboral", completo: false },
+      { indice: 5, activo: false, nombre: "Términos y condiciones", completo: false},
+    ],
   }),
   getters: {},
-  actions: {}
+  actions: {
+    ir(indice) {
+      this.nodos.forEach((nodo) => {
+        if (nodo.indice === indice) nodo.activo = true
+        else nodo.activo = false;
+      });
+    },
+    completar(indice) {
+      this.nodos[indice].completo = true;
+    } 
+  }
 });
 </script>

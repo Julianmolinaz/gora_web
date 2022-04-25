@@ -23,6 +23,9 @@
                 </select>
                 <label for="">Estrato *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.estrato.$error">
+                [[ v$.estrato.$errors[0].$message ]]
+              </span>
             </div>
             <div class="group">
               <!-- FIJO -->
@@ -34,6 +37,9 @@
                 >
                 <label for="">Teléfono fijo</label>
               </div>
+              <span class="helper-txt error" v-if="v$.fijo.$error">
+                [[ v$.fijo.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col-2">
@@ -68,6 +74,9 @@
                 </select>
                 <label for="">Ciudad residencia *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.ciudad_id.$error">
+                [[ v$.ciudad_id.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col">
@@ -81,6 +90,9 @@
                 >
                 <label for="">Barrio/Vereda</label>
               </div>
+              <span class="helper-txt error" v-if="v$.barrio.$error">
+                [[ v$.barrio.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col">
@@ -94,6 +106,9 @@
                  >
                 <label for="">Dirección de residencia</label>
               </div>
+              <span class="helper-txt error" v-if="v$.direccion.$error">
+                [[ v$.direccion.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col-2">
@@ -111,6 +126,9 @@
                 </select>
                 <label for="">Tipo de vivienda *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.tipo_vivienda.$error">
+                [[ v$.tipo_vivienda.$errors[0].$message ]]
+              </span>
             </div>
             <div class="group">
               <!-- MESES_RESIDENCIA -->
@@ -122,6 +140,9 @@
                  >
                 <label for="">Meses en residencia</label>
               </div>
+              <span class="helper-txt error" v-if="v$.meses_residencia.$error">
+                [[ v$.meses_residencia.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="solicitud-bts">
@@ -147,7 +168,6 @@
     },
     setup() {
       const clienteSt = clienteStore();
-      const solicitudSt = solicitudStore();
       const departamentoId = ref(null);
       const ciudades = ref([]);
 
@@ -161,7 +181,31 @@
         }
       };
 
-      const onSubmit = () => solicitudSt.ir(4); 
+      const rules = computed(() => {
+        return {
+          estrato: {
+            required: helpers.withMessage("El estrato es requerido", required),
+          },
+          fijo: {
+            size: helpers.withMessage("El teléfono debe tener 10 caracteres", size(10)),
+          },
+          ciudad_id: {
+            required: helpers.withMessage("La ciudad es requerida", required),
+          },
+          barrio: {},
+          direccion: {
+            required: helpers.withMessage("Los meses de residencia son requeridos", required),
+          },
+          tipo_vivienda: {
+            required: helpers.withMessage("El tipo de vivienda es requerido", required),
+          },
+          meses_residencia: {
+            required: helpers.withMessage("Los meses en residencia son requeridos", required),
+          }
+        }
+      });
+
+      const v$ = useVuelidate(rules, clienteSt.el);
 
       return {
         // ......
@@ -170,8 +214,20 @@
         ciudades,
         // ......
         getMunicipios,
-        onSubmit,
+        v$,
       }
     },
+    methods: {
+      onSubmit() {
+        this.v$.$validate();
+        if (this.v$.$error) {
+
+        } else {
+          this.clienteSt.ir(2);
+          this.clienteSt.completar(1);
+        }
+ 
+      }
+    }
   }
 </script>

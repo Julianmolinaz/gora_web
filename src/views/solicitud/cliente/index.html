@@ -1,10 +1,10 @@
 <script type="text/x-template" id="cliente-template">
   <div class="solicitud-container">
-    <InformacionInicial v-show="solicitudSt.nodos[0].activo" />
-    <InformacionPersonal v-show="solicitudSt.nodos[1].activo"/>
-    <InformacionUbicacion v-show="solicitudSt.nodos[2].activo" />
-    <InformacionLaboral v-show="solicitudSt.nodos[3].activo"/>
-    <TerminosCondiciones v-show="solicitudSt.nodos[4].activo" />
+    <InformacionInicial v-show="clienteSt.nodos[0].activo" />
+    <InformacionPersonal v-show="clienteSt.nodos[1].activo"/>
+    <InformacionUbicacion v-show="clienteSt.nodos[2].activo" />
+    <InformacionLaboral v-show="clienteSt.nodos[3].activo"/>
+    <TerminosCondiciones v-show="clienteSt.nodos[4].activo" />
   </div>
 </script>
 
@@ -28,7 +28,6 @@
       TerminosCondiciones: objTerminos,
     },
     setup() {
-      const solicitudSt = solicitudStore();
       const clienteSt = clienteStore();
 
       async function getInsumos() {
@@ -46,7 +45,7 @@
       });
 
       return {
-        solicitudSt,
+        clienteSt,
       }
     },
   }

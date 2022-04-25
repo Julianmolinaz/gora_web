@@ -2,8 +2,8 @@
 <ul class="nodos">
   <li 
     :class="['nodo', (nodo.activo) ? 'nodo--active' : '']"
-    v-for="nodo in solicitudSt.nodos"
-    @click="solicitudSt.ir(nodo.indice)"
+    v-for="nodo in clienteSt.nodos"
+    @click="clienteSt.ir(nodo.indice)"
   >[[ nodo.indice ]]
   </li>
 </ul>
@@ -15,10 +15,10 @@
     name: "NodosComponent",
     delimiters: ['[[', ']]'],
     setup() {
-      const solicitudSt = solicitudStore();
+      const clienteSt = clienteStore();
 
       return {
-        solicitudSt,
+        clienteSt,
       }
     },
   } 

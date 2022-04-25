@@ -19,6 +19,10 @@
                 >
                 <label for="">Fecha exped. identificación *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.fecha_exp.$error">
+                [[ v$.fecha_exp.$errors[0].$message ]]
+              </span>
+
             </div>
             <div class="group">
               <!-- LUGAR_EXP -->
@@ -30,6 +34,9 @@
                 >
                 <label for="">Ciudad de exped *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.lugar_exp.$error">
+                [[ v$.lugar_exp.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col-2">
@@ -43,6 +50,9 @@
                 >
                 <label for="">Fecha de nacimiento *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.fecha_nacimiento.$error">
+                [[ v$.fecha_nacimiento.$errors[0].$message ]]
+              </span>
             </div>
             <div class="group">
               <!-- LUGAR_NACIMIENTO -->
@@ -54,9 +64,50 @@
                 >
                 <label for="">Lugar de nacimiento</label>
               </div>
+              <span class="helper-txt error" v-if="v$.lugar_nacimiento.$error">
+                [[ v$.lugar_nacimiento.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col-2">
+            <div class="group">
+              <!-- GENERO -->
+              <div class="input-group">
+                <select
+                  name="nivel_estudios"
+                  v-model="clienteSt.el.genero"
+                >
+                  <option
+                    :value="genero"
+                    v-for="genero in clienteSt.insumos.listGenero"
+                  >[[ genero ]]</option>
+                </select>
+                <label for="">Genero*</label>
+              </div>
+              <span class="helper-txt error" v-if="v$.genero.$error">
+                [[ v$.genero.$errors[0].$message ]]
+              </span>
+            </div>
+            <div class="group">
+              <!-- ESTA CIVIL -->
+              <div class="input-group">
+                <select
+                  name="estado_civil"
+                  v-model="clienteSt.el.estado_civil"
+                >
+                  <option
+                    :value="estado"
+                    v-for="estado in clienteSt.insumos.listEstadoCivil"
+                  >[[ estado ]]</option>
+                </select>
+                <label for="">Estado civil*</label>
+              </div>
+              <span class="helper-txt error" v-if="v$.estado_civil.$error">
+                [[ v$.estado_civil.$errors[0].$message ]]
+              </span>
+            </div>
+          </div>
+          <div class="col-1">
             <div class="group">
               <!-- NIVEL_ESTUDIOS -->
               <div class="input-group">
@@ -71,34 +122,12 @@
                 </select>
                 <label for="">Nivel de estudios *</label>
               </div>
-            </div>
-            <div class="group">
-              <!-- ANTIGUEDAD_MOVIL -->
-              <div class="input-group">
-                <input
-                  name="antiguedad_movil"
-                  type="text"
-                  v-model="clienteSt.el.antiguedad_movil"
-                >
-                <label for="">Antiguedad celular (años)*</label>
-              </div>
+              <span class="helper-txt error" v-if="v$.nivel_estudios.$error">
+                [[ v$.nivel_estudios.$errors[0].$message ]]
+              </span>
             </div>
           </div>
-          <div class="col">
-            <div class="group">
-              <!-- REPORTADO -->
-              <div class="input-checkbox">
-                <input
-                  name="reportado"
-                  type="checkbox"
-                  v-model="clienteSt.el.reportado"
-                >
-                <label for="">
-                  ¿Esta usted reportado en centrales de riesgo?
-                </label>
-              </div>
-            </div>
-          </div>
+ 
           <div class="solicitud-bts">
             <a href="" class="bt">Volver</a>
             <button class="bt bt__night">Continuar</button>
@@ -122,16 +151,52 @@
     },
     setup() {
       const clienteSt = clienteStore();
-      const solicitudSt = solicitudStore();
 
-      const onSubmit = () => solicitudSt.ir(3);
+      const rules = computed(() => {
+        return {
+          fecha_exp: {
+            required: helpers.withMessage("La fecha de expedición es requerida", required),
+          },
+          lugar_exp: {
+            required: helpers.withMessage("La fecha de expedición es requerida", required),
+          },
+          fecha_nacimiento: {
+            required: helpers.withMessage("La fecha de nacimiento es requerida", required),
+          },
+          lugar_nacimiento: {
+            required: helpers.withMessage("El lugar de nacimiento es requerido", required),
+          },
+          genero: {
+            required: helpers.withMessage("El genero es requerido", required),
+          },
+          estado_civil: {
+            required: helpers.withMessage("El estado civil es requerido", required),
+          },
+          nivel_estudios: {
+            required: helpers.withMessage("El nivel de estudios es requerido", required),
+          },
+        }
+      });
+
+      const v$ = useVuelidate(rules, clienteSt.el);
 
       return {
         //.......
         clienteSt,
         //.......
-        onSubmit,
+        v$,
       }
     },
+    methods: {
+      onSubmit() {
+        this.v$.$validate();
+        if (this.v$.$error) {
+           
+        } else {
+          this.clienteSt.ir(3);
+          this.clienteSt.completar(2)
+        }
+      },
+    }
   }
 </script>

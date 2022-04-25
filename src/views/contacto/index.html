@@ -3,18 +3,18 @@
 {% block adicionalHeader %}
   
   <link
-	rel="stylesheet"
-	href="./css/contacto/movil.css"
+    rel="stylesheet"
+    href="./css/contacto/movil.css"
   >
   <link
-	rel="stylesheet"
-	href="./css/contacto/tablet.css"
-	media="screen and (min-width: 768px)"
+    rel="stylesheet"
+    href="./css/contacto/tablet.css"
+    media="screen and (min-width: 768px)"
   >
   <link
-	rel="stylesheet"
-	href="./css/contacto/desktop.css"
-	media="screen and (min-width: 992px)"
+    rel="stylesheet"
+    href="./css/contacto/desktop.css"
+    media="screen and (min-width: 992px)"
   >
   <!-- Vue 3 -->
   <script src="../../../js/vue3.js"></script>
@@ -25,17 +25,17 @@
 
 {% block content %}
   <div class="bloque-contacto">
-	<div class="contacto-container">
-	  <section class="general">
-		{% include "./general.html" %}
-	  </section>
-	  <section class="contactos">
-		{% include "./contactos.html" %}
-	  </section>
-	</div>
-	<div class="mensaje">
-	  {% include "./mensaje.html" %}
-	</div>  
+    <div class="contacto-container">
+      <section class="general">
+      {% include "./general.html" %}
+      </section>
+      <section class="contactos">
+      {% include "./contactos.html" %}
+      </section>
+    </div>
+    <div class="mensaje">
+      {% include "./mensaje.html" %}
+    </div>  
   </div>
   
   {% include "../templates/footer.html" %}
