@@ -19,6 +19,9 @@
                 />
                 <label for="">Primer nombre *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.primer_nombre.$error">
+                [[ v$.primer_nombre.$errors[0].$message ]]
+              </span>
             </div>
             <div class="group">
               <div class="input-group">
@@ -43,6 +46,9 @@
                 />
                 <label for="">Primer apellido *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.primer_apellido.$error">
+                [[ v$.primer_apellido.$errors[0].$message ]]
+              </span>
             </div>
             <div class="group">
               <!-- SEGUNDO APELLIDO -->
@@ -71,6 +77,9 @@
                 </select>
                 <label for="">Tipo de identificación *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.tipo_doc.$error">
+                [[ v$.tipo_doc.$errors[0].$message ]]
+              </span>
             </div>
             <div class="group">
               <!-- NUM_DOC -->
@@ -82,6 +91,9 @@
                 />
                 <label for="">Número de identificación</label>
               </div>
+              <span class="helper-txt error" v-if="v$.num_doc.$error">
+                [[ v$.num_doc.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col">
@@ -95,6 +107,9 @@
                 />
                 <label for="">Teléfono celular *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.movil.$error">
+                [[ v$.movil.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col">
@@ -104,32 +119,47 @@
                 <input
                   name="email"
                   type="text"
-                  :rules="_required, _email"
                   v-model="clienteSt.el.email"
                 />
                 <label for="">Correo electrónico *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.email.$error">
+                [[ v$.email.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col">
             <div class="group">
               <!-- CONTRASEÑA -->
               <div class="input-group">
-                <input type="password" name="">
+                <input
+                  type="password"
+                  name=""
+                  v-model="clienteSt.el.password"
+                >
                 <label for="">Contraseña</label>
               </div>
+              <span class="helper-txt error" v-if="v$.password.$error">
+                [[ v$.password.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col">
             <div class="group">
               <!-- CONFIRMACION CONTRASEÑA -->
               <div class="input-group">
-                <input type="password" name="">
+                <input
+                  type="password"
+                  name=""
+                  v-model="clienteSt.el.confirm"
+                >
                 <label for="">Confirmar contraseña</label>
               </div>
+              <span class="helper-txt error" v-if="v$.confirm.$error">
+                [[ v$.confirm.$errors[0].$message ]]
+              </span>
             </div>
           </div>
-
           <div class="solicitud-bts">
             <a href="" class="bt">Volver</a>
             <button class="bt bt__night">Continuar</button>
@@ -154,13 +184,54 @@
     setup() {
       const clienteSt = clienteStore();
       const solicitudSt = solicitudStore();
-      const onSubmit = () => solicitudSt.ir(2);
+
+      const rules = computed(() => {
+        return {
+          primer_nombre: {
+            required: helpers.withMessage("El primer nombre es requerido", required),
+          },
+          primer_apellido: {
+            required: helpers.withMessage("El primer apellido es requerido", required),
+          },
+          tipo_doc: {
+            required: helpers.withMessage("El tipo de documento es requerido", required),
+          },
+          num_doc: {
+            required: helpers.withMessage("El número de identificación es requerido", required),
+          },
+          movil: {
+            required: helpers.withMessage("El teléfono celular es requerido", required),
+            size: helpers.withMessage("El teléfono debe tener 10 digitos", size(10)),
+          },
+          email: {
+            required: helpers.withMessage("El correo electrónico es requerido", required),
+            email: helpers.withMessage("Correo con formato incorrecto", email),
+          },
+          password: {
+            required: helpers.withMessage("La contraseña es requerida", required),
+            minLength: helpers.withMessage("Se requiren mínimo 6 caracteres", minLength(6)),
+          },
+          confirm: {
+            required: helpers.withMessage("La confirmación de la contraseña es requerida", required),
+            sameAsPassword: helpers.withMessage("La confirmación no coincide", sameAs('password')),
+          },
+        }
+      });
+
+      const v$ = useVuelidate(rules, clienteSt.el);
 
       return {
         //......
         clienteSt,
         //......
-        onSubmit,
+        v$,
+      }
+    },
+    methods: {
+      onSubmit() {
+        this.v$.$validate();
+        if (this.v$.$error) {
+        }
       }
     }
   }

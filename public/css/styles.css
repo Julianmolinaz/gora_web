@@ -304,3 +304,14 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   justify-content: center;
 }
+/******************
+ * CONTENIDO
+ ******************/
+.helper-txt {
+  font-family: Light;
+  font-size: 1.2rem;
+  color: var(--grayum);
+}
+.helper-txt.error {
+  color: var(--danger);
+}

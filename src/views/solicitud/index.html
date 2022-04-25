@@ -26,9 +26,12 @@
   <script src="./../../js/demi.js"></script>
   <script src="./../../js/pinia.js"></script>
   <script src="./../../js/vue-router.js"></script>
-  <script src="https://unpkg.com/vee-validate"></script>
-  <script src="./../../js/mios/reglas/vee.reglas.js"></script>
   <script src="./../../js/mios/entidades/Cliente.js"></script>
+  <!-- Vuelidate -->
+  <script src="https://cdn.jsdelivr.net/npm/vue-demi"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vuelidate/core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vuelidate/validators"></script>
+  <script src="./../../js/mios/reglas/vuelidate.js"></script>
 
   {% include "./routes.html" %}
 
@@ -36,6 +39,8 @@
     const { ref, reactive, createApp, computed, onMounted } = Vue;
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
+    const { useVuelidate } = Vuelidate;
+    const { required, email, minLength, sameAs, helpers } = VuelidateValidators;
   </script> 
 
   {% include "./store/solicitud.html" %}

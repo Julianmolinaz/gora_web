@@ -46,6 +46,6 @@ class Cliente {
 
     // Contraseñas
     this.password = payload.password || "";
-    this.password_confirmation = payload.password_confirmation || "";
+    this.confirm = payload.confirm || "";
   }
 }
