@@ -23,6 +23,9 @@
                 </select>
                 <label for="">Ocupación u oficio *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.ocupacion.$error">
+                [[ v$.ocupacion.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div class="col">
@@ -40,6 +43,9 @@
                 </select>
                 <label for="">Actividad económica *</label>
               </div>
+              <span class="helper-txt error" v-if="v$.tipo_actividad.$error">
+                [[ v$.tipo_actividad.$errors[0].$message ]]
+              </span>
             </div>
           </div>
           <div
@@ -60,8 +66,14 @@
                     type="text"
                     v-model="clienteSt.el.empresa"
                   >
-                  <label for="">Nombre de la empresa *</label>
+                  <label for="">
+                    Nombre de la empresa 
+                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? "*" : "" ]]
+                  </label>
                 </div>
+                <span class="helper-txt error" v-if="v$.empresa.$error">
+                  [[ v$.empresa.$errors[0].$message ]]
+                </span>
               </div>
             </div>
             <div
@@ -76,8 +88,14 @@
                     type="text"
                     v-model="clienteSt.el.doc_empresa"
                   >
-                  <label for="">Nit/Cedula *</label>
+                  <label for="">
+                    Nit/Cedula
+                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? "*" : "" ]]
+                  </label>
                 </div>
+                <span class="helper-txt error" v-if="v$.doc_empresa.$error">
+                  [[ v$.doc_empresa.$errors[0].$message ]]
+                </span>
               </div>
             </div>
             <div 
@@ -94,8 +112,14 @@
                     type="text"
                     v-model="clienteSt.el.dir_empresa"
                   >
-                  <label for="">Dirección de la empresa</label>
+                  <label for="">
+                    Dirección de la empresa
+                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? "*" : "" ]]
+                  </label>
                 </div>
+                <span class="helper-txt error" v-if="v$.dir_empresa.$error">
+                  [[ v$.dir_empresa.$errors[0].$message ]]
+                </span>
               </div>
             </div>
             <div
@@ -112,8 +136,14 @@
                     type="tel"
                     v-model="clienteSt.el.tel_empresa"
                   >
-                  <label for="">Teléfono de la empresa *</label>
+                  <label for="">
+                    Teléfono de la empresa
+                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? "*" : "" ]]
+                  </label>
                 </div>
+                <span class="helper-txt error" v-if="v$.tel_empresa.$error">
+                  [[ v$.tel_empresa.$errors[0].$message ]]
+                </span>
               </div>
             </div>
             <div
@@ -132,18 +162,26 @@
                   >
                   <label for="">Fecha de vinculación *</label>
                 </div>
+                <span class="helper-txt error" v-if="v$.fecha_vinculacion.$error">
+                  [[ v$.fecha_vinculacion.$errors[0].$message ]]
+                </span>
               </div>
             </div>
             <div
               class="col"
-              v-if="clienteSt.el.tipo_actividad == 'Independiente'"
+              v-if="clienteSt.el.tipo_actividad === 'Independiente'"
             >
               <div class="group">
                 <!-- DESCRIPCION_ACTIVIDAD -->
                 <div class="input-group input-group__textarea">
-                  <textarea v-bind="field"></textarea>
+                  <textarea
+                    v-model="clienteSt.el.descripcion_actividad"
+                  ></textarea>
                   <label for="">Descripción de la actividad *</label>
                 </div>
+                <span class="helper-txt error" v-if="v$.descripcion_actividad.$error">
+                  [[ v$.descripcion_actividad.$errors[0].$message ]]
+                </span>
               </div>
             </div>
           </div>
@@ -151,7 +189,7 @@
             <a href="" class="bt">Volver</a>
             <button class="bt bt__night">Continuar</button>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
     <div class="solicitud-icono">
@@ -161,21 +199,6 @@
 </script>
 
 <script>
-  const reglasDependiente = {
-    //empresa: _required,
-    //doc_empresa: _required,
-    //dir_empresa: _required,
-    //tel_empresa: _required,
-    //fecha_vinculacion: _required,
-  }
-
-  const reglasIndependiente = {
-    //empresa: _required,
-    //dir_empresa: "",
-    //tel_empresa: _required,
-    //fecha_vinculacion: _required,
-    //descripcion_actividad: _required
-  }
 
   const objLaboral = {
     template: "#template-laboral",
@@ -186,26 +209,76 @@
     },
     setup() {
       const clienteSt = clienteStore();
-      const reglas = ref(reglasDependiente);
 
-      const addReglas = () => {
-        if (clienteSt.el.tipo_actividad == "Independiente") {
-          reglas.value = reglasIndependiente;
-        } else {
-          reglas.value = reglasDependiente;
+      const listReglas = {
+        ocupacion: {
+          required: helpers.withMessage("La ocupación es requerida", required),
+        },
+        tipo_actividad: {
+          required: helpers.withMessage("La actividad económica es requerida", required),
+        },
+        fecha_vinculacion: {
+          required: helpers.withMessage("La fecha de vinculación es requerida", required),
         }
       };
 
-      const onSubmit = () => clienteSt.ir(5);
+      const reglasDependiente = {
+        empresa: {
+          required: helpers.withMessage("El nombre de la empresa es requerido", required),
+        },
+        descripcion_actividad:{},
+        doc_empresa: {
+          required: helpers.withMessage("El documento o cedula de la empresa es requerida", required),
+        },
+        dir_empresa: {
+          required: helpers.withMessage("La dirección de la empresa es requerida", required),
+        },
+        tel_empresa: {
+          required: helpers.withMessage("El teléfono de la empresa es requerido", required),
+        },
+      }
+
+      const reglasIndependiente = {
+        empresa: {},
+        descripcion_actividad: {
+          required: helpers.withMessage("La descripcion de la actividad es requerida", required),
+        },
+        doc_empresa: {},
+        dir_empresa: {},
+        tel_empresa: {},
+      }
+
+      const getReglas = () => {
+        let reglas = listReglas;
+        if (clienteSt.el.tipo_actividad === "Dependiente") {
+          reglas = { ...reglas, ...reglasDependiente };
+        } else {
+          reglas = { ...reglas, ...reglasIndependiente };
+        }
+        console.log({reglas});
+        return reglas;
+      } 
+
+      const rules = computed(() => getReglas());
+
+      const v$ = useVuelidate(rules, clienteSt.el);
 
       return {
         //....
         clienteSt,
-        reglas,
         //....
-        onSubmit,
-        addReglas,
+        v$,
       }
     },
+    methods: {
+      onSubmit() {
+        this.v$.$validate();
+        if (this.v$.$error) {
+          alertify.error("Corrija los errores en rojo", 2);
+        } else {
+          this.clienteSt.completar(4);
+        }
+      }
+    }
   }
 </script>

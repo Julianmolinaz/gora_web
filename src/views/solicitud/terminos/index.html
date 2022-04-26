@@ -1,0 +1,58 @@
+<script type="text/x-template" id="template-terminos">
+  <div class="solicitud-board">
+    <div class="solicitud-main terminos-main">
+      <NodosComponent /> 
+      <div class="solicitud-titulo">
+        <span>Firmar pagaré</span>
+        <div class="divider" style="--width-div:100px"></div>
+      </div>
+      <p class="terminos-txt">
+        Para aceptar términos y condiciones seleccione
+        la casilla a continuación
+      </p>
+      <div class="input-checkbox terminos-ok">
+        <input type="checkbox">
+        <label for="" class="terminos-ok__txt">
+          Aceptar términos y condiciones
+        </label>
+      </div>
+      <p class="terminos__pagare-txt">
+        Hemos envíado un código de confirmación a su celular,
+        digitelo para firmar el pagaré. 
+      </p>
+      <div class="terminos-form">
+        <input type="number" class="terminos__input-form">
+        <input type="number" class="terminos__input-form">
+        <input type="number" class="terminos__input-form">
+        <input type="number" class="terminos__input-form">
+      </div>
+      <div class="terminos__btn-reenviar">
+        <a class="bt" href="">Reenviar código</a>
+      </div>
+      <div class="terminos__btn-aceptar">
+        <a class="bt bt__sun" href="">Aceptar</a>
+      </div>
+    </div>
+    <div class="solicitud-icono">
+      <img src="./../iconos/condicion.png" alt="icono condiciones">
+    </div>
+  </div>
+</script>
+
+<script>
+  const objTerminos= {
+    template: "#template-terminos",
+    name: "TerminosCondiciones",
+    delimiters: ['[[', ']]'],
+    components: {
+      NodosComponent: objNodos,
+    },
+    setup() {
+      const clienteSt = clienteStore();
+
+      return {
+        clienteSt,
+      }
+    },
+  }
+</script>

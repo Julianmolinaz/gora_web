@@ -8,8 +8,8 @@ const clienteStore = defineStore("cliente", {
       { indice: 2, activo: false, nombre: "Información personal", completo: false},
       { indice: 3, activo: false, nombre: "Información de ubicación", completo: false},
       { indice: 4, activo: false, nombre: "Información laboral", completo: false },
-      { indice: 5, activo: false, nombre: "Términos y condiciones", completo: false},
     ],
+    refs: [ new Referencia({}), new Referencia({}) ],
   }),
   getters: {},
   actions: {

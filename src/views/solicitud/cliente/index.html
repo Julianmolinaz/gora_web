@@ -4,7 +4,6 @@
     <InformacionPersonal v-show="clienteSt.nodos[1].activo"/>
     <InformacionUbicacion v-show="clienteSt.nodos[2].activo" />
     <InformacionLaboral v-show="clienteSt.nodos[3].activo"/>
-    <TerminosCondiciones v-show="clienteSt.nodos[4].activo" />
   </div>
 </script>
 
@@ -13,7 +12,6 @@
 {% include "./personal.html" %}
 {% include "./ubicacion.html" %}
 {% include "./laboral.html" %}
-{% include "./terminos.html" %}
 
 <script>
   const objCliente = {
@@ -25,7 +23,6 @@
       InformacionPersonal: objPersonal,
       InformacionUbicacion: objUbicacion,
       InformacionLaboral: objLaboral,
-      TerminosCondiciones: objTerminos,
     },
     setup() {
       const clienteSt = clienteStore();

@@ -1,4 +1,5 @@
 const ClientesRepository = require("../../database/repositories/clientes.repository");
+const ReferenciasRepository = require("../../database/repositories/referencias.repository");
 const DepartamentosRepository = require("../../database/repositories/departamentos.repository");
 const OficiosRepository = require("../../database/repositories/oficios.repository");
 
@@ -15,6 +16,7 @@ class GetInsumos {
       listEstrato: await this.listEstrato(),
       listTipoVivienda: await this.listTipoVivienda(),
       listTipoContrato: await this.listTipoContrato(),
+      listParentesco: await this.listParentesco(),
     };
   }
 
@@ -56,6 +58,10 @@ class GetInsumos {
 
   listTipoContrato() {
     return ClientesRepository.getEnumValues("tipo_contrato");
+  }
+
+  listParentesco() {
+    return ReferenciasRepository.getEnumValues("parentesco");
   }
 }
 

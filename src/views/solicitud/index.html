@@ -22,25 +22,33 @@
     <router-view></router-view>
   </div>
 
+  <!-- Vue -->
   <script src="./../../js/vue3.js"></script>
   <script src="./../../js/demi.js"></script>
+  <!-- Pinia -->
   <script src="./../../js/pinia.js"></script>
+  <!-- Vue router -->
   <script src="./../../js/vue-router.js"></script>
+  <!-- Emit -->
+  <script src="./../../js/mitt.js"></script>
+  <!-- Entidades -->
   <script src="./../../js/mios/entidades/Cliente.js"></script>
+  <script src="./../../js/mios/entidades/Referencia.js"></script>
   <!-- Vuelidate -->
-  <script src="https://cdn.jsdelivr.net/npm/vue-demi"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@vuelidate/core"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@vuelidate/validators"></script>
+  <script src="./../../libs/vuelidate/demi.js"></script>
+  <script src="./../../libs/vuelidate/core.js"></script>
+  <script src="./../../libs/vuelidate/validators.js"></script>
   <script src="./../../js/mios/reglas/vuelidate.js"></script>
 
   {% include "./routes.html" %}
 
   <script>
-    const { ref, reactive, createApp, computed, onMounted } = Vue;
+    const { ref, reactive, createApp, computed, onMounted, inject } = Vue;
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
     const { useVuelidate } = Vuelidate;
     const { required, email, minLength, sameAs, helpers } = VuelidateValidators;
+    const emitter = mitt();
   </script> 
 
   {% include "./store/solicitud.html" %}
@@ -48,13 +56,23 @@
   {% include "./store/pasos.html" %}
 
   <script>
-	  const appSolicitud = createApp({
+    const appSolicitud = createApp({
       setup(){
         const solicitudSt = solicitudStore();
         const clienteSt = clienteStore();
+        const getInsumosCliente = async () => {
+          try {
+            const res = await axios.get("/api/clientes/create");
+            clienteSt.insumos = res.data.insumos;
+          } catch (err) {
+            alertify.error("Ocurrió un error");
+            console.error(err);
+          }
+        }
 
         onMounted(() => {
           clienteSt.nodos[0].activo = true;
+          getInsumosCliente();
         });
 
         return {
@@ -68,7 +86,9 @@
   <script>
     appSolicitud.use(pinia);
     appSolicitud.use(router);
+    appSolicitud.provide('emitter', emitter);
     appSolicitud.mount("#app-solicitud");
   </script>
 
 {% endblock %}
+          console.log("solicitud mounted");
