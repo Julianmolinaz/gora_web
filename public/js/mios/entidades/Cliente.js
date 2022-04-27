@@ -8,6 +8,7 @@ class Cliente {
     this.tipo_doc = payload.tipo_doc || "";
     this.num_doc = payload.num_doc || "";
     this.movil = payload.movil || "";
+    this.placa = payload.placa || "";
     this.email = payload.email || "";
 
     // Información personal

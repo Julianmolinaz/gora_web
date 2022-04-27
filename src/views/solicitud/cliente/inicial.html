@@ -12,11 +12,7 @@
             <!-- PRIMER_NOMBRE -->
             <div class="group">
               <div class="input-group">
-                <input
-                  name="primer_nombre"
-                  type="text"
-                  v-model="clienteSt.el.primer_nombre"
-                />
+                <input type="text" v-model="clienteSt.el.primer_nombre">
                 <label for="">Primer nombre *</label>
               </div>
               <span class="helper-txt error" v-if="v$.primer_nombre.$error">
@@ -26,11 +22,7 @@
             <div class="group">
               <div class="input-group">
                 <!-- SEGUNDO_NOMBRE -->
-                <input
-                  name="segundo_nombre"
-                  type="text"
-                  v-model="clienteSt.el.segundo_nombre"  
-                >
+                <input type="text" v-model="clienteSt.el.segundo_nombre">
                 <label for="">Segundo nombre</label>
               </div>
             </div>
@@ -39,11 +31,7 @@
             <div class="group">
               <!-- PRIMER_APELLIDO -->
               <div class="input-group">
-                <input
-                  name="primer_apellido"
-                  type="text"
-                  v-model="clienteSt.el.primer_apellido"
-                />
+                <input type="text" v-model="clienteSt.el.primer_apellido">
                 <label for="">Primer apellido *</label>
               </div>
               <span class="helper-txt error" v-if="v$.primer_apellido.$error">
@@ -53,10 +41,7 @@
             <div class="group">
               <!-- SEGUNDO APELLIDO -->
               <div class="input-group">
-                <input
-                  type="text"
-                  v-model="clienteSt.el.segundo_apellido"
-                >
+                <input type="text" v-model="clienteSt.el.segundo_apellido">
                 <label for="">Segundo apellido</label>
               </div>
             </div>
@@ -65,10 +50,7 @@
             <div class="group">
               <!-- TIPO_DOC -->
               <div class="input-group">
-                <select
-                  name="tipo_doc"
-                  v-model="clienteSt.el.tipo_doc"
-                >
+                <select v-model="clienteSt.el.tipo_doc">
                   <option
                     v-for="tipo in clienteSt.insumos.listTipoDoc"
                     :value="tipo"
@@ -84,11 +66,7 @@
             <div class="group">
               <!-- NUM_DOC -->
               <div class="input-group">
-                <input
-                  name="num_doc"
-                  type="text"
-                  v-model="clienteSt.el.num_doc"
-                />
+                <input type="text" v-model="clienteSt.el.num_doc">
                 <label for="">Número de identificación</label>
               </div>
               <span class="helper-txt error" v-if="v$.num_doc.$error">
@@ -96,19 +74,27 @@
               </span>
             </div>
           </div>
-          <div class="col">
+          <div class="col-2">
             <div class="group">
               <!-- MOVIL -->
               <div class="input-group">
-                <input
-                  name="movil"
-                  type="text"
-                  v-model="clienteSt.el.movil"
-                />
-                <label for="">Teléfono celular *</label>
+                <input type="text" v-model="clienteSt.el.movil">
+                <label>Teléfono celular *</label>
               </div>
               <span class="helper-txt error" v-if="v$.movil.$error">
                 [[ v$.movil.$errors[0].$message ]]
+              </span>
+            </div>
+            <div class="group">
+              <!-- PLACA -->
+              <div class="group">
+                <div class="input-group">
+                  <input type="text" v-model="clienteSt.el.placa">
+                  <label>Placa *</label>
+                </div>
+              </div>
+              <span class="helper-txt error" v-if="v$.placa.$error">
+                [[ v$.placa.$errors[0].$message ]]
               </span>
             </div>
           </div>
@@ -116,11 +102,7 @@
             <div class="group">
               <!-- EMAIL -->
               <div class="input-group">
-                <input
-                  name="email"
-                  type="text"
-                  v-model="clienteSt.el.email"
-                />
+                <input type="text" v-model="clienteSt.el.email">
                 <label for="">Correo electrónico *</label>
               </div>
               <span class="helper-txt error" v-if="v$.email.$error">
@@ -128,32 +110,22 @@
               </span>
             </div>
           </div>
-          <div class="col">
+          <div class="col-2">
             <div class="group">
               <!-- CONTRASEÑA -->
               <div class="input-group">
-                <input
-                  type="password"
-                  name=""
-                  v-model="clienteSt.el.password"
-                >
-                <label for="">Contraseña</label>
+                <input type="password" v-model="clienteSt.el.password">
+                <label>Contraseña</label>
               </div>
               <span class="helper-txt error" v-if="v$.password.$error">
                 [[ v$.password.$errors[0].$message ]]
               </span>
             </div>
-          </div>
-          <div class="col">
             <div class="group">
               <!-- CONFIRMACION CONTRASEÑA -->
               <div class="input-group">
-                <input
-                  type="password"
-                  name=""
-                  v-model="clienteSt.el.confirm"
-                >
-                <label for="">Confirmar contraseña</label>
+                <input type="password" v-model="clienteSt.el.confirm">
+                <label>Confirmar contraseña</label>
               </div>
               <span class="helper-txt error" v-if="v$.confirm.$error">
                 [[ v$.confirm.$errors[0].$message ]]
@@ -201,6 +173,9 @@
           movil: {
             required: helpers.withMessage("El teléfono celular es requerido", required),
             size: helpers.withMessage("El teléfono debe tener 10 digitos", size(10)),
+          },
+          placa: {
+            required: helpers.withMessage("La placa es requirida", required),
           },
           email: {
             required: helpers.withMessage("El correo electrónico es requerido", required),
