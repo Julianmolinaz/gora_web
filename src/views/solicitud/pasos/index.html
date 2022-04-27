@@ -1,17 +1,17 @@
 <script type="text/x-template" id="pasos-template">
-  <div class="pasos-container">
-	<div class="pasos-header">
+  <div class="principal-container">
+	<div class="principal-header">
 	  <img
+		class="principal-header__icono"
 		src="../iconos/pasos.png"
 		alt="pasos de la solicitud"
-		class="pasos-header__icono"
 	  >
-	  <div class="pasos-header__titulo">
+	  <div class="principal-header__titulo">
 		<span>Solicitud en proceso</span>
 		<div class="divider" style="--width-div: 19.4rem"></div>
 	  </div>
 	</div>
-	<div class="pasos-help">
+	<div class="principal-help">
 	  Para realizar su solicitud, complete cada uno de los 
 	  pasos dando click en continuar
 	</div>
@@ -32,7 +32,9 @@
 	  </div>
 	</div>
 	<div class="pasos-accion">
-	  <a class="pasos-continuar bt bt__night" href="">Continuar</a>
+	  <a class="pasos-continuar bt bt__night" href="javascript:void(0);">
+        Continuar
+      </a>
 	</div>
   </div>
 </script>
@@ -47,9 +49,9 @@
     setup() {
       const router = useRouter();
       const pasosSt = pasosStore();
-      function showView(slug) {
-          router.push({ name: slug });
-      }
+
+      const showView = slug => router.push({ name: slug });
+
       return {
         pasosSt,
         showView,

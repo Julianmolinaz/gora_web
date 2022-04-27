@@ -1,9 +1,7 @@
 /***************************
  * PASOS / REFS / DOCUMENTOS
  ***************************/
-.pasos-container,
-.refs-container,
-.docs-container {
+.principal-container {
   padding: 4rem 11.4rem;
 }
 .pasos-list {
@@ -43,4 +41,7 @@
 .solicitud-icono img {
   width: 100%;
   max-width: 42rem;
+}
+.doc-header__titulo {
+  font-size: 2rem;
 }

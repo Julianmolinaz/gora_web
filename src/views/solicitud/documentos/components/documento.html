@@ -6,21 +6,32 @@
         alt="documento"
         class="doc-header__icono" 
     >
-      <span class="doc-header__titulo">Nombre documento</span>
+      <span class="doc-header__titulo">
+        [[ titulo ]]
+      </span>
     </div>
     <div class="doc-body">
       <img
-        src=""
+        :src="'./../imagenes/' + imagen"
         alt=""
-        class=""
+        class="doc-image"
       >
-      <p>Parte delantera de su cédula de ciudadanía</p>
-      <div>
+      <p class="doc-desc">[[ desc ]]</p>
+      <input ref="file" type="file" @change="fileUpload" hidden>
+      <div class="doc-acciones">
         <a
-          href=""
-          class="bt"
+          @click="clickUploadFile"
+          href="javascript:void(0);"
+          class="bt doc-bts"
         >
-          Subir desde archivo
+          <img
+            src="./../iconos/octicons/file-directory-open-fill.svg"
+            alt="icono archivo"
+          >Subir archivo
+        </a>
+        <a href="javascript:void(0);" class="bt doc-bts">
+          <img src="./../iconos/octicons/camera.svg" alt="">
+          Tomar foto
         </a>
       </div>
     </div>
@@ -31,7 +42,29 @@
   const objDocumento = {
     template: "#doc-template",
     delimiters: ['[[', ']]'],
-    components: {},
-    setup() {}
+    props: [ "titulo", "imagen", "desc" ],
+    name: "DocumentoComponent",
+    data: () => ({
+      file: "",
+    }),
+    methods: {
+      clickUploadFile() {
+        this.$refs.file.click();
+      },
+      fileUpload() {
+        this.file = this.$refs.file.files[0];
+        let formData = new FormData();
+        formData.append("file", this.file);
+/*
+        axios.post("/", formData, {
+          headers: { "Content-Type": "multipart/form-data" }
+        }).then((res) => {
+          console.log({res});
+        }).catch((error) => {
+          console.error(error);
+        });
+*/
+      }
+    }
   }
 </script>

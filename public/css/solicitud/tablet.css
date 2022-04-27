@@ -1,9 +1,11 @@
 /*************
  * PASOS / REFS
  *************/
-.pasos-container,
-.refs-container {
+.principal-container {
   padding: 6rem 11.4rem;
+}
+.principal-header__titulo {
+  font-size: 3.6rem;
 }
 .solicitud-board {
   padding: 3rem 11.4rem;
@@ -23,6 +25,17 @@
 /*******************
  * REFERENCIAS (REF) 
  *******************/
-.refs-list {
+.refs-list,
+.docs-list {
   grid-template-columns: 1fr 1fr;
 }
+/****************
+ * REF / DOC
+ ****************/
+.doc-header__titulo {
+  font-size: 1.8rem;  
+}
+.doc-bts {
+  font-size: 1.6rem;
+}
+

@@ -1,20 +1,9 @@
 <script type="text/x-template" id="template-terminos">
   <div class="solicitud-board">
     <div class="solicitud-main terminos-main">
-      <NodosComponent /> 
       <div class="solicitud-titulo">
         <span>Firmar pagaré</span>
         <div class="divider" style="--width-div:100px"></div>
-      </div>
-      <p class="terminos-txt">
-        Para aceptar términos y condiciones seleccione
-        la casilla a continuación
-      </p>
-      <div class="input-checkbox terminos-ok">
-        <input type="checkbox">
-        <label for="" class="terminos-ok__txt">
-          Aceptar términos y condiciones
-        </label>
       </div>
       <p class="terminos__pagare-txt">
         Hemos envíado un código de confirmación a su celular,
@@ -40,13 +29,10 @@
 </script>
 
 <script>
-  const objTerminos= {
+  const objTerminos = {
     template: "#template-terminos",
     name: "TerminosCondiciones",
     delimiters: ['[[', ']]'],
-    components: {
-      NodosComponent: objNodos,
-    },
     setup() {
       const clienteSt = clienteStore();
 

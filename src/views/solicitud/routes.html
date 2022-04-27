@@ -2,6 +2,7 @@
 {% include "./cliente/index.html" %}
 {% include "./referencias/index.html" %}
 {% include "./documentos/index.html" %}
+{% include "./terminos/index.html" %}
 
 <script>
   const routes = [
@@ -24,6 +25,11 @@
       path: "/documentos",
       name: "documentos",
       component: objDocumentos,
+    },
+    {
+      path: "/terminos",
+      name: "terminos",
+      component: objTerminos,
     }
   ];
 

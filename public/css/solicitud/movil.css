@@ -1,28 +1,20 @@
 /****************************
  * PASOS / REFS / DOCUMENTS
  ****************************/
-.pasos-container,
-.refs-container,
-.docs-container {
+.principal-container {
   padding: 2rem 1.8rem;
 }
-.pasos-header,
-.refs-header,
-.docs-header {
+.principal-header {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-.pasos-header__icono,
-.refs-header__icono,
-.docs-header__icono {
+.principal-header__icono {
   width: 4.4rem;
   height: 4.4rem;
   margin: 1rem;
 }
-.pasos-header__titulo,
-.refs-header__titulo,
-.docs-header__titulo {
+.principal-header__titulo {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -30,9 +22,7 @@
   font-family: bold;
   color: var(--dark);
 }
-.pasos-help,
-.refs-help,
-.docs-help {
+.principal-help {
   font-family: regular;
   font-size: 1.8rem;
   color: var(--dark);
@@ -99,6 +89,7 @@
   min-height: 100vh;
 }
 .solicitud-board {
+  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
   padding: 3rem 1.6rem;
   display: grid;
   grid-template-columns: 1fr;
@@ -177,6 +168,12 @@
 .terminos__input-form {
   height: 6rem;
   width: 4rem;
+  font-size: 3.6rem;
+  text-align: center;
+  caret-color: transparent;
+}
+.terminos__input-form {
+  outline: none;
 }
 .terminos__btn-aceptar {
   display: flex;
@@ -192,6 +189,9 @@
   grid-template-columns: 1fr;
   grid-gap: 1.6rem;
 }
+.docs-list {
+  margin: 2rem 1rem;
+}
 .ref-container,
 .doc-container {
   max-width: 44rem;
@@ -204,12 +204,37 @@
   gap: 0.8rem;
   margin: 1.2rem 0;
 }
-.ref-header__icono {
+.ref-header__icono,
+.doc-header__icono {
   width: 3rem;
   height: 3rem;
+  color: var(--medium);
 }
-.ref-header__titulo {
+.ref-header__titulo,
+.doc-header__titulo {
   font-family: bold;
-  font-size: 2.4rem;
-  color: var(--dark);
+  font-size: 1.8rem;
+  color: var(--medium);
+}
+/******************
+ *DOC
+ ******************/
+.doc-image {
+  width: 100%;
+  max-width: 32.4rem;
+  margin: 1.2rem 0;
+}
+.doc-desc {
+  font-family: Light;
+  font-size: 1.8rem;
+  margin-bottom: 1.8rem;
+  color: var(--medium);
+}
+.doc-bts {
+  font-size: 1.4rem;
+}
+.doc-acciones {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
 }

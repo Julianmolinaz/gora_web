@@ -16,6 +16,12 @@
   --sky: #0375FA;
   --natural: #34D22C;
   --danger: red;
+
+  /************
+   * TAMAÑOS
+   ************/
+  --nav-height: 84px;
+  --footer-height: 52.5px;
 }
 
 /*************
