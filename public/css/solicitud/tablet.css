@@ -9,6 +9,7 @@
 }
 .solicitud-board {
   padding: 3rem 11.4rem;
+  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
 }
 .terminos-main {
   width: 40rem;

@@ -1,0 +1,20 @@
+<script type="text/x-template" id="sim-template">
+  <div class="solicitud-board simulador-position">
+    <SimuladorComponent />
+    <div class="solicitud-icono">
+      <img src="./../iconos/maths.svg" alt="icono virtualidad">
+    </div>
+  </div>
+</script>
+
+{% include "./component.html" %}
+
+<script>
+  const objSim = {
+    template: "#sim-template",
+    delimiters: ['[[', ']]'],
+    components: {
+      SimuladorComponent: objSimulador,
+    }
+  }
+</script>

@@ -3,6 +3,7 @@
 {% include "./referencias/index.html" %}
 {% include "./documentos/index.html" %}
 {% include "./terminos/index.html" %}
+{% include "./simulador/index.html" %}
 
 <script>
   const routes = [
@@ -10,6 +11,11 @@
       path: "/",
       name: "pasos",
       component: objPasos,
+    },
+    { 
+      path: "/simulador",
+      name: "simulador",
+      component: objSim,
     },
     {
       path: "/cliente",

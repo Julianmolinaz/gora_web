@@ -86,10 +86,10 @@
  * CREAR SOLICITUD
  *******************/
 .solicitud-container {
-  min-height: 100vh;
+  min-height: 100%;
 }
 .solicitud-board {
-  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
+  min-height: calc(100vh - var(--footer-height) - var(--nav-height-movil));
   padding: 3rem 1.6rem;
   display: grid;
   grid-template-columns: 1fr;
@@ -237,4 +237,8 @@
   display: flex;
   gap: 0.8rem;
   flex-wrap: wrap;
+}
+.simulador-position {
+  display: flex;
+  justify-content: center;
 }

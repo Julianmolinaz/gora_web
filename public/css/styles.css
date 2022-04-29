@@ -20,7 +20,8 @@
   /************
    * TAMAÑOS
    ************/
-  --nav-height: 84px;
+  --nav-height: 108px;
+  --nav-height-movil: 84px;
   --footer-height: 52.5px;
 }
 

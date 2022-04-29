@@ -45,3 +45,6 @@
 .doc-header__titulo {
   font-size: 2rem;
 }
+.simulador-position {
+  justify-content: space-between;
+}
