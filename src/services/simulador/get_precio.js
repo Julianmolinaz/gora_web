@@ -75,10 +75,10 @@ class GetPrecio {
   setData(payload) {
     let error = "";
     
-    if (!payload.productoId) error += "El producto es requerido\n";
-    if (!payload.tipoVehiculoId) error += "El tipo de vehículo es requerido\n";
-    if (!payload.modelo) error += "El modelo del vehículo es requerido\n";
-    if (!payload.cilindraje) error += "El cilindraje del vehículo es requerido\n";
+    if (!payload.productoId) error += "El producto es requerido<br>";
+    if (!payload.tipoVehiculoId) error += "El tipo de vehículo es requerido<br>";
+    if (!payload.modelo) error += "El modelo del vehículo es requerido<br>";
+    if (!payload.cilindraje) error += "El cilindraje del vehículo es requerido<br>";
 
     if (error) throw error;
 

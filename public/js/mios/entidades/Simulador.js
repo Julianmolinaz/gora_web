@@ -7,7 +7,7 @@ class Simulador {
     this.periodo = payload.periodo || "";
     this.numCuotas = payload.numCuotas || "";
     this.precio = payload.precio || "";
-    this.valorCuota = payload.valorCuota || "";
+    this.valorCuota = payload.valorCuota || 0;
   }
 }
 

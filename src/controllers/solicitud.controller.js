@@ -1,7 +1,9 @@
 class SolicitudController {
   static create(req, res) {
-    console.log("create");
-    return res.render("solicitud/index.html");
+    const { simulador } = req.body;
+    return res.render("solicitud/index.html", {
+      simulador: JSON.parse(simulador),
+    });
   }
 }
 

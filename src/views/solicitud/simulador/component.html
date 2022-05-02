@@ -87,7 +87,7 @@
 	  <div class="calc-form__info-cuota">
 	    <div class="calc-form__valor-cuota">
 	      <p>Valor cuota:</p>
-		  <p>[[ st.valorCuota ]]</p>
+		  <p>[[ st.simulador.valorCuota ]]</p>
 	    </div>
 		<div class="calc-form__detalle-cuota"></div>
 	  </div>
@@ -118,7 +118,6 @@
     },
     data:() => ({
         insumos: {},
-        valorCuota: 0,
     }),
     computed: {
       getCuotas() {
@@ -129,46 +128,8 @@
         }
       }
     },
-    methods: {
-      initCuotas() {
-        this.st.numCuotas = Math.floor(this.insumos.maxCuotas / 2);
-      },
-      incrementar() {
-        if (this.st.numCuotas >= this.st.maxCuotas) {
-          return false;
-        } 
-        this.st.numCuotas++;
-      },
-      decrementar() {
-        if (this.st.numCuotas <= this.insumos.minCuotas) {
-          return false;
-        }
-        this.st.numCuotas--;
-      },
-      calcularCuota(e) {
-        e.preventDefault();
-        this.getValorCuota();
-      },
-      getValorCuota() {
-        axios.post("/api/simulador/get-valor-cuota", this.simulador)
-          .then(res => {
-            this.valorCuota = res.data.valorCuota;
-          }).catch(err => {
-            const error = err.response.data.error;
-            alert(error);
-          });
-      },
-      getInsumos() {
-        axios.get("/api/simulador/insumos")
-          .then(res => {
-            this.insumos = res.data.insumos;
-            this.initCuotas();
-          })
-      } 
-    },
-    created() {
-      this.getInsumos();
-    }
+    methods: {},
+    created() {}
   };
 </script>
 <style scoped>

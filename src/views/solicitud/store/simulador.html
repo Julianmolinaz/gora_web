@@ -1,9 +1,11 @@
 <script>
   const simuladorStore = defineStore("simulador", {
     state: () => ({
+      localStorage: window.localStorage,
       insumos: {},
-      simulador: new Simulador({}),
-      valorCuota: 0,
+      simulador: this.localStorage.simulador
+        ? JSON.parse(this.localStorage.simulador)
+        : new Simulador({}),
     }),
     getters: {
       getCuotas() {
@@ -33,21 +35,22 @@
         }
         this.simulador.numCuotas--;
       },
-      calcularCuota(e) {
+      async calcularCuota(e) {
         e.preventDefault();
+        await this.setSimulador();
         this.getValorCuota();
       },
-      getValorCuota() {
-        console.log("simulador", this.simulador);
-        axios.post("/api/simulador/get-valor-cuota", this.simulador)
-        .then((res) => {
-          console.log({res});
-          this.valorCuota = res.data.valorCuota;
-        })
-        .catch((err) => {
+      setSimulador() {
+        this.localStorage.setItem("simulador", JSON.stringify(this.simulador));
+      },
+      async getValorCuota() {
+        try {
+          const res = await axios.post("/api/simulador/get-valor-cuota", this.simulador)
+          this.simulador.valorCuota = res.data.valorCuota;
+        } catch (err) {
           const error = err.response.data.error;
-          alert(error);
-        });
+          alertify.alert("Ocurrió un error", error);
+        }
       },
       getInsumos() {
         axios.get("/api/simulador/insumos")

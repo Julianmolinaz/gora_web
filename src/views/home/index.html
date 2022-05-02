@@ -17,10 +17,58 @@
 {% block title %} Inicio {% endblock %}
 
 {% block content %}
-  {% include "./banner.html" %}  
 
-  {% include "./steps.html" %}
+  <div id="home">
+    {% include "./banner.html" %}  
 
-  {% include "../templates/footer.html" %}
+    {% include "./steps.html" %}
+
+    {% include "../templates/footer.html" %}
+  </div>
+  
+  <script src="./../../js/vue3.js"></script>
+  <script src="./../../js/demi.js"></script>
+  <script src="./../../js/pinia.js"></script>
+  <script src="./../../js/mios/entidades/Simulador.js"></script>
+
+  <script>
+    const { createApp, onMounted } = Vue;
+    const { createPinia, defineStore } = Pinia; 
+  </script>
+
+  {% include "./../solicitud/simulador/component.html" %}
+  {% include "./../solicitud/store/simulador.html" %}
+
+  <script>
+    const homeApp = createApp({
+      setup() {
+        const simuladorSt = simuladorStore();
+
+        const solicitarCredito = () => {
+          let form = document.createElement("FORM");
+          document.body.appendChild(form);
+          form.action = "/solicitudes/create";
+          form.method = "POST";
+          
+          let simuladorInput = document.createElement("INPUT");
+          simuladorInput.type = "text";
+          simuladorInput.name = "simulador";
+          simuladorInput.value = JSON.stringify(simuladorSt.simulador);
+
+          form.appendChild(simuladorInput);
+          form.submit();
+        }
+
+        return {
+          solicitarCredito,
+        }
+      }
+    });
+
+    homeApp.use(createPinia());
+    homeApp.component("simulador-component", objSimulador);
+    homeApp.mount("#home");
+  </script>
+
 {% endblock %}
 
