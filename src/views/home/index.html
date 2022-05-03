@@ -44,23 +44,8 @@
       setup() {
         const simuladorSt = simuladorStore();
 
-        const solicitarCredito = () => {
-          let form = document.createElement("FORM");
-          document.body.appendChild(form);
-          form.action = "/solicitudes/create";
-          form.method = "POST";
-          
-          let simuladorInput = document.createElement("INPUT");
-          simuladorInput.type = "text";
-          simuladorInput.name = "simulador";
-          simuladorInput.value = JSON.stringify(simuladorSt.simulador);
-
-          form.appendChild(simuladorInput);
-          form.submit();
-        }
-
         return {
-          solicitarCredito,
+          simuladorSt,
         }
       }
     });

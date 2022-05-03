@@ -27,7 +27,7 @@
         class="bt bt__night"
         href="javascript:void(0);"
         @click="onSubmit"
-      >Aceptar
+      >Continuar
       </a>
     </div>
   </div>
@@ -45,9 +45,13 @@
     },
     setup() {
       const emitter = inject('emitter');
+      const solicitudSt = solicitudStore();
 
       const onSubmit = () => {
         emitter.emit("onSubmitReferencias");      
+          if (solicitudSt.numReferencias == 2) {
+            alert(solicitudSt.numReferencias);
+          }
       }
 
       return {

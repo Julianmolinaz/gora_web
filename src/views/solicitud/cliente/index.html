@@ -1,9 +1,9 @@
 <script type="text/x-template" id="cliente-template">
   <div class="solicitud-container">
     <InformacionInicial v-show="clienteSt.nodos[0].activo" />
-    <InformacionPersonal v-show="clienteSt.nodos[1].activo"/>
+    <InformacionPersonal v-show="clienteSt.nodos[1].activo" />
     <InformacionUbicacion v-show="clienteSt.nodos[2].activo" />
-    <InformacionLaboral v-show="clienteSt.nodos[3].activo"/>
+    <InformacionLaboral v-show="clienteSt.nodos[3].activo" />
   </div>
 </script>
 
@@ -38,6 +38,7 @@
       }
 
       onMounted(() => {
+        clienteSt.nodos[0].activo = true;
         getInsumos();
       });
 

@@ -1,6 +1,13 @@
 <script type="text/x-template" id="sim-template">
   <div class="solicitud-board simulador-position">
-    <SimuladorComponent />
+    <div class="simulador-solicitud-main">
+      <SimuladorComponent />
+      <a
+        href="javascript:void(0);"
+        class="bt bt-night"
+        @click="continuar()"
+      >Continuar</a>
+    </div>
     <div class="solicitud-icono">
       <img src="./../iconos/maths.svg" alt="icono virtualidad">
     </div>
@@ -15,6 +22,20 @@
     delimiters: ['[[', ']]'],
     components: {
       SimuladorComponent: objSimulador,
+    },
+    methods: {
+      continuar() {
+        router.push({ path: "/cliente" });
+      }
     }
   }
 </script>
+
+<style>
+  .simulador-solicitud-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+</style>

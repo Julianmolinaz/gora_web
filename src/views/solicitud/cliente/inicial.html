@@ -204,10 +204,11 @@
     methods: {
       onSubmit() {
         this.v$.$validate();
-        if (this.v$.$error) {
+        if (this.v$.$error && false) {
+          //
         } else {
           this.clienteSt.ir(2);
-          this.clienteSt.completar(1);
+          this.clienteSt.completar(0);
         }
       }
     }

@@ -75,7 +75,9 @@
         }
 
         onMounted(() => {
-          clienteSt.nodos[0].activo = true;
+          if (solicitudSt.estado === 'crear') {
+            router.push({ name: "simulador" });
+          }
           getInsumosCliente();
         });
 

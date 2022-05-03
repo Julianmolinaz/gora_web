@@ -1,6 +1,8 @@
 <script>
 const solicitudStore = defineStore("solicitud", {
   state: () => ({
+    estado: 'crear',
+    numReferencias: 0,
     docs: [
       { 
         titulo: "Cédula de ciudadanía (Frente)",

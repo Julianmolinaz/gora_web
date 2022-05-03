@@ -2,6 +2,6 @@ const express = require("express");
 const router = express.Router();
 const SolicitudController = require("../../controllers/solicitud.controller");
 
-router.post("/create", SolicitudController.create);
+router.get("/create", SolicitudController.create);
 
 module.exports = router;

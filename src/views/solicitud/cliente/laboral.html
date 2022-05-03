@@ -273,10 +273,11 @@
     methods: {
       onSubmit() {
         this.v$.$validate();
-        if (this.v$.$error) {
+        if (this.v$.$error && false) {
           alertify.error("Corrija los errores en rojo", 2);
         } else {
-          this.clienteSt.completar(4);
+          this.clienteSt.completar(3);
+          router.push({ name: "referencias" });
         }
       }
     }
