@@ -44,6 +44,12 @@
       setup() {
         const simuladorSt = simuladorStore();
 
+        onMounted(() => {
+          // Se hace borra el storage al iniciar
+          const storage = window.localStorage;
+          storage.removeItem("slug");
+        });
+
         return {
           simuladorSt,
         }

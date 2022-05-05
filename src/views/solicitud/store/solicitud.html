@@ -3,6 +3,7 @@ const solicitudStore = defineStore("solicitud", {
   state: () => ({
     estado: 'crear',
     numReferencias: 0,
+    storage: window.localStorage,
     docs: [
       { 
         titulo: "Cédula de ciudadanía (Frente)",
@@ -43,6 +44,21 @@ const solicitudStore = defineStore("solicitud", {
     ],
   }),
   getters: {},
-  actions: {}
+  actions: {
+    navigationTo(slug) {
+      console.log("slug", this.storage.getItem("slug"));
+      if (this.storage.getItem("slug") === null) {
+        this.storage.setItem("slug", slug); 
+        router.push({ name: slug });
+      } else {
+        if (slug === 'simulador') {
+          router.push({ name: this.storage.getItem("slug") });
+        } else {
+          this.storage.setItem("slug", slug); 
+          router.push({ name: slug });
+        }
+      }
+    }
+  }
 });
 </script>

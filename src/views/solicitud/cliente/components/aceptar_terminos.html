@@ -1,0 +1,96 @@
+<template id="aceptar-terminos-template">
+  <section :class="['modal', showModal ? 'modal--show': '']">
+    <div class="modal__container">
+      <div class="modal__header">
+        <div class="modal--close" @click="close">&otimes;</div>
+        <img src="/imagenes/logo.png" alt="logo" class="modal__logo">
+        <span class="modal__titulo">Aceptar términos y condiciones</span>
+      </div>
+      <div class="modal__content">
+        <p class="acep-term-txt">
+          Hemos envíado un código de confirmación a su celular,
+          por favor digítelo para aceptar términos y condiciones.
+        </p>
+        <a href="" @click="leerTerminos">Leer términos y condiciones</a>
+        <div class="terminos-form">
+          <input type="number" class="terminos__input-form">
+          <input type="number" class="terminos__input-form">
+          <input type="number" class="terminos__input-form">
+          <input type="number" class="terminos__input-form">
+        </div>
+      </div>
+      <div class="modal__footer">
+        <a href="" class="bt bt__default">Reenviar código</a>
+        <a href="" class="bt bt__sun">Aceptar</a>
+      </div>
+    </div>
+    <terminos-condiciones></terminos-condiciones>
+  </section>
+</template>
+
+{% include "./terminos.html" %}
+
+<script>
+   const objAceptarTerminos = {
+    template: "#aceptar-terminos-template",
+    name: "AceptarTerminos",
+    components: {
+      TerminosCondiciones: objTerminosCondiciones,
+    },
+    delimiters: ['[[', ']]'],
+    setup() {
+      const showModal = ref(false);
+      const show = () => showModal.value = true;
+      const close = () => showModal.value = false;
+
+      const leerTerminos = (e) => {
+        e.preventDefault();
+        console.log("leerTerminos");
+        emitter.emit("showModalTerminosCondiciones");
+      }
+
+      onMounted(() => {
+        emitter.on("showModalAceptarTerminos", () => {
+          show();
+        });
+      });
+
+      return {
+        showModal,
+        close,
+        leerTerminos,
+      };
+    }
+  };
+</script>
+<style scoped>
+  .modal__container {
+    max-width: 50rem;
+    color: var(--medium);
+  }
+  .modal__content {
+    font-family: regular;
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  .acep-term-txt {
+    text-align: center;
+  }
+  .modal__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  .terminos-form {
+    display: flex;
+    justify-content: center;
+  }
+  .bt {
+    width: fit-content;
+  }
+</style>

@@ -4,7 +4,7 @@
       <SimuladorComponent />
       <a
         href="javascript:void(0);"
-        class="bt bt-night"
+        class="bt bt__night"
         @click="continuar()"
       >Continuar</a>
     </div>
@@ -23,11 +23,18 @@
     components: {
       SimuladorComponent: objSimulador,
     },
-    methods: {
-      continuar() {
-        router.push({ path: "/cliente" });
+    setup() {
+      const solicitudSt = solicitudStore(); 
+
+      const continuar = () => {
+        solicitudSt.navigationTo("cliente");
       }
-    }
+
+      return {
+        solicitudSt,
+        continuar,
+      }
+    },
   }
 </script>
 

@@ -47,6 +47,7 @@
         try {
           const res = await axios.post("/api/simulador/get-valor-cuota", this.simulador)
           this.simulador.valorCuota = res.data.valorCuota;
+          this.setSimulador();
         } catch (err) {
           const error = err.response.data.error;
           alertify.alert("Ocurrió un error", error);

@@ -122,7 +122,9 @@
 html {
   font-size: 62.5%;
 }
-
+::-webkit-scrollbar {
+    display: none;
+}
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
@@ -321,4 +323,61 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .helper-txt.error {
   color: var(--danger);
+}
+/******************
+ * MODAL
+ ******************/
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #111111bd;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  transition: opacity .3s;
+}
+.modal__container {
+  margin: auto;
+  width: 90%;
+  max-height: 90%;
+  max-width: 60rem;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 2.4rem 1.8rem;
+  position: relative;
+  overflow-y: scroll;
+}
+.modal--close {
+  font-size: 3rem;
+  position: absolute;
+  right: 0.8rem;
+  color: var(--dark);
+  cursor: pointer;
+}
+.modal--show {
+  opacity: 1;
+  pointer-events: unset;
+  transition: opacity .3s;
+}
+.modal__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  gap: 0.4rem;
+}
+.modal__logo {
+  width: 8.5rem;
+}
+.modal__titulo {
+  font-size: 2.4rem;
+  font-family: bold;
+}
+.modal__content {
+  display: flex;
+  gap: 0.4rem;
+  padding: 1.2rem 0;
 }

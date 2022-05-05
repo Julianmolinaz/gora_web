@@ -16,11 +16,76 @@
       recuerde que pueden ser verificadas.
     </div>
     <div class="refs-list">
-      <ReferenciaComponent
-        v-for="i in [0, 1]"
-        :key="i"
-        :index="i"
-      /> 
+      <div class="ref">
+        <div class="ref-header">
+          <img src="../iconos/perfil.png" alt="icono persona" class="ref-header__icono">
+          <span class="ref-header__titulo">Referencia 1</span>
+        </div>
+        <div class="col">
+          <div class="group">
+            <div class="input-group">
+              <select name="parentesco" v-model="clienteSt.refs[0].parentesco">
+                <option selected disabled></option>
+                <option :value="parentesco" v-for="(parentesco, i) in clienteSt.insumos.listParentesco">
+                  [[ parentesco ]]
+                </option>
+              </select>
+              <label for="parentesto">Parentesco</label>
+            </div>
+         </div>
+        </div>
+        <div class="col">
+          <div class="group">
+            <div class="input-group">
+              <input type="text" v-model="clienteSt.refs[0].nombre" />
+              <label for="nombre">Nombres y apellidos</label>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="group">
+            <div class="input-group">
+              <input type="text" name="telefonos" v-model="clienteSt.refs[0].celular" />
+              <label for="telefonos">Teléfonos</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ref">
+        <div class="ref-header">
+          <img src="../iconos/perfil.png" alt="icono persona" class="ref-header__icono">
+          <span class="ref-header__titulo">Referencia 2</span>
+        </div>
+        <div class="col">
+          <div class="group">
+            <div class="input-group">
+              <select name="parentesco" v-model="clienteSt.refs[1].parentesco">
+                <option selected disabled></option>
+                <option :value="parentesco" v-for="(parentesco, i) in clienteSt.insumos.listParentesco">
+                  [[ parentesco ]]
+                </option>
+              </select>
+              <label for="parentesto">Parentesco</label>
+            </div>
+         </div>
+        </div>
+        <div class="col">
+          <div class="group">
+            <div class="input-group">
+              <input type="text" v-model="clienteSt.refs[1].nombre" />
+              <label for="nombre">Nombres y apellidos</label>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="group">
+            <div class="input-group">
+              <input type="text" name="telefonos" v-model="clienteSt.refs[1].celular" />
+              <label for="telefonos">Teléfonos</label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="center">
       <a
@@ -33,29 +98,23 @@
   </div>
 </script>
 
-{% include "./components/referencia.html" %}
-
 <script>
   const objReferencias = {
     template: "#refs-template",
     name: "ReferenciasComponent",
     delimiters: ['[[', ']]'],
-    components: {
-       ReferenciaComponent: objReferencia,    
-    },
+    components: {},
     setup() {
-      const emitter = inject('emitter');
+      const clienteSt = clienteStore();
       const solicitudSt = solicitudStore();
 
       const onSubmit = () => {
-        emitter.emit("onSubmitReferencias");      
-          if (solicitudSt.numReferencias == 2) {
-            alert(solicitudSt.numReferencias);
-          }
+        solicitudSt.navigationTo("documentos");
       }
 
       return {
         onSubmit,
+        clienteSt,
       }
     }
   }

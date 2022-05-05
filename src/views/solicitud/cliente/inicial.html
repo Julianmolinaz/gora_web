@@ -133,7 +133,11 @@
             </div>
           </div>
           <div class="solicitud-bts">
-            <a href="" class="bt">Volver</a>
+            <a
+              href="javascript:void(0);"
+              class="bt"
+              @click="solicitudSt.navigationTo('simulador')"
+            >Volver</a>
             <button class="bt bt__night">Continuar</button>
           </div>
         </form>
@@ -142,8 +146,11 @@
     <div class="solicitud-icono">
       <img src="./../iconos/virtual.svg" alt="icono virtualidad">
     </div>
+    <AceptarTerminos />
   </div>
 </script>
+
+{% include "./components/aceptar_terminos.html" %}
 
 <script>
   const objInicial = {
@@ -152,9 +159,15 @@
     delimiters: ['[[', ']]'],
     components: {
       NodosComponent: objNodos,
+      AceptarTerminos: objAceptarTerminos,
     },
     setup() {
       const clienteSt = clienteStore();
+      const solicitudSt = solicitudStore();
+
+      const aceptarTerminos = () => {
+        emitter.emit("showModalAceptarTerminos");
+      };
 
       const rules = computed(() => {
         return {
@@ -197,8 +210,10 @@
       return {
         //......
         clienteSt,
+        solicitudSt,
         //......
         v$,
+        aceptarTerminos,
       }
     },
     methods: {
@@ -207,6 +222,8 @@
         if (this.v$.$error && false) {
           //
         } else {
+          this.aceptarTerminos();
+          return;
           this.clienteSt.ir(2);
           this.clienteSt.completar(0);
         }

@@ -44,6 +44,14 @@
   {% include "./routes.html" %}
 
   <script>
+    window.addEventListener("beforeunload", (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+    });
+//    window.onbeforeunload = function(e) {
+//        console.log({e});
+//        e.returnValue = "¿Esta seguro de recargar el sitio, recuerde que sus cambios no serán guardados?";
+//    }
     const { ref, reactive, createApp, computed, onMounted, inject } = Vue;
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
@@ -76,7 +84,7 @@
 
         onMounted(() => {
           if (solicitudSt.estado === 'crear') {
-            router.push({ name: "simulador" });
+            solicitudSt.navigationTo("simulador");
           }
           getInsumosCliente();
         });

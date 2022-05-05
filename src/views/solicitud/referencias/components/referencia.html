@@ -6,9 +6,7 @@
         alt="icono persona"
         class="ref-header__icono"
       >
-      <span class="ref-header__titulo">
-        Referencia [[props.index + 1]]
-      </span>
+      <span class="ref-header__titulo">Referencia [[props.index + 1]]</span>
     </div>
     <div class="col">
       <div class="group">
@@ -29,6 +27,7 @@
         <span class="helper-txt error" v-if="v$.parentesco.$error">
           [[ v$.parentesco.$errors[0].$message ]]
         </span>
+
      </div>
     </div>
     <div class="col">
@@ -71,7 +70,6 @@
     props: ['index'], 
     setup(props) {
       const clienteSt = clienteStore();
-      const solicitudSt = solicitudStore();
       const emitter = inject('emitter');
       
       const rules = computed(() => {
@@ -102,10 +100,9 @@
       onSubmit() {
         this.v$.$validate();
         if (this.v$.$error) {
-          console.log(false);
+            console.log(false);
         } else {
-
-          console.log(true);
+            console.log(true);
         }
       }
     },

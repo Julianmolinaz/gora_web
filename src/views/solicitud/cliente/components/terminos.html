@@ -1,0 +1,63 @@
+<template id="terminos-template">
+  <section :class="['modal', showModal ? 'modal--show': '']">
+    <div class="modal__container">
+      <div class="modal__header">
+        <div class="modal--close" @click="close">&otimes;</div>
+        <img src="/imagenes/logo.png" alt="logo" class="modal__logo">
+        <span class="modal__titulo">Términos y condiciones</span>
+      </div>
+      <div class="modal__content">
+        <p class="txt-terminos-condiciones">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae magna neque. In dapibus feugiat tempor. Aenean lectus sapien, ornare nec nunc a, dictum fermentum eros. Maecenas a tellus ut nulla vehicula malesuada. Nulla facilisi. Cras ullamcorper tortor vitae tincidunt elementum. Aenean congue convallis turpis convallis interdum. Curabitur nisi augue, dictum non efficitur quis, imperdiet sit amet nibh. Ut interdum nunc sit amet accumsan iaculis. Ut risus nisl, molestie eu euismod at, tincidunt quis lorem. Sed convallis id ante quis lobortis.
+
+          Vestibulum faucibus sodales mattis. Vivamus lacinia neque faucibus tempus viverra. Fusce et tempor elit. Etiam tristique blandit felis, ac varius odio posuere at. Aenean tincidunt mauris tellus, sodales lobortis diam accumsan nec. Quisque posuere erat tellus, vestibulum imperdiet dui pharetra nec. Aliquam dapibus mi vel est feugiat blandit. Cras in facilisis metus, eu molestie erat. Vivamus vitae turpis fermentum, semper arcu in, pharetra dui. Aenean luctus venenatis cursus. Vestibulum euismod mi ipsum, nec efficitur enim semper id. Pellentesque nibh velit, tristique eget turpis vitae, porttitor faucibus ligula.
+
+          Mauris laoreet lectus justo, vitae gravida risus rutrum laoreet. Nam leo libero, mollis at mattis eget, vulputate ornare sapien. Donec cursus, justo quis lacinia placerat, leo orci mollis urna, ac aliquet ligula arcu ut turpis. Nunc nunc magna, aliquet sit amet neque a, gravida suscipit ipsum. Morbi a lorem risus. Praesent maximus ultricies velit, in dictum metus consequat et. Sed at nibh ac enim dapibus semper. Ut metus enim, rhoncus ac dolor ut, tristique molestie risus. Praesent massa lectus, viverra sed fringilla id, sodales non nibh. Quisque congue sed enim et finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed eleifend molestie felis eu luctus. Aliquam erat volutpat. Nunc feugiat arcu aliquet metus pulvinar hendrerit eu eget enim. Vivamus eget leo egestas, tempus dui a, imperdiet magna.
+
+          Pellentesque nec varius enim. Suspendisse potenti. In iaculis ut justo a varius. Mauris vulputate elementum dui sed convallis. Donec bibendum pretium quam, molestie tempor enim venenatis id. Aenean enim ex, pulvinar in accumsan quis, dignissim sed nisl. Nulla feugiat, augue in accumsan mollis, enim turpis sollicitudin nisi, et viverra erat odio ut mi. Cras ut orci urna. Nulla volutpat erat id lorem tempus imperdiet. Aenean id laoreet dolor.
+
+          Etiam sed varius orci. Nam suscipit arcu neque, bibendum aliquam magna viverra vitae. Aliquam metus felis, gravida ut porttitor a, fermentum sed ligula. Etiam ac est accumsan, rhoncus metus ac, cursus est. Proin accumsan justo a augue lobortis semper. Curabitur eu ipsum vestibulum, convallis purus at, rutrum quam. Donec vitae lacus velit. Curabitur feugiat mi quis porta fringilla. Phasellus rhoncus eros augue, id tempor neque euismod sit amet.
+        </p>
+      </div>
+      <div class="modal__footer">
+        <a href="" class="bt bt__night" @click="close">Salir</a>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const objTerminosCondiciones = {
+    template: "#terminos-template",
+    name: "TerminosCondiciones",
+    delimiters: ['[[', ']]'],
+    setup() {
+      const showModal = ref(false);
+      const show = () => showModal.value = true;
+      const close = (e) => {
+        e.preventDefault();
+        showModal.value = false;
+      }
+      onMounted(() => {
+        emitter.on("showModalTerminosCondiciones", () => {
+          show();
+        });
+      });
+
+      return {
+        showModal,
+        close,
+      }
+    }
+  }
+</script>
+
+<style>
+  #terminos-template {
+    z-index: 500;
+  }
+  .txt-terminos-condiciones {
+    line-height: 2rem;
+    text-align: justify;
+  }
+</style>

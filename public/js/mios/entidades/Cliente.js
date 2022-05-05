@@ -19,8 +19,8 @@ class Cliente {
     this.genero = payload.genero || "";
     this.estado_civil = payload.estodo_civil || "";
     this.nivel_estudios = payload.nivel_estudios || "";
-    this.antiguedad_movil = payload.antiguedad_movil || "";
-    this.reportado = payload.reportado || false;
+    //this.antiguedad_movil = payload.antiguedad_movil || "";
+    //this.reportado = payload.reportado || false;
 
     // Información de ubicación
     this.estrato = payload.estrato || "";

@@ -136,7 +136,7 @@
                     type="tel"
                     v-model="clienteSt.el.tel_empresa"
                   >
-                  <label for="">
+                  <label for="tel_empresa">
                     Teléfono de la empresa
                     [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? "*" : "" ]]
                   </label>
@@ -209,6 +209,7 @@
     },
     setup() {
       const clienteSt = clienteStore();
+      const solicitudSt = solicitudStore();
 
       const listReglas = {
         ocupacion: {
@@ -266,6 +267,7 @@
       return {
         //....
         clienteSt,
+        solicitudSt,
         //....
         v$,
       }
@@ -277,7 +279,7 @@
           alertify.error("Corrija los errores en rojo", 2);
         } else {
           this.clienteSt.completar(3);
-          router.push({ name: "referencias" });
+          this.solicitudSt.navigationTo("referencias");
         }
       }
     }
