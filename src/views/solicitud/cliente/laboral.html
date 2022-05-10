@@ -21,7 +21,7 @@
                     v-for="oficio in clienteSt.insumos.listOficios"
                   >[[ oficio.nombre ]]</option>
                 </select>
-                <label for="">Ocupación u oficio *</label>
+                <label for="oficio">Ocupación u oficio *</label>
               </div>
               <span class="helper-txt error" v-if="v$.ocupacion.$error">
                 [[ v$.ocupacion.$errors[0].$message ]]
@@ -41,7 +41,7 @@
                       v-for="actividad in clienteSt.insumos.listTipoActividad"
                   >[[ actividad ]]</option>
                 </select>
-                <label for="">Actividad económica *</label>
+                <label for="tipo_actividad">Actividad económica *</label>
               </div>
               <span class="helper-txt error" v-if="v$.tipo_actividad.$error">
                 [[ v$.tipo_actividad.$errors[0].$message ]]
@@ -66,9 +66,9 @@
                     type="text"
                     v-model="clienteSt.el.empresa"
                   >
-                  <label for="">
+                  <label for="empresa">
                     Nombre de la empresa 
-                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? "*" : "" ]]
+                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? " *" : "" ]]
                   </label>
                 </div>
                 <span class="helper-txt error" v-if="v$.empresa.$error">
@@ -88,9 +88,9 @@
                     type="text"
                     v-model="clienteSt.el.doc_empresa"
                   >
-                  <label for="">
+                  <label for="doc_empresa">
                     Nit/Cedula
-                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? "*" : "" ]]
+                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? " *" : "" ]]
                   </label>
                 </div>
                 <span class="helper-txt error" v-if="v$.doc_empresa.$error">
@@ -112,9 +112,9 @@
                     type="text"
                     v-model="clienteSt.el.dir_empresa"
                   >
-                  <label for="">
+                  <label for="dir_empresa">
                     Dirección de la empresa
-                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? "*" : "" ]]
+                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? " *" : "" ]]
                   </label>
                 </div>
                 <span class="helper-txt error" v-if="v$.dir_empresa.$error">
@@ -138,7 +138,7 @@
                   >
                   <label for="tel_empresa">
                     Teléfono de la empresa
-                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? "*" : "" ]]
+                    [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? " *" : "" ]]
                   </label>
                 </div>
                 <span class="helper-txt error" v-if="v$.tel_empresa.$error">
@@ -160,7 +160,7 @@
                     type="date"
                     v-model="clienteSt.el.fecha_vinculacion"
                   >
-                  <label for="">Fecha de vinculación *</label>
+                  <label for="fecha_vinculacion">Fecha de vinculación *</label>
                 </div>
                 <span class="helper-txt error" v-if="v$.fecha_vinculacion.$error">
                   [[ v$.fecha_vinculacion.$errors[0].$message ]]
@@ -175,9 +175,10 @@
                 <!-- DESCRIPCION_ACTIVIDAD -->
                 <div class="input-group input-group__textarea">
                   <textarea
+                    name="descripcion_actividad"
                     v-model="clienteSt.el.descripcion_actividad"
                   ></textarea>
-                  <label for="">Descripción de la actividad *</label>
+                  <label for="descripcion_actividad">Descripción de la actividad *</label>
                 </div>
                 <span class="helper-txt error" v-if="v$.descripcion_actividad.$error">
                   [[ v$.descripcion_actividad.$errors[0].$message ]]
@@ -196,7 +197,7 @@
       <img src="./../iconos/teamwork.svg" alt="icono personas">
     </div>
   </div>
-</script>
+</script >
 
 <script>
 

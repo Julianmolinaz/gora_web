@@ -21,7 +21,7 @@
                     v-for="estrato in clienteSt.insumos.listEstrato"
                   >[[ estrato ]]</option>
                 </select>
-                <label for="">Estrato *</label>
+                <label for="estrato">Estrato *</label>
               </div>
               <span class="helper-txt error" v-if="v$.estrato.$error">
                 [[ v$.estrato.$errors[0].$message ]]
@@ -35,7 +35,7 @@
                   type="text"
                   v-model="clienteSt.el.fijo"
                 >
-                <label for="">Teléfono fijo</label>
+                <label for="fijo">Teléfono fijo</label>
               </div>
               <span class="helper-txt error" v-if="v$.fijo.$error">
                 [[ v$.fijo.$errors[0].$message ]]
@@ -56,7 +56,7 @@
                     v-for="departamento in clienteSt.insumos.listDepartamentos"
                   >[[ departamento.nombre ]]</option>
                 </select>
-                <label for="">Departamento residencia *</label>
+                <label for="departamento_id">Departamento residencia *</label>
               </div>
             </div>
             <div class="group">
@@ -72,7 +72,7 @@
                       v-for="ciudad in ciudades"
                   >[[ ciudad.nombre ]]</option>
                 </select>
-                <label for="">Ciudad residencia *</label>
+                <label for="ciudad_id">Ciudad residencia *</label>
               </div>
               <span class="helper-txt error" v-if="v$.ciudad_id.$error">
                 [[ v$.ciudad_id.$errors[0].$message ]]
@@ -88,7 +88,7 @@
                   type="text"
                   v-model="clienteSt.el.barrio"
                 >
-                <label for="">Barrio/Vereda</label>
+                <label for="barrio">Barrio/Vereda</label>
               </div>
               <span class="helper-txt error" v-if="v$.barrio.$error">
                 [[ v$.barrio.$errors[0].$message ]]
@@ -104,7 +104,7 @@
                   type="text"
                   v-model="clienteSt.el.direccion"
                  >
-                <label for="">Dirección de residencia</label>
+                <label for="direccion">Dirección de residencia *</label>
               </div>
               <span class="helper-txt error" v-if="v$.direccion.$error">
                 [[ v$.direccion.$errors[0].$message ]]
@@ -124,7 +124,7 @@
                     v-for="tipo in clienteSt.insumos.listTipoVivienda"
                   >[[ tipo ]]</option>
                 </select>
-                <label for="">Tipo de vivienda *</label>
+                <label for="tipo_vivienda">Tipo de vivienda *</label>
               </div>
               <span class="helper-txt error" v-if="v$.tipo_vivienda.$error">
                 [[ v$.tipo_vivienda.$errors[0].$message ]]
@@ -138,7 +138,7 @@
                   type="number"
                   v-model="clienteSt.el.meses_residencia"
                  >
-                <label for="">Meses en residencia</label>
+                <label for="meses_residencia">Meses en residencia *</label>
               </div>
               <span class="helper-txt error" v-if="v$.meses_residencia.$error">
                 [[ v$.meses_residencia.$errors[0].$message ]]

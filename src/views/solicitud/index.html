@@ -35,6 +35,7 @@
   <script src="./../../js/mios/entidades/Cliente.js"></script>
   <script src="./../../js/mios/entidades/Referencia.js"></script>
   <script src="./../../js/mios/entidades/Simulador.js"></script>
+  <script src="./../../js/mios/reglas/filters.js"></script>
   <!-- Vuelidate -->
   <script src="./../../libs/vuelidate/demi.js"></script>
   <script src="./../../libs/vuelidate/core.js"></script>
@@ -52,7 +53,7 @@
 //        console.log({e});
 //        e.returnValue = "¿Esta seguro de recargar el sitio, recuerde que sus cambios no serán guardados?";
 //    }
-    const { ref, reactive, createApp, computed, onMounted, inject } = Vue;
+    const { ref, reactive, createApp, computed, onMounted, nextTick, inject } = Vue;
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
     const { useVuelidate } = Vuelidate;
@@ -98,9 +99,14 @@
   </script>
 
   <script>
+    /* Global properties */
+    appSolicitud.config.globalProperties.$filters = misFilters; 
+    /* Providers */
+    appSolicitud.provide('emitter', emitter);
+    /* Use */
     appSolicitud.use(pinia);
     appSolicitud.use(router);
-    appSolicitud.provide('emitter', emitter);
+
     appSolicitud.mount("#app-solicitud");
   </script>
 

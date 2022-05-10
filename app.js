@@ -1,16 +1,18 @@
 const express = require("express");
 const moment = require("moment");
 const nunjucks = require("nunjucks");
+const sequelize = require("./src/database/conexiones/local.conexion"); 
 const cors = require("cors");
-const { webRouter, apiRouter } = require("./src/routes");
+require("dotenv").config();
 
+/****************
+ * SERVER
+ ****************/
 const app = express();
-const PORT = 3001;
 
 /***************************
  * TEMPLATE ENGINE NUNJUCKS
  ***************************/
-
 app.engine("html", nunjucks.render);
 app.set("view engine", "html");
 
@@ -23,12 +25,13 @@ nunjucks.configure("./src/views", {
 /****************
  * STATIC FILES
  ****************/
-
 app.use(express.static(__dirname + "/public"));
 
 /**************
  * MIDDLEWARES
  **************/
+const { webRouter, apiRouter } = require("./src/routes");
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());

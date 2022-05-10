@@ -8,6 +8,5 @@ describe("Enviar mensaje", () => {
       contenido: "Hola Gora",
     });
     const result = await mensaje.execute();
-    console.log({result});
   });
 });

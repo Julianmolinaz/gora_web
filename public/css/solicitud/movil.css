@@ -170,7 +170,7 @@
   width: 4rem;
   font-size: 3.6rem;
   text-align: center;
-  caret-color: transparent;
+  /*caret-color: transparent;*/
 }
 .terminos__input-form {
   outline: none;

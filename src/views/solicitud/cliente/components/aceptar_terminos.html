@@ -13,10 +13,32 @@
         </p>
         <a href="" @click="leerTerminos">Leer términos y condiciones</a>
         <div class="terminos-form">
-          <input type="number" class="terminos__input-form">
-          <input type="number" class="terminos__input-form">
-          <input type="number" class="terminos__input-form">
-          <input type="number" class="terminos__input-form">
+          <input
+            type="number"
+            class="terminos__input-form"
+            id="digito1"
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="terminos__input-form"
+            pattern="^[1-9]|[0-9]\d$"
+            ref="two"
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="terminos__input-form"
+            pattern="^[1-9]|[0-9]\d$"
+            ref="three"
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="terminos__input-form"
+            pattern="^[1-9]|[0-9]\d$"
+            ref="four"
+          />
         </div>
       </div>
       <div class="modal__footer">
@@ -40,22 +62,27 @@
     delimiters: ['[[', ']]'],
     setup() {
       const showModal = ref(false);
+      const code = ref("");
+      const digito1 = ref("");
       const show = () => showModal.value = true;
       const close = () => showModal.value = false;
 
       const leerTerminos = (e) => {
         e.preventDefault();
-        console.log("leerTerminos");
         emitter.emit("showModalTerminosCondiciones");
       }
 
       onMounted(() => {
+        nextTick(() => {
+          document.querySelector("#digito1").focus();
+        });
         emitter.on("showModalAceptarTerminos", () => {
           show();
         });
       });
 
       return {
+        digito1,
         showModal,
         close,
         leerTerminos,

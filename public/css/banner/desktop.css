@@ -6,12 +6,19 @@
   display: none;
 }
 .banner-simulador__title {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   color: var(--light);
   padding: 2.4rem;
   height: 100%;
+}
+.banner-simulador__title h1 {
   font-family: Bold;
   font-size: 4rem;
+}
+.banner-simulador__title a {
+  width: fit-content;
 }
 .banner-simulador {
   padding: 2.2rem 0;

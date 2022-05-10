@@ -17,6 +17,8 @@ const apiRouter = (app) => {
   app.use("/api/clientes", require("./api/clientes"));
   app.use("/api/solicitudes", require("./api/solicitudes"));
   app.use("/api/ciudades", require("./api/ciudades"));
+  app.use("/api/usuarios", require("./api/usuarios"));
+  app.use("/api/terminos", require("./api/terminos"));
 }
 
 module.exports = {

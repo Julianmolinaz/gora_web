@@ -210,11 +210,14 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 2.4rem;
   background: var(--light);
   color: var(--dark);
-  border: 1px solid var(--min);
+  border: 0.5px solid var(--min);
   border-radius: .8rem;
   text-decoration: none;
   cursor: pointer;
   box-shadow: 0px .4rem .4rem rgba(0, 0, 0, 0.12);
+}
+.bt__default {
+  border: none;
 }
 .bt:active {
   transform: scale(.9);

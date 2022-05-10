@@ -7,6 +7,14 @@ function getEnum(value) {
   return arr; 
 }
 
+function capitalizar(value) {
+  if (value.length > 0) {
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+  }
+  return value;
+}
+
 module.exports = {
   getEnum,
+  capitalizar,
 }

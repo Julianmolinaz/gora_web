@@ -31,6 +31,8 @@
                   name="lugar_exp"
                   type="text"
                   v-model="clienteSt.el.lugar_exp"
+                  :value="clienteSt.el.lugar_exp.toUpperCase()"
+                  @input="clienteSt.el.placa = $event.target.value.toUpperCase()"
                 >
                 <label for="">Ciudad de exped *</label>
               </div>
@@ -61,8 +63,10 @@
                   name="lugar_nacimiento"
                   type="text"
                   v-model="clienteSt.el.lugar_nacimiento"
+                  :value="clienteSt.el.lugar_nacimiento"
+                  @input="clienteSt.el.lugar_nacimiento = $event.target.value.toUpperCase()"
                 >
-                <label for="">Lugar de nacimiento</label>
+                <label for="">Lugar de nacimiento *</label>
               </div>
               <span class="helper-txt error" v-if="v$.lugar_nacimiento.$error">
                 [[ v$.lugar_nacimiento.$errors[0].$message ]]
@@ -82,7 +86,7 @@
                     v-for="genero in clienteSt.insumos.listGenero"
                   >[[ genero ]]</option>
                 </select>
-                <label for="">Genero*</label>
+                <label for="">Genero *</label>
               </div>
               <span class="helper-txt error" v-if="v$.genero.$error">
                 [[ v$.genero.$errors[0].$message ]]
@@ -100,7 +104,7 @@
                     v-for="estado in clienteSt.insumos.listEstadoCivil"
                   >[[ estado ]]</option>
                 </select>
-                <label for="">Estado civil*</label>
+                <label for="">Estado civil *</label>
               </div>
               <span class="helper-txt error" v-if="v$.estado_civil.$error">
                 [[ v$.estado_civil.$errors[0].$message ]]
