@@ -2,7 +2,6 @@ const ProductosRepository = require("../../database/repositories/productos.repos
 const TipoVehiculosRepository = require("../../database/repositories/tipo_vehiculos.repository");
 const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
 
-
 /**
  * Entrega los insumos necesarios para calcular
  * el valor de la cuota en el simulador.
@@ -13,7 +12,7 @@ class GetInsumos {
     let struct = this.struct();
     struct.productos = await this.getProductos();
     struct.tipoVehiculos = await this.getTipoVehiculos();
-    struct.periodos = await this.getPeriodos();
+    struct.periodos = this.getPeriodos();
     struct.minCuotas = this.getMinCuotas();
     struct.maxCuotas = this.getMaxCuotas();
     return struct;
@@ -27,8 +26,8 @@ class GetInsumos {
     return await TipoVehiculosRepository.list(); 
   }
 
-  async getPeriodos() {
-    return await SolicitudesRepository.getPeriodos();
+  getPeriodos() {
+    return SolicitudesRepository.getPeriodos();
   }
 
   getMinCuotas() {

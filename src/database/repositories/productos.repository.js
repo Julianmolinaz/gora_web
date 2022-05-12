@@ -1,25 +1,26 @@
-const conexion = require("../conexiones/local");
+const Producto = require("../models/producto.model");
 
 class ProductosRepository {
-  static list() {
-    return new Promise((resolve, reject) => {
-      const query = "SELECT * FROM productos";
-      conexion.query(query, (error, result) => {
-	if (error) reject(error);
-	resolve(result);
+  static async list() {
+    try {
+      const productos = await Producto.findAll({
+        where: { estado: "Activo" },
+        order: ["nombre"]
       });
-    });
+      return productos;
+    }
+    catch (error) {
+      throw error;
+    } 
   }
   
-  static findProducto(productoId) {
-    return new Promise((resolve, reject) => {
-      const query = `SELECT * FROM productos WHERE id=${productoId} LIMIT 1`;
-      conexion.query(query, (error, result) => {
-	if (error) reject(error);
-	if (result) resolve(result[0]);
-	resolve(result);
-      });
-    });
+  static async findProducto(productoId) {
+    try {
+      const producto = await Producto.findByPk(productoId);
+      return producto;
+    } catch (error) {
+      throw error;
+    } 
   }
 }
 

@@ -1,14 +1,16 @@
-const conexion = require("../conexiones/local");
+const TipoVehiculo = require("../models/tipo_vehiculo.model");
 
 class TipoVehiculosRepository {
-  static list() {
-    return new Promise((resolve, reject) => {
-      const query = `SELECT * FROM tipo_vehiculos`;
-      conexion.query(query, (error, result) => {
-	if (error) reject(error);
-	resolve(result);
+  static async list() {
+    try {
+      const tipoVehiculos = await TipoVehiculo.findAll({
+        where: { estado: "Activo" },
+        order: ["nombre"]
       });
-    });
+      return tipoVehiculos;
+    } catch (err) {
+      throw err;
+    } 
   }
 }
 

@@ -1,6 +1,7 @@
+
 class CrearSolicitud {
-  constructor(dataSolicitud, clienteId) {
-    this.dataSolicitud = dataSolicitud;
+  constructor(data, clienteId) {
+    this.data = data;
     this.clienteId = clienteId;
   }
 }

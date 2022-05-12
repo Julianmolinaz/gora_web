@@ -1,5 +1,4 @@
 const { Sequelize, DataTypes } = require("sequelize");
-
 const sequelize = require("../conexiones/local.conexion");
 
 const Codigo = sequelize.define("Codigo", {
@@ -8,8 +7,9 @@ const Codigo = sequelize.define("Codigo", {
     autoincrement: true,
     primaryKey: true
   },
-  user_id: {
+  usuario_id: {
     type: DataTypes.INTEGER,
+    field: "usuario_id",
   },
   codigo: {
     type: DataTypes.STRING,
@@ -19,10 +19,19 @@ const Codigo = sequelize.define("Codigo", {
   },
   concepto: {
     type: DataTypes.ENUM("TERMINOS", "PAGARE"),
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    field: "created_at",
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    field: "updated_at",
   }
 }, {
   sequelize,
-  modelName: "Codigo"
+  modelName: "Codigo",
+  underscored: false,
 });
 
 module.exports = Codigo;

@@ -1,24 +1,24 @@
 const ValidarUsuario = require("./validar_usuario");
 const UsuariosRepository = require("../../database/repositories/usuarios.repository");
-const conexion = require("../../database/conexiones/local");
+const ClientesRepository = require("../../database/repositories/clientes.repository");
+const CodigoRepository = require("../../database/repositories/codigos.repository");
+const local = require("../../database/conexiones/local.conexion");
+const codigoVerificacion = require("./generar_codigo");
 
 class RegistrarUsuario {
   constructor(data) {
     this.data = data;
-    this.codigo = "";
+    this.usuario = null;
   }
 
   async exec() {
+    const transaction = await local.transaction();
     try {
-      conexion.query("START TRANSACTION");
       await this.validarDatos();
-      await this.registrar();
-      await this.generarCodigo();
-      conexion.query("COMMIT");
-      conexion.release();
+      const usuario = await this.registrar(transaction);
+      await transaction.commit();
     } catch (error) {
-      conexion.query("ROLLBACK");
-      conexion.release();
+      await transaction.rollback();
       throw error;
     }
   }
@@ -31,8 +31,13 @@ class RegistrarUsuario {
     }
   }
 
-  async registrar() {
-    const usuario = UsuariosRepository.save(this.data); 
+  async registrar(transaction) {
+    const dataUsuario = {...this.data, codigo: this.getCodigo() }
+    this.usuario = await UsuariosRepository.save(dataUsuario, transaction); 
+  }
+
+  getCodigo() {
+    return codigoVerificacion();
   }
 }
 

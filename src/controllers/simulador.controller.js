@@ -26,6 +26,7 @@ class SimuladorController {
         valorCuota: cuota.valorCuota,
       });
     } catch (error) {
+      console.error(error);
       return res.status(400).json({ error: error.toString() });
     }
   }

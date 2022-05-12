@@ -1,4 +1,5 @@
 const conexion = require("../conexiones/local");
+const Contacto = require("../models/contacto.model");
 
 class ContactosRepository {
   static getDepartamentosPresencia() {

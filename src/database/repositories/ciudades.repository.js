@@ -1,19 +1,15 @@
-const conexion = require("../conexiones/local");
+const Ciudad = require("../models/ciudad.model"); 
 
 class CiudadesRepository {
-  static getCiudadesPorDepartamento(departamentoId) {
-    return new Promise((resolve, reject) => {
-      const query = `
-        SELECT *
-        FROM municipios 
-        WHERE departamento_id = ${departamentoId}
-        ORDER BY nombre
-      `;
-      conexion.query(query, (error, result) => {
-        if (error) reject(error);
-        resolve(result);
+  static async getCiudadesPorDepartamento(departamentoId) {
+    try {
+      const ciudades = Ciudad.findAll({
+        where: { departamento_id: departamentoId },
+        order: ["nombre"],
       });
-    });
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

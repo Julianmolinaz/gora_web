@@ -4,11 +4,14 @@ class UsuarioController {
   static async store(req, res) {
     try {
       const data = req.body;
-      const caseRegistrar = new RegistrarUsuario(data);
-      const result = await caseRegistrar.exec();
-      return res.json({msg: "store"}); 
+      const caseRegistro = new RegistrarUsuario(data);
+      await caseRegistro.exec();
+      return res.json({
+        msg: "ok",
+        dat: caseRegistro.usuario,
+      }); 
     } catch (error) {
-      console.error(error);
+      console.error("Ocurrió un error: ", error);
       return res.json({ error });
     }
   }

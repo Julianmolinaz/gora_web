@@ -85,8 +85,7 @@ class ValidarUsuario {
 
   async existeUsuario() {
     const usuario = await UsuariosRepository.findNumDoc(this.data.num_doc);
-    console.log(usuario.id, typeof(usuario));
-    if (usuario.id !== undefined) return true;
+    if (usuario) return true;
     return false;
   }
 }

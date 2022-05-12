@@ -1,8 +1,7 @@
-const { encriptar } = require("../../helpers/setters");
+const { Sequelize, DataTypes } = require("sequelize");
+const local = require("../conexiones/local.conexion");
 
-const sequelize = require("../conexiones/local.conexion");
-
-const TipoVehiculo = sequelize.define("TipoVehiculo", {
+const TipoVehiculo = local.define("TipoVehiculo", {
   id: {
     type: DataTypes.INTEGER,
     autoincrement: true,
@@ -17,8 +16,9 @@ const TipoVehiculo = sequelize.define("TipoVehiculo", {
     default: "Activo"
   },
 }, {
-  sequelize,
+  local,
   modelName: "TipoVehiculo",
+  tableName: "tipo_vehiculos",
   timestamps: false
 });
 

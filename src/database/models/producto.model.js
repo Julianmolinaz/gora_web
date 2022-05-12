@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = require("../conexiones/local.conexion");
+const local = require("../conexiones/local.conexion");
 
-const Producto = sequelize.define("Producto", {
+const Producto = local.define("Producto", {
   id: {
     type: DataTypes.INTEGER,
     autoincrement: true,
@@ -20,7 +20,7 @@ const Producto = sequelize.define("Producto", {
     default: "Activo"
   },
 }, {
-  sequelize,
+  local,
   modelName: "Producto",
   timestamps: false
 });

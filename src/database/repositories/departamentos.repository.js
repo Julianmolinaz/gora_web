@@ -1,14 +1,14 @@
-const conexion = require("../conexiones/local");
+const Departamento = require("../models/departamento.model");
 
 class DepartamentosRepository {
-  static listDepartamentos() {
-    return new Promise((resolve, reject) => {
-      const query = `SELECT id, nombre FROM departamentos ORDER BY nombre`;
-      conexion.query(query, (error, result) => {
-        if (error) reject(error);
-        resolve(result);
+  static async listDepartamentos() {
+    try {
+      const departamentos = await Departamento.findAll({
+        order: ["nombre"]
       });
-    });
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

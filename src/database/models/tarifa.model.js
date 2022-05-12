@@ -1,8 +1,8 @@
+const { Sequelize, DataTypes } = require("sequelize");
 const { encriptar } = require("../../helpers/setters");
+const local = require("../conexiones/local.conexion");
 
-const sequelize = require("../conexiones/local.conexion");
-
-const Tarifa = sequelize.define("Tarifa", {
+const Tarifa = local.define("Tarifa", {
   id: {
     type: DataTypes.INTEGER,
     autoincrement: true,
@@ -13,7 +13,7 @@ const Tarifa = sequelize.define("Tarifa", {
     default: "Activo"
   },
   codigo: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(3),
   },
   clase: {
     type: DataTypes.STRING,
@@ -26,16 +26,28 @@ const Tarifa = sequelize.define("Tarifa", {
   },
   valor1: {
     type: DataTypes.DOUBLE,
+    allowNull: false,
   },
   valor2: {
     type: DataTypes.DOUBLE,
+    allowNull: false,
   },
   tipo_vehiculo_id: {
     type: DataTypes.INTEGER,
+    field: "tipo_vehiculo_id",
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    field: "created_at",
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    field: "updated_at",
   }
 }, {
-  sequelize,
+  local,
   modelName: "Tarifa",
+  underscored: false,
 });
 
 module.exports = Tarifa;

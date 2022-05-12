@@ -1,19 +1,21 @@
-const main = require("../conexiones/main");
-const { getEnum } = require("./../../helpers/getters");
+const Cliente = require("../models/cliente.model");
 
 class ClientesRepository {
   static getEnumValues(campo) {
-    return new Promise((resolve, reject) => {
-      const query = `
-        SHOW COLUMNS FROM clientes
-        WHERE field='${campo}';
-      `;
-      main.query(query, (error, result) => {
-        if (error) reject(error);
-        resolve(getEnum(result[0].Type));
-      });
-    });  
+    return Cliente.rawAttributes[campo].value; 
   }  
+
+  static async find(clienteId) {
+    const cliente = await Cliente.findByPk(clienteId);
+    return cliente;
+  }
+
+  static async crear(data, transaction = null) {
+    const cliente = await Cliente.create(
+      data, { transaction }
+    ); 
+    return cliente;
+  }
 }
 
 module.exports = ClientesRepository;

@@ -1,9 +1,10 @@
 const express = require("express");
 const moment = require("moment");
 const nunjucks = require("nunjucks");
-const sequelize = require("./src/database/conexiones/local.conexion"); 
-const cors = require("cors");
 require("dotenv").config();
+const local = require("./src/database/conexiones/local.conexion"); 
+const main = require("./src/database/conexiones/main.conexion"); 
+const cors = require("cors");
 
 /****************
  * SERVER

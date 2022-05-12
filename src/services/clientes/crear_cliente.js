@@ -1,8 +1,24 @@
+const ClientesReposiroty = require("../../database/repositories/clientes.repository"); 
 
 class CrearCliente {
-  constructor(data) {
+  constructor(data, transaction) {
     this.data = data;
-    this.cliente = null;
+    this.transaction = transaction;
+  }
+
+  async exec() {
+    try {
+      this.cliente = await this.salvarCliente(); 
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async salvarCliente() {
+    const cliente = await ClientesRepository.crear(
+      this.data, this.transaction
+    );
+    return cliente;
   }
 }
 

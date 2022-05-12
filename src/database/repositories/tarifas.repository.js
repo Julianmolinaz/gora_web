@@ -1,14 +1,16 @@
-const conexion = require("../conexiones/local");
+const Tarifa = require("../models/tarifa.model");
 
 class TarifasRepository {
-  static tarifasPorTipoVehiculo(tipoVehiculoId) {
-    return new Promise((resolve, reject) => {
-      const query = `SELECT * FROM tarifas WHERE tipo_vehiculo_id = ${tipoVehiculoId}`;
-      conexion.query(query, (error, result) => {
-	if (error) reject(error);
-	resolve(result);
-      });
-    });
+  static async tarifasPorTipoVehiculo(tipoVehiculoId) {
+    try {
+      const tarifa = await Tarifa.findAll({
+        where: { tipo_vehiculo_id: tipoVehiculoId },
+      }); 
+      return tarifa;
+    }
+    catch (error) {
+      throw error;
+    }
   }
 }
 

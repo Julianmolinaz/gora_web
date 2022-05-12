@@ -1,15 +1,16 @@
-const conexion = require("../conexiones/local"); 
+const Variable = require("../models/variable.model");
 
 class VariablesRepository {
-  static getEmpresa() {
-    return new Promise((resolve, reject) => {
-      const query = `SELECT detalle from variables WHERE nombre = "empresa"`;
-      conexion.query(query, (error, result) => {
-	if (error) reject(error);
-	if (result) resolve(result[0].detalle);
-	else resolve(result);
+  static async getEmpresa() {
+    try {
+      const empresa = await Variable.findOne({
+        attributes: ["detalle"],
+        where: { nombre: "empresa" }
       });
-    });
+      return empresa;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
