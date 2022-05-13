@@ -3,7 +3,6 @@ const UsuariosRepository = require("../../database/repositories/usuarios.reposit
 const ClientesRepository = require("../../database/repositories/clientes.repository");
 const CodigoRepository = require("../../database/repositories/codigos.repository");
 const local = require("../../database/conexiones/local.conexion");
-const codigoVerificacion = require("./generar_codigo");
 
 class RegistrarUsuario {
   constructor(data) {
@@ -32,13 +31,9 @@ class RegistrarUsuario {
   }
 
   async registrar(transaction) {
-    const dataUsuario = {...this.data, codigo: this.getCodigo() }
     this.usuario = await UsuariosRepository.save(dataUsuario, transaction); 
   }
-
-  getCodigo() {
-    return codigoVerificacion();
-  }
+  
 }
 
 module.exports = RegistrarUsuario;

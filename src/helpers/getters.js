@@ -14,7 +14,17 @@ function capitalizar(value) {
   return value;
 }
 
+function generarCodigo(digitos) {
+  let codigo = "";
+  for (let i = 0; i < digitos; i++) {
+    let digito = Math.floor(Math.random() * 10);
+    codigo += `${digito}`;
+  }
+  return codigo;
+}
+
 module.exports = {
   getEnum,
   capitalizar,
+  generarCodigo,
 }

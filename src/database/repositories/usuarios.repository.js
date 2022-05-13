@@ -26,6 +26,17 @@ class UsuariosRepository {
     }
   }
 
+  static async update(usuarioId, data, transaction = null) {
+    try {
+      const usuario = await Usuario.findByPk(usuarioId);
+      usuario.set(data);
+      await usuario.save();
+      return usuario;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 module.exports = UsuariosRepository;
