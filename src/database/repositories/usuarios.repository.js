@@ -1,7 +1,5 @@
-const conexion = require("../conexiones/local");
-const { capitalizar } = require("./../../helpers/getters"); 
-const { encriptar } = require("./../../helpers/setters"); 
 const Usuario = require("../models/usuario.model.js");
+const { encriptar } = require("./../../helpers/bcrypt"); 
 
 class UsuariosRepository {
   static async findNumDoc(numDoc) {

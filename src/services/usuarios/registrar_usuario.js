@@ -14,7 +14,7 @@ class RegistrarUsuario {
     const transaction = await local.transaction();
     try {
       await this.validarDatos();
-      const usuario = await this.registrar(transaction);
+      await this.registrar(transaction);
       await transaction.commit();
     } catch (error) {
       await transaction.rollback();
@@ -31,7 +31,7 @@ class RegistrarUsuario {
   }
 
   async registrar(transaction) {
-    this.usuario = await UsuariosRepository.save(dataUsuario, transaction); 
+    this.usuario = await UsuariosRepository.save(this.data, transaction); 
   }
   
 }

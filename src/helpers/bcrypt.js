@@ -10,6 +10,16 @@ function encriptar(value) {
   });
 }
 
+function comparar(password, hash) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, hash, (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}; 
+
 module.exports = {
   encriptar,
+  comparar,
 }

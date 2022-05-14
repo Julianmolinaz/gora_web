@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const { encriptar } = require("../../helpers/setters");
+const { encriptar } = require("../../helpers/bcrypt");
 const local = require("../conexiones/local.conexion");
 
 const Tarifa = local.define("Tarifa", {
