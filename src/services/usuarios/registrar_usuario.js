@@ -11,13 +11,10 @@ class RegistrarUsuario {
   }
 
   async exec() {
-    const transaction = await local.transaction();
     try {
       await this.validarDatos();
-      await this.registrar(transaction);
-      await transaction.commit();
+      await this.registrar();
     } catch (error) {
-      await transaction.rollback();
       throw error;
     }
   }

@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = require("../conexiones/local.conexion");
+const local = require("../conexiones/local.conexion");
 
-const Departamento = sequelize.define("Departemento", {
+const Departamento = local.define("Departamento", {
   id: {
     type: DataTypes.INTEGER,
     autoincrement: true,
@@ -14,10 +14,12 @@ const Departamento = sequelize.define("Departemento", {
   },
   codigo: {
     type: DataTypes.STRING,
-    allowNull: false,
   }
 }, {
-  sequelize,
+  local,
   modelName: "Departamento",
+  table: "departamentos",
   timestamps: false
 });
+
+module.exports = Departamento;

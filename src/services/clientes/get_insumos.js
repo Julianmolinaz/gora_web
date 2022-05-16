@@ -6,62 +6,62 @@ const OficiosRepository = require("../../database/repositories/oficios.repositor
 class GetInsumos {
   async execute() {
     return {
+      listTipoContrato: await this.listTipoContrato(),
+      listTipoVivienda: await this.listTipoVivienda(),
+      listEstrato: await this.listEstrato(),
+      listNivelEstudios: await this.listNivelEstudios(),
+      listEstadoCivil: await this.listEstadoCivil(),
+      listGenero: await this.listGenero(),
+      listTipoActividad: await this.listTipoActividad(),
+      listOficios: await this.listOficios(),
       listTipoDoc: await this.listTipoDoc(),
       listDepartamentos: await this.listDepartamentos(),
-      listOficios: await this.listOficios(),
-      listTipoActividad: await this.listTipoActividad(),
-      listGenero: await this.listGenero(),
-      listEstadoCivil: await this.listEstadoCivil(),
-      listNivelEstudios: await this.listNivelEstudios(),
-      listEstrato: await this.listEstrato(),
-      listTipoVivienda: await this.listTipoVivienda(),
-      listTipoContrato: await this.listTipoContrato(),
       listParentesco: await this.listParentesco(),
     };
   }
 
-  listTipoDoc() {
-    return ClientesRepository.getEnumValues("tipo_doc");
+  async listTipoDoc() {
+    return await ClientesRepository.getEnumValues("tipo_doc");
   }
 
-  listDepartamentos() {
-    return DepartamentosRepository.listDepartamentos();
+  async listDepartamentos() {
+    return await DepartamentosRepository.listDepartamentos();
   }
 
-  listOficios() {
-    return OficiosRepository.listOficios();
+  async listOficios() {
+    return await OficiosRepository.listOficios();
   }
 
-  listTipoActividad() {
-    return ClientesRepository.getEnumValues("tipo_actividad");
+  async listTipoActividad() {
+    return await ClientesRepository.getEnumValues("tipo_actividad");
   }
 
-  listGenero() {
-    return ClientesRepository.getEnumValues("genero");
+  async listGenero() {
+    return await ClientesRepository.getEnumValues("genero");
   }
 
-  listEstadoCivil() {
-    return ClientesRepository.getEnumValues("estado_civil");
+  async listEstadoCivil() {
+    return await ClientesRepository.getEnumValues("estado_civil");
   }
 
-  listNivelEstudios() {
-    return ClientesRepository.getEnumValues("nivel_estudios");
+  async listNivelEstudios() {
+    return await ClientesRepository.getEnumValues("nivel_estudios");
   }
 
-  listEstrato() {
-    return ClientesRepository.getEnumValues("estrato");
+  async listEstrato() {
+    return await ClientesRepository.getEnumValues("estrato");
   }
 
-  listTipoVivienda() {
-    return ClientesRepository.getEnumValues("tipo_vivienda");
+  async listTipoVivienda() {
+    return await ClientesRepository.getEnumValues("tipo_vivienda");
   }
 
-  listTipoContrato() {
-    return ClientesRepository.getEnumValues("tipo_contrato");
+  async listTipoContrato() {
+    return await ClientesRepository.getEnumValues("tipo_contrato");
   }
 
-  listParentesco() {
-    return ReferenciasRepository.getEnumValues("parentesco");
+  async listParentesco() {
+    return await ReferenciasRepository.getEnumValues("parentesco");
   }
 }
 

@@ -52,6 +52,7 @@ const Cliente = main.define("Cliente", {
       'Pase Diplomático','Carnet Diplomático','Tarjeta de Identidad',
       'Rut','Número único de Identificación Personal','Nit de Extranjería'
     ),
+    field: "tipo_doc",
     defaultValue: "Cedular Ciudadanía"
   },
   num_doc: {
@@ -121,7 +122,7 @@ const Cliente = main.define("Cliente", {
   tipo_actividad: {
     type: DataTypes.ENUM("Dependiente", "Independiente"),
   },
-  tipo_actividad:{
+  tipo_contrato: {
     type: DataTypes.ENUM("Indefinido", "Prestacion de servicios", "Termino fijo"),
   },
   empresa: {
@@ -162,7 +163,6 @@ const Cliente = main.define("Cliente", {
   modelName: "Cliente",
   underscored: true,
   timestamps: false,
-  underscored: false,
 });
 
 module.exports = Cliente;

@@ -6,6 +6,7 @@ class DepartamentosRepository {
       const departamentos = await Departamento.findAll({
         order: ["nombre"]
       });
+      return departamentos;
     } catch (error) {
       throw error;
     }

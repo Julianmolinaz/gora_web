@@ -1,13 +1,25 @@
-const Cliente = require("../models/cliente.model");
+const Cliente = require("./../models/cliente.model");
 
 class ClientesRepository {
-  static getEnumValues(campo) {
-    return Cliente.rawAttributes[campo].value; 
+  static async getEnumValues(campo) {
+    const items = await Cliente.getAttributes()[campo].values; 
+    return items;
   }  
 
   static async find(clienteId) {
     const cliente = await Cliente.findByPk(clienteId);
     return cliente;
+  }
+
+  static async findSome(query) {
+    try {
+      const cliente = await Cliente.findAll({
+        where: query
+      });
+      return cliente;
+    } catch (error) {
+      throw error;
+    }
   }
 
   static async crear(data, transaction = null) {

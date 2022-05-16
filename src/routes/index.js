@@ -14,7 +14,7 @@ const webRouter = (app) => {
  * API
  **********/
 const apiRouter = (app) => {
-  app.use("/api/test", verifyToken, require("./api/test")),
+  app.use("/api/test", verifyToken, require("./api/test_")),
   app.use("/api/auth", require("./api/auth")),
   app.use("/api/simulador", require("./api/simulador"));
   app.use("/api/contactos", require("./api/contactos"));

@@ -49,10 +49,7 @@
       event.preventDefault();
       event.returnValue = '';
     });
-//    window.onbeforeunload = function(e) {
-//        console.log({e});
-//        e.returnValue = "¿Esta seguro de recargar el sitio, recuerde que sus cambios no serán guardados?";
-//    }
+
     const { ref, reactive, createApp, computed, onMounted, nextTick, inject } = Vue;
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
@@ -76,6 +73,7 @@
         const getInsumosCliente = async () => {
           try {
             const res = await axios.get("/api/clientes/create");
+            console.log({res});
             clienteSt.insumos = res.data.insumos;
           } catch (err) {
             alertify.error("Ocurrió un error");
