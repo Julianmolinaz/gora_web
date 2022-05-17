@@ -7,6 +7,24 @@ const Solicitud = main.define("Solicitud", {
     autoincrement: true,
     primaryKey: true
   },
+  num_fact: {
+    type: DataTypes.STRING,
+  },
+  fecha: {
+    type: DataTypes.DATE,
+  },
+  cartera_id: {
+    type: DataTypes.INTEGER,
+  },
+  funcionario_id: {
+    type: DataTypes.INTEGER,
+  },
+  cliente_id: {
+    type: DataTypes.INTEGER,
+  },
+  vlr_fin: {
+    type: DataTypes.FLOAT,
+  },
   periodo: {
     type: DataTypes.ENUM("Quincenal", "Mensual"),
     allowNull: false,

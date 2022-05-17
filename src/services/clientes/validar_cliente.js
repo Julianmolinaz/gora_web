@@ -10,6 +10,7 @@ class ValidarCliente {
   }
 
   async exec() {
+    console.log("exec validation");
     try {
       this.validarPrimerNombre(); 
       this.validarSegundoNombre();
@@ -18,7 +19,30 @@ class ValidarCliente {
       this.validarTipoDoc();
       await this.validarNumDoc();
       this.validarMovil();
+      this.validarEmail();
+      this.validarFechaExp();
+      this.validarFechaExp();
       this.validarFechaNacimiento();
+      this.validarGenero();
+      this.validarEstadoCivil();
+      this.validarNivelEstudios();
+      this.validarEstrato();
+      this.validarFijo();
+      this.validarMunicipioId();
+      this.validarBarrio();
+      this.validarDireccion();
+      this.validarMesesResidencia();
+      this.validarTipoVivienda();
+      this.validarOcupacion();
+      this.validarDocEmpresa();
+      this.validarTipoActividad();
+      this.validarEmpresa();
+      this.validarDirEmpresa();
+      this.validarTelEmpresa();
+      this.validarFechaVinculacion();
+      this.validarDescripcionActividad();
+      this.validarCargo();
+      this.validarTipoContrato();
     } catch (error) {
       throw error;
     }
@@ -29,35 +53,23 @@ class ValidarCliente {
   }
 
   validarPrimerNombre() {
-    if (validator.isEmpty(this.data.primer_nombre)) {
+    if (ValidadorHp.isEmpty(this.data.primer_nombre)) {
       this.errors.push(["El primer nombre es requerido"]);
-    } else {
-      if (!validator.isAlpha(this.data.primer_nombre)) {
-        this.errors.push(["El primer nombre debe ser alfanumérico"]);
-      }
-    }
+    } 
   } 
 
   validarSegundoNombre() {
-    if (this.data.segundo_nombre && !validator.isAlpha(this.data.segundo_nombre)) {
-      this.errors.push(["El segunfo nombre debe ser alfanumérico"]);
-    }
+    //
   } 
 
   validarPrimerApellido() {
-    if (validator.isEmpty(this.data.primer_apellido)) {
+    if (ValidadorHp.isEmpty(this.data.primer_apellido)) {
       this.errors.push(["El primer apellido es requerido"]);
-    } else {
-      if (!validator.isAlpha(this.data.primer_apellido)) {
-        this.errors.push(["El primer apellido debe ser alfanumérico"]);
-      }
-    }
+    } 
   } 
 
   validarSegundoApellido() {
-    if (this.data.segundo_apellido && !validator.isAlpha(this.data.segundo_apellido)) {
-      this.errors.push(["El segundo apellido debe ser alfanumérico"]);
-    }
+    //
   } 
 
   validarTipoDoc() {
@@ -85,7 +97,7 @@ class ValidarCliente {
   }
 
   validarMovil() {
-    if (validator.isEmpty(this.data.movil)) {
+    if (ValidadorHp.isEmpty(this.data.movil)) {
       this.errors.push(["El número celular es requerido"]);
     } else {
       if (! validator.isMobilePhone(this.data.movil, "es-CO")) {
@@ -95,14 +107,14 @@ class ValidarCliente {
   } 
 
   validarEmail() {
-    if (validator.isEmpty(this.data.email)) {
+    if (ValidadorHp.isEmpty(this.data.email)) {
       this.errors.push(["El correo electrónico es requerido"]);
     } else {
-      if (validator.isEmail(this.data.email)) {
-        this.errors.push("El correo no tiene el formato correcto");
+      if (!validator.isEmail(this.data.email)) {
+        this.errors.push(["El correo no tiene el formato correcto"]);
       }
     }
-  } 
+  }
 
   validarFechaNacimiento() {
     if (ValidadorHp.isEmpty(this.data.fecha_nacimiento)) {
@@ -115,19 +127,13 @@ class ValidarCliente {
   } 
 
   validarDireccion() {
-    if (validator.isEmpty(this.data.direccion)) {
+    if (ValidadorHp.isEmpty(this.data.direccion)) {
       this.errors.push(["La dirección es requerida"]);
-    } else {
-      if (validator.isAlpha(this.data.direccion)) {
-        this.errors.push(["La dirección debe contener letras y/o números"]);
-      }
     }
   } 
 
   validarBarrio() {
-      if (this.data.barrio && validator.isAlpha(this.data.direccion)) {
-        this.errors.push(["El barrio debe contener letras y/o números"]);
-      }
+    //
   } 
 
   validarMunicipioId() {
@@ -137,7 +143,15 @@ class ValidarCliente {
   } 
 
   validarFijo() {
+    if (this.data.fijo && !validator.isInt(this.data.fijo)) {
+      this.errors.push(["El teléfono fijo debe ser un número entero"]);
+    }
+  } 
 
+  validarTipoActividad() {
+    if (ValidadorHp.isEmpty(this.data.tipo_actividad)) {
+      this.errors.push(["El tipo de actividad es requerido"]);
+    }
   } 
 
   validarOcupacion() {
@@ -153,21 +167,18 @@ class ValidarCliente {
   } 
 
   validarDocEmpresa() {
-    if (ValidadorHp.isEmpty(this.data.doc_empresa)) {
+    if (
+      this.data.tipo_actividad === "Dependiente" &&
+      ValidadorHp.isEmpty(this.data.doc_empresa)
+    ) {
       this.errors.push(["El documento de la empresa es requerido"]);
-    }
-  } 
-
-  validarTipoActividad() {
-    if (ValidadorHp.isEmpty(this.data.tipo_actividad)) {
-      this.errors.push(["El tipo de actividad es requerido"]);
     }
   } 
 
   validarDirEmpresa() {
     if (ValidadorHp.isEmpty(this.data.dir_empresa)) {
       this.errors.push(["La direccion de la empresa es requerida"]);
-    }
+    } 
   } 
 
   validarTelEmpresa() {
@@ -213,7 +224,7 @@ class ValidarCliente {
   } 
 
   validarAnosResidencia() {
-
+    //
   } 
 
   validarMesesResidencia() {
@@ -241,7 +252,10 @@ class ValidarCliente {
   } 
 
   validarDescripcionActividad() {
-    if (ValidadorHp.isEmpty(this.data.descripcion_actividad)) {
+    if (
+      this.data.tipo_actividad === "Independiente" &&
+      ValidadorHp.isEmpty(this.data.descripcion_actividad)
+    ) {
       this.errors.push(["La descripción de la actividad es requerida"]);
     }
   } 
@@ -249,11 +263,18 @@ class ValidarCliente {
   validarFechaVinculacion() {
     if (ValidadorHp.isEmpty(this.data.fecha_vinculacion)) {
       this.errors.push(["La fecha de vinculación es requerida"]);
+    } else {
+      if (!validator.isDate(this.data.fecha_vinculacion)) {
+        this.errors.push(["La fecha de vinculación no tiene un formato válido"]);
+      }
     }
   } 
 
   validarTipoContrato() {
-    if (ValidadorHp.isEmpty(this.data.tipo_contrato)) {
+    if (
+      this.data.tipo_actividad === "Dependiente" &&
+      ValidadorHp.isEmpty(this.data.tipo_contrato)
+    ) {
       this.errors.push(["El tipo de contrato es requerido"]);
     }
   } 

@@ -1,4 +1,4 @@
-const ValidarCliente = require("./../services/clientes/validar_cliente");
+const CrearCliente = require("./../services/clientes/crear_cliente");
 
 class SolicitudController {
   static create(req, res) {
@@ -10,11 +10,16 @@ class SolicitudController {
   }
 
   static async storeWithCliente(req, res) {
-    const data = req.body;
-    const validarCliente = new ValidarCliente(data, "creacion");
-    await validarCliente.exec();
+    try {
+      const data = req.body;
+      const crearCliente = new CrearCliente(data);
+      await crearCliente.exec();
 
-    return res.json({ result: validarCliente.errors });
+      return res.json({ msg: "Todo bien" });
+    } catch (error) {
+      console.error({ error });
+      return res.json({ error }); 
+    }
   }
 }
 

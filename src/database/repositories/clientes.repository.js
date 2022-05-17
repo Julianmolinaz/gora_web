@@ -23,6 +23,7 @@ class ClientesRepository {
   }
 
   static async crear(data, transaction = null) {
+    console.log("crear cliente repository");
     const cliente = await Cliente.create(
       data, { transaction }
     ); 
