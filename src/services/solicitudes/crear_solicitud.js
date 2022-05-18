@@ -15,18 +15,18 @@ class CrearSolicitud {
   }
 
   validarSolicitud() {
-    const case = new ValidarSolicitud(
+    const validarSolicitud = new ValidarSolicitud(
       this.data, "creacion"
     );
-    case.exec();
+    validarSolicitud.exec();
 
-    if (case.fails()) {
-      throw case.errors;
+    if (validarSolicitud.fails()) {
+      throw validarSolicitud.errors;
     }
   }
 
   async salvarSolicitud() {
-    this.solicitud = SolicitudesRepository.create(
+    this.solicitud = await SolicitudesRepository.crear(
       this.data, this.transaction
     ); 
   }

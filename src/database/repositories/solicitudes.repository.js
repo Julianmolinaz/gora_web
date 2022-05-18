@@ -27,6 +27,13 @@ class SolicitudesRepository {
       });
     });
   }
+  
+  static async crear(data, transaction =  null) {
+    const solicitud = await Solicitud.create(
+      data, transaction
+    ); 
+    return solicitud;
+  }
 }
 
 module.exports = SolicitudesRepository;

@@ -17,7 +17,7 @@ class CrearSolicitudCliente {
   }
 
   async crearCliente() {
-    const case = new CrearCliente(this.dadaCliente);
+    const case = new CrearCliente(this.dadaCliente, this.transaction);
     await case.exec();
     return case.cliente();
   }
