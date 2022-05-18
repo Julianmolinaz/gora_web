@@ -10,6 +10,7 @@ const cors = require("cors");
  * SERVER
  ****************/
 const app = express();
+app.use(cors());
 
 /***************************
  * TEMPLATE ENGINE NUNJUCKS

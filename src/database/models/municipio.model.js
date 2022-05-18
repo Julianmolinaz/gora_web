@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const local = require("../conexiones/local.conexion");
+const localConexion = require("../conexiones/local.conexion");
 
-const Ciudad = local.define("Ciudad", {
+const Municipio = localConexion.define("municipios", {
   id: {
     type: DataTypes.INTEGER,
     autoincrement: true,
@@ -11,17 +11,17 @@ const Ciudad = local.define("Ciudad", {
     type: DataTypes.STRING,
     allowNull: false
   },
-  condigo: {
+  codigo: {
     type: DataTypes.INTEGER,
   },
   departamento_id: {
     type: DataTypes.INTEGER,
   },
 }, {
-  local,
-  modelName: "Ciudad",
-  tableName: "municipios",
-  timestamps: false
+  localConexion,
+  modelName: "Municipio",
+  timestamps: false,
+  underscored: true,
 });
 
-module.exports = Ciudad;
+module.exports = Municipio;

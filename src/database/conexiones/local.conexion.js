@@ -7,7 +7,7 @@ const local = new Sequelize(
   { 
     host: process.env.LOCAL_DB_HOST,
     dialect: "mysql",
-    logging: false
+    logging: true 
   } 
 );
 
