@@ -3,6 +3,8 @@ const api = require("supertest")(require("./../../app"));
 
 const ClientesRepository = require("./../../src/database/repositories/clientes.repository");
 const SolicitudesRepository = require("./../../src/database/repositories/solicitudes.repository");
+const VehiculosRepository = require("./../../src/database/repositories/vehiculos.repository");
+const VentasRepository = require("./../../src/database/repositories/ventas.repository");
 
 const CrearCliente = require("./../../src/services/clientes/crear_cliente");
 const ValidarSolicitud = require("./../../src/services/solicitudes/validar_solicitud");
@@ -81,12 +83,25 @@ describe("Crear solicitud", () => {
 
     const cliente = caseSolicitud.cliente;
     const solicitud = caseSolicitud.solicitud;
+   
+    //console.log({cliente});
+    //console.log({solicitud});
+    //console.log("ventas", caseSolicitud.ventas);
+    //console.log("vehiculos", caseSolicitud.vehiculos);
+    //console.log("tarifas", caseSolicitud.tarifas);
+  
     
-    console.log(cliente, solicitud);
-
     await destroySolicitud(solicitud.id);
     await destroyCliente(cliente.id);
+    caseSolicitud.ventas.forEach(async (venta) => {
+      await destroyVenta(venta.id);
+    });
+    caseSolicitud.vehiculos.forEach(async (vehiculo) => {
+      await destroyVehiculo(vehiculo.id);
+    });
+    
   });
+
 });
 
 const createCliente = async () => {
@@ -101,4 +116,12 @@ const destroyCliente = async (clienteId) => {
 
 const destroySolicitud = async (solicitudId) => {
   await SolicitudesRepository.eliminar(solicitudId);
+}
+
+const destroyVehiculo = async (vehiculoId) => {
+  await VehiculosRepository.eliminar(vehiculoId);
+}
+
+const destroyVenta = async (ventaId) => {
+  await VentasRepository.eliminar(ventaId);
 }

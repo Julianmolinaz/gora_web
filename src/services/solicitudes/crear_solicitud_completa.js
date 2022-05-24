@@ -1,38 +1,58 @@
-const mainConexion = require("../../database/conexiones/main.conexion"); 
-const ConsecutivosRepository = require("../../database/repositories/consecutivos.repository");
+/**
+ * Crear solicitud completa
+ * Permite crear una solicitud con su cliente, ventas y vehiculos
+ **/
 
+// Datos y bases de datos
+const mainConexion = require("../../database/conexiones/main.conexion");
+const ClientesRepository = require("../../database/repositories/clientes.repository");
+const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
+const ConsecutivosRepository = require("../../database/repositories/consecutivos.repository");
+const VehiculosRepository = require("../../database/repositories/vehiculos.repository");
+const VentasRepository = require("../../database/repositories/ventas.repository");
+
+// Librerias
+const moment = require("moment");
 const validator = require("validator");
 const ValidadorHp = require("../../helpers/validador");
 
-const CrearSolicitud = require("./crear_solicitud");
+// Servicios
 const ValidarSolicitud = require("./validar_solicitud");
-const CrearCliente = require("../clientes/crear_cliente");
 const ValidarCliente = require("../clientes/validar_cliente");
 const GetPrecio = require("../simulador/get_precio"); 
 const GetValorCuota = require("../simulador/get_valor_cuota");
 
-const ClientesRepository = require("../../database/repositories/clientes.repository");
-const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
+// Constantes
+const NUM_FACT = 6; // id consecutivos
 
-const NUM_FACT = 6;
+//----------------------------
 
 class CrearSolicitudCompleta {
   constructor(dataCliente, dataSimulador) {
+    // Información inicial 
     this.dataCliente = dataCliente;
     this.dataSimulador = dataSimulador;
     this.dataSolicitud = "";
+    this.dataVehiculo = null;
 
+    // Entidades
     this.cliente = "";
     this.solicitud = "";
+    this.vehiculos = [];
+    this.ventas = [];
+    this.tarifa = null;
 
+    // otros
+    this.transaction = null;
     this.precio = 0;
     this.errors = [];
   }
 
   async exec() {
+    //this.transaction = await mainConexion.transaction(); 
     try {
-      //this.transaction = await mainConexion.transaction(); 
       this.validarSimulador();
+
       await this.validarCliente();
       await this.crearCliente();
 
@@ -40,12 +60,16 @@ class CrearSolicitudCompleta {
       this.validarSolicitud();
       await this.crearSolicitud();
 
-      console.log(this.errors);
-
+      await this.generarVentas();
+      //this.transaction.commit();
     } catch (error) {
       throw error;
     }
   }
+
+  /*****************
+   * SIMULADOR
+   *****************/
 
   validarSimulador() {
     if (ValidadorHp.isEmpty(this.dataSimulador.productoId)) {
@@ -72,6 +96,10 @@ class CrearSolicitudCompleta {
     }
   }
 
+  /***********************
+   * CLIENTE
+   ***********************/
+
   async validarCliente() {
     const caseValidarCliente = new ValidarCliente(this.dataCliente); 
     await caseValidarCliente.exec();
@@ -81,11 +109,20 @@ class CrearSolicitudCompleta {
     }
   }
 
-  validarSolicitud() {
-    const caseValidarSolicitud = new ValidarSolicitud(
-      this.dataSolicitud,
-      "creacion"
+  castCliente() {}
+
+  async crearCliente() {
+    this.cliente = await ClientesRepository.crear(
+      this.dataCliente
     );
+  }
+
+  /***************
+   * SOLICITUD
+   ***************/
+  
+  validarSolicitud() {
+    const caseValidarSolicitud = new ValidarSolicitud(this.dataSolicitud, "creacion");
     caseValidarSolicitud.exec();
 
     if (caseValidarSolicitud.fails()) {
@@ -93,12 +130,10 @@ class CrearSolicitudCompleta {
     }
   }
 
-  castCliente() {}
-
   async castSolicitud() {
-    this.dataSolicitud = {    
+    this.dataSolicitud = { 
       num_fact: await this.getConsecutivo(),
-      fecha: new Date(),
+      fecha: moment().format("YYYY-MM-DD"),
       cartera_id: process.env.CARTERA_ID_DEFAULT,
       funcionario_id: process.env.USER_ID_DEFAULT,
       cliente_id: this.cliente.id,
@@ -139,6 +174,7 @@ class CrearSolicitudCompleta {
       cilindraje: this.dataSimulador.cilindraje,
     }); 
     this.precio = await casePrecio.execute();
+    this.tarifa = casePrecio.tarifa; // Se obtienen las tarifas
     return this.precio;
   }
 
@@ -156,24 +192,71 @@ class CrearSolicitudCompleta {
     const factorPeriodo = (this.dataSimulador.periodo == 'Quincenal') ? 2 : a;
     return this.dataSimulador.numCuotas / factorPeriodo;
   }
-  
-  castVenta() {}
-
-  castVehiculo() {}
-
-  async crearCliente() {
-    this.cliente = await ClientesRepository.crear(this.dataCliente);
-  }
 
   async crearSolicitud() {
     this.solicitud = await SolicitudesRepository.crear(this.dataSolicitud);
   }
 
-  async crearVenta() {
-
+  /***************
+   * VENTAS
+   ***************/
+  
+  // Evalua como se crearàn las ventas
+  async generarVentas() {
+    const productId = this.dataSimulador.productoId;
+    if (productId == 1 || productId == 2) {
+      const vehiculo = await this.crearVehiculo();
+      await this.crearVenta(productId, this.precio, vehiculo.id); 
+    } else if (productId == 3) {
+      const vehiculo1 = await this.crearVehiculo(); 
+      await this.crearVenta(2, this.tarifa.valor1, vehiculo1.id);
+      const vehiculo2 = await this.crearVehiculo();
+      await this.crearVenta(1, this.tarifa.valor2, vehiculo2.id);
+    }
   }
 
-  crearVehiculo() {}
+  castVenta(productoId, valorVenta, vehiculoId) {
+    return {
+      cantidad: 1,
+      valor: valorVenta,
+      producto_id: productoId,
+      precredito_id: this.solicitud.id,
+      vehiculo_id: vehiculoId,
+      created_by: process.env.USER_ID_DEFAULT,
+    };
+  }
+
+  async crearVenta(productoId, valorVenta, vehiculoId) {
+    const dataVenta = this.castVenta(
+      productoId, valorVenta, vehiculoId
+    );
+    const venta = await VentasRepository.crear(dataVenta);
+    this.ventas.push(venta);
+  }
+
+  /****************
+   * VEHICULO
+   ****************/
+
+  castVehiculo() {
+    const fechaProximoAno = moment().add(1, "Y").format("YYYY-MM-DD");
+    return {
+      placa: this.dataCliente.placa,
+      modelo: this.dataSimulador.modelo, 
+      cilindraje: this.dataSimulador.cilindraje,
+      vencimiento_soat: fechaProximoAno,
+      vencimiento_rtm: fechaProximoAno, 
+      tipo_vehiculo_id: this.dataSimulador.tipoVehiculoId,
+      created_by: process.env.USER_ID_DEFAULT,
+    };
+  }
+
+  async crearVehiculo() {
+    const dataVehiculo = this.castVehiculo();
+    const vehiculo = await VehiculosRepository.crear(dataVehiculo);
+    this.vehiculos.push(vehiculo);
+    return vehiculo;
+  }
 }
 
 module.exports = CrearSolicitudCompleta;

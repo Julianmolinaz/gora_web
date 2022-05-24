@@ -11,7 +11,7 @@ const Solicitud = main.define("Solicitud", {
     type: DataTypes.STRING,
   },
   fecha: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
   },
   cartera_id: {
     type: DataTypes.INTEGER,

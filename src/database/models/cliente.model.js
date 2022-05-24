@@ -75,7 +75,7 @@ const Cliente = main.define("Cliente", {
     allowNull: false,
   },
   lugar_nacimiento: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   nivel_estudios: {
@@ -161,7 +161,7 @@ const Cliente = main.define("Cliente", {
   },
   version: {
     type: DataTypes.ENUM("1", "2", "3", "4"),
-    default: "4",
+    defaultValue: "4",
   }
 }, {
   main,
