@@ -23,11 +23,28 @@ class ClientesRepository {
   }
 
   static async crear(data, transaction = null) {
-    console.log("crear cliente repository");
     const cliente = await Cliente.create(
       data, { transaction }
     ); 
     return cliente;
+  }
+
+  static async eliminar(clienteId, transaction = null) {
+    try {
+      await Cliente.destroy({
+        where: { id: clienteId },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async eliminarTodo() {
+    try {
+      await Cliente.destroy();
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

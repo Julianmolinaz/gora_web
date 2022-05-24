@@ -10,7 +10,6 @@ class ValidarCliente {
   }
 
   async exec() {
-    console.log("exec validation");
     try {
       this.validarPrimerNombre(); 
       this.validarSegundoNombre();

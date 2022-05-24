@@ -3,8 +3,8 @@
  *
  * permite calcular el precio para un tipo de vehiculo específico
  *      payload : {
- *           productoid: ...,
- *           tipovehiculoid: ...,
+ *           productoId: ...,
+ *           tipovehiculoId: ...,
  *           modelo: ...,
  *           cilindraje: ...
  *      }

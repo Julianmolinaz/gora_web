@@ -5,6 +5,7 @@ class ValidarSolicitud {
   constructor(data, modo) {
     this.data = data;
     this.modo = modo;
+    this.errors = [];
   }
 
   exec() {
@@ -136,14 +137,18 @@ class ValidarSolicitud {
 
   validarCreatedAt() {
     if (this.modo === "creacion" && ValidadorHp.isEmpty(this.data.created_at)) {
-      this.errors.push(["El fecha de creación es requerida"]);
+      this.errors.push(["La fecha de creación es requerida"]);
     }
   }
 
   validarUpdatedAt() {
     if (this.modo === "edicion" && ValidadorHp.isEmpty(this.data.updated_at)) {
-      this.errors.push(["El fecha de actualización es requerida"]);
+      this.errors.push(["La fecha de actualización es requerida"]);
     }
+  }
+
+  fails() {
+    return this.errors.length > 0 ? true : false;
   }
 }
 

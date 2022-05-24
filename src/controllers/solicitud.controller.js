@@ -1,4 +1,4 @@
-const CrearCliente = require("./../services/clientes/crear_cliente");
+//const CrearCliente = require("./../services/clientes/crear_cliente");
 
 class SolicitudController {
   static create(req, res) {
@@ -12,8 +12,8 @@ class SolicitudController {
   static async storeWithCliente(req, res) {
     try {
       const data = req.body;
-      const crearCliente = new CrearCliente(data);
-      await crearCliente.exec();
+      //const crearCliente = new CrearCliente(data);
+      //await crearCliente.exec();
 
       return res.json({ msg: "Todo bien" });
     } catch (error) {

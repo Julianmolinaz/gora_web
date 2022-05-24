@@ -5,8 +5,11 @@ const main = require("../conexiones/main.conexion");
 const Cliente = main.define("Cliente", {
   id: {
     type: DataTypes.INTEGER,
-    autoincrement: true,
-    primaryKey: true
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  nombre: {
+    type: DataTypes.STRING,
   },
   primer_nombre: {
     type: DataTypes.STRING,
@@ -146,13 +149,15 @@ const Cliente = main.define("Cliente", {
   },
   user_create_id: {
     type: DataTypes.INTEGER,
-    default: 666,
+    defaultValue: 2,
   },
   created_at: {
     type: DataTypes.DATE,
+    defaultValue: new Date(),
   },
   updated_at: {
     type: DataTypes.DATE,
+    defaultValue: new Date(),
   },
   version: {
     type: DataTypes.ENUM("1", "2", "3", "4"),
@@ -163,6 +168,16 @@ const Cliente = main.define("Cliente", {
   modelName: "Cliente",
   underscored: true,
   timestamps: false,
+  hooks: {
+    beforeSave: (cliente) => {
+      cliente.nombre = (
+        capitalizar(cliente.primer_nombre.trim()) + ' ' + 
+        capitalizar(cliente.segundo_nombre.trim()) + ' ' + 
+        capitalizar(cliente.primer_apellido.trim()) + ' ' + 
+        capitalizar(cliente.segundo_apellido.trim()) 
+      ).replace("  ", " ");
+    }
+  }
 });
 
 module.exports = Cliente;

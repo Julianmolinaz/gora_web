@@ -1,5 +1,5 @@
 const Solicitud = require("../models/solicitud.model");
-const mysqlMain = require("../conexiones/main");
+const mainConexion = require("../conexiones/main.conexion");
 
 class SolicitudesRepository {
   static getPeriodos() {
@@ -12,20 +12,18 @@ class SolicitudesRepository {
   }
 
   static async findSolicitudesActivasByCliente(clienteId) {
-    return new Promise((resolve, reject) => {
-      const sql = `
+    const [results, metadata] = await mainConexion.query(
+      `
         SELECT precreditos.* 
         FROM precreditos
         LEFT JOIN creditos on precreditos.id = creditos.precredito_id
-        WHERE precreditos.cliente_id = clienteId
+        WHERE precreditos.cliente_id = ${clienteId}
         AND precreditos.aprobado IN ('En estudio', 'Si')
         AND creditos.id IS NULL
-      `;
-      mysqlMain.query(sql, (err, result) => {
-        if (err) reject(erro);
-        resolve(result);
-      });
-    });
+      `
+    );
+
+    return results;
   }
   
   static async crear(data, transaction =  null) {
@@ -33,6 +31,12 @@ class SolicitudesRepository {
       data, transaction
     ); 
     return solicitud;
+  }
+
+  static async eliminar(solicitudId) {
+    await Solicitud.destroy({
+      where: { id: solicitudId },
+    });
   }
 }
 

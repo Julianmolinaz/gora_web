@@ -1,16 +1,14 @@
 const express = require("express");
-const moment = require("moment");
+//const moment = require("moment");
 const nunjucks = require("nunjucks");
-require("dotenv").config();
-const local = require("./src/database/conexiones/local.conexion"); 
-const main = require("./src/database/conexiones/main.conexion"); 
 const cors = require("cors");
+require("dotenv").config();
 
 /****************
  * SERVER
  ****************/
 const app = express();
-app.use(cors());
+module.exports = { app };
 
 /***************************
  * TEMPLATE ENGINE NUNJUCKS
@@ -33,7 +31,6 @@ app.use(express.static(__dirname + "/public"));
  * MIDDLEWARES
  **************/
 const { webRouter, apiRouter } = require("./src/routes");
-const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
@@ -42,6 +39,3 @@ app.use(express.urlencoded({ extended: true }));
 webRouter(app);
 apiRouter(app);
 
-app.listen(PORT, () => {
-  console.log(`Server on port ${PORT}`);
-});

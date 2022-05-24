@@ -2,9 +2,8 @@ const ValidarSolicitud = require("./validar_solicitud");
 const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
 
 class CrearSolicitud {
-  constructor(data, clienteId, transaction = null) {
+  constructor(data, transaction = null) {
     this.data = data;
-    this.clienteId = clienteId;
     this.transaction = transaction;
     this.solicitud = "";
   }
@@ -16,7 +15,8 @@ class CrearSolicitud {
 
   validarSolicitud() {
     const validarSolicitud = new ValidarSolicitud(
-      this.data, "creacion"
+      this.data,
+      "creacion"
     );
     validarSolicitud.exec();
 
@@ -27,7 +27,8 @@ class CrearSolicitud {
 
   async salvarSolicitud() {
     this.solicitud = await SolicitudesRepository.crear(
-      this.data, this.transaction
+      this.data,
+      this.transaction
     ); 
   }
 }

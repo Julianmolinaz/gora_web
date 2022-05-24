@@ -13,10 +13,8 @@ class MunicipiosRepository {
     }
   }
   static async getAll() {
-    console.log("municipios get all");
     try {
       const municipios = await Municipio.findAll();
-      console.log(municipios);
       return municipios;
     }
     catch (err) {
