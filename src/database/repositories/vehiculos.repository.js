@@ -1,8 +1,11 @@
 const Vehiculo = require("../models/vehiculo.model");
 
 class VehiculosRepository {
-  static async crear(data) {
-    const vehiculo = await Vehiculo.create(data); 
+  static async crear(data, transaction = null) {
+    const vehiculo = await Vehiculo.create(
+      data,
+      { transaction }
+    ); 
     return vehiculo;
   }
 

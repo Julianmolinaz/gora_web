@@ -6,9 +6,10 @@ class ConsecutivosRepository {
     return consecutivo;
   }
 
-  static async update(data, consecutivoId) {
+  static async update(data, consecutivoId, transaction = null) {
     await Consecutivo.update(data, {
       where: { id: consecutivoId },
+      transaction
     });
   }
 }

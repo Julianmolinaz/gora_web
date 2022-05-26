@@ -49,7 +49,8 @@ class CrearSolicitudCompleta {
   }
 
   async exec() {
-    //this.transaction = await mainConexion.transaction(); 
+    this.transaction = await mainConexion.transaction(); 
+    
     try {
       this.validarSimulador();
 
@@ -61,9 +62,12 @@ class CrearSolicitudCompleta {
       await this.crearSolicitud();
 
       await this.generarVentas();
-      //this.transaction.commit();
+
+      this.transaction.commit();
     } catch (error) {
+      console.log({ error });
       throw error;
+      this.transaction.rollback();
     }
   }
 
@@ -113,7 +117,8 @@ class CrearSolicitudCompleta {
 
   async crearCliente() {
     this.cliente = await ClientesRepository.crear(
-      this.dataCliente
+      this.dataCliente,
+      this.transaction
     );
   }
 
@@ -131,6 +136,7 @@ class CrearSolicitudCompleta {
   }
 
   async castSolicitud() {
+    this.dataSolicitud = {};
     this.dataSolicitud = { 
       num_fact: await this.getConsecutivo(),
       fecha: moment().format("YYYY-MM-DD"),
@@ -158,7 +164,7 @@ class CrearSolicitudCompleta {
   async getConsecutivo() {
     let objConsecutivo = await ConsecutivosRepository.find(NUM_FACT);
     let incrementable = objConsecutivo.incrementable + 1; 
-    await ConsecutivosRepository.update({ incrementable }, NUM_FACT);
+    await ConsecutivosRepository.update({ incrementable }, NUM_FACT, this.transaction);
     return `${objConsecutivo.prefijo}${incrementable}`;
   }
 
@@ -194,7 +200,10 @@ class CrearSolicitudCompleta {
   }
 
   async crearSolicitud() {
-    this.solicitud = await SolicitudesRepository.crear(this.dataSolicitud);
+    this.solicitud = await SolicitudesRepository.crear(
+      this.dataSolicitud,
+      this.transaction
+    );
   }
 
   /***************
@@ -230,7 +239,11 @@ class CrearSolicitudCompleta {
     const dataVenta = this.castVenta(
       productoId, valorVenta, vehiculoId
     );
-    const venta = await VentasRepository.crear(dataVenta);
+
+    const venta = await VentasRepository.crear(
+      dataVenta,
+      this.transaction
+    );
     this.ventas.push(venta);
   }
 
@@ -253,7 +266,10 @@ class CrearSolicitudCompleta {
 
   async crearVehiculo() {
     const dataVehiculo = this.castVehiculo();
-    const vehiculo = await VehiculosRepository.crear(dataVehiculo);
+    const vehiculo = await VehiculosRepository.crear(
+      dataVehiculo,
+      this.transaction
+    );
     this.vehiculos.push(vehiculo);
     return vehiculo;
   }

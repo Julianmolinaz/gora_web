@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test:dev": "mocha test/solicitudes/gestion.spec.js --watch --timeout 10000",
+    "test:dev": "mocha test/solicitudes/gestion.spec.js",
     "dev": "nodemon server.js",
     "start": "node app.js"
   },

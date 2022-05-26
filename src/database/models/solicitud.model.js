@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const main = require("../conexiones/main.conexion");
 
 const Solicitud = main.define("Solicitud", {
@@ -84,7 +84,7 @@ const Solicitud = main.define("Solicitud", {
     defaultValue: new Date(),
   }
 }, {
-  main,
+//  main,
   modelName: "Solicitud",
   tableName: "precreditos",
   timestamps: false,

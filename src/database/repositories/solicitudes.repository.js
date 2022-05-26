@@ -1,5 +1,5 @@
 const Solicitud = require("../models/solicitud.model");
-const mainConexion = require("../conexiones/main.conexion");
+//const mainConexion = require("../conexiones/main.conexion");
 
 class SolicitudesRepository {
   static getPeriodos() {
@@ -12,6 +12,7 @@ class SolicitudesRepository {
   }
 
   static async findSolicitudesActivasByCliente(clienteId) {
+    /*
     const [results, metadata] = await mainConexion.query(
       `
         SELECT precreditos.* 
@@ -24,13 +25,19 @@ class SolicitudesRepository {
     );
 
     return results;
+    */
   }
   
   static async crear(data, transaction =  null) {
-    const solicitud = await Solicitud.create(
-      data, transaction
-    ); 
-    return solicitud;
+    try {
+      const solicitud = await Solicitud.create(
+        data,
+        { transaction }
+      );
+      return solicitud;
+    } catch (error) {
+      throw error;
+    } 
   }
 
   static async eliminar(solicitudId) {

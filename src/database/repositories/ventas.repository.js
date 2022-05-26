@@ -1,8 +1,11 @@
 const Venta = require("../models/venta.model");
 
 class VentasRepository {
-  static async crear(data) {
-    const venta = await Venta.create(data);
+  static async crear(data, transaction = null) {
+    const venta = await Venta.create(
+      data,
+      { transaction }
+    );
     return venta;
   }
 

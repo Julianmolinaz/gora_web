@@ -75,31 +75,33 @@ describe("Crear solicitud", () => {
   });
 
   it("Crear solicitud completa", async () => {
-    const datCliente = JSON.parse(JSON.stringify(dataCliente));
-    const datSimulador = JSON.parse(JSON.stringify(dataSimulador));
+    try {
+      const datCliente = JSON.parse(JSON.stringify(dataCliente));
+      const datSimulador = JSON.parse(JSON.stringify(dataSimulador));
 
-    const caseSolicitud = new CrearSolicitudCompleta(datCliente, datSimulador);
-    await caseSolicitud.exec();
+      const caseSolicitud = new CrearSolicitudCompleta(datCliente, datSimulador);
+      await caseSolicitud.exec();
 
-    const cliente = caseSolicitud.cliente;
-    const solicitud = caseSolicitud.solicitud;
-   
-    //console.log({cliente});
-    //console.log({solicitud});
-    //console.log("ventas", caseSolicitud.ventas);
-    //console.log("vehiculos", caseSolicitud.vehiculos);
-    //console.log("tarifas", caseSolicitud.tarifas);
+      /*
+      console.log("cliente", caseSolicitud.cliente);
+      console.log("solicitud", caseSolicitud.solicitud);
+      console.log("ventas", caseSolicitud.ventas);
+      console.log("vehiculos", caseSolicitud.vehiculos);
+      console.log("tarifas", caseSolicitud.tarifas);
+      */
   
-    
-    await destroySolicitud(solicitud.id);
-    await destroyCliente(cliente.id);
-    caseSolicitud.ventas.forEach(async (venta) => {
-      await destroyVenta(venta.id);
-    });
-    caseSolicitud.vehiculos.forEach(async (vehiculo) => {
-      await destroyVehiculo(vehiculo.id);
-    });
-    
+      await destroySolicitud(caseSolicitud.solicitud.id);
+      await destroyCliente(caseSolicitud.cliente.id);
+      caseSolicitud.ventas.forEach(async (venta) => {
+        await destroyVenta(venta.id);
+      });
+      caseSolicitud.vehiculos.forEach(async (vehiculo) => {
+        await destroyVehiculo(vehiculo.id);
+      });
+    } catch (error) {
+      throw error;
+    }
+      
   });
 
 });
