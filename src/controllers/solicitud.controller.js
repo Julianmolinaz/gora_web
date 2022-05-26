@@ -1,4 +1,4 @@
-//const CrearCliente = require("./../services/clientes/crear_cliente");
+const CrearSolicitudCompleta = require("../services/solicitudes/crear_solicitud_completa");
 
 class SolicitudController {
   static create(req, res) {
@@ -11,11 +11,18 @@ class SolicitudController {
 
   static async storeWithCliente(req, res) {
     try {
-      const data = req.body;
-      //const crearCliente = new CrearCliente(data);
-      //await crearCliente.exec();
+      const { cliente, simulador } = req.body;
 
-      return res.json({ msg: "Todo bien" });
+      const useCase = new CrearSolicitudCompleta(cliente, simulador);
+      await useCase.exec();
+
+      return res.json({ 
+        msg: "Cliente creado exitosamente",
+        dat: {
+          clienteId: useCase.cliente.id, 
+          solicitudId: useCase.solicitud.id,
+        }
+      });
     } catch (error) {
       console.error({ error });
       return res.json({ error }); 

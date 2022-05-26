@@ -1,5 +1,6 @@
 const { expect } = require("chai");
-const api = require("supertest")(require("./../../app"));
+const { app } = require("./../../app"); 
+const api = require("supertest")(app);
 
 const ClientesRepository = require("./../../src/database/repositories/clientes.repository");
 const SolicitudesRepository = require("./../../src/database/repositories/solicitudes.repository");
@@ -14,8 +15,6 @@ const CrearSolicitudCompleta = require("./../../src/services/solicitudes/crear_s
 const dataCliente = require("./../_mocks/cliente.mock");
 const dataSolicitud = require("./../_mocks/solicitud.mock");
 const dataSimulador = require("./../_mocks/simulador.mock");
-
-/*
 
 describe("Validacion de solicitudes", () => {
   it("Validar solicitud sin parámentros", async () => {
@@ -49,10 +48,8 @@ describe("Validacion de solicitudes", () => {
     expect(fails).to.equals(false);
   });
 });
-*/
 
 describe("Crear solicitud", () => {
-  /*
   it("crear solicitud", async () => {
     const cliente = await createCliente();
     const datSolicitud = JSON.parse(JSON.stringify(dataSolicitud));
@@ -66,12 +63,10 @@ describe("Crear solicitud", () => {
     await destroySolicitud(crearSolicitud.solicitud.id);
     await destroyCliente(cliente.id);
   });
-  */
 
   it("Instanciar solicitud completa con datos vacios", async () => {
-    //const caseSolicitud = new CrearSolicitudCompleta({}, {}); 
+    const caseSolicitud = new CrearSolicitudCompleta({}, {}); 
     //await caseSolicitud.exec();
-    //this.cliente = caseCrearCliente.cliente;
   });
 
   it("Crear solicitud completa", async () => {
@@ -101,9 +96,26 @@ describe("Crear solicitud", () => {
     } catch (error) {
       throw error;
     }
-      
   });
+});
 
+describe("API SOLICITUD", () => {
+  it("POST api/solicitudes/store-with-cliente", async () => {
+    const datCliente = JSON.parse(JSON.stringify(dataCliente));
+    const datSimulador = JSON.parse(JSON.stringify(dataSimulador));
+
+    const res = await api.post("/api/solicitudes/store-with-cliente")
+      .send({ 
+        cliente: dataCliente,
+        simulador: dataSimulador
+      });
+
+    const el = res.body.dat;
+    await VentasRepository.eliminarTodo();
+    await VehiculosRepository.eliminarTodo();
+    await destroySolicitud(el.solicitudId);
+    await destroyCliente(el.clienteId);
+  })
 });
 
 const createCliente = async () => {

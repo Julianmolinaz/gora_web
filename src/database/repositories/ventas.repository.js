@@ -14,6 +14,12 @@ class VentasRepository {
       where: { id: ventaId },
     }); 
   }
+
+  static async eliminarTodo() {
+    await Venta.destroy({
+      where: {},
+    });
+  }
 }
 
 module.exports = VentasRepository;

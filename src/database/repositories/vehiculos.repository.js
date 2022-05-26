@@ -14,6 +14,12 @@ class VehiculosRepository {
       where: { id: vehiculoId },
     })
   }
+
+  static async eliminarTodo() {
+    await Vehiculo.destroy({
+      where: {},
+    }); 
+  }
 }
 
 module.exports = VehiculosRepository;

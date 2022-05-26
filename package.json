@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test:dev": "mocha test/solicitudes/gestion.spec.js",
+    "test:dev": "mocha test/referencias/crear_referencias_solicitud.spec.js",
     "dev": "nodemon server.js",
     "start": "node app.js"
   },

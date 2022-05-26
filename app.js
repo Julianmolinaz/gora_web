@@ -39,3 +39,4 @@ app.use(express.urlencoded({ extended: true }));
 webRouter(app);
 apiRouter(app);
 
+module.exports = { app };

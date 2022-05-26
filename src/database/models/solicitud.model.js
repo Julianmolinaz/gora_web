@@ -84,7 +84,6 @@ const Solicitud = main.define("Solicitud", {
     defaultValue: new Date(),
   }
 }, {
-//  main,
   modelName: "Solicitud",
   tableName: "precreditos",
   timestamps: false,

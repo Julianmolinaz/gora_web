@@ -3,7 +3,7 @@
  * Permite crear una solicitud con su cliente, ventas y vehiculos
  **/
 
-// Datos y bases de datos
+// Persistencia 
 const mainConexion = require("../../database/conexiones/main.conexion");
 const ClientesRepository = require("../../database/repositories/clientes.repository");
 const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
@@ -65,9 +65,8 @@ class CrearSolicitudCompleta {
 
       this.transaction.commit();
     } catch (error) {
-      console.log({ error });
-      throw error;
       this.transaction.rollback();
+      throw error;
     }
   }
 
@@ -76,28 +75,34 @@ class CrearSolicitudCompleta {
    *****************/
 
   validarSimulador() {
+    const errSimulador = [];
+
     if (ValidadorHp.isEmpty(this.dataSimulador.productoId)) {
-      this.errors.push(["El producto es requerido en el simulador"]);
+      errSimulador.push(["El producto es requerido en el simulador"]);
     } else {
       if (process.env.PRODUCTOS_DEFAULT.indexOf == -1) {
-        this.errors.push(["No existe el producto indicado en el simulador"]);
+        errSimulador.push(["No existe el producto indicado en el simulador"]);
       }   
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.tipoVehiculoId)) {
-      this.errors.push(["El tipo de vehículo es requerido"])
+      errSimulador.push(["El tipo de vehículo es requerido"])
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.modelo)) {
-      this.errors.push(["El modelo del vehículo es requerido en el simulador"]);
+      errSimulador.push(["El modelo del vehículo es requerido en el simulador"]);
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.cilindraje)) {
-      this.errors.push(["El cilindraje del vehículo es requerido en el simulador"])
+      errSimulador.push(["El cilindraje del vehículo es requerido en el simulador"])
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.periodo)) {
-      this.errors.push(["El periodo es requerido en el simulador"]);
+      errSimulador.push(["El periodo es requerido en el simulador"]);
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.numCuotas)) {
-      this.errors.push(["El número de cuotas es requerido en el simulador"]);
+      errSimulador.push(["El número de cuotas es requerido en el simulador"]);
     }
+
+    if (errSimulador.length) {
+      throw errSimulador;
+    } 
   }
 
   /***********************
@@ -109,11 +114,10 @@ class CrearSolicitudCompleta {
     await caseValidarCliente.exec();
 
     if (caseValidarCliente.fails()) {
-      this.errors = this.errors.concat(caseValidarCliente.errors);
+      console.log(caseValidarCliente.errors);
+      throw caseValidarCliente.errors;
     }
   }
-
-  castCliente() {}
 
   async crearCliente() {
     this.cliente = await ClientesRepository.crear(
@@ -131,7 +135,7 @@ class CrearSolicitudCompleta {
     caseValidarSolicitud.exec();
 
     if (caseValidarSolicitud.fails()) {
-      this.errors = this.errors.concat(caseValidarSolicitud.errors);
+      throw caseValidarSolicitud.errors;
     }
   }
 
