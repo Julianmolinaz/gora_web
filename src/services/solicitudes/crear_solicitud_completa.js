@@ -78,30 +78,30 @@ class CrearSolicitudCompleta {
     const errSimulador = [];
 
     if (ValidadorHp.isEmpty(this.dataSimulador.productoId)) {
-      errSimulador.push(["El producto es requerido en el simulador"]);
+      errSimulador.push("El producto es requerido en el simulador");
     } else {
       if (process.env.PRODUCTOS_DEFAULT.indexOf == -1) {
-        errSimulador.push(["No existe el producto indicado en el simulador"]);
+        errSimulador.push("No existe el producto indicado en el simulador");
       }   
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.tipoVehiculoId)) {
-      errSimulador.push(["El tipo de vehículo es requerido"])
+      errSimulador.push("El tipo de vehículo es requerido")
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.modelo)) {
-      errSimulador.push(["El modelo del vehículo es requerido en el simulador"]);
+      errSimulador.push("El modelo del vehículo es requerido en el simulador");
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.cilindraje)) {
-      errSimulador.push(["El cilindraje del vehículo es requerido en el simulador"])
+      errSimulador.push("El cilindraje del vehículo es requerido en el simulador")
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.periodo)) {
-      errSimulador.push(["El periodo es requerido en el simulador"]);
+      errSimulador.push("El periodo es requerido en el simulador");
     }
     if (ValidadorHp.isEmpty(this.dataSimulador.numCuotas)) {
-      errSimulador.push(["El número de cuotas es requerido en el simulador"]);
+      errSimulador.push("El número de cuotas es requerido en el simulador");
     }
 
     if (errSimulador.length) {
-      throw errSimulador;
+      throw { name: "validationError", msg: errSimulador };
     } 
   }
 
@@ -114,8 +114,7 @@ class CrearSolicitudCompleta {
     await caseValidarCliente.exec();
 
     if (caseValidarCliente.fails()) {
-      console.log(caseValidarCliente.errors);
-      throw caseValidarCliente.errors;
+      throw { name: "validationError", msg: caseValidarCliente.errors };
     }
   }
 
@@ -135,7 +134,7 @@ class CrearSolicitudCompleta {
     caseValidarSolicitud.exec();
 
     if (caseValidarSolicitud.fails()) {
-      throw caseValidarSolicitud.errors;
+      throw { name: "validationError", msg: caseValidarSolicitud.errors };
     }
   }
 
@@ -200,7 +199,7 @@ class CrearSolicitudCompleta {
 
   getMeses() {
     const factorPeriodo = (this.dataSimulador.periodo == 'Quincenal') ? 2 : a;
-    return this.dataSimulador.numCuotas / factorPeriodo;
+    return this.dataSimulador.numCuotas * factorPeriodo;
   }
 
   async crearSolicitud() {

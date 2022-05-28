@@ -1,5 +1,7 @@
 class Cliente {
   constructor(payload) {
+    this.id = payload.id || "";
+
     // Información inicial
     this.primer_nombre = payload.primer_nombre || "";
     this.segundo_nombre = payload.segundo_nombre || "";
@@ -11,7 +13,7 @@ class Cliente {
     this.placa = payload.placa || "";
     this.email = payload.email || "";
 
-    // Información personal
+    // Información personal:w
     this.fecha_exp = payload.fecha_exp || "";
     this.lugar_exp = payload.lugar_exp || "";
     this.fecha_nacimiento = payload.fecha_nacimiento|| "";
@@ -19,8 +21,6 @@ class Cliente {
     this.genero = payload.genero || "";
     this.estado_civil = payload.estodo_civil || "";
     this.nivel_estudios = payload.nivel_estudios || "";
-    //this.antiguedad_movil = payload.antiguedad_movil || "";
-    //this.reportado = payload.reportado || false;
 
     // Información de ubicación
     this.estrato = payload.estrato || "";
@@ -34,7 +34,7 @@ class Cliente {
 
     // Informacion de laboral
     this.ocupacion = payload.ocupacion || "";
-    this.doc_empresa = payload.doc_empresa || ""; //?????????
+    this.doc_empresa = payload.doc_empresa || "";
     this.tipo_actividad = payload.tipo_actividad || "";
     this.empresa = payload.empresa || "";
     this.dir_empresa = payload.dir_empresa || "";
@@ -42,8 +42,8 @@ class Cliente {
     this.fecha_vinculacion = payload.fecha_vinculacion || "";
     this.descripcion_actividad = payload.descripcion_actividad || "";
 
-    this.cargo = payload.cargo || ""; //??????????
-    this.tipo_contrato = payload.tipo_contrato || ""; //??????????
+    this.cargo = payload.cargo || "";
+    this.tipo_contrato = payload.tipo_contrato || "";
 
     // Contraseñas
     this.password = payload.password || "";

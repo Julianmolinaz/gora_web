@@ -15,7 +15,6 @@ class Prevalidacion {
     }   
   }
 
-
   async existenSolicitudesActivas() {
     const solicitud = SolicitudesRepository.findBySome({
       cliente_id: this.clienteId,

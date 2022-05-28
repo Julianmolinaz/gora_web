@@ -112,19 +112,16 @@
                 [[ v$.movil.$errors[0].$message ]]
               </span>
             </div>
+            <!-- PLACA --> 
             <div class="group">
-              <!-- PLACA --> 
-              <div class="group">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    v-model="clienteSt.el.placa"
-                    :value="clienteSt.el.placa.toUpperCase()"
-                    @input="clienteSt.el.placa = $event.target.value.toUpperCase()"
-                    name="placa"
-                  >
-                  <label for="placa">Placa *</label>
-                </div>
+              <div class="input-group">
+                <input
+                  type="text"
+                  v-model="clienteSt.el.placa"
+                  @input="clienteSt.el.placa = $event.target.value.toUpperCase()"
+                  name="placa"
+                >
+                <label for="placa">Placa *</label>
               </div>
               <span class="helper-txt error" v-if="v$.placa.$error">
                 [[ v$.placa.$errors[0].$message ]]
@@ -233,8 +230,8 @@
             size: helpers.withMessage("El teléfono debe tener 10 digitos", size(10)),
           },
           placa: {
-            required: helpers.withMessage("La placa es requirida", required),
-          },
+            required: helpers.withMessage("La placa es requerida", required),
+        },
           email: {
             required: helpers.withMessage("El correo electrónico es requerido", required),
             email: helpers.withMessage("Correo con formato incorrecto", email),
@@ -245,7 +242,7 @@
           },
           confirm: {
             required: helpers.withMessage("La confirmación de la contraseña es requerida", required),
-            sameAsPassword: helpers.withMessage("La confirmación no coincide", sameAs('password')),
+            sameAsPassword: helpers.withMessage("La confirmación no coincide", sameAs(clienteSt.el.password)),
           },
         }
       });
@@ -264,8 +261,8 @@
     methods: {
       onSubmit() {
         this.v$.$validate();
-        if (this.v$.$error && false) {
-          //
+        if (this.v$.$error) {
+          alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
   //        this.aceptarTerminos();
   //        return;

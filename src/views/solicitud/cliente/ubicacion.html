@@ -7,7 +7,7 @@
         <div class="divider" style="--width-div:100px"></div>
       </div>
       <div class="solicitud-form">
-        <form @submit.prevent="onSubmit">
+        <form @submit.prevent>
           <div class="col-2">
             <div class="group">
               <!-- ESTRATO -->
@@ -63,19 +63,19 @@
               <!-- CIUDAD_ID -->
               <div class="input-group">
                 <select
-                  name="ciudad_id"
+                  name="municipio_id"
                   v-model="clienteSt.el.municipio_id"
                 >
                   <option
-                      v-if="ciudades"
-                      :value="ciudad.id"
-                      v-for="ciudad in ciudades"
-                  >[[ ciudad.nombre ]]</option>
+                      v-if="municipios"
+                      :value="municipio.id"
+                      v-for="municipio in municipios"
+                  >[[ municipio.nombre ]]</option>
                 </select>
-                <label for="ciudad_id">Ciudad residencia *</label>
+                <label for="municipio_id">Ciudad residencia *</label>
               </div>
-              <span class="helper-txt error" v-if="v$.ciudad_id.$error">
-                [[ v$.ciudad_id.$errors[0].$message ]]
+              <span class="helper-txt error" v-if="v$.municipio_id.$error">
+                [[ v$.municipio_id.$errors[0].$message ]]
               </span>
             </div>
           </div>
@@ -147,7 +147,7 @@
           </div>
           <div class="solicitud-bts">
             <a href="" class="bt">Volver</a>
-            <button class="bt bt__night">Continuar</button>
+            <button class="bt bt__night" @click="continuar">Continuar</button>
           </div>
         </form>
       </div>
@@ -169,12 +169,13 @@
     setup() {
       const clienteSt = clienteStore();
       const departamentoId = ref(null);
-      const ciudades = ref([]);
+      const municipios = ref([]);
 
       const getMunicipios = async () => {
         try {
-          const res = await axios.get("/api/ciudades/get-departamento/" + departamentoId.value);
-          ciudades.value = res.data.ciudades;
+          clienteSt.el.municipio_id = "";
+          const res = await axios.get("/api/municipios/get-departamento/" + departamentoId.value);
+          municipios.value = res.data.municipios;
         } catch (err) {
           alertify.error("Ha ocurrido un error, lo sentimos");
           console.error(err);
@@ -189,7 +190,7 @@
           fijo: {
             size: helpers.withMessage("El teléfono debe tener 10 caracteres", size(10)),
           },
-          ciudad_id: {
+          municipio_id: {
             required: helpers.withMessage("La ciudad es requerida", required),
           },
           barrio: {},
@@ -211,17 +212,17 @@
         // ......
         departamentoId,
         clienteSt,
-        ciudades,
+        municipios,
         // ......
         getMunicipios,
         v$,
       }
     },
     methods: {
-      onSubmit() {
+      continuar() {
         this.v$.$validate();
-        if (this.v$.$error && false) {
-          //
+        if (this.v$.$error) {
+          alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
           this.clienteSt.ir(4);
           this.clienteSt.completar(2);

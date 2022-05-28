@@ -7,7 +7,7 @@
         <div class="divider" style="--width-div:100px"></div>
       </div>
       <div class="solicitud-form">
-        <form @submit.prevent="onSubmit"> 
+        <form @submit.prevent> 
           <div class="col-2">
             <div class="group">
               <!-- FECHA_EXP -->
@@ -31,8 +31,7 @@
                   name="lugar_exp"
                   type="text"
                   v-model="clienteSt.el.lugar_exp"
-                  :value="clienteSt.el.lugar_exp.toUpperCase()"
-                  @input="clienteSt.el.placa = $event.target.value.toUpperCase()"
+                  @input="clienteSt.el.lugar_exp = $event.target.value.toUpperCase()"
                 >
                 <label for="">Ciudad de exped *</label>
               </div>
@@ -63,7 +62,6 @@
                   name="lugar_nacimiento"
                   type="text"
                   v-model="clienteSt.el.lugar_nacimiento"
-                  :value="clienteSt.el.lugar_nacimiento"
                   @input="clienteSt.el.lugar_nacimiento = $event.target.value.toUpperCase()"
                 >
                 <label for="">Lugar de nacimiento *</label>
@@ -134,7 +132,7 @@
  
           <div class="solicitud-bts">
             <a href="" class="bt">Volver</a>
-            <button class="bt bt__night">Continuar</button>
+            <button class="bt bt__night" @click="continuar">Continuar</button>
           </div>
         </form>
       </div>
@@ -192,10 +190,10 @@
       }
     },
     methods: {
-      onSubmit() {
+      continuar() {
         this.v$.$validate();
-        if (this.v$.$error && false) {
-          //           
+        if (this.v$.$error) {
+          alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
           this.clienteSt.ir(3);
           this.clienteSt.completar(2)

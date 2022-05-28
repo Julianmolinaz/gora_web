@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const localConexion = require("../conexiones/local.conexion");
 
-const Municipio = localConexion.define("municipios", {
+const Municipio = localConexion.define("Municipio", {
   id: {
     type: DataTypes.INTEGER,
     autoincrement: true,
@@ -18,8 +18,8 @@ const Municipio = localConexion.define("municipios", {
     type: DataTypes.INTEGER,
   },
 }, {
-  localConexion,
   modelName: "Municipio",
+  tableName: "municipios",
   timestamps: false,
   underscored: true,
 });

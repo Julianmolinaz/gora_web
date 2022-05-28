@@ -36,6 +36,7 @@
   <script src="./../../js/mios/entidades/Referencia.js"></script>
   <script src="./../../js/mios/entidades/Simulador.js"></script>
   <script src="./../../js/mios/reglas/filters.js"></script>
+  <script src="./../../js/mios/utils/transform.js"></script>
   <!-- Vuelidate -->
   <script src="./../../libs/vuelidate/demi.js"></script>
   <script src="./../../libs/vuelidate/core.js"></script>
@@ -44,12 +45,9 @@
 
   {% include "./routes.html" %}
 
-  <script>
-    window.addEventListener("beforeunload", (event) => {
-      event.preventDefault();
-      event.returnValue = '';
-    });
+  <!-- Importación de librerias -->
 
+  <script>
     const { ref, reactive, createApp, computed, onMounted, nextTick, inject } = Vue;
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
@@ -58,10 +56,14 @@
     const emitter = mitt();
   </script> 
 
-  {% include "./store/solicitud.html" %}
+  <!-- Importación modulos store -->
+
   {% include "./store/cliente.html" %}
   {% include "./store/pasos.html" %}
   {% include "./store/simulador.html" %}
+  {% include "./store/solicitud.html" %}
+
+  <!-- Main component vue -->
 
   <script type="text/javascript">
     const appSolicitud = createApp({
@@ -73,11 +75,9 @@
         const getInsumosCliente = async () => {
           try {
             const res = await axios.get("/api/clientes/create");
-            console.log({res});
             clienteSt.insumos = res.data.insumos;
           } catch (err) {
             alertify.error("Ocurrió un error");
-            console.error(err);
           }
         }
 
@@ -95,6 +95,8 @@
       },
     });
   </script>
+
+  <!-- Instaciación de la app vue -->
 
   <script>
     /* Global properties */

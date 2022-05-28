@@ -3,6 +3,7 @@ const solicitudStore = defineStore("solicitud", {
   state: () => ({
     estado: 'crear',
     numReferencias: 0,
+    solicitudId: null,
     storage: window.localStorage,
     docs: [
       { 
@@ -46,7 +47,6 @@ const solicitudStore = defineStore("solicitud", {
   getters: {},
   actions: {
     navigationTo(slug) {
-      console.log("slug", this.storage.getItem("slug"));
       if (this.storage.getItem("slug") === null) {
         this.storage.setItem("slug", slug); 
         router.push({ name: slug });
@@ -58,6 +58,31 @@ const solicitudStore = defineStore("solicitud", {
           router.push({ name: slug });
         }
       }
+    },
+    // Permite crear un clinte, su solicitud,
+    // las ventas por producto y sus respectivos vehiculos
+    onSubmit() {
+      const data = {
+        cliente: clienteStore().el,
+        simulador: simuladorStore().simulador
+      };
+      
+      axios.post("/api/solicitudes/store-with-cliente", data)
+        .then(res => {
+          alertify.notify(res.data.msg, "success", 2, () => {
+            clienteStore().el.id = res.data.dat.clienteId;
+            this.solicitudId = res.data.dat.solicitudId;
+            this.navigationTo("referencias");
+          });
+        })
+        .catch(error => {
+          const errors = error.response.data.error;
+          if (errors.name == "validationError") {
+            alertify.alert("Error", arrToString(errors.msg, "<br>")); 
+          } else {
+            alertify.alert("Error", "Lo sentimos, se presentó un error inesperado");
+          }
+        });
     }
   }
 });

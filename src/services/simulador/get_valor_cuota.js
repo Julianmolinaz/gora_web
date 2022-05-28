@@ -10,6 +10,7 @@ const FactoresRepository = require("../../database/repositories/factores.reposit
 
 class GetValorCuota {
   constructor(precioProducto, numCuotasMensuales, periodo) {
+    console.log(precioProducto, numCuotasMensuales, periodo);
     this.precioProducto = precioProducto;
     this.numCuotasMensuales = numCuotasMensuales;
     this.periodo = (periodo === "Quincenal") ? 2 : 1; 

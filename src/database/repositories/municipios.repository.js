@@ -3,7 +3,7 @@ const Municipio = require("../models/municipio.model");
 class MunicipiosRepository {
   static async getMunicipiosPorDepartamento(departamentoId) {
     try {
-      const municipios = await Muncipio.findAll({
+      const municipios = await Municipio.findAll({
         where: { departamento_id: departamentoId },
         order: ["nombre"],
       });

@@ -7,15 +7,12 @@
         <div class="divider" style="--width-div:100px"></div>
       </div>
       <div class="solicitud-form">
-        <form @submit.prevent="onSubmit"> 
+        <form @submit.prevent> 
           <div class="col">
             <div class="group">
               <!-- OCUPACION -->
               <div class="input-group">
-                <select
-                  name="oficio"
-                  v-model="clienteSt.el.ocupacion"
-                >
+                <select name="oficio" v-model="clienteSt.el.ocupacion">
                   <option 
                     :value="oficio.nombre"
                     v-for="oficio in clienteSt.insumos.listOficios"
@@ -32,10 +29,7 @@
             <div class="group">
               <!-- TIPO ACTIVIDAD -->
               <div class="input-group">
-                <select 
-                  name="tipo_actividad"
-                  v-model="clienteSt.el.tipo_actividad"
-                >
+                <select name="tipo_actividad" v-model="clienteSt.el.tipo_actividad">
                   <option
                       :value="actividad"
                       v-for="actividad in clienteSt.insumos.listTipoActividad"
@@ -61,11 +55,7 @@
               <div class="group">
                 <!-- EMPRESA -->
                 <div class="input-group">
-                  <input
-                    name="empresa"
-                    type="text"
-                    v-model="clienteSt.el.empresa"
-                  >
+                  <input name="empresa" type="text" v-model="clienteSt.el.empresa" />
                   <label for="empresa">
                     Nombre de la empresa 
                     [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? " *" : "" ]]
@@ -77,9 +67,35 @@
               </div>
             </div>
             <div
-              class="col"
+              class="col-2"
               v-if="clienteSt.el.tipo_actividad == 'Dependiente'"
             >
+              <!-- TIPO CONTRATO --> 
+              <div class="group">
+                <div class="input-group">
+                  <select name="tipo_contrato" v-model="clienteSt.el.tipo_contrato">
+                    <option :value="tipo" v-for="tipo in clienteSt.insumos.listTipoContrato">
+                      [[ tipo ]]
+                    </option>
+                  </select>
+                  <label for="">Tipo de contrato *</label>
+                </div>
+                <span class="helper-txt error" v-if="v$.tipo_contrato.$error">
+                  [[ v$.tipo_contrato.$errors[0].$message ]]
+                </span>
+              </div> 
+              <!-- CARGO -->
+              <div class="group">
+                <div class="input-group">
+                  <input type="text" name="cargo" v-model="clienteSt.el.cargo" />
+                  <label for="">Cargo *</label>
+                </div>
+                <span class="helper-txt error" v-if="v$.cargo.$error">
+                  [[ v$.cargo.$errors[0].$message ]]
+                </span>
+              </div>
+            </div>
+            <div class="col" v-if="clienteSt.el.tipo_actividad == 'Dependiente'">
               <div class="group">
                 <!-- DOC_EMPRESA -->
                 <div class="input-group">
@@ -188,7 +204,7 @@
           </div>
           <div class="solicitud-bts">
             <a href="" class="bt">Volver</a>
-            <button class="bt bt__night">Continuar</button>
+            <button class="bt bt__night" @click="onSubmit">Continuar</button>
           </div>
         </form>
       </div>
@@ -228,9 +244,15 @@
         empresa: {
           required: helpers.withMessage("El nombre de la empresa es requerido", required),
         },
-        descripcion_actividad:{},
+        descripcion_actividad: {},
+        tipo_contrato: {
+          required: helpers.withMessage("El tipo de contrato es requerido", required),
+        },
+        cargo: {
+          required: helpers.withMessage("El cargo es requerido", required),
+        },
         doc_empresa: {
-          required: helpers.withMessage("El documento o cedula de la empresa es requerida", required),
+          required: helpers.withMessage("El documento o cédula de la empresa es requerida", required),
         },
         dir_empresa: {
           required: helpers.withMessage("La dirección de la empresa es requerida", required),
@@ -245,6 +267,8 @@
         descripcion_actividad: {
           required: helpers.withMessage("La descripcion de la actividad es requerida", required),
         },
+        tipo_contrato: {},
+        cargo: {},
         doc_empresa: {},
         dir_empresa: {},
         tel_empresa: {},
@@ -262,9 +286,7 @@
       } 
 
       const rules = computed(() => getReglas());
-
       const v$ = useVuelidate(rules, clienteSt.el);
-
       return {
         //....
         clienteSt,
@@ -277,10 +299,11 @@
       onSubmit() {
         this.v$.$validate();
         if (this.v$.$error && false) {
-          alertify.error("Corrija los errores en rojo", 2);
+          alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
-          this.clienteSt.completar(3);
-          this.solicitudSt.navigationTo("referencias");
+          this.solicitudSt.onSubmit();
+          //this.clienteSt.completar(3);
+          //this.solicitudSt.navigationTo("referencias");
         }
       }
     }
