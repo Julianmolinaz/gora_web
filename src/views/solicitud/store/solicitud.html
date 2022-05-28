@@ -2,7 +2,6 @@
 const solicitudStore = defineStore("solicitud", {
   state: () => ({
     estado: 'crear',
-    numReferencias: 0,
     solicitudId: null,
     storage: window.localStorage,
     docs: [
@@ -59,8 +58,10 @@ const solicitudStore = defineStore("solicitud", {
         }
       }
     },
-    // Permite crear un clinte, su solicitud,
-    // las ventas por producto y sus respectivos vehiculos
+    /**
+     * Permite crear un clinte, su solicitud,
+     * las ventas por producto y sus respectivos vehiculos
+     **/
     onSubmit() {
       const data = {
         cliente: clienteStore().el,

@@ -6,14 +6,16 @@
         alt="icono persona"
         class="ref-header__icono"
       >
-      <span class="ref-header__titulo">Referencia [[props.index + 1]]</span>
+      <span class="ref-header__titulo">
+        Referencia [[props.index + 1]]
+      </span>
     </div>
     <div class="col">
       <div class="group">
         <div class="input-group">
           <select
             name="parentesco"
-            v-model="clienteSt.refs[props.index].parentesco"
+            v-model="referencia.parentesco"
           >
             <option selected disabled></option>
             <option
@@ -27,7 +29,6 @@
         <span class="helper-txt error" v-if="v$.parentesco.$error">
           [[ v$.parentesco.$errors[0].$message ]]
         </span>
-
      </div>
     </div>
     <div class="col">
@@ -35,7 +36,7 @@
         <div class="input-group">
           <input
             type="text"
-            v-model="clienteSt.refs[props.index].nombre"
+            v-model="referencia.nombre"
           />
           <label for="nombre">Nombres y apellidos</label>
         </div>
@@ -50,7 +51,7 @@
           <input
             type="text"
             name="telefonos"
-            v-model="clienteSt.refs[props.index].celular"
+            v-model="referencia.celular"
           />
           <label for="telefonos">Teléfonos</label>
         </div>
@@ -67,10 +68,10 @@
     template: "#referencia-template",
     name: "ReferenciaComponent",
     delimiters: ['[[', ']]'],
-    props: ['index'], 
+    props: ['index', 'referencia'], 
     setup(props) {
       const clienteSt = clienteStore();
-      const emitter = inject('emitter');
+      const referenciasSt = referenciasStore();
       
       const rules = computed(() => {
         return {
@@ -87,11 +88,12 @@
         }
       });
           
-      const v$ = useVuelidate(rules, clienteSt.refs[props.index]);
-        
+      const v$ = useVuelidate(rules, props.referencia);
+
       return {
         props,
         clienteSt,
+        referenciasSt,
         emitter,
         v$,
       }
@@ -99,17 +101,13 @@
     methods: {
       onSubmit() {
         this.v$.$validate();
-        if (this.v$.$error) {
-            console.log(false);
-        } else {
-            console.log(true);
+        if (!this.v$.$error) {
+          this.referenciasSt.refsValidas++; 
         }
       }
     },
     created() {
-      this.emitter.on("onSubmitReferencias", () => {
-          this.onSubmit();
-      });
+      this.emitter.on("SUBMIT_REF", () => this.onSubmit());
     }
   }
 </script>

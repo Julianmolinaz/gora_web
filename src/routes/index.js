@@ -16,13 +16,14 @@ const webRouter = (app) => {
 const apiRouter = (app) => {
   app.use("/api/test", verifyToken, require("./api/test_")),
   app.use("/api/auth", require("./api/auth")),
-  app.use("/api/simulador", require("./api/simulador"));
-  app.use("/api/contactos", require("./api/contactos"));
   app.use("/api/clientes", require("./api/clientes"));
-  app.use("/api/solicitudes", require("./api/solicitudes"));
+  app.use("/api/contactos", require("./api/contactos"));
   app.use("/api/municipios", require("./api/municipios"));
-  app.use("/api/usuarios", require("./api/usuarios"));
+  app.use("/api/referencias", require("./api/referencias"));
+  app.use("/api/simulador", require("./api/simulador"));
+  app.use("/api/solicitudes", require("./api/solicitudes"));
   app.use("/api/terminos", require("./api/terminos"));
+  app.use("/api/usuarios", require("./api/usuarios"));
 }
 
 module.exports = {
