@@ -1,0 +1,44 @@
+<script>
+const documentosStore = difeneStore("documentos", {
+  state: () => ({
+    docs: [
+      { 
+        titulo: "Cédula de ciudadanía (Frente)",
+        imagen: "cedula-frente.png",
+        desc: "Parte delantera de su cédula de ciudadanía",
+        completo: false
+      },
+      { 
+        titulo: "Cédula de ciudadanía (Posterior)",
+        imagen: "cedula-atras.png",
+        desc: "Parte trasera de su cédula de ciudadanía",
+        completo: false
+      },
+      { 
+        titulo: "Tarjeta de propiedad (Frente)",
+        imagen: "tarjeta-propiedad-frente.png",
+        desc: "Parte delantera de la tarjeta de propiedad del vehículo",
+        completo: false
+      },
+      { 
+        titulo: "Tarjeta de propiedad (Atras)",
+        imagen: "tarjeta-propiedad-atras.png",
+        desc: "Parte trasera de la tarjeta de propiedad del vehículo",
+        completo: false
+      },
+      { 
+        titulo: "Fotografía rostro",
+        imagen: "selfie.png",
+        desc: "Fotografia de frente sin tapabocas ni gafas",
+        completo: false
+      },
+      { 
+        titulo: "Recibo de pago",
+        imagen: "tarjeta-credito.png",
+        desc: "Fotografía del recibo de pago del estudio",
+        completo: false
+      },
+    ],
+  }),
+});
+</script>

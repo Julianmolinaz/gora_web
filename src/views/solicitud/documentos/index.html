@@ -43,6 +43,7 @@
       DocumentoComponent: objDocumento,
     },
     setup() {
+      const documentosSt = documentosStore();
       const solicitudSt = solicitudStore();
 
       const onSubmit = () => {
@@ -51,6 +52,7 @@
 
       return {
         solicitudSt,
+        documentosSt,
         onSubmit,
       }
     }
