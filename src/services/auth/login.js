@@ -21,12 +21,14 @@ class Login {
       await this.getUsuario();
 
       const result = await comparar(
-        this.data.password, this.usuario.password
+        this.data.password,
+        this.usuario.password
       );
 
       if(result) {
         const token = await this.getToken(
-          this.usuario.num_doc, this.usuario.id
+          this.usuario.id,
+          this.usuario.primer_nombre +" "+ this.usuario.primer_apellido,
         );
         return token;
       } else {
@@ -37,9 +39,9 @@ class Login {
     }
   }
 
-  async getToken(numDoc, usuarioId) {
+  async getToken(usuarioId, nombre) {
     const token = await jwt.sign({
-      name: numDoc,
+      name: nombre,
       id: usuarioId
     }, process.env.TOKEN_SECRET);
 

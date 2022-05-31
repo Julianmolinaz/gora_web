@@ -29,6 +29,6 @@ describe("Creacion de usuarios", () => {
       const dataUsuario = JSON.parse(JSON.stringify(usuario)); 
       const registrarUsuario = new RegistrarUsuario(dataUsuario);
       await registrarUsuario.exec();
-      await UsuariosRepository.eliminar(registrarUsuario.usuario.id);
+      //await UsuariosRepository.eliminar(registrarUsuario.usuario.id);
   });
 });
