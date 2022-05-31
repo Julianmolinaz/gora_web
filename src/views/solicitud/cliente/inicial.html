@@ -259,12 +259,13 @@
       }
     },
     methods: {
-      onSubmit() {
+      async onSubmit() {
         this.v$.$validate();
-        if (this.v$.$error) {
+        if (this.v$.$error && false) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
-          this.aceptarTerminos();
+          await this.clienteSt.submitUsuario();
+          //this.aceptarTerminos();
           //return;
           //this.clienteSt.ir(2);
           //this.clienteSt.completar(0);

@@ -21,7 +21,32 @@ const clienteStore = defineStore("cliente", {
     },
     completar(index) {
       this.nodos[index].completo = true;
-    } 
+    },
+    async submitUsuario() {
+      try {
+        const data = {
+          primer_nombre: this.el.primer_nombre,
+          segundo_nombre: this.el.segundo_nombre,
+          primer_apellido: this.el.primer_apellido,
+          segundo_apellido: this.el.segundo_apellido,
+          tipo_doc: this.el.tipo_doc,
+          num_doc: this.el.num_doc,
+          movil: this.el.movil,
+          email: this.el.email,
+          password: this.el.password,
+          confirm: this.el.confirm
+        };
+        //const res = await axios.post("/api/usuarios", data);
+        //const res2 = await axios.get(`/api/terminos/generar-codigo/${res.data.dat.id}`);
+        emitter.emit("showModalAceptarTerminos");
+      } catch (error) {
+        const resError = error.response.data.error;
+        if (resError.name === "ValidationError") {
+          alertify.alert("Error en validación", arrToString(resError.message, "<br>")); 
+        }
+        alertify.alert("Ocurrió un error", resError.message);
+      }
+    }
   }
 });
 </script>

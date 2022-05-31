@@ -1,12 +1,11 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const { capitalizar } = require("../../helpers/getters");
-
 const local = require("../conexiones/local.conexion");
 
 const Usuario = local.define("Usuario", {
   id: {
     type: DataTypes.INTEGER,
-    autoincrement: true,
+    autoIncrement: true,
     primaryKey: true
   },
   primer_nombre: {
@@ -68,8 +67,8 @@ const Usuario = local.define("Usuario", {
     default: 0,
   },
 }, {
-  local,
   modelName: "Usuario",
+  tableName: "usuarios",
   underscored: true,
 });
 

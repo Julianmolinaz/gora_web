@@ -2,9 +2,14 @@ const Usuario = require("../models/usuario.model.js");
 const { encriptar } = require("./../../helpers/bcrypt"); 
 
 class UsuariosRepository {
+  static async find(usuarioId) {
+    const usuario = await Usuario.findByPk(usuarioId);
+    return usuario;
+  }
+
   static async findNumDoc(numDoc) {
     try {
-      const usuario = Usuario.findOne({
+      const usuario = await Usuario.findOne({
         where: { num_doc: numDoc },
       });
       return usuario;
@@ -19,7 +24,6 @@ class UsuariosRepository {
       const usuario = await Usuario.create(data, { transaction });
       return usuario;
     } catch (error) {
-      console.log(error);
       throw error; 
     }
   }
@@ -30,6 +34,16 @@ class UsuariosRepository {
       usuario.set(data);
       await usuario.save();
       return usuario;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async eliminar(usuarioId, transaction = null) {
+    try {
+      await Usuario.destroy({
+        where: { id: usuarioId },
+      });
     } catch (error) {
       throw error;
     }

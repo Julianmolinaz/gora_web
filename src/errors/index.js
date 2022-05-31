@@ -12,7 +12,7 @@ class ValidationError extends Error {
   }
 }
 
-class uniqueError extends Error {
+class UniqueError extends Error {
   constructor(message) {
     super(message);
     this.name = "UniqueError";

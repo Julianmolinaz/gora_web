@@ -10,7 +10,7 @@
         digitelo para firmar el pagaré. 
       </p>
       <div class="terminos-form">
-        <input type="number" class="terminos__input-form">
+        <input type="number" class="terminos__input-form" ref="digito1">
         <input type="number" class="terminos__input-form">
         <input type="number" class="terminos__input-form">
         <input type="number" class="terminos__input-form">
@@ -35,9 +35,15 @@
     delimiters: ['[[', ']]'],
     setup() {
       const clienteSt = clienteStore();
+      const digito1 = ref("");
+
+        onMounted(() => {
+          digito1.focus();
+        });
 
       return {
         clienteSt,
+        digito1,
       }
     },
   }

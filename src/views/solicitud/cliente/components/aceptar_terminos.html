@@ -16,34 +16,38 @@
           <input
             type="number"
             class="terminos__input-form"
-            id="digito1"
+            id="one"
+            @input="next"
           />
           <input
             type="text"
             maxlength="1"
             class="terminos__input-form"
             pattern="^[1-9]|[0-9]\d$"
-            ref="two"
+            id="two"
+            @input="next"
           />
           <input
             type="text"
             maxlength="1"
             class="terminos__input-form"
             pattern="^[1-9]|[0-9]\d$"
-            ref="three"
+            id="three"
+            @input="next"
           />
           <input
             type="text"
             maxlength="1"
             class="terminos__input-form"
             pattern="^[1-9]|[0-9]\d$"
-            ref="four"
+            id="four"
+            @input="next"
           />
         </div>
       </div>
       <div class="modal__footer">
         <a href="" class="bt bt__default">Reenviar código</a>
-        <a href="" class="bt bt__sun">Aceptar</a>
+        <a href="" class="bt bt__sun" @click="aceptar">Aceptar</a>
       </div>
     </div>
     <terminos-condiciones></terminos-condiciones>
@@ -62,8 +66,6 @@
     delimiters: ['[[', ']]'],
     setup() {
       const showModal = ref(false);
-      const code = ref("");
-      const digito1 = ref("");
       const show = () => showModal.value = true;
       const close = () => showModal.value = false;
 
@@ -72,20 +74,49 @@
         emitter.emit("showModalTerminosCondiciones");
       }
 
+      let codigo = "";
+      const next = (event) => {
+        codigo += event.target.value;
+        if (event.target.id == "one") {
+          document.querySelector("#two").focus();
+        } if (event.target.id == "two") {
+          document.querySelector("#three").focus();
+        } if (event.target.id == "three") {
+          document.querySelector("#four").focus();
+        }
+      }
+
+      const clienteSt = clienteStore();
+
+      const aceptar = async (event) => {
+        event.preventDefault();
+        try {
+          const data = { usuarioId: null, codigo };
+          const res = await axios.post("/api/terminos/validar-codigo", data);
+          if (res.data.dat) {
+            close(); 
+            clienteSt.ir(2);
+          } else {
+            alertify.alert("Error", "El código no es valido");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
       onMounted(() => {
-        nextTick(() => {
-          document.querySelector("#digito1").focus();
-        });
         emitter.on("showModalAceptarTerminos", () => {
+          document.querySelector("#one").focus();
           show();
         });
       });
 
       return {
-        digito1,
         showModal,
         close,
         leerTerminos,
+        next,
+        aceptar,
       };
     }
   };

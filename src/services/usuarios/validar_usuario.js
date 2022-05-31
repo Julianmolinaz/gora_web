@@ -1,6 +1,7 @@
 const validator = require("validator");
 const ValidadorHp = require("./../../helpers/validador"); 
 const UsuariosRepository = require("./../../database/repositories/usuarios.repository");
+const { ValidationError, UniqueError } = require("./../../errors");
 
 class ValidarUsuario {
   constructor(data) {
@@ -8,9 +9,9 @@ class ValidarUsuario {
     this.errors = [];
   }
 
-  async exec() {
+  exec() {
+    this.validarNumDoc();
     this.validarTipoDoc();
-    await this.validarNumDoc();
     this.validarPassword();
     this.validarConfirm();
     this.validarPrimerNombre();
@@ -32,10 +33,6 @@ class ValidarUsuario {
   async validarNumDoc() {
     if (ValidadorHp.isEmpty(this.data.num_doc)) {
       this.errors.push(["El número de documento no existe"]);
-    } else {
-      if (await this.existeUsuario()) {
-        this.errors.push(["Ya existe un usuario registrado"])
-      }
     }
   }
 
@@ -81,12 +78,6 @@ class ValidarUsuario {
         this.errors.push(["El correo electrónico no tiene el formato requerido"]);
       }
     }
-  }
-
-  async existeUsuario() {
-    const usuario = await UsuariosRepository.findNumDoc(this.data.num_doc);
-    if (usuario) return true;
-    return false;
   }
 }
 

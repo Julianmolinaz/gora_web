@@ -15,9 +15,7 @@ const dataCliente = require("./../_mocks/cliente.mock");
 const dataSimulador = require("./../_mocks/simulador.mock");
 const dataReferencias = require("./../_mocks/referencias.mock");
 
-console.log("test referencias");
-
-describe("REFERENCIAS", () => {
+describe("Gestion de referencias", () => {
   it("crear referencias", async () => {
     const datCliente = JSON.parse(JSON.stringify(dataCliente));
     const datSimulador = JSON.parse(JSON.stringify(dataSimulador));
@@ -39,7 +37,6 @@ describe("REFERENCIAS", () => {
     await VehiculosRepository.eliminarTodo();
     await SolicitudesRepository.eliminar(caseSolicitud.solicitud.id);
     await ClientesRepository.eliminar(caseSolicitud.cliente.id);
-     
   });
 });
 

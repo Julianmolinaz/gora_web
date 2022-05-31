@@ -2,7 +2,7 @@ const UsuariosRepository = require("../../database/repositories/usuarios.reposit
 const { generarCodigo } = require("../../helpers/getters");
 const { sendSms } = require("../notificaciones/simple_textual_message"); 
 
-class ValidarMovil {
+class GenerarCodigoValidacion {
   constructor(usuarioId) {
     this.usuarioId = usuarioId; 
     this.usuario = "";
@@ -37,7 +37,8 @@ class ValidarMovil {
       process.env.COUNTRY_CODE + this.usuario.movil,
       `GORA: para aceptar terminos y condiciones escriba el siguiente codigo: ${this.codigo}`
     );
+    return response;
   }
 }
 
-module.exports = ValidarMovil;
+module.exports = GenerarCodigoValidacion;

@@ -1,7 +1,5 @@
 const { Sequelize } = require("sequelize");
 
-console.log("--conectando a db conexion.local--");
-
 const local = new Sequelize(
   process.env.LOCAL_DB_NAME,
   process.env.LOCAL_DB_USER,
