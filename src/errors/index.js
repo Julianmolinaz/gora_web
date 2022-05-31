@@ -20,6 +20,7 @@ class UniqueError extends Error {
 }
 
 module.exports = {
+  Error,
   ValidationError,
   UniqueError,
 }

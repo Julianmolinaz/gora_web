@@ -65,8 +65,12 @@ describe("Crear solicitud", () => {
   });
 
   it("Instanciar solicitud completa con datos vacios", async () => {
-    const caseSolicitud = new CrearSolicitudCompleta({}, {}); 
-    //await caseSolicitud.exec();
+    try {
+      const caseSolicitud = new CrearSolicitudCompleta({}, {}); 
+      await caseSolicitud.exec();
+    } catch (error) {
+      expect(error).to.exist;
+    }
   });
 
   it("Crear solicitud completa", async () => {
@@ -76,23 +80,15 @@ describe("Crear solicitud", () => {
 
       const caseSolicitud = new CrearSolicitudCompleta(datCliente, datSimulador);
       await caseSolicitud.exec();
-
-      /*
-      console.log("cliente", caseSolicitud.cliente);
-      console.log("solicitud", caseSolicitud.solicitud);
-      console.log("ventas", caseSolicitud.ventas);
-      console.log("vehiculos", caseSolicitud.vehiculos);
-      console.log("tarifas", caseSolicitud.tarifas);
-      */
-  
-      await destroySolicitud(caseSolicitud.solicitud.id);
-      await destroyCliente(caseSolicitud.cliente.id);
-      caseSolicitud.ventas.forEach(async (venta) => {
-        await destroyVenta(venta.id);
-      });
+      
       caseSolicitud.vehiculos.forEach(async (vehiculo) => {
         await destroyVehiculo(vehiculo.id);
       });
+      caseSolicitud.ventas.forEach(async (venta) => {
+        await destroyVenta(venta.id);
+      });
+      await destroySolicitud(caseSolicitud.solicitud.id);
+      await destroyCliente(caseSolicitud.cliente.id);
     } catch (error) {
       throw error;
     }
@@ -106,15 +102,16 @@ describe("API SOLICITUD", () => {
 
     const res = await api.post("/api/solicitudes/store-with-cliente")
       .send({ 
-        cliente: dataCliente,
-        simulador: dataSimulador
+        cliente: datCliente,
+        simulador: datSimulador
       });
 
     const el = res.body.dat;
-    await VentasRepository.eliminarTodo();
+ /*   await VentasRepository.eliminarTodo();
     await VehiculosRepository.eliminarTodo();
     await destroySolicitud(el.solicitudId);
     await destroyCliente(el.clienteId);
+    */
   })
 });
 

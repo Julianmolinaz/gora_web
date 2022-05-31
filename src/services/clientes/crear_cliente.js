@@ -1,5 +1,6 @@
 const ClientesRepository = require("./../../database/repositories/clientes.repository"); 
 const ValidarCliente = require("./validar_cliente");
+const { ValidationError, UniqueError } = require("./../../errors");
 
 class CrearCliente {
   constructor(data, transaction = null) {
@@ -10,19 +11,30 @@ class CrearCliente {
 
   async exec() {
     try {
-      await this.validarCliente();
+      this.validarCliente();
+      await this.validarClienteUnico();
       await this.salvarCliente(); 
     } catch (error) {
       throw error;
     }
   }
 
-  async validarCliente() {
+  validarCliente() {
     const validarCliente = new ValidarCliente(this.data);
-    await validarCliente.exec();
+    validarCliente.exec();
     if (validarCliente.fails()) {
-      throw validarCliente.errors;
+      throw new ValidationError(validarCliente.errors);
     }
+  }
+
+  async validarClienteUnico() {
+    const cliente = await ClientesRepository.findSome({
+      num_doc: this.data.num_doc
+    });
+
+    if (cliente.length) {
+      throw new UniqueError("Ya existe un cliente registrado");
+    } 
   }
 
   async salvarCliente() {

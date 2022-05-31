@@ -36,8 +36,8 @@ const clienteStore = defineStore("cliente", {
           password: this.el.password,
           confirm: this.el.confirm
         };
-        //const res = await axios.post("/api/usuarios", data);
-        //const res2 = await axios.get(`/api/terminos/generar-codigo/${res.data.dat.id}`);
+        const res = await axios.post("/api/usuarios", data);
+        const res2 = await axios.get(`/api/terminos/generar-codigo/${res.data.dat.id}`);
         emitter.emit("showModalAceptarTerminos");
       } catch (error) {
         const resError = error.response.data.error;

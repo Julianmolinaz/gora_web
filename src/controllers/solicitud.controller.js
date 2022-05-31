@@ -1,4 +1,5 @@
 const CrearSolicitudCompleta = require("../services/solicitudes/crear_solicitud_completa");
+const { Error } = require("../errors");
 
 class SolicitudController {
   static create(req, res) {
@@ -12,7 +13,6 @@ class SolicitudController {
   static async storeWithCliente(req, res) {
     try {
       const { cliente, simulador } = req.body;
-      console.log(cliente, simulador);
 
       const useCase = new CrearSolicitudCompleta(cliente, simulador);
       await useCase.exec();
@@ -25,8 +25,12 @@ class SolicitudController {
         }
       });
     } catch (error) {
-      console.error({ error });
-      return res.status(400).json({ error }); 
+      if (error.name === "UniqueError" || error.name === "ValidationError") {
+        return res.status(400).json(error); 
+      } else {
+        let responseError = new Error("Se presentó un error interno"); 
+        return res.status(400).json(responseError); 
+      }
     }
   }
 }

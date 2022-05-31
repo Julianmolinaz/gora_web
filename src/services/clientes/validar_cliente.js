@@ -9,14 +9,14 @@ class ValidarCliente {
     this.errors = [];
   }
 
-  async exec() {
+  exec() {
     try {
       this.validarPrimerNombre(); 
       this.validarSegundoNombre();
       this.validarPrimerApellido();
       this.validarSegundoApellido();
       this.validarTipoDoc();
-      await this.validarNumDoc();
+      this.validarNumDoc();
       this.validarMovil();
       this.validarEmail();
       this.validarFechaExp();
@@ -77,22 +77,10 @@ class ValidarCliente {
     }
   } 
 
-  async validarNumDoc() {
+  validarNumDoc() {
     if (ValidadorHp.isEmpty(this.data.num_doc)) {
       this.errors.push("El número de documento es requerido");
-    } else {
-      if (await this.existeCliente()) {
-        this.errors.push("Ya existe un cliente registrado");
-      }
     }
-  } 
-
-  async existeCliente() {
-    const cliente = await ClientesRepository.findSome({
-      num_doc: this.data.num_doc
-    });
-    if (cliente.length) return true;
-    return false;
   }
 
   validarMovil() {
@@ -244,18 +232,21 @@ class ValidarCliente {
     }
   } 
 
-  validarCargo() {
-    if (ValidadorHp.isEmpty(this.data.cargo)) {
-      this.errors.push("El cargo es requerido");
-    }
-  } 
-
   validarDescripcionActividad() {
     if (
       this.data.tipo_actividad === "Independiente" &&
       ValidadorHp.isEmpty(this.data.descripcion_actividad)
     ) {
       this.errors.push("La descripción de la actividad es requerida");
+    }
+  } 
+
+  validarCargo() {
+    if (
+      this.data.tipo_activididad === "Dependiente" && 
+      ValidadorHp.isEmpty(this.data.cargo)
+    ) {
+      this.errors.push("El cargo es requerido");
     }
   } 
 

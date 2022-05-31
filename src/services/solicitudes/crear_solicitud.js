@@ -1,5 +1,6 @@
 const ValidarSolicitud = require("./validar_solicitud");
 const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
+const { ValidationError } = require("../../errors");
 
 class CrearSolicitud {
   constructor(data, transaction = null) {
@@ -21,7 +22,7 @@ class CrearSolicitud {
     validarSolicitud.exec();
 
     if (validarSolicitud.fails()) {
-      throw validarSolicitud.errors;
+      throw new ValidationError(validarSolicitud.errors);
     }
   }
 

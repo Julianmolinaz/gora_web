@@ -78,10 +78,10 @@ const solicitudStore = defineStore("solicitud", {
         })
         .catch(error => {
           const errors = error.response.data.error;
-          if (errors.name == "validationError") {
+          if (errors.name == "ValidationError") {
             alertify.alert("Error", arrToString(errors.msg, "<br>")); 
           } else {
-            alertify.alert("Error", "Lo sentimos, se presentó un error inesperado");
+            alertify.alert("Error", errors.message);
           }
         });
     }

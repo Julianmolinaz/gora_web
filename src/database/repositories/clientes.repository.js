@@ -23,6 +23,7 @@ class ClientesRepository {
   }
 
   static async crear(data, transaction = null) {
+    delete data.id;
     try {
       const cliente = await Cliente.create(
         data,

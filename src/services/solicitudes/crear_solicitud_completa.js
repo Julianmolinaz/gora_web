@@ -15,6 +15,7 @@ const VentasRepository = require("../../database/repositories/ventas.repository"
 const moment = require("moment");
 const validator = require("validator");
 const ValidadorHp = require("../../helpers/validador");
+const { ValidationError, UniqueError } = require("../../errors");
 
 // Servicios
 const ValidarSolicitud = require("./validar_solicitud");
@@ -54,8 +55,9 @@ class CrearSolicitudCompleta {
     try {
       this.validarSimulador();
 
-      await this.validarCliente();
-      await this.crearCliente();
+      this.validarCliente();
+      await this.validarClienteUnico(); 
+      await this.crearCliente(); // desde repository
 
       await this.castSolicitud();
       this.validarSolicitud();
@@ -101,7 +103,7 @@ class CrearSolicitudCompleta {
     }
 
     if (errSimulador.length) {
-      throw { name: "validationError", msg: errSimulador };
+      throw new ValidationError(errSimulador);
     } 
   }
 
@@ -114,8 +116,18 @@ class CrearSolicitudCompleta {
     await caseValidarCliente.exec();
 
     if (caseValidarCliente.fails()) {
-      throw { name: "validationError", msg: caseValidarCliente.errors };
+      throw new ValidationError(caseValidarCliente.errors);
     }
+  }
+
+  async validarClienteUnico() {
+    const cliente = await ClientesRepository.findSome({
+      num_doc: this.dataCliente.num_doc
+    });
+
+    if (cliente.length) {
+      throw new UniqueError("Ya existe un cliente registrado");
+    } 
   }
 
   async crearCliente() {
@@ -128,13 +140,13 @@ class CrearSolicitudCompleta {
   /***************
    * SOLICITUD
    ***************/
-  
+
   validarSolicitud() {
     const caseValidarSolicitud = new ValidarSolicitud(this.dataSolicitud, "creacion");
     caseValidarSolicitud.exec();
 
     if (caseValidarSolicitud.fails()) {
-      throw { name: "validationError", msg: caseValidarSolicitud.errors };
+      throw new ValidationError(caseValidarSolicitud.errors);
     }
   }
 
@@ -198,8 +210,7 @@ class CrearSolicitudCompleta {
   }
 
   getMeses() {
-    const factorPeriodo = (this.dataSimulador.periodo == 'Quincenal') ? 2 : a;
-    return this.dataSimulador.numCuotas * factorPeriodo;
+    return this.dataSimulador.numCuotas;
   }
 
   async crearSolicitud() {

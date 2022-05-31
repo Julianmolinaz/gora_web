@@ -4,7 +4,7 @@ const simulador = {
   "modelo": 2022,
   "cilindraje": 150,
   "periodo": "Quincenal",
-  "numCuotas": 12,
+  "numCuotas": 6,
   "precio": "",
   "valorCuota": 0
 };

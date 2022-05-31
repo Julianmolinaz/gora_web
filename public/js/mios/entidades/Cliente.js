@@ -43,7 +43,7 @@ class Cliente {
     this.descripcion_actividad = payload.descripcion_actividad || "";
 
     this.cargo = payload.cargo || "";
-    this.tipo_contrato = payload.tipo_contrato || "";
+    this.tipo_contrato = payload.tipo_contrato || null;
 
     // Contraseñas
     this.password = payload.password || "";
