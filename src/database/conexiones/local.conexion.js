@@ -11,10 +11,13 @@ const local = new Sequelize(
   } 
 );
 
-local.authenticate().then((errors) => {
-  if (errors) {
-    console.log({errors});
-  }
-});
+local
+  .authenticate()
+  .then(() => {
+    console.log("connection local has been established successfully.");	
+  })
+  .catch((error) => {
+    console.log("Unable to connect to the database: ", error);
+  });
 
 module.exports = local;

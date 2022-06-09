@@ -7,18 +7,22 @@
         <div class="divider" style="--width-div:100px"></div>
       </div>
       <div class="solicitud-form">
+        <div class="col">
+          <div class="group">
+            <p class="helper-txt">Los campos con * son obligatorios</p>
+          </div>
+        </div>
         <form @submit.prevent> 
           <div class="col-2">
             <div class="group">
               <!-- FECHA_EXP -->
               <div class="input-group">
-                <input
-                  name="fecha_exp"
-                  type="date"
-                  v-model="clienteSt.el.fecha_exp"
-                >
-                <label for="">Fecha exped. identificación *</label>
+                <input name="fecha_exp" type="date" v-model="clienteSt.el.fecha_exp">
+                <label for="">Fecha expedición*</label>
               </div>
+              <span class="helper-txt" v-if="!v$.fecha_exp.$error">
+                fecha expedición documento
+              </span>
               <span class="helper-txt error" v-if="v$.fecha_exp.$error">
                 [[ v$.fecha_exp.$errors[0].$message ]]
               </span>
@@ -33,8 +37,11 @@
                   v-model="clienteSt.el.lugar_exp"
                   @input="clienteSt.el.lugar_exp = $event.target.value.toUpperCase()"
                 >
-                <label for="">Ciudad de exped *</label>
+                <label for="">Ciudad exped*</label>
               </div>
+              <span class="helper-txt" v-if="!v$.lugar_exp.$error">
+                ciudad expedición documento
+              </span>
               <span class="helper-txt error" v-if="v$.lugar_exp.$error">
                 [[ v$.lugar_exp.$errors[0].$message ]]
               </span>

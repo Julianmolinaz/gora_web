@@ -25,6 +25,7 @@ class SolicitudController {
         }
       });
     } catch (error) {
+      console.error(error);
       if (error.name === "UniqueError" || error.name === "ValidationError") {
         return res.status(400).json(error); 
       } else {

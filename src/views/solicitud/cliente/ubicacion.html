@@ -7,21 +7,23 @@
         <div class="divider" style="--width-div:100px"></div>
       </div>
       <div class="solicitud-form">
+        <div class="col">
+          <div class="group">
+            <p class="helper-txt">Los campos con * son obligatorios</p>
+          </div>
+        </div>
         <form @submit.prevent>
           <div class="col-2">
             <div class="group">
               <!-- ESTRATO -->
               <div class="input-group">
-                <select
-                  name="estrato"
-                  v-model="clienteSt.el.estrato"
-                >
+                <select name="estrato" v-model="clienteSt.el.estrato">
                   <option
                     :value="estrato"
                     v-for="estrato in clienteSt.insumos.listEstrato"
                   >[[ estrato ]]</option>
                 </select>
-                <label for="estrato">Estrato *</label>
+                <label for="estrato">Estrato*</label>
               </div>
               <span class="helper-txt error" v-if="v$.estrato.$error">
                 [[ v$.estrato.$errors[0].$message ]]
@@ -46,34 +48,33 @@
             <div class="group">
               <!-- DEPARTAMENTO ID -->
               <div class="input-group">
-                <select
-                  name="departamento_id"
-                  v-model="departamentoId"
-                  @change="getMunicipios"
-                >
+                <select name="departamento_id" v-model="departamentoId" @change="getMunicipios">
                   <option
                     :value="departamento.id"
                     v-for="departamento in clienteSt.insumos.listDepartamentos"
                   >[[ departamento.nombre ]]</option>
                 </select>
-                <label for="departamento_id">Departamento residencia *</label>
+                <label for="departamento_id">Departamento *</label>
               </div>
+              <span class="helper-txt">
+                Departamento donde usted reside
+              </span>
             </div>
             <div class="group">
               <!-- CIUDAD_ID -->
               <div class="input-group">
-                <select
-                  name="municipio_id"
-                  v-model="clienteSt.el.municipio_id"
-                >
+                <select name="municipio_id" v-model="clienteSt.el.municipio_id">
                   <option
                       v-if="municipios"
                       :value="municipio.id"
                       v-for="municipio in municipios"
                   >[[ municipio.nombre ]]</option>
                 </select>
-                <label for="municipio_id">Ciudad residencia *</label>
+                <label for="municipio_id">Ciudad*</label>
               </div>
+              <span class="helper-txt" v-if="!v$.municipio_id.$error">
+                Ciudad donde usted reside
+              </span>
               <span class="helper-txt error" v-if="v$.municipio_id.$error">
                 [[ v$.municipio_id.$errors[0].$message ]]
               </span>

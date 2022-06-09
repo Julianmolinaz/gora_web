@@ -7,6 +7,11 @@
         <div class="divider" style="--width-div:100px"></div>
       </div>
       <div class="solicitud-form">
+        <div class="col">
+          <div class="group">
+            <p class="helper-txt">Los campos con * son obligatorios</p>
+          </div>
+        </div>
         <form @submit.prevent> 
           <div class="col">
             <div class="group">
@@ -298,12 +303,10 @@
     methods: {
       onSubmit() {
         this.v$.$validate();
-        if (this.v$.$error && false) {
+        if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
           this.solicitudSt.onSubmit();
-          //this.clienteSt.completar(3);
-          //this.solicitudSt.navigationTo("referencias");
         }
       }
     }
