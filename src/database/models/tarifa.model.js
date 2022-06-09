@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const { encriptar } = require("../../helpers/bcrypt");
 const local = require("../conexiones/local.conexion");
 
-const Tarifa = local.define("Tarifa", {
+const Tarifa = local.define("tarifas", {
   id: {
     type: DataTypes.INTEGER,
     autoincrement: true,
@@ -47,6 +47,7 @@ const Tarifa = local.define("Tarifa", {
 }, {
   local,
   modelName: "Tarifa",
+  tableName: "tarifas",
   underscored: false,
 });
 

@@ -1,7 +1,5 @@
 const { Sequelize } = require("sequelize");
 
-console.log("--conectando a db conexion.main--");
-
 const main = new Sequelize(
   process.env.MAIN_DB_NAME,
   process.env.MAIN_DB_USER,
@@ -13,4 +11,12 @@ const main = new Sequelize(
   }
 );
 
+main
+  .authenticate()
+  .then(() => {
+    console.log("connection has been established successfully.");	
+  })
+  .catch((error) => {
+    console.log("Unable to connect to the database: ", error);
+  });
 module.exports = main;

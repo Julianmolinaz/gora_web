@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 const local = require("../conexiones/local.conexion");
 
-const Departamento = local.define("Departamento", {
+const Departamento = local.define("departamentos", {
   id: {
     type: DataTypes.INTEGER,
     autoincrement: true,

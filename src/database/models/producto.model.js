@@ -22,6 +22,7 @@ const Producto = local.define("Producto", {
 }, {
   local,
   modelName: "Producto",
+  tableName: "productos",
   timestamps: false
 });
 
