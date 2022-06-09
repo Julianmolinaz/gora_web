@@ -130,6 +130,9 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 /******************
  * FORM
@@ -164,6 +167,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin-left: 1.5rem;
   outline-style: none;
   color: var(--medium);
+  background: var(--light);
   width: 93%;
 }
 .input-group select {

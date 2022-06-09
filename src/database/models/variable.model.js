@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 const sequelize = require("../conexiones/local.conexion");
 
-const Variable = sequelize.define("Variable", {
+const Variable = sequelize.define("variables", {
   id: {
     type: DataTypes.INTEGER,
     autoincrement: true,
