@@ -17,7 +17,7 @@
                   v-model="clienteSt.el.primer_nombre"
                   name="primer_nombre"
                 >
-                <label for="primer_nombre">Primer nombre *</label>
+                <label for="primer_nombre">Primer nombre*</label>
               </div>
               <span class="helper-txt error" v-if="v$.primer_nombre.$error">
                 [[ v$.primer_nombre.$errors[0].$message ]]
@@ -26,25 +26,18 @@
             <div class="group">
               <div class="input-group">
                 <!-- SEGUNDO_NOMBRE -->
-                <input
-                  type="text" 
-                  v-model="clienteSt.el.segundo_nombre"
-                  name="segundo_nombre"
-                >
+                <input type="text" v-model="clienteSt.el.segundo_nombre" name="segundo_nombre">
                 <label for="segundo_nombre">Segundo nombre</label>
               </div>
+              <span class="helper-txt">opcional</span>
             </div>
           </div>
           <div class="col-2">
             <div class="group">
               <!-- PRIMER_APELLIDO -->
               <div class="input-group">
-                <input
-                  type="text"
-                  v-model="clienteSt.el.primer_apellido"
-                  name="primer_apellido"
-                >
-                <label for="primer_apellido">Primer apellido *</label>
+                <input type="text" v-model="clienteSt.el.primer_apellido" name="primer_apellido">
+                <label for="primer_apellido">Primer apellido*</label>
               </div>
               <span class="helper-txt error" v-if="v$.primer_apellido.$error">
                 [[ v$.primer_apellido.$errors[0].$message ]]
@@ -53,11 +46,7 @@
             <div class="group">
               <!-- SEGUNDO APELLIDO -->
               <div class="input-group">
-                <input
-                  type="text"
-                  v-model="clienteSt.el.segundo_apellido"
-                  name="segundo_apellido"
-                >
+                <input type="text" v-model="clienteSt.el.segundo_apellido" name="segundo_apellido">
                 <label for="segundo_apellido">Segundo apellido</label>
               </div>
             </div>
@@ -66,17 +55,12 @@
             <div class="group">
               <!-- TIPO_DOC -->
               <div class="input-group">
-                <select
-                  v-model="clienteSt.el.tipo_doc"
-                  name="tipo_doc"
-                >
-                  <option
-                    v-for="tipo in clienteSt.insumos.listTipoDoc"
-                    :value="tipo"
-                  >[[ tipo ]]
+                <select v-model="clienteSt.el.tipo_doc" name="tipo_doc">
+                  <option v-for="tipo in clienteSt.insumos.listTipoDoc" :value="tipo">
+                    [[ tipo ]]
                   </option>
                 </select>
-                <label for="tipo_doc">Tipo de identificación *</label>
+                <label for="tipo_doc" class="lb-small">Tipo identificación*</label>
               </div>
               <span class="helper-txt error" v-if="v$.tipo_doc.$error">
                 [[ v$.tipo_doc.$errors[0].$message ]]
@@ -85,12 +69,8 @@
             <div class="group">
               <!-- NUM_DOC -->
               <div class="input-group">
-                <input
-                  type="text"
-                  v-model="clienteSt.el.num_doc"
-                  name="num_doc"
-                >
-                <label for="num_doc">Número de identificación *</label>
+                <input type="text" v-model="clienteSt.el.num_doc" name="num_doc">
+                <label for="num_doc"># identificación*</label>
               </div>
               <span class="helper-txt error" v-if="v$.num_doc.$error">
                 [[ v$.num_doc.$errors[0].$message ]]
@@ -101,12 +81,8 @@
             <div class="group">
               <!-- MOVIL -->
               <div class="input-group">
-                <input
-                  type="text"
-                  v-model="clienteSt.el.movil"
-                  name="movil"
-                >
-                <label for="movil">Teléfono celular *</label>
+                <input type="text" v-model="clienteSt.el.movil" name="movil">
+                <label for="movil">Teléfono celular*</label>
               </div>
               <span class="helper-txt error" v-if="v$.movil.$error">
                 [[ v$.movil.$errors[0].$message ]]
@@ -121,7 +97,7 @@
                   @input="clienteSt.el.placa = $event.target.value.toUpperCase()"
                   name="placa"
                 >
-                <label for="placa">Placa *</label>
+                <label for="placa">Placa*</label>
               </div>
               <span class="helper-txt error" v-if="v$.placa.$error">
                 [[ v$.placa.$errors[0].$message ]]
@@ -132,12 +108,8 @@
             <div class="group">
               <!-- EMAIL -->
               <div class="input-group">
-                <input
-                  type="text"
-                  v-model="clienteSt.el.email"
-                  name="email"
-                >
-                <label for="email">Correo electrónico *</label>
+                <input type="text" v-model="clienteSt.el.email" name="email">
+                <label for="email">Correo electrónico*</label>
               </div>
               <span class="helper-txt error" v-if="v$.email.$error">
                 [[ v$.email.$errors[0].$message ]]
@@ -148,12 +120,8 @@
             <div class="group">
               <!-- CONTRASEÑA -->
               <div class="input-group">
-                <input
-                  type="password"
-                  v-model="clienteSt.el.password"
-                  name="password"
-                >
-                <label for="password">Contraseña *</label>
+                <input type="password" v-model="clienteSt.el.password" name="password">
+                <label for="password">Contraseña*</label>
               </div>
               <span class="helper-txt error" v-if="v$.password.$error">
                 [[ v$.password.$errors[0].$message ]]
@@ -162,12 +130,8 @@
             <div class="group">
               <!-- CONFIRMACION CONTRASEÑA -->
               <div class="input-group">
-                <input
-                  type="password"
-                  v-model="clienteSt.el.confirm"
-                  name="confirm"
-                >
-                <label for="confirm">Confirmar contraseña *</label>
+                <input type="password" v-model="clienteSt.el.confirm" name="confirm">
+                <label for="confirm">Repita contraseña*</label>
               </div>
               <span class="helper-txt error" v-if="v$.confirm.$error">
                 [[ v$.confirm.$errors[0].$message ]]
@@ -261,7 +225,7 @@
     methods: {
       async onSubmit() {
         this.v$.$validate();
-        if (this.v$.$error && false) {
+        if (this.v$.$error && this.clienteSt.validar) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
           await this.clienteSt.submitUsuario();

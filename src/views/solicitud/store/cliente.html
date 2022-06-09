@@ -3,6 +3,7 @@ const clienteStore = defineStore("cliente", {
   state: () => ({
     el: new Cliente({}),
     insumos: [],
+    validar: true,
     nodos: [
       { indice: 1, activo: false, nombre: "Información inicial", completo: false},
       { indice: 2, activo: false, nombre: "Información personal", completo: false},
