@@ -219,10 +219,19 @@
 /******************
  *DOC
  ******************/
-.doc-image {
+.doc-image__container {
+  display: flex;
+  align-items: center;
   width: 100%;
   max-width: 32.4rem;
+  height: 20rem;
   margin: 1.2rem 0;
+}
+.doc-image {
+  max-width:100%;
+  max-height: 20rem;
+  object-fit: contain;
+  box-shadow: var(--shadow);
 }
 .doc-desc {
   font-family: Light;

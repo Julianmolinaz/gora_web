@@ -7,29 +7,25 @@
         class="doc-header__icono" 
     >
       <span class="doc-header__titulo">
-        [[ titulo ]]
+        [[ doc.titulo ]]
       </span>
     </div>
     <div class="doc-body">
-      <img
-        :src="'./../imagenes/' + imagen"
-        alt=""
-        class="doc-image"
-      >
-      <p class="doc-desc">[[ desc ]]</p>
-      <input ref="file" type="file" @change="fileUpload" hidden>
+      <div class="doc-image__container">
+        <img v-if="doc.file" :src="doc.file" alt="" class="doc-image">
+        <img v-else :src="'./../imagenes/' + doc.icono" alt="" class="doc-image">
+      </div>
+      <p class="doc-desc">[[ doc.desc ]]</p>
+      <input ref="file" type="file" @change="loadFile" hidden>
       <div class="doc-acciones">
-        <a
-          @click="clickUploadFile"
-          href="javascript:void(0);"
-          class="bt doc-bts"
-        >
+        <a @click="clickUploadFile" href="#" class="bt doc-bts">
           <img
             src="./../iconos/octicons/file-directory-open-fill.svg"
             alt="icono archivo"
+            @click="clickUploadFile"
           >Subir archivo
         </a>
-        <a href="javascript:void(0);" class="bt doc-bts">
+        <a href="#" class="bt doc-bts" @click="showPanelPhoto">
           <img src="./../iconos/octicons/camera.svg" alt="">
           Tomar foto
         </a>
@@ -42,28 +38,39 @@
   const objDocumento = {
     template: "#doc-template",
     delimiters: ['[[', ']]'],
-    props: [ "titulo", "imagen", "desc" ],
+    props: [ "doc" ],
     name: "DocumentoComponent",
     data: () => ({
       file: "",
+      extensiones: ['jpg', 'jpeg', 'png'],
     }),
     methods: {
-      clickUploadFile() {
+      // se ejecuta al dar click al boton de subir archivo
+      clickUploadFile(e) {
+        e.preventDefault();
         this.$refs.file.click();
       },
-      fileUpload() {
-        this.file = this.$refs.file.files[0];
-        let formData = new FormData();
-        formData.append("file", this.file);
-/*
-        axios.post("/", formData, {
-          headers: { "Content-Type": "multipart/form-data" }
-        }).then((res) => {
-          console.log({res});
-        }).catch((error) => {
-          console.error(error);
-        });
-*/
+
+      // valida y convierte la imagen a base 64
+      loadFile(e) {
+        let file = e.target.files[0];
+        let ext = file.type.split('/')[1];
+        if (this.extensiones.indexOf(ext) > -1) {
+          let reader  = new FileReader();
+          reader.onloadend = () => {
+            this.doc.filename = file.name;
+            this.doc.file = reader.result;
+            this.doc.ext = ext;
+          }
+          reader.readAsDataURL(file);
+        } else {
+          alertify.alert('Error', 'El archivo debe ser una imagen');
+        } 
+      },
+
+      showPanelPhoto(e) {
+        e.preventDefault();
+        alert(); 
       }
     }
   }

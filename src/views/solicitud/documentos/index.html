@@ -15,12 +15,12 @@
       Para adjutar un documento, puede tomar una foto o cargarlo desde su dispositivo
     </div>
     <div class="docs-list">
-      <DocumentoComponent
-        v-for="doc in documentosSt.docs"
-        :titulo="doc.titulo"
-        :desc="doc.desc"
-        :imagen="doc.imagen"
-      />
+      <template v-for="(doc, i) in documentosSt.docs">
+        <DocumentoComponent
+          v-if="doc.estado"
+          :doc="doc"
+        />
+      </template>
     </div>
     <div class="center">
       <a

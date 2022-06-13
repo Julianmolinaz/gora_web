@@ -3,40 +3,70 @@ const documentosStore = defineStore("documentos", {
   state: () => ({
     docs: [
       { 
+        estado: true,
+        codigo: "cedulda_frente",
         titulo: "Cédula de ciudadanía (Frente)",
-        imagen: "cedula-frente.png",
+        icono: "cedula-frente.png",
         desc: "Parte delantera de su cédula de ciudadanía",
-        completo: false
+        completo: false,
+        file: null,
+        ext: null,
+        filename: null
       },
       { 
-        titulo: "Cédula de ciudadanía (Posterior)",
-        imagen: "cedula-atras.png",
+        estado: true,
+        codigo: "cedula_atras",
+        titulo: "Cédula de ciudadanía (Atras)",
+        icono: "cedula-atras.png",
         desc: "Parte trasera de su cédula de ciudadanía",
-        completo: false
+        completo: false,
+        file: null,
+        ext: null,
+        filename: null
       },
       { 
+        estado: true,
+        codigo: "propiedad_frente",
         titulo: "Tarjeta de propiedad (Frente)",
-        imagen: "tarjeta-propiedad-frente.png",
+        icono: "tarjeta-propiedad-frente.png",
         desc: "Parte delantera de la tarjeta de propiedad del vehículo",
-        completo: false
+        completo: false,
+        file: null,
+        ext: null,
+        filename: null
       },
       { 
+        estado: true,
+        codigo: "propiedad_atras",
         titulo: "Tarjeta de propiedad (Atras)",
-        imagen: "tarjeta-propiedad-atras.png",
+        icono: "tarjeta-propiedad-atras.png",
         desc: "Parte trasera de la tarjeta de propiedad del vehículo",
-        completo: false
+        completo: false,
+        file: null,
+        ext: null,
+        filename: null
       },
       { 
+        estado: true,
+        codigo: "selfie_rostro",
         titulo: "Fotografía rostro",
-        imagen: "selfie.png",
+        icono: "selfie.png",
         desc: "Fotografia de frente sin tapabocas ni gafas",
-        completo: false
+        completo: false,
+        file: null,
+        ext: null,
+        filename: null
       },
       { 
+        estado: true,
+        codigo: "pago1",
         titulo: "Recibo de pago",
-        imagen: "tarjeta-credito.png",
+        icono: "tarjeta-credito.png",
         desc: "Fotografía del recibo de pago del estudio",
-        completo: false
+        completo: false,
+        file: null,
+        ext: null,
+        filename: null
       },
     ],
   }),

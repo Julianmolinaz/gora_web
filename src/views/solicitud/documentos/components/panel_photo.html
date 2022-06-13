@@ -1,0 +1,28 @@
+<template id="panel-photo-template">
+  <section :class="['modal', 'modal-show']">
+    <div class="modal-container">
+      <div class="modal__content">
+        <h1>Hola mundo</h1>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+  const objPanelPhoto = {
+    template: "#panel-photo-template",
+    name: "PanelPhoto",
+    delimiters: ['[[', ']]'],
+    setup() {
+      const showModal = ref(false);
+      const show = () => showModal.value = true;
+      const close = () => showModal.value = false;
+
+      return {
+        showModal,
+        show,
+        close
+      }
+    }
+  };
+</script>
