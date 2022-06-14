@@ -1,0 +1,78 @@
+<script type="text/x-template" id="doc-template">
+  <div class="doc-container">
+    <div class="doc-header">
+      <img
+        src="../iconos/google-docs.png"
+        alt="documento"
+        class="doc-header__icono" 
+    >
+      <span class="doc-header__titulo">
+        [[ doc.titulo ]]
+      </span>
+    </div>
+    <div class="doc-body">
+      <div class="doc-image__container">
+        <img v-if="doc.file" :src="doc.file" alt="" class="doc-image">
+        <img v-else :src="'./../imagenes/' + doc.icono" alt="" class="doc-image">
+      </div>
+      <p class="doc-desc">[[ doc.desc ]]</p>
+      <input ref="file" type="file" @change="loadFile" hidden>
+      <div class="doc-acciones">
+        <a @click="clickUploadFile" href="#" class="bt doc-bts">
+          <img
+            src="./../iconos/octicons/file-directory-open-fill.svg"
+            alt="icono archivo"
+            @click="clickUploadFile"
+          >Subir archivo
+        </a>
+        <a href="#" class="bt doc-bts" @click="showPanelPhoto">
+          <img src="./../iconos/octicons/camera.svg" alt="">
+          Tomar foto
+        </a>
+      </div>
+    </div>
+  </div>  
+</script>
+
+<script>
+  const objDocumento = {
+    template: "#doc-template",
+    delimiters: ['[[', ']]'],
+    props: [ "doc" ],
+    name: "DocumentoComponent",
+    data: () => ({
+      file: "",
+      extensiones: ['jpg', 'jpeg', 'png'],
+    }),
+    methods: {
+      // se ejecuta al dar click al boton de subir archivo
+      clickUploadFile(e) {
+        e.preventDefault();
+        this.$refs.file.click();
+      },
+
+      // valida y convierte la imagen a base 64
+      loadFile(e) {
+        let file = e.target.files[0];
+        let ext = file.type.split('/')[1];
+        if (this.extensiones.indexOf(ext) > -1) {
+          let reader  = new FileReader();
+          reader.onloadend = () => {
+            this.doc.filename = file.name;
+            this.doc.file = reader.result;
+            this.doc.ext = ext;
+          }
+          reader.readAsDataURL(file);
+        } else {
+          alertify.alert('Error', 'El archivo debe ser una imagen');
+        } 
+      },
+
+      showPanelPhoto(e) {
+        e.preventDefault();
+        console.log("show panel photo");
+        emitter.emit("SHOW_MODAL_CAMARA", this.doc);
+      }
+    }
+  }
+</script>

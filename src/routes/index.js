@@ -8,6 +8,7 @@ const webRouter = (app) => {
   app.use("/contacto", require("./web/contacto"));
   app.use("/nosotros", require("./web/nosotros"));
   app.use("/solicitudes", require("./web/solicitudes"));
+  app.use("/documentos", require("./web/documentos"));
 }
 
 /**********

@@ -1,0 +1,60 @@
+<template id="camara-template">
+  <section class="modalshow" v-if="showModal">
+    <video class="video" autoplay></video>
+  </section>
+</template>
+
+<script>
+  const objCamara = {
+    template: "#camara-template",
+    delimiters: ['[[', ']]'],
+    setup() {
+      let showModal = ref(false);
+      
+      const show = (accion) => { 
+        if (accion) {
+          showModal.value = true;
+          emitter.emit("SHOW_DASHBOARD", false);
+        } else {
+          showModal.value = false;
+          emitter.emit("SHOW_DASHBOARD", true);
+        }
+      }
+
+      onMounted(() => {
+        emitter.on("SHOW_MODAL_CAMARA", (doc) => {
+          show(true);
+          abrirCamara();
+        });
+      });
+
+      const abrirCamara = () => {
+        if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+          navigator.mediaDevices.getUserMedia({ video: true })
+              .then(stream => {
+                const videoPlayer = document.querySelector("video");
+                videoPlayer.srcObject = stream;
+                videoPlayer.play();
+              })
+        }
+      }
+
+      return {
+        showModal,
+      }
+    },
+  };
+</script>
+
+<style>
+  .modalshow {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+  }
+  .video {
+    width: auto;
+    height: 100vh;
+  }
+</style>
