@@ -1,6 +1,8 @@
+<script src="/js/mios/utils/getters.js"></script>
 <script>
 const documentosStore = defineStore("documentos", {
   state: () => ({
+    device: tipoDispositivo(),
     docs: [
       { 
         estado: true,

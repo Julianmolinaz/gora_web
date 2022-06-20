@@ -23,9 +23,16 @@
             src="./../iconos/octicons/file-directory-open-fill.svg"
             alt="icono archivo"
             @click="clickUploadFile"
-          >Subir archivo
+          >
+            <span v-if="documentosSt.device == 'desktop'">Subir archivo</span>
+            <span v-else>Subir imagen</span>
         </a>
-        <a href="#" class="bt doc-bts" @click="showPanelPhoto">
+        <a
+          href="#"
+          class="bt doc-bts"
+          @click="showPanelPhoto"
+          v-if="documentosSt.device === 'desktop'"
+        >
           <img src="./../iconos/octicons/camera.svg" alt="">
           Tomar foto
         </a>
@@ -43,6 +50,7 @@
     data: () => ({
       file: "",
       extensiones: ['jpg', 'jpeg', 'png'],
+      documentosSt: documentosStore(),
     }),
     methods: {
       // se ejecuta al dar click al boton de subir archivo
