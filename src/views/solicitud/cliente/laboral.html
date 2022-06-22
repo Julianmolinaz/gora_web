@@ -286,7 +286,6 @@
         } else {
           reglas = { ...reglas, ...reglasIndependiente };
         }
-        console.log({reglas});
         return reglas;
       } 
 
@@ -302,6 +301,11 @@
     },
     methods: {
       onSubmit() {
+        const protocol = window.location.protocol;
+        const URL = `${'{{HOST}}'}:${'{{PORT}}'}`;
+        const route = `/referencias/create/123`;
+        window.location.href = `${protocol}//${URL}${route}`;
+        return;
         this.v$.$validate();
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 

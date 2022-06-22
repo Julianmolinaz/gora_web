@@ -87,21 +87,21 @@
 <script>
   const { createApp } = Vue;
   const app = createApp({ 
-	setup() {} 
+	  setup() {} 
   });
   app.component("contacto-component", {
-	template: "#contacto-template",
-	delimiters: ['[[', ']]'],
-	props: ['info'],
+    template: "#contacto-template",
+    delimiters: ['[[', ']]'],
+    props: ['info'],
   });
   app.component("form-contactos-component", {
 	template: "#form-contactos-template",
 	  delimiters: ['[[', ']]'],
 	  data: () => ({
-		departamentoId: null,
-		ciudadId: null,
-		ciudades: [],
-		contactos: [],
+      departamentoId: null,
+      ciudadId: null,
+      ciudades: [],
+      contactos: [],
 	  }),
 	  methods: {
 		getContacto() {
@@ -121,6 +121,6 @@
 		}
 	  },
   });
-
+  
   app.mount("#app-contactos");
 </script>

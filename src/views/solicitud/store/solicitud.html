@@ -73,7 +73,8 @@ const solicitudStore = defineStore("solicitud", {
           alertify.notify(res.data.msg, "success", 2, () => {
             clienteStore().el.id = res.data.dat.clienteId;
             this.solicitudId = res.data.dat.solicitudId;
-            this.navigationTo("referencias");
+            const route = `/referencias/123`;
+              window.location.href = `${process.env.HOST}:${process.env.PORT}${route}`;
           });
         })
         .catch(error => {

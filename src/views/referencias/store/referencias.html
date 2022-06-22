@@ -1,0 +1,48 @@
+<script>
+const referenciasStore = defineStore("referencias", {
+  state: () => ({
+    numReferencias: 2,
+    refsValidas: 0,
+    refs: [],
+    estado: 'crear',
+    ltParentesco: '{{ ltParentesco }}'.split(',')
+  }),
+  actions: {
+    setReferencias() {
+      if (this.estado === 'crear') {
+        for (let i = 0; i < this.numReferencias; i++) {
+          this.refs.push(new Referencia({}));
+        }
+      } else {
+        // si se va a editar
+      }
+    },
+    onSubmit() {
+      this.refsValidas = 0;
+      emitter.emit("SUBMIT_REF");
+
+      if (this.refsValidas !== this.numReferencias) {
+        alertify.notify("Complete la información por favor", "error");
+        return;
+      }
+
+      const route = "/api/referencias/multiple";
+      const data = {
+        referencias: this.refs,
+        clienteId: clienteStore().el.id || 41670,
+        solicitudId: solicitudStore().solicitudId || 51537,
+      }
+      axios.post(route, data)
+        .then((res) => {
+          alertify.notify(res.data.msg, "success", 2, () => {
+            solicitudStore().navigationTo("documentos");
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          alertify.alert("Ocurrió un error", error);
+        });
+    },
+  }
+});
+</script>

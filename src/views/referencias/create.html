@@ -1,0 +1,73 @@
+{% extends "../templates/admin/main.html" %}
+
+{% block adicionalHeader %}
+  <link
+    rel="stylesheet"
+    href="/css/solicitud/movil.css"
+  >
+  <link
+	rel="stylesheet"
+	href="/css/solicitud/tablet.css"
+	media="screen and (min-width: 768px)"
+  >
+  <link 
+	rel="stylesheet" 
+	href="/css/solicitud/desktop.css"
+	media="screen and (min-width: 992px)"
+  >
+{% endblock %}
+
+{% block title %} Referencias {% endblock %}
+
+{% block content %}
+<div id="app-refs">
+  <main-component></main-component>
+</div>
+
+<!-- Vue -->
+<script src="./../../../js/vue3.js"></script>
+<script src="./../../../js/demi.js"></script>
+<!-- Pinia -->
+<script src="./../../../js/pinia.js"></script>
+<!-- Emit -->
+<script src="./../../../js/mitt.js"></script>
+
+<!-- Vuelidate -->
+<script src="./../../../libs/vuelidate/demi.js"></script>
+<script src="./../../../libs/vuelidate/core.js"></script>
+<script src="./../../../libs/vuelidate/validators.js"></script>
+<script src="./../../../js/mios/reglas/vuelidate.js"></script>
+<!-- Entidades -->
+<script src="./../../js/mios/entidades/Referencia.js"></script>
+
+<script>
+  const { ref, createApp, onMounted, inject, computed } = Vue;  
+  const { createPinia, defineStore } = Pinia;
+  const pinia = createPinia();
+  const { useVuelidate } = Vuelidate;
+  const { required, email, minLength, sameAs, helpers } = VuelidateValidators;
+  const emitter = mitt();
+</script>
+
+{% include "./components/main.html" %}
+{% include "./store/referencias.html" %}
+
+<script>
+  const appRefs = createApp({
+    components: {
+      MainComponent: objMain,
+    },
+    setup(){
+      const referenciasSt = referenciasStore();
+      onMounted(() => referenciasSt.setReferencias());
+    },
+  });
+</script>
+
+<script>
+  appRefs.provide('emitter', emitter);
+  appRefs.use(pinia);
+  appRefs.mount("#app-refs");
+</script>
+
+{% endblock %}
