@@ -1,5 +1,5 @@
 const GenerarCodigoValidacion = require("../services/terminos/generar_codigo_validacion"); 
-const ValidarCodigo = require("../services/terminos/validar_codigo"); 
+//const ValidarCodigo = require("../services/terminos/validar_codigo"); 
 
 class TerminosController {
   static async generarCodigo(req, res) {
@@ -15,16 +15,16 @@ class TerminosController {
 
   static async validarCodigo(req, res) {
     try {
-      return res.json({ dat: true, message: "Código correcto" });
-      const { usuarioId, codigo } = req.body;
-      const response = { dat: false, message: "Código incorrecto" };
-      const validarCodigo = new ValidarCodigo(usuarioId, codigo);
-      const result = await validarCodigo.exec();
-      if (result) {
-        response.dat = true;
-        response.message = "Código correcto";
-      }
-      return res.json(response);
+      //return res.json({ dat: true, message: "Código correcto" });
+      //const { usuarioId, codigo } = req.body;
+      //const response = { dat: false, message: "Código incorrecto" };
+      //const validarCodigo = new ValidarCodigo(usuarioId, codigo);
+      //const result = await validarCodigo.exec();
+      //if (result) {
+       // response.dat = true;
+       // response.message = "Código correcto";
+      //}
+      //return res.json(response);
     } catch (error) {
       console.error(error);
       return res.status(400).json({

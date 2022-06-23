@@ -15,6 +15,7 @@ class RegistrarUsuario {
       this.validarDatos();
       await this.existeUsuario();
       await this.registrar();
+      return this.usuario;
     } catch (error) {
       throw error;
     }

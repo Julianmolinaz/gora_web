@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
  */
 
 class Login {
-  constructor(data = {}) {
+  constructor(data) {
     this.data = data;
     this.usuario = null;
     this.errors = [];
@@ -41,7 +41,7 @@ class Login {
 
   async getToken(usuarioId, nombre) {
     const token = await jwt.sign({
-      name: nombre,
+      nombre,
       id: usuarioId
     }, process.env.TOKEN_SECRET);
 

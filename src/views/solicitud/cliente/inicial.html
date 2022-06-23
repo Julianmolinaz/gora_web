@@ -162,7 +162,7 @@
         </form>
       </div>
     </div>
-    <div class="solicitud-icono">
+<div class="solicitud-icono">
       <img src="./../iconos/virtual.svg" alt="icono virtualidad">
     </div>
     <AceptarTerminos />
@@ -237,6 +237,8 @@
     },
     methods: {
       async onSubmit() {
+        await this.clienteSt.validarMovil();
+        return false;
         this.v$.$validate();
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 

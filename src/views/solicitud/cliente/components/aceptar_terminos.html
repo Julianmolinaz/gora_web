@@ -14,8 +14,10 @@
         <a href="" @click="leerTerminos">Leer términos y condiciones</a>
         <div class="terminos-form">
           <input
-            type="number"
+            type="text"
+            maxlength="1"
             class="terminos__input-form"
+            pattern="^[1-9]|[0-9]\d$"
             id="one"
             @input="next"
           />
@@ -44,10 +46,26 @@
             @input="next"
           />
         </div>
+        <div class="modal__timer" v-if="segundos > 0">
+          <span>[[ segundos ]] seg</span>
+        </div>
       </div>
       <div class="modal__footer">
-        <a href="" class="bt bt__default">Reenviar código</a>
-        <a href="" class="bt bt__sun" @click="aceptar">Aceptar</a>
+        <a
+          href="#"
+          class="bt bt__default"
+          v-if="segundos == 0" 
+          @click="reenviarCodigo"
+        >
+          Solicitar nuevo códido
+        </a>
+        <a
+          href="#"
+          class="bt bt__sun"
+          @click="aceptar"
+          v-if="showAceptar"
+        >Enviar código
+        </a>
       </div>
     </div>
     <terminos-condiciones></terminos-condiciones>
@@ -65,58 +83,102 @@
     },
     delimiters: ['[[', ']]'],
     setup() {
-      const showModal = ref(false);
-      const show = () => showModal.value = true;
+      const clienteSt = clienteStore();
+      const numSegundos = 10;
+      const show = () => {
+        showModal.value = true;
+        resetCodigo();
+      }
       const close = () => showModal.value = false;
-
+    
       const leerTerminos = (e) => {
         e.preventDefault();
         emitter.emit("showModalTerminosCondiciones");
       }
 
-      let codigo = "";
+      let codigo = reactive({
+        one: null,
+        two: null,
+        three: null,
+        four: null
+      });
+      let showAceptar = ref(false);
+
       const next = (event) => {
-        codigo += event.target.value;
         if (event.target.id == "one") {
+          codigo.one = event.target.value;
           document.querySelector("#two").focus();
         } if (event.target.id == "two") {
+          codigo.two = event.target.value;
           document.querySelector("#three").focus();
         } if (event.target.id == "three") {
+          codigo.three = event.target.value;
           document.querySelector("#four").focus();
+        } if (event.target.id == "four") {
+          codigo.four = event.target.value;
+        }
+
+        if (codigo.one && codigo.two && codigo.three && codigo.four) {
+          showAceptar.value = true;
+        } else {
+          showAceptar.value = false;
         }
       }
-
-      const clienteSt = clienteStore();
 
       const aceptar = async (event) => {
         event.preventDefault();
-        try {
-          const data = { usuarioId: null, codigo };
-          const res = await axios.post("/api/terminos/validar-codigo", data);
-          if (res.data.dat) {
-            close(); 
-            clienteSt.ir(2);
-          } else {
-            alertify.alert("Error", "El código no es valido");
-          }
-        } catch (error) {
-          console.error(error);
-        }
+        let codigoGeneral = codigo.one + codigo.two + codigo.three + codigo.four;
+        await clienteSt.validarCodigoTerminos(codigoGeneral);
       }
 
+      const resetCodigo = () => {
+        codigo.one = null;
+        document.querySelector("#one").value = "";
+        codigo.two = null;
+        document.querySelector("#two").value = "";
+        codigo.three = null;
+        document.querySelector("#three").value = "";
+        codigo.four = null;
+        document.querySelector("#four").value = "";
+      }
+
+      let showReenviarCodigo = ref(false);
+      const reenviarCodigo = async (event) => {
+        event.preventDefault();
+        resetCodigo();
+        await clienteSt.validarMovil();
+      }
+
+      let segundos = ref();
+      const cuentaRegresiva = () => {
+        segundos.value = numSegundos;
+        let interval;
+        interval = setInterval(() => {
+          segundos.value --;
+          if (segundos.value <= 0) clearInterval(interval)
+        }, 1000);
+      }
+
+      let showModal = ref(false);
       onMounted(() => {
         emitter.on("showModalAceptarTerminos", () => {
           document.querySelector("#one").focus();
           show();
+          cuentaRegresiva();
         });
       });
 
       return {
         showModal,
+        segundos,
+        codigo,
+        // ------
         close,
         leerTerminos,
         next,
         aceptar,
+        reenviarCodigo,
+        showAceptar,
       };
     }
   };
@@ -134,6 +196,13 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+  }
+  .modal__timer {
+    font-family: regular;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: end;
+    align-items: center;
   }
   .acep-term-txt {
     text-align: center;

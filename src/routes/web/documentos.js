@@ -1,7 +1,9 @@
 const express = require("express");
-const router = express.Router();
+const authorization = require("../../middlewares/authorization");
 const DocumentoController = require("../../controllers/documento.controller");
 
-router.get("/:solicitudId", DocumentoController.index);
+const router = express.Router();
+
+router.get("/:solicitudId", authorization, DocumentoController.index);
 
 module.exports = router;

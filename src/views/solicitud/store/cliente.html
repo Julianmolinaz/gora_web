@@ -23,8 +23,7 @@ const clienteStore = defineStore("cliente", {
     completar(index) {
       this.nodos[index].completo = true;
     },
-    async submitUsuario() {
-      try {
+    castDataUsuario() {
         const data = {
           primer_nombre: this.el.primer_nombre,
           segundo_nombre: this.el.segundo_nombre,
@@ -37,9 +36,66 @@ const clienteStore = defineStore("cliente", {
           password: this.el.password,
           confirm: this.el.confirm
         };
-        const res = await axios.post("/api/usuarios", data);
-        const res2 = await axios.get(`/api/terminos/generar-codigo/${res.data.dat.id}`);
+        return data;
+    },
+
+    /**
+     * Valida los datos necesarios para crear un usuario 
+     * y genera un codigo para validar terminos y condiciones
+     */
+
+    async validarMovil() {
+      try {
+        const data = this.castDataUsuario();
+        data.primer_nombre = "Pablo";
+        data.primer_apellido = "Gonzalez";
+        data.tipo_doc = "Cedula Ciudadanía";
+        data.num_doc = "9873241";
+        data.movil = "3207809668";
+        data.email = "etereosum@gmail.com";
+        data.password = "123456";
+        data.confirm = "123456";
+
+        const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
+
         emitter.emit("showModalAceptarTerminos");
+      } catch (error) {
+        const resError = error.response.data.error;
+        if (resError.name === "ValidationError") {
+          alertify.alert("Error en validación", arrToString(resError.message, "<br>")); 
+        }
+        alertify.alert("Ocurrió un error", resError.message);
+      }
+    },
+
+    async validarCodigoTerminos(codigo) {
+      try {
+        const data = { numDoc: "9873241", codigo };
+        const res = await axios.post("/api/usuarios/validar-codigo-terminos", data);
+        if (res.data.success) {
+          await this.submitUsuario();
+        } else {
+          alertify.alert("El código no es correcto");
+        }
+      } catch(error) {
+        console.error({error});
+      } 
+    },
+    async submitUsuario() {
+      try {
+        const data = this.castDataUsuario();
+        data.primer_nombre = "Pablo";
+        data.primer_apellido = "Gonzalez";
+        data.tipo_doc = "Cedula Ciudadanía";
+        data.num_doc = "9873241";
+        data.movil = "3207809668";
+        data.email = "etereosum@gmail.com";
+        data.password = "123456";
+        data.confirm = "123456";
+
+        const res = await axios.post("/api/usuarios", data);
+        this.ir(2);
+        alertify.notify("Se a registrado exitosamente, complete los campos y de click en continuar", "success",  6);
       } catch (error) {
         const resError = error.response.data.error;
         if (resError.name === "ValidationError") {

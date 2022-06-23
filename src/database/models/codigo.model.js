@@ -7,18 +7,18 @@ const Codigo = sequelize.define("Codigo", {
     autoincrement: true,
     primaryKey: true
   },
-  usuario_id: {
-    type: DataTypes.INTEGER,
-    field: "usuario_id",
-  },
   codigo: {
     type: DataTypes.STRING,
   },
   estado: {
     type: DataTypes.ENUM("PROCESO", "CONFIRMADO"),
   },
-  concepto: {
+  num_doc: {
     type: DataTypes.ENUM("TERMINOS", "PAGARE"),
+  },
+  movil: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   createdAt: {
     type: DataTypes.DATE,
