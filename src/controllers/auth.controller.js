@@ -6,8 +6,13 @@ class AuthController {
       const data = req.body;
       const login = new Login(data);
       const token = await login.exec();
+
       return res
-        .header("auth-token", token)
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+        })
+        .status(200)
         .json({
           error: null,
           data: { token }

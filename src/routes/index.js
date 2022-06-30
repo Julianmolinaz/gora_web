@@ -1,4 +1,5 @@
 const verifyToken = require("./verify_token");
+const authorization = require("../middlewares/authorization");
 
 /*********
  * WEB
@@ -9,7 +10,7 @@ const webRouter = (app) => {
   app.use("/nosotros", require("./web/nosotros"));
   app.use("/solicitudes", require("./web/solicitudes"));
   app.use("/documentos", require("./web/documentos"));
-  app.use("/referencias", require("./web/referencias"));
+  app.use("/referencias", authorization, require("./web/referencias"));
 }
 
 /**********

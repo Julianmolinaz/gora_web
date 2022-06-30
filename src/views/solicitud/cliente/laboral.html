@@ -301,17 +301,13 @@
     },
     methods: {
       onSubmit() {
-        const protocol = window.location.protocol;
-        const URL = `${'{{HOST}}'}:${'{{PORT}}'}`;
-        const route = `/referencias/create/123`;
-        window.location.href = `${protocol}//${URL}${route}`;
-        return;
-        this.v$.$validate();
-        if (this.v$.$error) {
-          alertify.notify("Complete los campos correctamente", "error", 3); 
-        } else {
+        console.log("onSubmit del componente laboral");
+        //this.v$.$validate();
+        //if (this.v$.$error) {
+        //  alertify.notify("Complete los campos correctamente", "error", 3); 
+        //} else {
           this.solicitudSt.onSubmit();
-        }
+        //}
       }
     }
   }

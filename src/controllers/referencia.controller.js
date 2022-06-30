@@ -3,6 +3,7 @@ const ReferenciasRepository = require("../database/repositories/referencias.repo
 
 class ReferenciaController {
   static async create(req, res) {
+    console.log(req.userId);
     const ltParentesco = await ReferenciasRepository.getEnumValues('parentesco');
     return res.render("referencias/create.html", { ltParentesco });   
   }

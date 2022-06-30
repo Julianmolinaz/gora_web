@@ -23,6 +23,9 @@ const clienteStore = defineStore("cliente", {
     completar(index) {
       this.nodos[index].completo = true;
     },
+
+    // Entrega la data necesaria para crear un usuario
+
     castDataUsuario() {
         const data = {
           primer_nombre: this.el.primer_nombre,
@@ -47,15 +50,6 @@ const clienteStore = defineStore("cliente", {
     async validarMovil() {
       try {
         const data = this.castDataUsuario();
-        data.primer_nombre = "Pablo";
-        data.primer_apellido = "Gonzalez";
-        data.tipo_doc = "Cedula Ciudadanía";
-        data.num_doc = "9873241";
-        data.movil = "3207809668";
-        data.email = "etereosum@gmail.com";
-        data.password = "123456";
-        data.confirm = "123456";
-
         const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
 
         emitter.emit("showModalAceptarTerminos");
@@ -70,7 +64,7 @@ const clienteStore = defineStore("cliente", {
 
     async validarCodigoTerminos(codigo) {
       try {
-        const data = { numDoc: "9873241", codigo };
+        const data = { numDoc: this.el.num_doc, codigo };
         const res = await axios.post("/api/usuarios/validar-codigo-terminos", data);
         if (res.data.success) {
           await this.submitUsuario();
@@ -83,19 +77,15 @@ const clienteStore = defineStore("cliente", {
     },
     async submitUsuario() {
       try {
-        const data = this.castDataUsuario();
-        data.primer_nombre = "Pablo";
-        data.primer_apellido = "Gonzalez";
-        data.tipo_doc = "Cedula Ciudadanía";
-        data.num_doc = "9873241";
-        data.movil = "3207809668";
-        data.email = "etereosum@gmail.com";
-        data.password = "123456";
-        data.confirm = "123456";
-
-        const res = await axios.post("/api/usuarios", data);
+        const usuario = JSON.parse(JSON.stringify(this.el));
+        delete usuario.id; 
+        const res = await axios.post("/api/usuarios", usuario);
         this.ir(2);
-        alertify.notify("Se a registrado exitosamente, complete los campos y de click en continuar", "success",  6);
+        alertify.notify(
+          "Se a registrado exitosamente, complete los campos y de click en continuar",
+          "success",
+          6
+        );
       } catch (error) {
         const resError = error.response.data.error;
         if (resError.name === "ValidationError") {

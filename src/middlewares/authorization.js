@@ -13,7 +13,6 @@ const authorization = (req, res, next) => {
 
   try {
     const data = jwt.verify(token, appKey);
-    console.log(data);
     req.userId = data.id;
     req.nombre = data.nombre;
     return next();

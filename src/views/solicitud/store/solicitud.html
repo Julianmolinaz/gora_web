@@ -4,44 +4,6 @@ const solicitudStore = defineStore("solicitud", {
     estado: 'crear',
     solicitudId: null,
     storage: window.localStorage,
-    docs: [
-      { 
-        titulo: "Cédula de ciudadanía (Frente)",
-        imagen: "cedula-frente.png",
-        desc: "Parte delantera de su cédula de ciudadanía",
-        completo: false
-      },
-      { 
-        titulo: "Cédula de ciudadanía (Posterior)",
-        imagen: "cedula-atras.png",
-        desc: "Parte trasera de su cédula de ciudadanía",
-        completo: false
-      },
-      { 
-        titulo: "Tarjeta de propiedad (Frente)",
-        imagen: "tarjeta-propiedad-frente.png",
-        desc: "Parte delantera de la tarjeta de propiedad del vehículo",
-        completo: false
-      },
-      { 
-        titulo: "Tarjeta de propiedad (Atras)",
-        imagen: "tarjeta-propiedad-atras.png",
-        desc: "Parte trasera de la tarjeta de propiedad del vehículo",
-        completo: false
-      },
-      { 
-        titulo: "Fotografía rostro",
-        imagen: "selfie.png",
-        desc: "Fotografia de frente sin tapabocas ni gafas",
-        completo: false
-      },
-      { 
-        titulo: "Recibo de pago",
-        imagen: "tarjeta-credito.png",
-        desc: "Fotografía del recibo de pago del estudio",
-        completo: false
-      },
-    ],
   }),
   getters: {},
   actions: {
@@ -67,14 +29,15 @@ const solicitudStore = defineStore("solicitud", {
         cliente: clienteStore().el,
         simulador: simuladorStore().simulador
       };
-      
+      const protocol = window.location.protocol;
+      const URL = `${protocol}//${'{{HOST}}'}:${'{{PORT}}'}`;
+
       axios.post("/api/solicitudes/store-with-cliente", data)
         .then(res => {
           alertify.notify(res.data.msg, "success", 2, () => {
-            clienteStore().el.id = res.data.dat.clienteId;
-            this.solicitudId = res.data.dat.solicitudId;
-            const route = `/referencias/123`;
-              window.location.href = `${process.env.HOST}:${process.env.PORT}${route}`;
+            const solicitudId = res.data.dat.solicitudId;
+            const route = `/referencias/create/${solicitudId}`;
+            window.location.href = `${URL}${route}`;
           });
         })
         .catch(error => {
