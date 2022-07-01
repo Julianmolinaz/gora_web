@@ -5,9 +5,11 @@ const authorization = require("../middlewares/authorization");
  *********/
 const webRouter = (app) => {
   app.use("/", require("./web/home"));
+  app.use("/auth", require("./web/auth"));
   app.use("/contacto", require("./web/contacto"));
   app.use("/nosotros", require("./web/nosotros"));
   app.use("/solicitudes", require("./web/solicitudes"));
+  app.use("/cuenta", authorization, require("./web/cuenta"));
   app.use("/documentos", authorization, require("./web/documentos"));
   app.use("/referencias", authorization, require("./web/referencias"));
 }

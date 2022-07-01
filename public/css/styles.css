@@ -387,5 +387,11 @@ input[type=number] {
 .modal__content {
   display: flex;
   gap: 0.4rem;
-  padding: 1.2rem 0;
+  padding: 1.6rem 0;
+}
+.modal__link {
+  text-decoration: none;
+  color: var(--sky);
+  font-size: 1.4rem;
+  font-family: regular; 
 }

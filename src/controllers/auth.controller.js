@@ -1,6 +1,10 @@
 const Login = require("../services/auth/login");
 
 class AuthController {
+  static index(req, res) {
+    return res.render("auth/login/index.html")
+  }
+
   static async login(req, res) {
     try {
       const data = req.body;
@@ -11,14 +15,10 @@ class AuthController {
         .cookie("access_token", token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
-        })
-        .status(200)
-        .json({
-          error: null,
-          data: { token }
-        });
+        }).status(200).json({ success: true});
     } catch (error) {
-      return res.json({ error });
+      console.error(error);
+      return res.json({ success: false });
     }
   }
 }
