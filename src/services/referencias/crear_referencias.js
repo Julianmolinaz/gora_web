@@ -12,12 +12,11 @@ const ReferenciasRepository = require("../../database/repositories/referencias.r
 const validator = require("validator");
 const ValidadorHp = require("../../helpers/validador");
 
-const NUM_REFS = 2;
+const NUM_REFS = process.env.CANTIDAD_REFS; 
 
 class CrearReferencias {
-  constructor(arrReferencias, clienteId, solicitudId) {
+  constructor(arrReferencias, solicitudId) {
     this.setReferencias(arrReferencias);
-    this.clienteId = clienteId;
     this.solicitudId = solicitudId;
     this.errors = []; 
     this.refs = [];
@@ -38,6 +37,7 @@ class CrearReferencias {
       for (let ref of this.arrRef) {
         await this.crearRef(ref);
       }
+
       this.transaction.commit();
     } catch (error) {
       this.transaction.rollback();
@@ -71,7 +71,6 @@ class CrearReferencias {
       parentesco: ref.parentesco,
       celular: ref.celular,
       precredito_id: this.solicitudId,
-      cliente_id: this.clienteId,
       created_by: process.env.USER_ID_DEFAULT,
     };
   }

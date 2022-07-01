@@ -4,6 +4,7 @@ const DocumentoController = require("../../controllers/documento.controller");
 
 const router = express.Router();
 
-router.get("/:solicitudId", authorization, DocumentoController.index);
+router.get("/create/:solicitudId", DocumentoController.create);
+router.post("/:solicitudId", DocumentoController.upload);
 
 module.exports = router;

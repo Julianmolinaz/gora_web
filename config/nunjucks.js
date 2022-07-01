@@ -13,7 +13,8 @@ const jucks = (app) => {
     express: app,
   })
     .addGlobal('HOST', process.env.HOST)
-    .addGlobal('PORT', process.env.PORT);
+    .addGlobal('PORT', process.env.PORT)
+    .addGlobal('CANTIDAD_REFS', process.env.CANTIDAD_REFS);
 }
 
 module.exports = jucks;

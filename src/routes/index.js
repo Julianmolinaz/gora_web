@@ -1,4 +1,3 @@
-const verifyToken = require("./verify_token");
 const authorization = require("../middlewares/authorization");
 
 /*********
@@ -9,7 +8,7 @@ const webRouter = (app) => {
   app.use("/contacto", require("./web/contacto"));
   app.use("/nosotros", require("./web/nosotros"));
   app.use("/solicitudes", require("./web/solicitudes"));
-  app.use("/documentos", require("./web/documentos"));
+  app.use("/documentos", authorization, require("./web/documentos"));
   app.use("/referencias", authorization, require("./web/referencias"));
 }
 
@@ -17,7 +16,7 @@ const webRouter = (app) => {
  * API
  **********/
 const apiRouter = (app) => {
-  app.use("/api/test", verifyToken, require("./api/test_")),
+  app.use("/api/test", require("./api/test_")),
   app.use("/api/auth", require("./api/auth")),
   app.use("/api/clientes", require("./api/clientes"));
   app.use("/api/contactos", require("./api/contactos"));
@@ -27,6 +26,7 @@ const apiRouter = (app) => {
   app.use("/api/solicitudes", require("./api/solicitudes"));
   app.use("/api/terminos", require("./api/terminos"));
   app.use("/api/usuarios", require("./api/usuarios"));
+  app.use("/api/documentos", require("./api/documentos"));
 }
 
 module.exports = {

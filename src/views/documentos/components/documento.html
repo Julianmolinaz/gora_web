@@ -2,7 +2,7 @@
   <div class="doc-container">
     <div class="doc-header">
       <img
-        src="../iconos/google-docs.png"
+        src="/iconos/google-docs.png"
         alt="documento"
         class="doc-header__icono" 
     >
@@ -13,14 +13,14 @@
     <div class="doc-body">
       <div class="doc-image__container">
         <img v-if="doc.file" :src="doc.file" alt="" class="doc-image">
-        <img v-else :src="'./../imagenes/' + doc.icono" alt="" class="doc-image">
+        <img v-else :src="'/imagenes/' + doc.icono" alt="" class="doc-image">
       </div>
       <p class="doc-desc">[[ doc.desc ]]</p>
       <input ref="file" type="file" @change="loadFile" hidden>
       <div class="doc-acciones">
         <a @click="clickUploadFile" href="#" class="bt doc-bts">
           <img
-            src="./../iconos/octicons/file-directory-open-fill.svg"
+            src="/iconos/octicons/file-directory-open-fill.svg"
             alt="icono archivo"
             @click="clickUploadFile"
           >
@@ -33,7 +33,7 @@
           @click="showPanelPhoto"
           v-if="documentosSt.device === 'desktop'"
         >
-          <img src="./../iconos/octicons/camera.svg" alt="">
+          <img src="/iconos/octicons/camera.svg" alt="">
           Tomar foto
         </a>
       </div>
@@ -42,6 +42,12 @@
 </script>
 
 <script>
+  class Documento {
+    constructor(payload) {
+      this.imagen = payload.imagen || '';
+      this.nombre = payload.nombre || '';
+    }
+  }
   const objDocumento = {
     template: "#doc-template",
     delimiters: ['[[', ']]'],
@@ -60,7 +66,7 @@
       },
 
       // valida y convierte la imagen a base 64
-      loadFile(e) {
+      async loadFile(e) {
         let file = e.target.files[0];
         let ext = file.type.split('/')[1];
         if (this.extensiones.indexOf(ext) > -1) {
@@ -69,11 +75,23 @@
             this.doc.filename = file.name;
             this.doc.file = reader.result;
             this.doc.ext = ext;
+            setTimeout(async () => await this.sendDoc(), 200);
           }
           reader.readAsDataURL(file);
         } else {
           alertify.alert('Error', 'El archivo debe ser una imagen');
         } 
+      },
+
+      sendDoc() {
+        const solicitudId = '{{ solicitudId }}';
+        axios.post(
+          `${URL}/api/documentos/${solicitudId}`, 
+          { base64: this.doc.file, nombre: this.doc.nombre }
+        )
+        .then(res => {
+          console.log({res});
+        });
       },
 
       showPanelPhoto(e) {
