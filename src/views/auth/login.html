@@ -82,16 +82,15 @@
             alertify.alert('Alerta =(', 'Credenciales invalidas, intente de nuevo'); 
           }
         })
-        .catch {
+        .catch( error => {
           alertify.alert("Ocurrió un error");
-        }
+        })
     }
   }
 
-  const modalLogin = new ModalLogin();
 </script>
 
-<style>
+<style scoped>
   .login-form {
     display: flex; 
     flex-direction: column;

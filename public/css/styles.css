@@ -357,6 +357,7 @@ input[type=number] {
   padding: 2.4rem 1.8rem;
   position: relative;
   overflow-y: scroll;
+  overflow: hidden; /* en prueba */
 }
 .modal--close {
   font-size: 3rem;

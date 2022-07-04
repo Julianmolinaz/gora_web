@@ -1,0 +1,32 @@
+
+<script>
+  const btnNavMenu = document.querySelector("#nav__menu-icon_");
+  if (btnNavMenu) {
+	btnNavMenu.addEventListener("click", () => {
+	  let navOptionsMovil = document.querySelector("#nav-options_");
+	  navOptionsMovil.classList.toggle("nav__options--active"); 
+	});
+  }
+
+  class Nav {
+    constructor() {
+      this.login1 = document.querySelector("#login1");
+      this.login2 = document.querySelector("#login2");
+      this.modalLogin = new ModalLogin();
+      this.actions();
+    }
+
+    actions() {
+      this.login1.addEventListener("click", (event) => {
+        event.preventDefault();
+        modalLogin.show();
+      });
+      this.login2.addEventListener("click", (event) => {
+        event.preventDefault();
+        this.modalLogin.show();
+      });
+    } 
+  }
+
+  const nav = new Nav();
+</script>
