@@ -85,9 +85,10 @@
 
       sendDoc() {
         const solicitudId = '{{ solicitudId }}';
+        const data = { base64: this.doc.file, nombre: this.doc.codigo }; 
         axios.post(
           `${URL}/api/documentos/${solicitudId}`, 
-          { base64: this.doc.file, nombre: this.doc.nombre }
+          data 
         )
         .then(res => {
           console.log({res});

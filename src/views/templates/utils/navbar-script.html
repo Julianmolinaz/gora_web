@@ -1,0 +1,71 @@
+
+<script>
+  // Boton nav para movil
+  const btnNavMenu = document.querySelector("#nav__menu-icon_");
+  if (btnNavMenu) {
+	btnNavMenu.addEventListener("click", () => {
+	  let navOptionsMovil = document.querySelector("#nav-options_");
+	  navOptionsMovil.classList.toggle("nav__options--active"); 
+	});
+  }
+
+  // Configuración del front si la session esta activa
+  class Access {
+    constructor() {
+      this.session = null;
+      this.username = document.getElementsByClassName("username");
+      this.mounted();
+    }
+
+    mounted() {
+      if (accessToken) {
+        this.session = parseJwt(accessToken); 
+        for (let i = 0; i < this.username.length; i++) {
+          this.username[i].textContent = this.session.nombre;
+          this.username[i].style.display = "block"; 
+        }
+      } else {
+        for (let i = 0; i < this.username.length; i++) {
+          this.username[i].textContent = "";
+          this.username[i].style.display = "none"; 
+        }
+      }
+    }
+  }
+
+  class Nav {
+    constructor() {
+      this.login1 = document.querySelector("#login1");
+      this.login2 = document.querySelector("#login2");
+      this.modalLogin = new ModalLogin();
+      this.configuracionLogin();
+      this.actions();
+    }
+
+    actions() {
+      this.login1.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (access.session) this.logout();
+        else modalLogin.show();
+      });
+      this.login2.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (access.session) this.logout();
+        else this.modalLogin.show();
+      });
+    } 
+
+    logout() {
+      const route = `${'{{URL}}'}/auth/logout`;  
+      window.location.href = route;
+    }
+
+    configuracionLogin() {
+      if (accessToken) {
+        this.login2.textContent = "Salir";
+      } else {
+        console.log("sin session");
+      }
+    }
+  }
+</script>

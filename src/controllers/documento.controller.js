@@ -1,3 +1,4 @@
+const SubirDocumento = require("../services/documentos/subir_documento");
 
 class DocumentoController {
   static create(req, res) {
@@ -8,7 +9,18 @@ class DocumentoController {
   } 
 
   static async upload(req, res) {
-    return res.json(req.body);
+    try {
+      const solicitudId = req.params.solicitudId;
+      const doc = req.body;
+
+      const subirDocumento = new SubirDocumento(
+        solicitudId, doc.base64, doc.nombre
+      );
+      await subirDocumento.exec();
+      return res.json(req.body);
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
 

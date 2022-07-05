@@ -30,8 +30,17 @@
       Poner contenido acá
     {% endblock %}
   </main>
-  {% block scripts %} {%endblock%}
+
   {% include "../auth/login.html" %}
-  {% include "./navbar-script.html" %}
+  {% include "./utils/cookies.html" %}
+  {% include "./utils/access_token.html" %}
+  {% include "./utils/navbar-script.html" %}
+  {% block scripts %} {%endblock%}
+
+  <script>
+    const accessToken = getCookie("access_token");
+    const access = new Access();
+    const nav = new Nav();
+  </script>
 </body>
 </html>

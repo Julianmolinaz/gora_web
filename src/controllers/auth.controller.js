@@ -12,14 +12,20 @@ class AuthController {
       const token = await login.exec();
 
       return res
-        .cookie("access_token", token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-        }).status(200).json({ success: true});
+        .cookie("access_token", token)
+        .status(200)
+        .json({ success: true});
     } catch (error) {
       console.error(error);
       return res.json({ success: false });
     }
+  }
+
+  static async logout(req, res) {
+    return res
+      .clearCookie("access_token")
+      .status(200)
+      .redirect("/");
   }
 }
 
