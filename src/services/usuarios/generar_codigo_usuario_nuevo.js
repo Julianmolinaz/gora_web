@@ -17,7 +17,7 @@ class GenerarCodigoUsuarioNuevo {
       await this.existeUsuario();
       this.generarCodigo();
       await this.guardarCodigo();
-      //await this.enviarCodigo();
+      await this.enviarCodigo();
       return true;
     } catch (error) {
       throw error;

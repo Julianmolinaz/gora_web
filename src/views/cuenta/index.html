@@ -1,0 +1,49 @@
+{% extends "../templates/admin/main.html" %}
+
+{% block adicionalHeader %}
+<link rel="stylesheet" href="./css/sheet/movil.css">
+<link 
+  rel="stylesheet" 
+  href="./css/sheet/desktop.css"
+  media="screen and (min-width: 992px)"
+>
+<link
+  rel="stylesheet"
+  href="./css/sheet/tablet.css"
+  media="screen and (min-width: 768px)"
+>
+{% endblock %}
+
+{% block title %} Mi cuenta {% endblock %}
+
+{% block content %}
+<div class="sheet-main">
+  <section class="sheet-header">
+    <div class="sheet-title__container">
+      <span class="sheet-title">Hola, Pablo Adrian</span>
+      <img src="/iconos/hombre.png" alt="" class="sheet-title__icon">
+    </div>
+  </section>
+  <section class="sheet-body">
+    <div class="info-card">
+      <div class="info-card__left">
+        <div class="info-icon__container">
+          <span class="material-icons-outlined info-icon">
+            keyboard_double_arrow_right
+          </span>
+        </div>
+        <div class="info-content">
+          <div class="info-title">Solicitud en proceso de aprobación</div>
+          <div class="info-text">Producto: SOAT y RTM</div>
+          <div class="info-text">Fecha de solicitud: 01-01-2022</div>
+        </div>
+      </div>
+      <div class="info-show__icon">
+        <span class="material-icons-outlined">
+          keyboard_arrow_down
+        </span>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -25,9 +25,14 @@
     },
     setup() {
       const solicitudSt = solicitudStore(); 
+      const simuladorSt = simuladorStore();
 
       const continuar = () => {
-        solicitudSt.navigationTo("cliente");
+        if (! simuladorSt.simulador.valorCuota) {
+          alertify.alert("Atención", "Por favor llene todos los campos y calcule la cuota para continuar");
+        } else {
+          solicitudSt.navigationTo("cliente");
+        }
       }
 
       return {

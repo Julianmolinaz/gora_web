@@ -32,6 +32,10 @@ const Documento = main.define("documentos", {
     type: DataTypes.DATE,
     defaultValue: new Date(),
   },
+  updated_at: {
+    type: DataTypes.DATE,
+    defaultValue: new Date(),
+  },
 }, {
   main,
   modelName: "Documento",

@@ -1,0 +1,10 @@
+.sheet-main {}
+/* HEADER */
+.sheet-header {}
+.sheet-title__container {}
+.sheet-title {}
+.sheet-title__icon {}
+
+.info-card {
+  max-width: 60rem;
+}

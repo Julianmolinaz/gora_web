@@ -237,13 +237,11 @@
     },
     methods: {
       async onSubmit() {
-        await this.clienteSt.validarMovil();
-        return false;
         this.v$.$validate();
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
-          await this.clienteSt.submitUsuario();
+          await this.clienteSt.validarMovil();
         }
       }
     }

@@ -1,0 +1,25 @@
+.sheet-main {
+  min-height: calc(100vh - var(--footer-height)  - var(--nav-height));
+}
+/* HEADER */
+.sheet-header {
+  height: 12.6rem;
+  padding: 0 11.4rem;
+}
+.sheet-title__container {}
+.sheet-title {
+  font-size: 3.6rem;
+}
+.sheet-title__icon {}
+
+/* BODY */
+.sheet-body {
+  padding: 6rem 11.4rem;
+}
+.info-card {}
+.info-icon {}
+.info-content {}
+.info-title, .info-text {
+  font-size: 1.6rem;
+}
+

@@ -301,13 +301,12 @@
     },
     methods: {
       onSubmit() {
-        console.log("onSubmit del componente laboral");
-        //this.v$.$validate();
-        //if (this.v$.$error) {
-        //  alertify.notify("Complete los campos correctamente", "error", 3); 
-        //} else {
+        this.v$.$validate();
+        if (this.v$.$error) {
+          alertify.notify("Complete los campos correctamente", "error", 3); 
+        } else {
           this.solicitudSt.onSubmit();
-        //}
+        }
       }
     }
   }

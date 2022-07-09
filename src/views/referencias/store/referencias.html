@@ -23,7 +23,7 @@ const referenciasStore = defineStore("referencias", {
       this.refsValidas = 0;
       emitter.emit("SUBMIT_REF");
 
-      if (this.refsValidas !== this.numReferencias) {
+      if (this.refsValidas != this.numReferencias) {
         alertify.notify("Complete la información por favor", "error");
         return;
       }

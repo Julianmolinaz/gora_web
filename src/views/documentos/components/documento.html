@@ -75,6 +75,7 @@
             this.doc.filename = file.name;
             this.doc.file = reader.result;
             this.doc.ext = ext;
+            this.doc.completo = true;
             setTimeout(async () => await this.sendDoc(), 200);
           }
           reader.readAsDataURL(file);
