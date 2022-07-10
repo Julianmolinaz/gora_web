@@ -1,0 +1,133 @@
+{% extends "../../templates/admin/main.html" %}
+
+{% block adicionalHeader %}
+<link rel="stylesheet" href="/css/sheet/movil.css">
+<link 
+  rel="stylesheet" 
+  href="/css/sheet/desktop.css"
+  media="screen and (min-width: 992px)"
+>
+<link
+  rel="stylesheet"
+  href="/css/sheet/tablet.css"
+  media="screen and (min-width: 768px)"
+>
+{% endblock %}
+
+{% block title %} Crédito {% endblock %}
+
+{% block content %}
+<div class="sheet-main">
+  <section class="sheet-header">
+    <div class="sheet-title__container">
+      <span class="sheet-title">Solicitud SOAT Y RTM</span>
+      <ul class="sheet-header__menu">
+        <li class="sheet-header__option">
+          <span class="material-icons-outlined sheet-header__option-icon">
+            attach_money
+          </span>
+          <span class="sheet-header__option-title">Pagos</span>
+        </li>
+        <li class="sheet-header__option">
+          <span class="material-icons-outlined sheet-header__option-icon">
+            description
+          </span>
+          <span class="sheet-header__option-title">Paz y salvo</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="sheet-body">
+    <div class="info-card">
+      <div class="info-card__left">
+        <div class="info-icon__container">
+          <span class="material-icons-outlined info-icon">
+            keyboard_double_arrow_right
+          </span>
+        </div>
+        <div class="info-content">
+          <div class="info-title">Solicitud en proceso de aprobación</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-container">
+      <div class="detail-card">
+        <div class="detail-header">
+          <span class="material-icons-outlined detail-header__icon">
+            hourglass_empty
+          </span> 
+          <div class="detail-item__name">Condiciones</div>
+        </div>
+          <div class="detail-item">
+            <span class="detail-item__value">En proceso</span>
+            <span class="detail-item__title">Estado</span> 
+          </div>
+        <div class="detail-item">
+          <span class="detail-item__value">SOAT Y RTM</span>
+          <span class="detail-item__title">Productos</span> 
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">18</span>
+          <span class="detail-item__title">Número de cuotas</span> 
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">Quincenal</span>
+          <span class="detail-item__title">Periodo</span> 
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">Dic-07-2022</span>
+          <span class="detail-item__title">Fecha de solicitud</span> 
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-header">
+          <span class="material-icons-outlined detail-header__icon">
+            two_wheeler
+          </span> 
+          <div class="detail-item__name">Vehículo</div>
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">DKZ62E</span>
+          <span class="detail-item__title">Placa vehículo</span> 
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">Moto</span>
+          <span class="detail-item__title">Tipo de vehículo</span> 
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">2022</span>
+          <span class="detail-item__title">Modelo</span> 
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">150</span>
+          <span class="detail-item__title">Cilindraje</span> 
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-header">
+          <span class="material-icons-outlined detail-header__icon">
+            calendar_month 
+          </span> 
+          <div class="detail-item__name">Pago</div>
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">01-01-2022</span>
+          <span class="detail-item__title">Próxima fecha de pago</span> 
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">$ 154.200</span>
+          <span class="detail-item__title">Valor cuota</span> 
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">$ 750.000</span>
+          <span class="detail-item__title">Saldo de la deuda</span> 
+        </div>
+        <div class="detail-item">
+          <span class="detail-item__value">12</span>
+          <span class="detail-item__title">Cuotas faltantes</span> 
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

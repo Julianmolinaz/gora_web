@@ -6,15 +6,29 @@
   height: 12.6rem;
   padding: 0 11.4rem;
 }
-.sheet-title__container {}
+.sheet-title__container {
+  justify-content: space-between;
+  flex-direction: row;
+}
 .sheet-title {
+  display: block;
   font-size: 3.6rem;
 }
 .sheet-title__icon {}
+.sheet-header__menu {
 
+}
+
+.sheet-header__option {}
+.sheet-header__option-icon {
+  width: 8rem;
+  height: 8rem;
+  font-size: 5.6rem;
+}
+.sheet-header__option-title {}
 /* BODY */
 .sheet-body {
-  padding: 6rem 11.4rem;
+  padding: 4rem 11.4rem;
 }
 .info-card {}
 .info-icon {}
@@ -22,4 +36,12 @@
 .info-title, .info-text {
   font-size: 1.6rem;
 }
-
+/*DETAIL*/
+.detail-container {}
+.detail-card {}
+.detail-header {}
+.detail-header__icon {}
+.detail-item {}
+.detail-item__name {}
+.detail-item__value {}
+.detail-item__title {}

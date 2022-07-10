@@ -3,16 +3,19 @@
 }
 /* HEADER */
 .sheet-header {
-  height: 10.2rem;
+  min-height: 10.2rem;
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 0 1.6rem;
+  padding: 2.4rem 1.6rem;
   background-color: var(--sun);
 }
 .sheet-title__container {
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
   gap: 1.6rem;
 }
 .sheet-title {
@@ -22,10 +25,37 @@
 .sheet-title__icon {
   width: 5rem;
 }
-
+.sheet-header__menu {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+}
+.sheet-header__option {
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+}
+.sheet-header__option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: var(--light);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+  font-size: 4.4rem;
+}
+.sheet-header__option-title {
+  font-family: Semibold;
+  font-size: 1.4rem;
+}
 /* BODY */
 .sheet-body {
-  padding: 4rem 1.6rem;
+  padding: 3.2rem 1.6rem;
 }
 .info-card {
   display: flex;
@@ -54,4 +84,47 @@
   font-size: 1.4rem;
   color: var(--dark);
 }
-
+/* DETALLES SOLICITUD */
+.detail-container {
+  margin-top: 4rem;  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.detail-card {
+  width: 100%;
+  border-radius: 0.8rem;
+  border: solid 1px var(--min);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12);
+  padding: 3.2rem;
+}
+.detail-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.detail-header__icon {
+  font-size: 4rem;
+  color: var(--medium);
+}
+.detail-item {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  margin: 1.2rem 0;
+}
+.detail-item__name {
+  font-family: Bold;
+  font-size: 1.8rem;
+  color: var(--medium);
+}
+.detail-item__value {
+  font-family: Regular;
+  font-size: 1.8rem;
+  color: var(--sky);
+}
+.detail-item__title {
+  font-family: Light;
+  font-size: 1.4rem;
+  color: var(--medium);
+}
