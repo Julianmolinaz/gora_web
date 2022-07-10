@@ -14,6 +14,7 @@ class CrearCliente {
       this.validarCliente();
       await this.validarClienteUnico();
       await this.salvarCliente(); 
+      // asignarlo a usuario
     } catch (error) {
       throw error;
     }
