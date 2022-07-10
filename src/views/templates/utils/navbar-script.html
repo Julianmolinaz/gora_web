@@ -21,8 +21,12 @@
       if (accessToken) {
         this.session = parseJwt(accessToken); 
         for (let i = 0; i < this.username.length; i++) {
-          this.username[i].textContent = this.session.nombre;
+          this.username[i].textContent = "Mi cuenta";
           this.username[i].style.display = "block"; 
+          this.username[i].style.cursor = "pointer";
+          this.username[i].addEventListener("click", () => {
+            window.location.href = `${'{{URL}}'}/cuenta`;
+          });
         }
       } else {
         for (let i = 0; i < this.username.length; i++) {

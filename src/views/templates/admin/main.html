@@ -23,12 +23,24 @@
 </head>
 <body class="body">
   <header>{% include "./navbar.html" %}</header> 
-  {% include "../utils/variables.html" %}
   <main>
 	{% block content %}
 	  Poner acá contenido
 	{% endblock %}
   </main>
+
   {% include "../footer_down.html" %}
+
+  {% include "./../utils/cookies.html" %}
+  {% include "./../utils/access_token.html" %}
+  {% include "./../utils/navbar-script.html" %}
+
+  {% block scripts %} {%endblock%}
+
+  <script>
+    const accessToken = getCookie("access_token");
+    const access = new Access();
+    //const nav = new Nav();
+  </script>
 </body>
 </html>

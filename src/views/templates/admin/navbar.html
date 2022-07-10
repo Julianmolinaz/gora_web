@@ -10,6 +10,7 @@
 </nav>
 <div class="nav__options" id="nav-options_">
   <a class="nav__options-item" href="/">Inicio</a>
+  <span class="desk-nav__options-item username"></span>
   <a class="nav__options-item" href="javascript:void(0);">Ingresar</a>
 </div>
 
@@ -31,13 +32,3 @@
     </div>
   </div>
 </nav>
-
-<script>
-  const btnNavMenu = document.querySelector("#nav__menu-icon_");
-  if (btnNavMenu) {
-	btnNavMenu.addEventListener("click", () => {
-	  let navOptionsMovil = document.querySelector("#nav-options_");
-	  navOptionsMovil.classList.toggle("nav__options--active"); 
-	});
-  }
-</script>
