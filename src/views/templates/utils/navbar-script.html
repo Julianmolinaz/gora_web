@@ -1,4 +1,3 @@
-
 <script>
   // Boton nav para movil
   const btnNavMenu = document.querySelector("#nav__menu-icon_");
@@ -9,67 +8,41 @@
 	});
   }
 
-  // Configuración del front si la session esta activa
-  class Access {
-    constructor() {
-      this.session = null;
-      this.username = document.getElementsByClassName("username");
-      this.mounted();
-    }
-
-    mounted() {
-      if (accessToken) {
-        this.session = parseJwt(accessToken); 
-        for (let i = 0; i < this.username.length; i++) {
-          this.username[i].textContent = "Mi cuenta";
-          this.username[i].style.display = "block"; 
-          this.username[i].style.cursor = "pointer";
-          this.username[i].addEventListener("click", () => {
-            window.location.href = `${'{{URL}}'}/cuenta`;
-          });
-        }
-      } else {
-        for (let i = 0; i < this.username.length; i++) {
-          this.username[i].textContent = "";
-          this.username[i].style.display = "none"; 
-        }
-      }
-    }
-  }
-
   class Nav {
     constructor() {
-      this.login1 = document.querySelector("#login1");
-      this.login2 = document.querySelector("#login2");
+      this.login = document.getElementsByClaseName("login");
       this.modalLogin = new ModalLogin();
       this.configuracionLogin();
       this.actions();
     }
 
+    configuracionLogin() {
+      if (accessToken) {
+        for (let i = 0; i < this.login.length; i++) {
+          this.login[i].textContent = "Salir";
+        }
+      } else {
+        console.log("sin session");
+      }
+    }
+
     actions() {
-      this.login1.addEventListener("click", (event) => {
-        event.preventDefault();
-        if (access.session) this.logout();
-        else modalLogin.show();
-      });
-      this.login2.addEventListener("click", (event) => {
-        event.preventDefault();
-        if (access.session) this.logout();
-        else this.modalLogin.show();
-      });
+      this.loginListener();
     } 
+
+    loginListener() {
+      for (let i = 0; i < this.login.length; i++) {
+        this.login[i].addEventListener("click", (event) => {
+          event.preventDefault();
+          if (access.session) this.logout();
+          else modalLogin.show();
+        }); 
+      }
+    }
 
     logout() {
       const route = `${'{{URL}}'}/auth/logout`;  
       window.location.href = route;
-    }
-
-    configuracionLogin() {
-      if (accessToken) {
-        this.login2.textContent = "Salir";
-      } else {
-        console.log("sin session");
-      }
     }
   }
 </script>
