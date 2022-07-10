@@ -1,0 +1,33 @@
+<script>
+  // Se aplica solo a la vista que tiene la opcion de login
+  // Depende de el modal login y session
+
+  class Login {
+    constructor() {
+      this.opLogin = document.getElementsByClassName("login");
+      this.modalLogin = new ModalLogin(); 
+      this.configurationLogin();
+      this.actions();
+    }
+
+    configurationLogin() {
+      if (session) {
+        for(let i = 0; i < this.opLogin.length; i++) {
+          this.opLogin[i].textContent = "Salir";
+        }
+      } else {
+        console.log("not session");
+      }
+    }
+
+    actions() {
+      for(let i = 0; i < this.opLogin.length; i++) {
+        this.opLogin[i].addEventListener("click", () => {
+          event.preventDefault();
+          if (session) logout();
+          else this.modalLogin.show();
+        });
+      }
+    }
+  }
+</script>

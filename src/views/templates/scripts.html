@@ -1,16 +1,25 @@
+<!-- Modal login -->
+{% include "../auth/login.html" %}
+
+<!-- Cerrar session -->
+{% include "./utils/logout.html" %}
+
+<!-- Administración boton menu movil -->
+{% include "./utils/menu-nav.html" %}
+
+<!-- obtiene la session si esta activa -->
+{% include "./utils/session.html" %}
+
+<!-- Opción login -->
+{% include "./utils/login.html" %}
+
+<!-- Muestra los datos de session en pantalla -->
+{% include "./utils/cuenta.html" %}
+
 <script>
-  // Boton nav para movil
-  const btnNavMenu = document.querySelector("#nav__menu-icon_");
-  btnNavMenu.addEventListener("click", () => {
-    let navOptionsMovil = document.querySelector("#nav-options_");
-    navOptionsMovil.classList.toggle("nav__options--active"); 
-  });
+  const session = Session.make("access_token");
 
-  class Login {
-    constructor() {
-    
-    }
-  }
-
-
+  const login = new Login();
+ 
+  const cuenta = new Cuenta();
 </script>

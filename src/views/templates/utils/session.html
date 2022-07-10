@@ -1,0 +1,34 @@
+<script>
+  class Session {
+    static make(tokenName) {
+      const session_ = new Session(tokenName);
+      const cookie = session_.getCookie(tokenName); 
+      if (cookie) {
+        return session_.parseJwt(cookie);
+      } else {
+        return null;
+      }
+    }
+
+    getCookie(name) {
+      const cookieArr = document.cookie.split(";");
+
+      for (let i = 0; i < cookieArr.length; i++) {
+        let cookiePair = cookieArr[i].split("=");
+        if (name == cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1]);
+        }
+      }
+      return null;
+    }
+    parseJwt(token) {
+      let base64Url = token.split('.')[1];
+      let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      return JSON.parse(jsonPayload);
+    }
+  }
+</script>

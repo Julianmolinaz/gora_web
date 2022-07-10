@@ -1,0 +1,17 @@
+<!-- Cerrar session -->
+{% include "./../utils/logout.html" %}
+
+<!-- Administración boton menu movil -->
+{% include "./../utils/menu-nav.html" %}
+
+<!-- obtiene la session si esta activa -->
+{% include "./../utils/session.html" %}
+
+<!-- Muestra los datos de session en pantalla -->
+{% include "./../utils/cuenta.html" %}
+
+<script>
+  const session = Session.make("access_token");
+
+  const cuenta = new Cuenta();
+</script>
