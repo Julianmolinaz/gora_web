@@ -30,9 +30,10 @@ class UsuariosRepository {
 
   static async update(usuarioId, data, transaction = null) {
     try {
-      const usuario = await Usuario.findByPk(usuarioId);
-      usuario.set(data);
-      await usuario.save();
+      const usuario = await Usuario.update(
+        data,
+        { where: { id: usuarioId } },
+      );
       return usuario;
     } catch (error) {
       throw error;

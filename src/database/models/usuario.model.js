@@ -66,6 +66,9 @@ const Usuario = local.define("Usuario", {
     type: DataTypes.BOOLEAN,
     default: 0,
   },
+  cliente_id: {
+    type: DataTypes.INTEGER,
+  }
 }, {
   modelName: "Usuario",
   tableName: "usuarios",

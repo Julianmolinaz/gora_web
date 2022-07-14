@@ -3,6 +3,7 @@
 const documentosStore = defineStore("documentos", {
   state: () => ({
     device: tipoDispositivo(),
+    solicitudId: '{{ solicitudId }}',
     docs: [
       { 
         estado: true,
@@ -72,5 +73,10 @@ const documentosStore = defineStore("documentos", {
       },
     ],
   }),
+  actions: {
+    aceptar() {
+      window.location.href = `${URL}/cuenta`; 
+    }
+  }
 });
 </script>

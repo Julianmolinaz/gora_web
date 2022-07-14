@@ -6,15 +6,18 @@ const ClientesRepository = require("./../../src/database/repositories/clientes.r
 const SolicitudesRepository = require("./../../src/database/repositories/solicitudes.repository");
 const VehiculosRepository = require("./../../src/database/repositories/vehiculos.repository");
 const VentasRepository = require("./../../src/database/repositories/ventas.repository");
+const UsuariosRepository = require("./../../src/database/repositories/usuarios.repository");
 
 const CrearCliente = require("./../../src/services/clientes/crear_cliente");
 const ValidarSolicitud = require("./../../src/services/solicitudes/validar_solicitud");
 const CrearSolicitud = require("./../../src/services/solicitudes/crear_solicitud");
 const CrearSolicitudCompleta = require("./../../src/services/solicitudes/crear_solicitud_completa");
+const RegistrarUsuario = require("./../../src/services/usuarios/registrar_usuario.js");
 
 const dataCliente = require("./../_mocks/cliente.mock");
 const dataSolicitud = require("./../_mocks/solicitud.mock");
 const dataSimulador = require("./../_mocks/simulador.mock");
+const usuario = require("./../_mocks/usuario.mock.js");
 
 describe("Validacion de solicitudes", () => {
   it("Validar solicitud sin parámentros", async () => {
@@ -78,7 +81,9 @@ describe("Crear solicitud", () => {
       const datCliente = JSON.parse(JSON.stringify(dataCliente));
       const datSimulador = JSON.parse(JSON.stringify(dataSimulador));
 
-      const caseSolicitud = new CrearSolicitudCompleta(datCliente, datSimulador);
+      const usuario = await crearUsuario();
+
+      const caseSolicitud = new CrearSolicitudCompleta(datCliente, datSimulador, usuario.id);
       await caseSolicitud.exec();
       
       caseSolicitud.vehiculos.forEach(async (vehiculo) => {
@@ -89,12 +94,14 @@ describe("Crear solicitud", () => {
       });
       await destroySolicitud(caseSolicitud.solicitud.id);
       await destroyCliente(caseSolicitud.cliente.id);
+      await UsuariosRepository.eliminar(usuario.id);
     } catch (error) {
       throw error;
     }
   });
 });
 
+/**
 describe("API SOLICITUD", () => {
   it("POST api/solicitudes/store-with-cliente", async () => {
     const datCliente = JSON.parse(JSON.stringify(dataCliente));
@@ -107,13 +114,20 @@ describe("API SOLICITUD", () => {
       });
 
     const el = res.body.dat;
- /*   await VentasRepository.eliminarTodo();
+    await VentasRepository.eliminarTodo();
     await VehiculosRepository.eliminarTodo();
     await destroySolicitud(el.solicitudId);
     await destroyCliente(el.clienteId);
-    */
   })
 });
+
+**/
+const crearUsuario = async () => {
+  const dataUsuario = JSON.parse(JSON.stringify(usuario)); 
+  const registrarUsuario = new RegistrarUsuario(dataUsuario);
+  await registrarUsuario.exec();
+  return registrarUsuario.usuario;
+}
 
 const createCliente = async () => {
   const crearCliente = new CrearCliente(dataCliente);

@@ -1,4 +1,5 @@
 const nunjucks = require("nunjucks");
+const moment = require("moment");
 
 /***************************
  * TEMPLATE ENGINE NUNJUCKS
@@ -14,7 +15,8 @@ const jucks = (app) => {
   })
     .addGlobal('HOST', process.env.HOST)
     .addGlobal('PORT', process.env.PORT)
-    .addGlobal('CANTIDAD_REFS', process.env.CANTIDAD_REFS);
+    .addGlobal('CANTIDAD_REFS', process.env.CANTIDAD_REFS)
+    .addGlobal('ddmmyyyy', (date) => moment(date).format('DD-MM-YYYY'));
 }
 
 module.exports = jucks;

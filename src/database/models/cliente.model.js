@@ -149,7 +149,7 @@ const Cliente = main.define("Cliente", {
   },
   user_create_id: {
     type: DataTypes.INTEGER,
-    defaultValue: 2,
+    defaultValue: process.env.USER_ID_DEFAULT,
   },
   created_at: {
     type: DataTypes.DATE,

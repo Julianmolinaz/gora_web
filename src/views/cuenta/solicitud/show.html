@@ -46,7 +46,20 @@
           </span>
         </div>
         <div class="info-content">
-          <div class="info-title">Solicitud en proceso de aprobación</div>
+          <div class="info-title">
+            {% if not data.credito %}
+              {% set aprobado = data.solicitud.aprobado %}
+              {% if aprobado === 'Si' %}
+                Felicitaciones, su solicitud ha sido aprobada  
+              {% elif aprobado === 'En estudio' %}
+                Su solicitud esta en proceso de aprobación
+              {% elif aprobado === 'No' %}
+                Lo sentimos, su solicitud no fue aprobada
+              {% elif aprobado === 'Desistio' %}
+                Usted desistió de esta solicitud
+              {% endif %}
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
@@ -59,50 +72,58 @@
           <div class="detail-item__name">Condiciones</div>
         </div>
           <div class="detail-item">
-            <span class="detail-item__value">En proceso</span>
+            <span class="detail-item__value">{{ data.solicitud.aprobado }}</span>
             <span class="detail-item__title">Estado</span> 
           </div>
         <div class="detail-item">
-          <span class="detail-item__value">SOAT Y RTM</span>
+          <span class="detail-item__value">
+            {% for venta in data.ventas %}{{venta.producto}}{% endfor %}
+          </span>
           <span class="detail-item__title">Productos</span> 
         </div>
         <div class="detail-item">
-          <span class="detail-item__value">18</span>
+          <span class="detail-item__value">{{ data.solicitud.cuotas }}</span>
           <span class="detail-item__title">Número de cuotas</span> 
         </div>
         <div class="detail-item">
-          <span class="detail-item__value">Quincenal</span>
+          <span class="detail-item__value">{{ data.solicitud.periodo }}</span>
           <span class="detail-item__title">Periodo</span> 
         </div>
         <div class="detail-item">
-          <span class="detail-item__value">Dic-07-2022</span>
+          <span class="detail-item__value">{{ ddmmyyyy(data.solicitud.fecha) }}</span>
           <span class="detail-item__title">Fecha de solicitud</span> 
         </div>
       </div>
       <div class="detail-card">
         <div class="detail-header">
-          <span class="material-icons-outlined detail-header__icon">
-            two_wheeler
-          </span> 
           <div class="detail-item__name">Vehículo</div>
+          <span class="material-icons-outlined detail-header__icon">
+            {% set tipoVehiculoId = data.ventas[0].tipo_vehiculo_id %}
+            {% if tipoVehiculoId == 2 or tipoVehiculoId == 3 %}
+              two_wheeler
+            {% else %}
+              directions_car
+            {% endif %}
+          </span> 
         </div>
         <div class="detail-item">
-          <span class="detail-item__value">DKZ62E</span>
+          <span class="detail-item__value">{{ data.ventas[0].vehiculo_placa }}</span>
           <span class="detail-item__title">Placa vehículo</span> 
         </div>
         <div class="detail-item">
-          <span class="detail-item__value">Moto</span>
+          <span class="detail-item__value">{{ data.ventas[0].tipo_vehiculo }}</span>
           <span class="detail-item__title">Tipo de vehículo</span> 
         </div>
         <div class="detail-item">
-          <span class="detail-item__value">2022</span>
+          <span class="detail-item__value">{{ data.ventas[0].vehiculo_modelo }}</span>
           <span class="detail-item__title">Modelo</span> 
         </div>
         <div class="detail-item">
-          <span class="detail-item__value">150</span>
+          <span class="detail-item__value">{{ data.ventas[0].vehiculo_cilindraje }}</span>
           <span class="detail-item__title">Cilindraje</span> 
         </div>
       </div>
+      {% if data.credtio %}
       <div class="detail-card">
         <div class="detail-header">
           <span class="material-icons-outlined detail-header__icon">
@@ -127,6 +148,7 @@
           <span class="detail-item__title">Cuotas faltantes</span> 
         </div>
       </div>
+      {% endif %}
     </div>
   </section>
 </div>

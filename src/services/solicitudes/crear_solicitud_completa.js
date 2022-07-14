@@ -1,6 +1,7 @@
 /**
  * Crear solicitud completa
  * Permite crear una solicitud con su cliente, ventas y vehiculos
+ * Ademas permite vincular el usuario con el cliente
  **/
 
 // Persistencia 
@@ -19,6 +20,7 @@ const { ValidationError, UniqueError } = require("../../errors");
 
 // Servicios
 const ValidarSolicitud = require("./validar_solicitud");
+const VincularCliente = require("../usuarios/vincular_cliente");
 const ValidarCliente = require("../clientes/validar_cliente");
 const GetPrecio = require("../simulador/get_precio"); 
 const GetValorCuota = require("../simulador/get_valor_cuota");
@@ -29,12 +31,13 @@ const NUM_FACT = 6; // id consecutivos
 //----------------------------
 
 class CrearSolicitudCompleta {
-  constructor(dataCliente, dataSimulador) {
+  constructor(dataCliente, dataSimulador, usuarioId) {
     // Información inicial 
     this.dataCliente = dataCliente;
     this.dataSimulador = dataSimulador;
     this.dataSolicitud = "";
     this.dataVehiculo = null;
+    this.usuarioId = usuarioId;
 
     // Entidades
     this.cliente = "";
@@ -58,6 +61,8 @@ class CrearSolicitudCompleta {
       this.validarCliente();
       await this.validarClienteUnico(); 
       await this.crearCliente(); // desde repository
+
+      await this.vincularClienteConUsuario();
 
       await this.castSolicitud();
       this.validarSolicitud();
@@ -135,6 +140,11 @@ class CrearSolicitudCompleta {
       this.dataCliente,
       this.transaction
     );
+  }
+
+  async vincularClienteConUsuario() {
+    const vincular = new VincularCliente(this.usuarioId, this.cliente.id);
+    const usuario = await vincular.exec();
   }
 
   /***************

@@ -27,6 +27,7 @@
     </div>
   </section>
   <section class="sheet-body">
+    {% for obligacion in info %}
     <div class="info-card">
       <div class="info-card__left">
         <div class="info-icon__container">
@@ -35,15 +36,16 @@
           </span>
         </div>
         <div class="info-content">
-          <div class="info-title">Solicitud en proceso de aprobación</div>
-          <div class="info-text">Producto: SOAT y RTM</div>
-          <div class="info-text">Fecha de solicitud: 01-01-2022</div>
+          <div class="info-title">Solicitud {{ obligacion.solicitud.aprobado | lower }}</div>
+          <div class="info-text">Producto: {{ obligacion.productos }}</div>
+          <div class="info-text">Fecha de solicitud: {{ ddmmyyyy(obligacion.solicitud.fecha) }}</div>
           <div class="info-text">
-            <a href="/cuenta/312478" style="color: var(--sky);">Click para mas información</a>
+            <a href="/cuenta/{{ obligacion.solicitud.id }}" style="color: var(--sky);">Click para mas información</a>
           </div>
         </div>
       </div>
     </div>
+    {% endfor %}
   </section>
 </div>
 {% endblock %}

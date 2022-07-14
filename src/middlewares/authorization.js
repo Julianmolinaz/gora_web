@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const appKey = process.env.TOKEN_SECRET;
 
 const authorization = (req, res, next) => {
+  console.log("authorization");
   const token = req.cookies.access_token;
 
   if (!token) {
@@ -13,8 +14,8 @@ const authorization = (req, res, next) => {
 
   try {
     const data = jwt.verify(token, appKey);
-    req.userId = data.id;
-    req.nombre = data.nombre;
+    req.body.usuarioId = data.id;
+    req.body.nombre = data.nombre;
     return next();
   } catch {
     return res.sendStatus(403);

@@ -2,6 +2,12 @@ const Solicitud = require("../models/solicitud.model");
 //const mainConexion = require("../conexiones/main.conexion");
 
 class SolicitudesRepository {
+
+  static async find(solicitudId) {
+    const solicitud = await Solicitud.findByPk(solicitudId);
+    return solicitud;
+  }
+
   static getPeriodos() {
     try {
       const periodos = Solicitud.rawAttributes.periodo.values;
@@ -44,6 +50,17 @@ class SolicitudesRepository {
     await Solicitud.destroy({
       where: { id: solicitudId },
     });
+  }
+
+  static async listPorCliente(clienteId) {
+    console.log("list por cliente");
+    console.log(clienteId);
+    const solicitudes = await Solicitud.findAll({
+      where: { cliente_id: clienteId },
+      order: [[ 'created_at', 'DESC' ]]
+    });
+
+    return solicitudes;
   }
 }
 

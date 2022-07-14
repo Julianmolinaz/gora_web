@@ -24,7 +24,7 @@ class SubirDocumento {
 
   async exec() {
     try {
-      //await this.cargarDoc();
+      await this.cargarDoc();
       await this.salvarDoc();
     } catch (err) {
       throw err;

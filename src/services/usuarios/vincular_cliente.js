@@ -7,7 +7,7 @@ class VincularCliente {
   }
 
   async exec() {
-    await UsuariosRepository.update(
+    return await UsuariosRepository.update(
       this.usuarioId,
       { cliente_id: this.clienteId }
     ); 
