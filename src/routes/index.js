@@ -7,6 +7,7 @@ const webRouter = (app) => {
   app.use("/", require("./web/home"));
   app.use("/test", require("./web/test")),
   app.use("/auth", require("./web/auth"));
+  app.use("/errors", require("./web/errors"));
   app.use("/contacto", require("./web/contacto"));
   app.use("/nosotros", require("./web/nosotros"));
   app.use("/solicitudes", require("./web/solicitudes"));

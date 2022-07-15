@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+
 function getEnum(value) {
   let str = value.substr(5);
   let str_ = str.substr(0, str.length - 1).replace(/['']/g, "");
@@ -23,9 +25,21 @@ function generarCodigo(digitos) {
   console.log({codigo});
   return codigo;
 }
+  
+async function getAccessToken(usuarioId, nombre, clienteId, add = null) {
+    const token = await jwt.sign({
+      nombre,
+      id: usuarioId,
+      ref: clienteId,
+      add
+    }, process.env.TOKEN_SECRET);
+
+    return token;
+  }
 
 module.exports = {
   getEnum,
   capitalizar,
   generarCodigo,
+  getAccessToken,
 }

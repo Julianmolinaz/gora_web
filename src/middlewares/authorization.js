@@ -6,14 +6,14 @@ const SolicitudesRepository = require("../database/repositories/solicitudes.repo
 const appKey = process.env.TOKEN_SECRET;
 
 const authorization = async (req, res, next) => {
-  
-
   try {
     const token = req.cookies.access_token;
+    console.log(token);
     if (!token) {
       throw "Sesión no existe";
     }
     const data = jwt.verify(token, appKey);
+    console.log({data});
 
     // Valida si la solicitud le pertenece al usuario
     if (!!req.params.solicitudId) {
@@ -31,13 +31,12 @@ const authorization = async (req, res, next) => {
     req.body.clienteId = data.ref;
     return next();
   } catch {
-    console.log(req.originalUrl);
     const origin = req.originalUrl.split("/");
 
     if (origin[1] === "api") {
       return res.sendStatus(403);
     } else {
-      return res.redirect("/");
+      return res.redirect("/errors/403");
     }
   }
 }

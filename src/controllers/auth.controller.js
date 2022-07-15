@@ -17,7 +17,10 @@ class AuthController {
         .json({ success: true});
     } catch (error) {
       console.error(error);
-      return res.json({ success: false });
+      return res.json({
+        success: false,
+        msg: "Credenciales invalidas"
+      });
     }
   }
 

@@ -3,6 +3,7 @@ const UsuariosRepository = require("./../../database/repositories/usuarios.repos
 const SolicitudesRespository = require("./../../database/repositories/solicitudes.repository");
 const ValidadorHp = require("./../../helpers/validador"); 
 const { comparar } = require("./../../helpers/bcrypt"); 
+const { getAccessToken } = require("./../../helpers/getters"); 
 const jwt = require("jsonwebtoken");
 
 /*
@@ -27,7 +28,7 @@ class Login {
       );
 
       if(result) {
-        const token = await this.getToken(
+        const token = await getAccessToken(
           this.usuario.id,
           this.usuario.primer_nombre +" "+ this.usuario.primer_apellido,
           this.usuario.cliente_id
@@ -40,7 +41,7 @@ class Login {
       throw error;
     }
   }
-
+  /**
   async getToken(usuarioId, nombre, clienteId) {
     const token = await jwt.sign({
       nombre,
@@ -50,6 +51,7 @@ class Login {
 
     return token;
   }
+  **/
 
   validarExistenciaDeDatos() {
     if (ValidadorHp.isEmpty(this.data.num_doc)) {

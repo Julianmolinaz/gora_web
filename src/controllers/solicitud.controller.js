@@ -1,6 +1,7 @@
 const CrearSolicitudCompleta = require("../services/solicitudes/crear_solicitud_completa");
 const VincularCliente = require("../services/usuarios/vincular_cliente");
 const { Error } = require("../errors");
+const { getAccessToken } = require("./../helpers/getters");
 
 class SolicitudController {
   static create(req, res) {
@@ -13,7 +14,8 @@ class SolicitudController {
 
   static async storeWithCliente(req, res) {
     try {
-      const { cliente, simulador, usuarioId } = req.body;
+      const { cliente, simulador, usuarioId, nombre } = req.body;
+      console.log("body", req.body);
       const useCase = new CrearSolicitudCompleta(
         cliente,
         simulador,
@@ -21,15 +23,26 @@ class SolicitudController {
       );
       await useCase.exec();
 
-      return res.json({ 
-        msg: "Cliente creado exitosamente",
-        dat: {
-          clienteId: useCase.cliente.id, 
-          solicitudId: useCase.solicitud.id,
-        }
-      });
+      const token = await getAccessToken(
+        usuarioId,
+        nombre,
+        useCase.cliente.id
+      );
+
+      return res
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: process.env.ENV === "production"
+        })
+        .json({ 
+          msg: "Cliente creado exitosamente",
+          dat: {
+            clienteId: useCase.cliente.id, 
+            solicitudId: useCase.solicitud.id,
+          }
+        });
     } catch (error) {
-      console.error(error);
+      console.error({ error });
       if (error.name === "UniqueError" || error.name === "ValidationError") {
         return res.status(400).json(error); 
       } else {
