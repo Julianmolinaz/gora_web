@@ -1,5 +1,6 @@
 const validator = require("validator");
-const Usuario = require("./../../database/repositories/usuarios.repository");
+const UsuariosRepository = require("./../../database/repositories/usuarios.repository");
+const SolicitudesRespository = require("./../../database/repositories/solicitudes.repository");
 const ValidadorHp = require("./../../helpers/validador"); 
 const { comparar } = require("./../../helpers/bcrypt"); 
 const jwt = require("jsonwebtoken");
@@ -29,6 +30,7 @@ class Login {
         const token = await this.getToken(
           this.usuario.id,
           this.usuario.primer_nombre +" "+ this.usuario.primer_apellido,
+          this.usuario.cliente_id
         );
         return token;
       } else {
@@ -39,10 +41,11 @@ class Login {
     }
   }
 
-  async getToken(usuarioId, nombre) {
+  async getToken(usuarioId, nombre, clienteId) {
     const token = await jwt.sign({
       nombre,
-      id: usuarioId
+      id: usuarioId,
+      ref: clienteId
     }, process.env.TOKEN_SECRET);
 
     return token;
@@ -63,11 +66,13 @@ class Login {
   }
 
   async getUsuario() {
-    this.usuario = await Usuario.findNumDoc(this.data.num_doc);
+    this.usuario = await UsuariosRepository.findNumDoc(this.data.num_doc);
     if (!this.usuario) {
       throw "Credenciales invalidas";
     }
   }
+
+  
 }
 
 module.exports = Login;

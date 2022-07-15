@@ -8,6 +8,14 @@ class SolicitudesRepository {
     return solicitud;
   }
 
+  static async findWithIdAndCliente(solicitudId, clienteId) {
+    const solicitud = await Solicitud.findOne({
+      where: { id: solicitudId, cliente_id: clienteId }
+    });
+
+    return solicitud;
+  }
+
   static getPeriodos() {
     try {
       const periodos = Solicitud.rawAttributes.periodo.values;
@@ -53,8 +61,6 @@ class SolicitudesRepository {
   }
 
   static async listPorCliente(clienteId) {
-    console.log("list por cliente");
-    console.log(clienteId);
     const solicitudes = await Solicitud.findAll({
       where: { cliente_id: clienteId },
       order: [[ 'created_at', 'DESC' ]]

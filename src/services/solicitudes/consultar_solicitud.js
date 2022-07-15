@@ -16,7 +16,6 @@ class ConsultarSolicitud {
     await this.obtenerSolicitud();
     await this.obtenerCredito();
     await this.obtenerVentas();
-    console.log(this.data);
   }
 
   async obtenerSolicitud() {

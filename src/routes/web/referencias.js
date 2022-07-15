@@ -1,7 +1,9 @@
 const express = require("express");
-const router = express.Router();
+const authorization = require("../../middlewares/authorization");
 const ReferenciaController = require("../../controllers/referencia.controller");
 
-router.get("/create/:solicitudId", ReferenciaController.create);
+const router = express.Router();
+
+router.get("/create/:solicitudId", authorization, ReferenciaController.create);
 
 module.exports = router;

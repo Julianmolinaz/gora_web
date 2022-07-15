@@ -1,8 +1,10 @@
 const express = require("express");
-const router = express.Router();
+const authorization = require("../../middlewares/authorization");
 const AuthController = require("../../controllers/auth.controller");
 
+const router = express.Router();
+
 router.get("/", AuthController.index);
-router.get("/logout", AuthController.logout);
+router.get("/logout", authorization, AuthController.logout);
 
 module.exports = router;

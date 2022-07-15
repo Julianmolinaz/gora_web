@@ -1,8 +1,10 @@
 const express = require("express");
-const router = express.Router();
+const authorization = require("../../middlewares/authorization");
 const CuentaController = require("../../controllers/cuenta.controller");
 
-router.get("/", CuentaController.index);
-router.get("/:solicitudId", CuentaController.show);
+const router = express.Router();
+
+router.get("/", authorization, CuentaController.index);
+router.get("/:solicitudId", authorization, CuentaController.show);
 
 module.exports = router;
