@@ -15,7 +15,6 @@ const clienteStore = defineStore("cliente", {
   getters: {},
   actions: {
     ir(indice) {
-      return false; // funcion deshabilitada en produccion
       this.nodos.forEach((nodo) => {
         if (nodo.indice === indice) nodo.activo = true
         else nodo.activo = false;
