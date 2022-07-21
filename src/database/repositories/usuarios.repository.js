@@ -21,7 +21,10 @@ class UsuariosRepository {
   static async save(data, transaction = null) {
     try {
       data.password = await encriptar(data.password.trim());
-      const usuario = await Usuario.create(data, { transaction });
+      const usuario = await Usuario.create(
+        data,
+        { transaction }
+      );
       return usuario;
     } catch (error) {
       throw error; 
@@ -32,7 +35,10 @@ class UsuariosRepository {
     try {
       const usuario = await Usuario.update(
         data,
-        { where: { id: usuarioId } },
+        {
+          where: { id: usuarioId },
+          transaction
+        },
       );
       return usuario;
     } catch (error) {

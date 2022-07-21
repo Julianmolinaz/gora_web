@@ -1,5 +1,4 @@
 const CrearSolicitudCompleta = require("../services/solicitudes/crear_solicitud_completa");
-const VincularCliente = require("../services/usuarios/vincular_cliente");
 const { Error } = require("../errors");
 const { getAccessToken } = require("./../helpers/getters");
 
