@@ -14,6 +14,7 @@ class RegistrarUsuario {
     try {
       this.validarDatos();
       await this.existeUsuario();
+      await this.existeCliente();
       await this.registrar();
       return this.usuario;
     } catch (error) {
@@ -27,6 +28,16 @@ class RegistrarUsuario {
     );
     if (resultUsuario) {
       throw new UniqueError("Ya existe un usuario registrado");
+    }
+  }
+
+  async existeCliente() {
+    const resultCliente = await ClientesRepository.findSome({
+      num_doc: this.num_doc
+    });
+
+    if (!!resultCliente) {
+      throw new UniqueError("Ya existe un cliente registrado"); 
     }
   }
 

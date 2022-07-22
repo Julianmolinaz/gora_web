@@ -13,6 +13,17 @@ class ClientesRepository {
 
   static async findSome(query) {
     try {
+      const cliente = await Cliente.findOne({
+        where: query 
+      });
+      return cliente;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async findSome(query) {
+    try {
       const cliente = await Cliente.findAll({
         where: query
       });
