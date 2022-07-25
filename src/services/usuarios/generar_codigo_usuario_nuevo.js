@@ -14,7 +14,7 @@ class GenerarCodigoUsuarioNuevo {
   async exec() {
     try {
       this.validarDatos();
-      await this.existeUsuario();
+      //await this.existeUsuario();
       this.generarCodigo();
       await this.guardarCodigo();
       await this.enviarCodigo();
@@ -45,7 +45,7 @@ class GenerarCodigoUsuarioNuevo {
     ); 
     return response;
   }
-
+  
   async existeUsuario() {
     const resultUsuario = await UsuariosRepository.findNumDoc(
       this.data.num_doc

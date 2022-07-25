@@ -152,11 +152,7 @@
             </div>
           </div>
           <div class="solicitud-bts">
-            <a
-              href="javascript:void(0);"
-              class="bt"
-              @click="solicitudSt.navigationTo('simulador')"
-            >Volver</a>
+            <a href="" class="bt">Volver</a>
             <button class="bt bt__night">Continuar</button>
           </div>
         </form>
@@ -237,11 +233,18 @@
     },
     methods: {
       async onSubmit() {
+        await this.clienteSt.validarMovil(); 
+        return false;
+
         this.v$.$validate();
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
-          await this.clienteSt.validarMovil();
+          const usuario = await this.clienteSt.validarExistenciaDeUsuario();
+          if (!usuario.success) {
+            alertify.alert('Atención', 'El usuario ya existe');
+          }
+          await this.clienteSt.validarMovil(); 
         }
       }
     }

@@ -10,7 +10,6 @@ const clienteStore = defineStore("cliente", {
       { indice: 3, activo: false, nombre: "Información de ubicación", completo: false},
       { indice: 4, activo: false, nombre: "Información laboral", completo: false },
     ],
-    refs: [ new Referencia({}), new Referencia({}) ],
   }),
   getters: {},
   actions: {
@@ -42,6 +41,19 @@ const clienteStore = defineStore("cliente", {
         return data;
     },
 
+    async validarExistenciaDeUsuario() {
+      try {
+        const res = await axios.post(
+            '/api/usuarios/validar-usuario-existente', 
+            { numDoc: this.el.num_doc }
+        ); 
+        return res;
+      } catch (error) {
+        console.error(error);
+        throw "Ocurrió un error";
+      } 
+    },
+
     /**
      * Valida los datos necesarios para crear un usuario 
      * y genera un codigo para validar terminos y condiciones
@@ -49,8 +61,8 @@ const clienteStore = defineStore("cliente", {
 
     async validarMovil() {
       try {
-        const data = this.castDataUsuario();
-        const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
+        //const data = this.castDataUsuario();
+        //const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
 
         emitter.emit("showModalAceptarTerminos");
       } catch (error) {
