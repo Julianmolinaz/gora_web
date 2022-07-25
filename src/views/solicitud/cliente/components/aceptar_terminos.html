@@ -13,15 +13,12 @@
           Hemos envíado un código de confirmación a su celular,
           por favor digítelo de click en "Enviar código" para aceptar términos y condiciones.
         </p>
-        <a href="" @click="leerTerminos">Leer términos y condiciones</a>
+        <a href="#" @click="leerTerminos" class="link">
+          Leer términos y condiciones
+        </a>
         <div class="terminos-form">
           <input
             type="number"
-            oninput="
-              javascript:
-                if (this.value.length > this.maxLength) 
-                  this.value = this.value.slice(0, this.maxLength);"
-            maxLength="4"
             class="terminos__input-form"
             id="input"
             v-model="codigo"
@@ -35,18 +32,18 @@
       <div class="modal__footer">
         <a
           href="#"
-          class="bt bt__default"
-          v-if="segundos == 0" 
-          @click="reenviarCodigo"
-        >
-          Solicitar nuevo códido
-        </a>
-        <a
-          href="#"
           class="bt bt__sun"
           @click="aceptar"
           v-if="showAceptar"
         >Enviar código
+        </a>
+        <a
+          href="#"
+          class="link bt-reenviar"
+          v-if="segundos == 0" 
+          @click="reenviarCodigo"
+        >
+          Solicitar nuevo códido
         </a>
       </div>
     </div>
@@ -181,5 +178,9 @@
   }
   .bt {
     width: fit-content;
+  }
+  .bt-reenviar {
+    font-size: 1.6rem;
+    font-family: regular;
   }
 </style>

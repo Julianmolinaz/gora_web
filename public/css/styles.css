@@ -203,6 +203,14 @@ input[type=number] {
   color: var(--danger);
 }
 /***************
+ * LINKS 
+ ***************/
+.link {
+  text-decoration: none;
+  color: var(--sky);
+}
+
+/***************
  * BOTONES
  ***************/
 .bt {
