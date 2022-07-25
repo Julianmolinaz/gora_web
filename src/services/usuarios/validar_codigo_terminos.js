@@ -17,8 +17,6 @@ class ValidarCodigoTerminos {
       estado: 'PROCESO'
     });
 
-    console.log({ arrCodigo });
-  
     if (arrCodigo.length) {
       const result = await CodigosRepository.update(arrCodigo[0].id, { estado: 'CONFIRMADO' });
       return true;
