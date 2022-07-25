@@ -61,8 +61,8 @@ const clienteStore = defineStore("cliente", {
 
     async validarMovil() {
       try {
-        //const data = this.castDataUsuario();
-        //const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
+        const data = this.castDataUsuario();
+        const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
 
         emitter.emit("showModalAceptarTerminos");
       } catch (error) {
