@@ -233,7 +233,8 @@
     },
     methods: {
       async onSubmit() {
-        await this.clienteSt.validarMovil(); 
+        //await this.clienteSt.validarMovil(); 
+        emitter.emit("showModalAceptarTerminos");
         return false;
 
         this.v$.$validate();

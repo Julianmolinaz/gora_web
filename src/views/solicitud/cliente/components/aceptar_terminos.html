@@ -14,36 +14,14 @@
         <a href="" @click="leerTerminos">Leer términos y condiciones</a>
         <div class="terminos-form">
           <input
-            type="text"
-            maxlength="1"
+            type="number"
+            oninput="
+              javascript:
+                if (this.value.length > this.maxLength) 
+                  this.value = this.value.slice(0, this.maxLength);"
+            maxLength="4"
             class="terminos__input-form"
-            pattern="^[1-9]|[0-9]\d$"
-            id="one"
-            @input="next"
-          />
-          <input
-            type="text"
-            maxlength="1"
-            class="terminos__input-form"
-            pattern="^[1-9]|[0-9]\d$"
-            id="two"
-            @input="next"
-          />
-          <input
-            type="text"
-            maxlength="1"
-            class="terminos__input-form"
-            pattern="^[1-9]|[0-9]\d$"
-            id="three"
-            @input="next"
-          />
-          <input
-            type="text"
-            maxlength="1"
-            class="terminos__input-form"
-            pattern="^[1-9]|[0-9]\d$"
-            id="four"
-            @input="next"
+            id="input"
           />
         </div>
         <div class="modal__timer" v-if="segundos > 0">
@@ -162,7 +140,7 @@
       let showModal = ref(false);
       onMounted(() => {
         emitter.on("showModalAceptarTerminos", () => {
-          document.querySelector("#one").focus();
+          document.querySelector("#input").focus();
           show();
           cuentaRegresiva();
         });

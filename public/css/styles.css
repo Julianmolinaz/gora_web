@@ -347,6 +347,9 @@ input[type=number] {
   display: flex;
   transition: opacity .3s;
 }
+.modal.modal--show {
+  pointer-events: auto;
+}
 .modal__container {
   margin: auto;
   width: 90%;
@@ -356,7 +359,7 @@ input[type=number] {
   border-radius: 6px;
   padding: 2.4rem 1.8rem;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: scroll !important;
   overflow: hidden; /* en prueba */
 }
 .modal--close {
