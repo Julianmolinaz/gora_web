@@ -233,17 +233,14 @@
     },
     methods: {
       async onSubmit() {
-        //await this.clienteSt.validarMovil(); 
-        emitter.emit("showModalAceptarTerminos");
-        return false;
-
         this.v$.$validate();
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
-          const usuario = await this.clienteSt.validarExistenciaDeUsuario();
-          if (!usuario.success) {
+          const resUsuario = await this.clienteSt.validarExistenciaDeUsuario();
+          if (resUsuario.success) {
             alertify.alert('Atención', 'El usuario ya existe');
+            return false;
           }
           await this.clienteSt.validarMovil(); 
         }

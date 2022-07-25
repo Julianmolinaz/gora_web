@@ -47,7 +47,8 @@ const clienteStore = defineStore("cliente", {
             '/api/usuarios/validar-usuario-existente', 
             { numDoc: this.el.num_doc }
         ); 
-        return res;
+        console.log(res);
+        return res.data;
       } catch (error) {
         console.error(error);
         throw "Ocurrió un error";
@@ -61,8 +62,8 @@ const clienteStore = defineStore("cliente", {
 
     async validarMovil() {
       try {
-        //const data = this.castDataUsuario();
-        //const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
+        const data = this.castDataUsuario();
+        const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
 
         emitter.emit("showModalAceptarTerminos");
       } catch (error) {
