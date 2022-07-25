@@ -11,7 +11,7 @@
       <div class="modal__content">
         <p class="acep-term-txt">
           Hemos envíado un código de confirmación a su celular,
-          por favor digítelo para aceptar términos y condiciones.
+          por favor digítelo de click en "Enviar código" para aceptar términos y condiciones.
         </p>
         <a href="" @click="leerTerminos">Leer términos y condiciones</a>
         <div class="terminos-form">
@@ -24,6 +24,8 @@
             maxLength="4"
             class="terminos__input-form"
             id="input"
+            v-model="codigo"
+            @input="leerCodigo"
           />
         </div>
         <div class="modal__timer" v-if="segundos > 0">
@@ -63,6 +65,8 @@
     },
     delimiters: ['[[', ']]'],
     setup() {
+      let codigo = ref('');
+      const SIZECOD = 4;
       const clienteSt = clienteStore();
       const numSegundos = 30;
       const show = () => {
@@ -76,50 +80,15 @@
         emitter.emit("showModalTerminosCondiciones");
       }
 
-      let codigo = reactive({
-        one: null,
-        two: null,
-        three: null,
-        four: null
-      });
       let showAceptar = ref(false);
-
-      const next = (event) => {
-        if (event.target.id == "one") {
-          codigo.one = event.target.value;
-          document.querySelector("#two").focus();
-        } if (event.target.id == "two") {
-          codigo.two = event.target.value;
-          document.querySelector("#three").focus();
-        } if (event.target.id == "three") {
-          codigo.three = event.target.value;
-          document.querySelector("#four").focus();
-        } if (event.target.id == "four") {
-          codigo.four = event.target.value;
-        }
-
-        if (codigo.one && codigo.two && codigo.three && codigo.four) {
-          showAceptar.value = true;
-        } else {
-          showAceptar.value = false;
-        }
-      }
 
       const aceptar = async (event) => {
         event.preventDefault();
-        let codigoGeneral = codigo.one + codigo.two + codigo.three + codigo.four;
-        await clienteSt.validarCodigoTerminos(codigoGeneral);
+        await clienteSt.validarCodigoTerminos(codigo.value);
       }
 
       const resetCodigo = () => {
-        codigo.one = null;
-        document.querySelector("#one").value = "";
-        codigo.two = null;
-        document.querySelector("#two").value = "";
-        codigo.three = null;
-        document.querySelector("#three").value = "";
-        codigo.four = null;
-        document.querySelector("#four").value = "";
+        codigo.value = '';
       }
 
       let showReenviarCodigo = ref(false);
@@ -140,6 +109,19 @@
       }
 
       let showModal = ref(false);
+
+      const leerCodigo = () => {
+        let sizeCodigo = codigo.value.toString().length;
+          console.log(sizeCodigo);
+        if (sizeCodigo === SIZECOD) {
+          showAceptar.value = true;  
+        } else if (sizeCodigo > SIZECOD) {
+          codigo.value = parseInt(codigo.value.toString().slice(0, SIZECOD));
+        } else {
+          showAceptar.value = false;
+        }
+      }
+
       onMounted(() => {
         emitter.on("showModalAceptarTerminos", () => {
           document.querySelector("#input").focus();
@@ -150,15 +132,15 @@
 
       return {
         showModal,
+        showAceptar,
         segundos,
         codigo,
         // ------
         close,
         leerTerminos,
-        next,
+        leerCodigo,
         aceptar,
         reenviarCodigo,
-        showAceptar,
       };
     }
   };
