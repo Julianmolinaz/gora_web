@@ -14,7 +14,6 @@ const jucks = (app) => {
     express: app,
   })
     .addGlobal('HOST', process.env.HOST)
-    .addGlobal('PORT', process.env.PORT)
     .addGlobal('CANTIDAD_REFS', process.env.CANTIDAD_REFS)
     .addGlobal('ddmmyyyy', (date) => moment(date).format('DD-MM-YYYY'));
 }

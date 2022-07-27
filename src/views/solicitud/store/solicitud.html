@@ -30,7 +30,7 @@ const solicitudStore = defineStore("solicitud", {
         simulador: simuladorStore().simulador
       };
       const protocol = window.location.protocol;
-      const URL = `${protocol}//${'{{HOST}}'}:${'{{PORT}}'}`;
+      const URL = `${protocol}//${'{{HOST}}'}`;
 
       axios.post("/api/solicitudes/store-with-cliente", data)
         .then(res => {

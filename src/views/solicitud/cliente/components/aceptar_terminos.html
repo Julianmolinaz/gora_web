@@ -81,7 +81,7 @@
 
       const aceptarTerminos = async (event) => {
         event.preventDefault();
-        if (codigo.value.string.length == 4) {
+        if (codigo.value.toString().length == 4) {
           await clienteSt.crearUsuarioFlujoInicial(codigo.value);
         } else {
           alertify.alert("Error", "Se requiere un codigo válildo");
@@ -113,7 +113,6 @@
 
       const leerCodigo = () => {
         let sizeCodigo = codigo.value.toString().length;
-          console.log(sizeCodigo);
         if (sizeCodigo === SIZECOD) {
           showAceptar.value = true;  
         } else if (sizeCodigo > SIZECOD) {

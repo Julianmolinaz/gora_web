@@ -129,8 +129,8 @@ class CrearSolicitudCompleta {
     const cliente = await ClientesRepository.findSome({
       num_doc: this.dataCliente.num_doc
     });
-
-    if (cliente.length) {
+	  
+    if (cliente) {
       throw new UniqueError("Ya existe un cliente registrado");
     } 
   }
