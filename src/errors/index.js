@@ -19,8 +19,16 @@ class UniqueError extends Error {
   } 
 }
 
+class SimpleError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "SimpleError";
+  }
+}
+
 module.exports = {
   Error,
   ValidationError,
   UniqueError,
+  SimpleError
 }

@@ -181,7 +181,7 @@
       const solicitudSt = solicitudStore();
 
       const aceptarTerminos = () => {
-        emitter.emit("showModalAceptarTerminos");
+        emitter.emit("showModalAceptarTerminos", true);
       };
 
       const rules = computed(() => {
@@ -237,12 +237,13 @@
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
-          const resUsuario = await this.clienteSt.validarExistenciaDeUsuario();
-          if (resUsuario.success) {
+          const usuario = await this.clienteSt.validarExistenciaDeUsuario();
+          if (usuario.existe) {
             alertify.alert('Atención', 'El usuario ya existe');
             return false;
           }
-          await this.clienteSt.validarMovil(); 
+          await this.clienteSt.generarCodigoTerminos(); 
+          emitter.emit("showModalAceptarTerminos", true);
         }
       }
     }

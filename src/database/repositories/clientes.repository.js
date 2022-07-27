@@ -22,7 +22,7 @@ class ClientesRepository {
     }
   }
 
-  static async findSome(query) {
+  static async findAll(query) {
     try {
       const cliente = await Cliente.findAll({
         where: query

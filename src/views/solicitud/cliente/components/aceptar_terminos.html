@@ -2,7 +2,7 @@
   <section :class="['modal', showModal ? 'modal--show': '']">
     <div class="modal__container">
       <div class="modal__header">
-        <div class="modal--close" @click="close">&otimes;</div>
+        <div class="modal--close" @click="show(false)">&otimes;</div>
         <img src="/imagenes/logo.png" alt="logo" class="modal__logo">
         <span class="modal__titulo" style="text-align:center;">
           Aceptar términos y condiciones
@@ -33,7 +33,7 @@
         <a
           href="#"
           class="bt bt__sun"
-          @click="aceptar"
+          @click="aceptarTerminos"
           v-if="showAceptar"
         >Enviar código
         </a>
@@ -66,11 +66,11 @@
       const SIZECOD = 4;
       const clienteSt = clienteStore();
       const numSegundos = 30;
-      const show = () => {
-        showModal.value = true;
+
+      const show = (action) => {
+        showModal.value = action;
         resetCodigo();
       }
-      const close = () => showModal.value = false;
     
       const leerTerminos = (e) => {
         e.preventDefault();
@@ -79,9 +79,13 @@
 
       let showAceptar = ref(false);
 
-      const aceptar = async (event) => {
+      const aceptarTerminos = async (event) => {
         event.preventDefault();
-        await clienteSt.validarCodigoTerminos(codigo.value);
+        if (codigo.value.string.length == 4) {
+          await clienteSt.crearUsuarioFlujoInicial(codigo.value);
+        } else {
+          alertify.alert("Error", "Se requiere un codigo válildo");
+        }
       }
 
       const resetCodigo = () => {
@@ -92,7 +96,7 @@
       const reenviarCodigo = async (event) => {
         event.preventDefault();
         resetCodigo();
-        await clienteSt.validarMovil();
+        await clienteSt.generarCodigoTerminos();
       }
 
       let segundos = ref();
@@ -120,9 +124,9 @@
       }
 
       onMounted(() => {
-        emitter.on("showModalAceptarTerminos", () => {
+        emitter.on("showModalAceptarTerminos", (action) => {
           document.querySelector("#input").focus();
-          show();
+          show(action);
           cuentaRegresiva();
         });
       });
@@ -133,10 +137,11 @@
         segundos,
         codigo,
         // ------
+        show,
         close,
         leerTerminos,
         leerCodigo,
-        aceptar,
+        aceptarTerminos,
         reenviarCodigo,
       };
     }

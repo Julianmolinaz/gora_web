@@ -14,7 +14,7 @@ class RegistrarUsuario {
     try {
       this.validarDatos();
       await this.existeUsuario();
-      await this.existeCliente();
+      //await this.existeCliente();
       await this.registrar();
       return this.usuario;
     } catch (error) {
@@ -31,15 +31,16 @@ class RegistrarUsuario {
     }
   }
 
-  async existeCliente() {
-    const resultCliente = await ClientesRepository.findSome({
-      num_doc: this.num_doc
-    });
 
-    if (!!resultCliente) {
-      throw new UniqueError("Ya existe un cliente registrado"); 
-    }
-  }
+  //async existeCliente() {
+  //  const resultCliente = await ClientesRepository.findSome({
+  //    num_doc: this.data.num_doc
+  //  });
+
+  //  if (!!resultCliente) {
+  //    throw new UniqueError("Ya existe un cliente registrado"); 
+  //  }
+  //}
 
   validarDatos() {
     const validacion = new ValidarUsuario(this.data);

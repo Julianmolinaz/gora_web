@@ -13,6 +13,7 @@ const jwt = require("jsonwebtoken");
 class Login {
   constructor(data) {
     this.data = data;
+    console.log(data);
     this.usuario = null;
     this.errors = [];
   }
@@ -35,23 +36,12 @@ class Login {
         );
         return token;
       } else {
-        throw "Credenciales invalidas";
+        throw "Credenciales invalidas.";
       }
     } catch (error) {
       throw error;
     }
   }
-  /**
-  async getToken(usuarioId, nombre, clienteId) {
-    const token = await jwt.sign({
-      nombre,
-      id: usuarioId,
-      ref: clienteId
-    }, process.env.TOKEN_SECRET);
-
-    return token;
-  }
-  **/
 
   validarExistenciaDeDatos() {
     if (ValidadorHp.isEmpty(this.data.num_doc)) {

@@ -19,11 +19,11 @@ class CodigosRepository {
     return result;
   }
 
-  static async update(codigoId, data) {
+  static async update(codigoId, data, transaction = null) {
     const result = Codigo.update(data, {
-      where: { id: codigoId }
+      where: { id: codigoId },
+      transaction
     });
-
     return result;
   }
 }

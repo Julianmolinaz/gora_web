@@ -8,6 +8,9 @@ const ValidarCodigoTerminos = require("./../services/usuarios/validar_codigo_ter
 const Login = require("./../services/auth/login");
 
 const UsuariosRepository = require("./../database/repositories/usuarios.repository");
+const ClientesRepository = require("./../database/repositories/clientes.repository");
+
+const CrearUsuarioFlujoInicial = require("./../services/usuarios/crear_usuario_flujo_inicial");
 
 class UsuarioController {
   /**
@@ -56,7 +59,7 @@ class UsuarioController {
       return res
         .status(200)
         .json({
-          success: result,
+          existe: result,
           error: false
         });
     } catch (error) {
@@ -70,16 +73,25 @@ class UsuarioController {
     }
   }
 
-  static async store(req, res) {
+  static async salvarUsuarioFlujoSolicitud(req, res) {
     try {
       const data = req.body;
       const { num_doc, password } = data;
+      let clienteExiste = false;
 
       const caseRegistro = new RegistrarUsuario(data);
       await caseRegistro.exec();
 
-      const login = new Login({ num_doc: num_doc, password }); 
+      const login = new Login({ num_doc, password }); 
       const token = await login.exec();
+
+      const cliente = await ClientesRepository.findSome({
+        num_doc: this.data.num_doc
+      });
+
+      if (!!cliente) {
+        clienteExiste = true; 
+      }
 
       return res
         .cookie("access_token", token, {
@@ -89,11 +101,42 @@ class UsuarioController {
         .status(200)
         .json({
           message: "Usuario registrado exitosamente",
-          dat: caseRegistro.usuario,
+          dat: {
+            usuario: caseRegistro.usuario,
+            clienteExiste
+          }
         }); 
     } catch (error) {
       console.error(error);
       return res.status(400).json({ error });
+    }
+  }
+
+  static async crearUsuarioFlujoInicial(req, res) {
+    try {
+      const { codigo, dataUsuario } = req.body;
+      console.log(req.body);
+      const useCase = new CrearUsuarioFlujoInicial(codigo, dataUsuario);  
+      await useCase.exec();
+      
+      return res
+        .cookie("access_token", useCase.token, { httpOnly: true, secure: process.env.ENV === "production" })
+        .status(201)
+        .json({
+          msg: "Usuario registrado exitosamente",
+          success: true,
+          dat: {
+            cliente: useCase.clienteExiste // true || false
+          }
+        }); 
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({
+          msg: "Ocurrió un error",
+          error,
+        });
     }
   }
 }

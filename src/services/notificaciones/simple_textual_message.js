@@ -17,7 +17,11 @@ async function sendSms(from, to, text) {
         password: process.env.SMS_PASSWORD
       }
     };
-    return await axios.post(url, body, meta);
+    if (process.env.SMS_SEND == true) {
+      return await axios.post(url, body, meta);
+    } else {
+      return false;
+    }
   } catch (error) {
     throw error;
   }  

@@ -209,7 +209,9 @@ input[type=number] {
   text-decoration: none;
   color: var(--sky);
 }
-
+.link:active {
+  transform: scale(.9);
+}
 /***************
  * BOTONES
  ***************/

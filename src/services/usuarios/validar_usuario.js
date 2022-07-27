@@ -10,7 +10,6 @@ class ValidarUsuario {
   }
 
   exec() {
-    console.log('data', this.data);
     this.validarNumDoc();
     this.validarTipoDoc();
     this.validarPassword();

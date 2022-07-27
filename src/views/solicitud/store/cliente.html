@@ -19,6 +19,7 @@ const clienteStore = defineStore("cliente", {
         else nodo.activo = false;
       });
     },
+
     completar(index) {
       this.nodos[index].completo = true;
     },
@@ -47,7 +48,6 @@ const clienteStore = defineStore("cliente", {
             '/api/usuarios/validar-usuario-existente', 
             { numDoc: this.el.num_doc }
         ); 
-        console.log(res);
         return res.data;
       } catch (error) {
         console.error(error);
@@ -60,12 +60,40 @@ const clienteStore = defineStore("cliente", {
      * y genera un codigo para validar terminos y condiciones
      */
 
-    async validarMovil() {
+    async generarCodigoTerminos() {
       try {
         const data = this.castDataUsuario();
         const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
+      } catch (error) {
+        const resError = error.response.data.error;
+        if (resError.name === "ValidationError") {
+          alertify.alert("Error en validación", arrToString(resError.message, "<br>")); 
+        }
+        alertify.alert("Ocurrió un error", resError.message);
+      }
+    },
 
-        emitter.emit("showModalAceptarTerminos");
+    async crearUsuarioFlujoInicial(codigo) {
+      try {
+        const data = {
+          dataUsuario: this.castDataUsuario(),
+          codigo
+        }
+        const res = await axios.post(
+          "/api/usuarios/crear-usuario-flujo-inicial",
+          data
+        );
+        console.log({res});
+        emitter.emit("showModalAceptarTerminos", false);
+        if (res.data.dat.cliente) {
+          alertify.alert(
+            'Atención', 
+            "Querído cliente, usted tiene o ha tenido solicitudes con nosotros, comuniquece con nuestros asesores para hacer una nueva solicitud",
+            () => { window.location.href = "/" }
+          );
+        } else {
+          this.ir(2);
+        }
       } catch (error) {
         const resError = error.response.data.error;
         if (resError.name === "ValidationError") {
@@ -88,17 +116,18 @@ const clienteStore = defineStore("cliente", {
         console.error({error});
       } 
     },
+
     async submitUsuario() {
       try {
         const usuario = JSON.parse(JSON.stringify(this.el));
         delete usuario.id; 
         const res = await axios.post("/api/usuarios", usuario);
-        this.ir(2);
-        alertify.notify(
-          "Se a registrado exitosamente, complete los campos y de click en continuar",
-          "success",
-          6
-        );
+        if (res.data.clienteExiste) {
+          alertify.alert("Querido cliente, usted ha tenido solicitudes con nosotros, pongase en contacto con un asesor para ser atendido")
+          window.location.href = "/";
+        } else {
+          this.ir(2);
+        }
       } catch (error) {
         const resError = error.response.data.error;
         if (resError.name === "ValidationError") {

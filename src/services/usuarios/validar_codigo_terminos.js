@@ -1,9 +1,10 @@
 const CodigosRepository = require("../../database/repositories/codigos.repository");
 
 class ValidarCodigoTerminos {
-  constructor(numDoc, codigo) {
+  constructor(numDoc, codigo, transaction = null) {
     this.numDoc = numDoc;
     this.codigo = codigo;
+    this.transaction = transaction;
   }
 
   async exec() {
@@ -18,7 +19,11 @@ class ValidarCodigoTerminos {
     });
 
     if (arrCodigo.length) {
-      const result = await CodigosRepository.update(arrCodigo[0].id, { estado: 'CONFIRMADO' });
+      const result = await CodigosRepository.update(
+        arrCodigo[0].id, 
+        { estado: 'CONFIRMADO' },
+        this.transaction
+      );
       return true;
     }
     return false;
