@@ -17,12 +17,14 @@ async function sendSms(from, to, text) {
         password: process.env.SMS_PASSWORD
       }
     };
-    if (process.env.SMS_SEND == true) {
-      return await axios.post(url, body, meta);
+    if (JSON.parse(process.env.SMS_SEND)) {
+      const res = await axios.post(url, body, meta);
+      //console.log(res);
     } else {
       return false;
     }
   } catch (error) {
+	  console.error(error);
     throw error;
   }  
 }

@@ -85,7 +85,7 @@
             <div class="group">
               <!-- MOVIL -->
               <div class="input-group">
-                <input type="text" v-model="clienteSt.el.movil" name="movil">
+                <input type="tel" v-model="clienteSt.el.movil" name="movil">
                 <label for="movil">Teléfono celular*</label>
               </div>
               <span class="helper-txt" v-if="!v$.movil.$error">
@@ -115,7 +115,7 @@
             <div class="group">
               <!-- EMAIL -->
               <div class="input-group">
-                <input type="text" v-model="clienteSt.el.email" name="email">
+                <input type="email" v-model="clienteSt.el.email" name="email" autocomplete="off">
                 <label for="email">Correo electrónico*</label>
               </div>
               <span class="helper-txt error" v-if="v$.email.$error">
