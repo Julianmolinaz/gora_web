@@ -42,7 +42,7 @@ class UsuarioController {
       const result = await useCase.exec();
       return res.json({ success: result });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res.json({
         success: false,
         data: error,
@@ -115,7 +115,6 @@ class UsuarioController {
   static async crearUsuarioFlujoInicial(req, res) {
     try {
       const { codigo, dataUsuario } = req.body;
-      console.log(req.body);
       const useCase = new CrearUsuarioFlujoInicial(codigo, dataUsuario);  
       await useCase.exec();
       

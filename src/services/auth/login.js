@@ -13,7 +13,6 @@ const jwt = require("jsonwebtoken");
 class Login {
   constructor(data) {
     this.data = data;
-    console.log(data);
     this.usuario = null;
     this.errors = [];
   }

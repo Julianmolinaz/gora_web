@@ -14,24 +14,40 @@
 >
 {% endblock %}
 
-{% block title %} Solicitud/Crédito GOR GORA {% endblock %}
+{% block title %} Solicitud/Crédito GORA {% endblock %}
 
 {% block content %}
 <div class="sheet-main">
   <section class="sheet-header">
     <div class="sheet-title__container">
-      <span class="sheet-title">Solicitud SOAT Y RTM</span>
+      <div class="sheet-title">
+        {% if credito %}
+          {% set tipoObligacion = 'Crédito' %}
+        {% else %}
+          {% set tipoObligacion = 'Solicitud' %}
+        {% endif %}
+        <span>{{ tipoObligacion }}</span>
+        {% for venta in data.ventas %}
+          <span>{{ venta.producto }}</span>
+        {% endfor %}
+      </div>
       <ul class="sheet-header__menu">
         <li class="sheet-header__option">
-          <span class="material-icons-outlined sheet-header__option-icon">
+          <a href="/cuenta" class="material-icons-outlined sheet-header__option-icon">
+            arrow_back 
+          </a>
+          <span class="sheet-header__option-title">Volver</span>
+        </li>
+        <li class="sheet-header__option">
+          <a href="#" class="material-icons-outlined sheet-header__option-icon">
             attach_money
-          </span>
+          </a>
           <span class="sheet-header__option-title">Pagos</span>
         </li>
         <li class="sheet-header__option">
-          <span class="material-icons-outlined sheet-header__option-icon">
+          <a href="#" class="material-icons-outlined sheet-header__option-icon">
             description
-          </span>
+          </a>
           <span class="sheet-header__option-title">Paz y salvo</span>
         </li>
       </ul>

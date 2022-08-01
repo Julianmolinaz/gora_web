@@ -35,7 +35,7 @@ class ContactoController {
 	message: "Se envió el mensaje exitosamente"
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 }

@@ -8,12 +8,10 @@ const appKey = process.env.TOKEN_SECRET;
 const authorization = async (req, res, next) => {
   try {
     const token = req.cookies.access_token;
-    console.log(token);
     if (!token) {
       throw "Sesión no existe";
     }
     const data = jwt.verify(token, appKey);
-    console.log({data});
 
     // Valida si la solicitud le pertenece al usuario
     if (!!req.params.solicitudId) {

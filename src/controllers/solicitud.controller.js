@@ -14,7 +14,6 @@ class SolicitudController {
   static async storeWithCliente(req, res) {
     try {
       const { cliente, simulador, usuarioId, nombre } = req.body;
-      console.log("body", req.body);
       const useCase = new CrearSolicitudCompleta(
         cliente,
         simulador,

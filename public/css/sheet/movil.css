@@ -50,6 +50,11 @@
   background: var(--light);
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
   font-size: 4.4rem;
+  text-decoration: none;
+  color: var(--night);
+}
+.sheet-header__option-icon:active {
+  transform: scale(.9);
 }
 .sheet-header__option-title {
   font-family: Semibold;

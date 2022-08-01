@@ -1,8 +1,19 @@
 <script>
   const btnNavMenu = document.querySelector("#nav__menu-icon_");
   btnNavMenu.addEventListener("click", () => {
+    toggleClassNavMenu();
+  });
+
+  const navOptions = document.getElementsByClassName("nav__options-item");
+  for (let i = 0; i < navOptions.length; i++) {
+    navOptions[i].addEventListener("click", () => {
+      toggleClassNavMenu();
+    });
+  }
+
+  const toggleClassNavMenu = () => {
     let navOptionsMovil = document.querySelector("#nav-options_");
     navOptionsMovil.classList.toggle("nav__options--active"); 
-  });
+  }
 </script>
 

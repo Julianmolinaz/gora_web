@@ -50,7 +50,6 @@ class CrearUsuarioFlujoInicial {
   }
 
   async validarCodigoTerminos() {
-    console.log(codigo);
     const validarCodigoTerminos = new ValidarCodigoTerminos(
       this.dataUsuario.num_doc,
       codigo,
