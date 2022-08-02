@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const { capitalizar } = require("../../helpers/getters");
 const main = require("../conexiones/main.conexion");
 
-const Cliente = main.define("Cliente", {
+const Cliente = main.define("clientes", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,

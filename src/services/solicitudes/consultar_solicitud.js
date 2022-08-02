@@ -1,12 +1,15 @@
 const VentasRepository = require("../../database/repositories/ventas.repository");
 const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
 const CreditosRepository = require("../../database/repositories/creditos.repository");
+const DocumentosRepository = require("../../database/repositories/documentos.repository");
+const VariablesRepository = require("../../database/repositories/variables.repository");
 
 class ConsultarSolicitud {
   constructor(solicitudId) {
     this.solicitudId = solicitudId;
     this.data = {
       solicitud: null, // info solicitud
+      documentos: null,
       credito: null,
       ventas: [],
     };
@@ -14,8 +17,10 @@ class ConsultarSolicitud {
 
   async exec() {
     await this.obtenerSolicitud();
+    await this.revisarDocumentos();
     await this.obtenerCredito();
     await this.obtenerVentas();
+    console.log(this.data);
   }
 
   async obtenerSolicitud() {
@@ -44,15 +49,22 @@ class ConsultarSolicitud {
       this.data.ventas.push(venta);
     }
   }
-  
-  async castProductos() {
 
+  async revisarDocumentos() {
+    const docs = await DocumentosRepository.listSome(
+      { precredito_id: this.solicitudId }
+    );
+
+    const tempListDocs = await VariablesRepository.findByNombre('documentos');
+    this.data.documentos = tempListDocs.detalle;
+
+    docs.forEach(doc => {
+      let arr = doc.nombre.split("_");
+      let key = arr[1] + '_' + arr[2].split(".")[0];
+
+      this.data.documentos[key].completo = true;
+    }); 
   }
-
-  async castVehiculo() {
-
-  }
-
 }
 
 module.exports = ConsultarSolicitud;

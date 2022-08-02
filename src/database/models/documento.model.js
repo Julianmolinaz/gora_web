@@ -21,6 +21,7 @@ const Documento = main.define("documentos", {
   },
   precredito_id: {
     type: DataTypes.INTEGER,
+    field: "precredito_id"
   },
   credito_id: {
     type: DataTypes.INTEGER,
@@ -39,6 +40,7 @@ const Documento = main.define("documentos", {
 }, {
   main,
   modelName: "Documento",
+  tableName: "documentos",
   timestamps: false,
   underscored: true,
 }); 

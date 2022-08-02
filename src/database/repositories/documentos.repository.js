@@ -18,6 +18,17 @@ class DocumentosRepository {
     }
   }
 
+  static async listSome(query) {
+    try {
+      const documentos = await Documento.findAll({
+        where: query
+      });
+      return documentos;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   static async findByName(nombre) {
     try {
       const documento = await Documento.findOne({

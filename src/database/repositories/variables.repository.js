@@ -12,6 +12,17 @@ class VariablesRepository {
       throw error;
     }
   }
+
+  static async findByNombre(nombre) {
+    try {
+      const variable = await Variable.findOne({
+        where: { nombre }
+      });
+      return variable;
+    } catch (error) {
+      throw error;
+    } 
+  }
 }
 
 module.exports = VariablesRepository;
