@@ -91,6 +91,42 @@
   font-size: 1.4rem;
   color: var(--dark);
 }
+/* DOCUMENTOS */
+.sheet-docs {
+  margin: 3.2rem 0 0 0; 
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+.sheet-docs__title {
+  font-family: bold;
+  font-size: 2.4rem;
+  color: var(--dark);
+}
+.sheet-docs__container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap; 
+  gap: 1rem;
+  width: 100%;
+  position: relative;
+}
+.sheet-doc {
+  list-style: none;
+  width: 15rem;
+  height: 10rem;
+  position: relative;
+}
+.sheet-doc__icono {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  background: yellow;
+}
+.sheet-doc__icono--active {
+  color: var(--natural);
+  opacity: 1;
+}
 /* DETALLES SOLICITUD */
 .detail-container {
   margin-top: 4rem;  

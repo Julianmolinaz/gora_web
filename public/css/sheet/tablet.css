@@ -26,6 +26,9 @@
   font-size: 5.6rem;
 }
 .sheet-header__option-title {}
+.sheet-docs__container {
+  justify-content: space-between;
+}
 /* BODY */
 .sheet-body {
   padding: 4rem 11.4rem;

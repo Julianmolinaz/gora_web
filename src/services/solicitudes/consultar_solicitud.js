@@ -61,9 +61,10 @@ class ConsultarSolicitud {
     docs.forEach(doc => {
       let arr = doc.nombre.split("_");
       let key = arr[1] + '_' + arr[2].split(".")[0];
-
-      this.data.documentos[key].completo = true;
+      tempListDocs.detalle[key].completo = true;
     }); 
+
+    this.data.documentos = Object.values(tempListDocs.detalle);
   }
 }
 
