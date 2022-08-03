@@ -81,27 +81,34 @@
     </div>
     <div class="sheet-docs">
       <span class="sheet-docs__title">Documentos</span>
-      <span class="detail-item__title">Si tiene documentos por ingresar de click en el boton "Cargar documentos"</span>
+      <span class="info-title">
+        Si tiene documentos por ingresar de click en el boton "Cargar documentos"
+      </span>
       <ul class="sheet-docs__container">
         {% for doc in data.documentos %}
         <li class="sheet-doc">
-          <img
-            src="
-              {% if doc.completo == true %}
-                {{ '/imagenes/verde_' + doc.icono }}
-              {% else %}
-                {{ '/imagenes/_' + doc.icono }}
-              {% endif %}
-            "
-            alt="{{ doc.icono }}"
-            class="sheet-doc__icono"
-          >
+          <span class="detail-item__title">{{ doc.titulo }}</span>
+          <a href="/documentos/create/{{ data.solicitud.id }}">
+            <img
+              src="
+                {% if doc.completo == true %}
+                  {{ '/imagenes/verde_' + doc.icono }}
+                {% else %}
+                  {{ '/imagenes/_' + doc.icono }}
+                {% endif %}
+              "
+              alt="{{ doc.icono }}"
+              class="sheet-doc__icono"
+            >
+          </a>
         </li>
         {% endfor %}
       </ul>
       {% if not data.credito %}
       <div class="center">
-        <a href="" class="bt bt__night">Cargar documentos</a>
+        <a href="/documentos/create/{{ data.solicitud.id }}" class="bt bt__night">
+          Cargar documentos
+        </a>
       </div>
       {% endif %}
     </div>

@@ -109,18 +109,18 @@
   flex-wrap: wrap; 
   gap: 1rem;
   width: 100%;
-  position: relative;
 }
 .sheet-doc {
   list-style: none;
   width: 15rem;
-  height: 10rem;
-  position: relative;
+  height: 13rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .sheet-doc__icono {
   width: 100%;
   height: auto;
-  position: absolute;
   background: yellow;
 }
 .sheet-doc__icono--active {
