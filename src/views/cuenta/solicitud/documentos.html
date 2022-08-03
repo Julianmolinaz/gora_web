@@ -1,0 +1,44 @@
+
+<div class="detail-card">
+  <div class="detail-header">
+    <span class="material-icons-outlined detail-header__icon">
+      collections
+    </span> 
+    <div class="detail-item__name">Documentos</div>
+  </div>
+  <div class="detail-body">
+    {% for doc in data.documentos %}
+    <div class="detail__list-item">
+      {% if doc.completo == true %}
+        <span class="material-icons-outlined detail__list-icon--active">
+          done
+        </span>
+      {% else %}
+        <span class="material-icons-outlined detail__list-icon">
+          sentiment_dissatisfied
+        </span>
+      {% endif %}
+      <span
+          class="
+            detail__list-name
+            {{ 'detail__list-name--active' if doc.completo == true }}"
+      >
+        {{ doc.titulo }}
+      </span>
+      {% if doc.completo == true %}
+        <span class="detail__list-name">- Ok</span>
+      {% else %}
+        <span class="detail__list-name">- falta</span>
+      {% endif %}
+    </div>
+    {% endfor %}
+    <div class="center" style="margin-top: 2rem">
+      <a href="/documentos/create/{{ data.solicitud.id }}" class="bt bt__night bt-doc">Subir documentos</a>
+    </div>
+    <div class="detail-item">
+      <span class="detail-item__title">
+        Si tiene documentos por ingresar de click en el boton
+      </span> 
+    </div>
+  </div>
+</div>

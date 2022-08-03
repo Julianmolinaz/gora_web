@@ -105,18 +105,11 @@
 }
 .sheet-docs__container {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; 
-  gap: 1rem;
-  width: 100%;
+  flex-direction: column;
 }
 .sheet-doc {
   list-style: none;
-  width: 15rem;
-  height: 13rem;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 .sheet-doc__icono {
   width: 100%;
@@ -161,6 +154,10 @@
   font-size: 1.8rem;
   color: var(--medium);
 }
+.detail-item__title--active {
+  color: var(--dark) !important;
+  font-family: regular !important;
+}
 .detail-item__value {
   font-family: Regular;
   font-size: 1.8rem;
@@ -170,4 +167,36 @@
   font-family: Light;
   font-size: 1.4rem;
   color: var(--medium);
+}
+/*********************
+ * list 
+ *********************/
+.detail-body {
+  padding: 1.6rem 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  gap: 1.2rem;
+}
+.detail__list-item {
+  display: flex;
+  gap: 0.8rem;
+}
+.detail__list-icon {
+  color: var(--grayum);
+}
+.detail__list-icon--active {
+  color: var(--natural); 
+}
+.detail__list-name {
+  font-family: Light;
+  color: var(--grayum);
+  font-size: 1.4rem;
+}
+.detail__list-name--active {
+  color: var(--medium); 
+  font-family: regular;
+}
+.bt-doc {
+  font-size: 1.6rem;
 }

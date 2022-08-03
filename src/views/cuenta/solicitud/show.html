@@ -79,124 +79,13 @@
         </div>
       </div>
     </div>
-    <div class="sheet-docs">
-      <span class="sheet-docs__title">Documentos</span>
-      <span class="info-title">
-        Si tiene documentos por ingresar de click en el boton "Cargar documentos"
-      </span>
-      <ul class="sheet-docs__container">
-        {% for doc in data.documentos %}
-        <li class="sheet-doc">
-          <span class="detail-item__title">{{ doc.titulo }}</span>
-          <a href="/documentos/create/{{ data.solicitud.id }}">
-            <img
-              src="
-                {% if doc.completo == true %}
-                  {{ '/imagenes/verde_' + doc.icono }}
-                {% else %}
-                  {{ '/imagenes/_' + doc.icono }}
-                {% endif %}
-              "
-              alt="{{ doc.icono }}"
-              class="sheet-doc__icono"
-            >
-          </a>
-        </li>
-        {% endfor %}
-      </ul>
-      {% if not data.credito %}
-      <div class="center">
-        <a href="/documentos/create/{{ data.solicitud.id }}" class="bt bt__night">
-          Cargar documentos
-        </a>
-      </div>
-      {% endif %}
-    </div>
     <div class="detail-container">
-      <div class="detail-card">
-        <div class="detail-header">
-          <span class="material-icons-outlined detail-header__icon">
-            hourglass_empty
-          </span> 
-          <div class="detail-item__name">Condiciones</div>
-        </div>
-          <div class="detail-item">
-            <span class="detail-item__value">{{ data.solicitud.aprobado }}</span>
-            <span class="detail-item__title">Estado</span> 
-          </div>
-        <div class="detail-item">
-          <span class="detail-item__value">
-            {% for venta in data.ventas %}{{venta.producto}}{% endfor %}
-          </span>
-          <span class="detail-item__title">Productos</span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">{{ data.solicitud.cuotas }}</span>
-          <span class="detail-item__title">Número de cuotas</span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">{{ data.solicitud.periodo }}</span>
-          <span class="detail-item__title">Periodo</span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">{{ ddmmyyyy(data.solicitud.fecha) }}</span>
-          <span class="detail-item__title">Fecha de solicitud</span> 
-        </div>
-      </div>
-      <div class="detail-card">
-        <div class="detail-header">
-          <div class="detail-item__name">Vehículo</div>
-          <span class="material-icons-outlined detail-header__icon">
-            {% set tipoVehiculoId = data.ventas[0].tipo_vehiculo_id %}
-            {% if tipoVehiculoId == 2 or tipoVehiculoId == 3 %}
-              two_wheeler
-            {% else %}
-              directions_car
-            {% endif %}
-          </span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">{{ data.ventas[0].vehiculo_placa }}</span>
-          <span class="detail-item__title">Placa vehículo</span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">{{ data.ventas[0].tipo_vehiculo }}</span>
-          <span class="detail-item__title">Tipo de vehículo</span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">{{ data.ventas[0].vehiculo_modelo }}</span>
-          <span class="detail-item__title">Modelo</span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">{{ data.ventas[0].vehiculo_cilindraje }}</span>
-          <span class="detail-item__title">Cilindraje</span> 
-        </div>
-      </div>
+      {% include "./documentos.html" %}
+      {% include "./condiciones.html" %}
+      {% include "./vehiculo.html" %}
+
       {% if data.credtio %}
-      <div class="detail-card">
-        <div class="detail-header">
-          <span class="material-icons-outlined detail-header__icon">
-            calendar_month 
-          </span> 
-          <div class="detail-item__name">Pago</div>
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">01-01-2022</span>
-          <span class="detail-item__title">Próxima fecha de pago</span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">$ 154.200</span>
-          <span class="detail-item__title">Valor cuota</span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">$ 750.000</span>
-          <span class="detail-item__title">Saldo de la deuda</span> 
-        </div>
-        <div class="detail-item">
-          <span class="detail-item__value">12</span>
-          <span class="detail-item__title">Cuotas faltantes</span> 
-        </div>
-      </div>
+        {% include "./vehiculo.html" %}
       {% endif %}
     </div>
   </section>

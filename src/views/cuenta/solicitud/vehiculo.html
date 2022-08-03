@@ -1,0 +1,30 @@
+
+<div class="detail-card">
+  <div class="detail-header">
+    <div class="detail-item__name">Vehículo</div>
+    <span class="material-icons-outlined detail-header__icon">
+      {% set tipoVehiculoId = data.ventas[0].tipo_vehiculo_id %}
+      {% if tipoVehiculoId == 2 or tipoVehiculoId == 3 %}
+        two_wheeler
+      {% else %}
+        directions_car
+      {% endif %}
+    </span> 
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ data.ventas[0].vehiculo_placa }}</span>
+    <span class="detail-item__title">Placa vehículo</span> 
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ data.ventas[0].tipo_vehiculo }}</span>
+    <span class="detail-item__title">Tipo de vehículo</span> 
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ data.ventas[0].vehiculo_modelo }}</span>
+    <span class="detail-item__title">Modelo</span> 
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ data.ventas[0].vehiculo_cilindraje }}</span>
+    <span class="detail-item__title">Cilindraje</span> 
+  </div>
+</div>

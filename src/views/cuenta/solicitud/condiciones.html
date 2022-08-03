@@ -1,0 +1,31 @@
+
+<div class="detail-card">
+  <div class="detail-header">
+    <span class="material-icons-outlined detail-header__icon">
+      hourglass_empty
+    </span> 
+    <div class="detail-item__name">Condiciones</div>
+  </div>
+    <div class="detail-item">
+      <span class="detail-item__value">{{ data.solicitud.aprobado }}</span>
+      <span class="detail-item__title">Estado</span> 
+    </div>
+  <div class="detail-item">
+    <span class="detail-item__value">
+      {% for venta in data.ventas %}{{venta.producto}}{% endfor %}
+    </span>
+    <span class="detail-item__title">Productos</span> 
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ data.solicitud.cuotas }}</span>
+    <span class="detail-item__title">Número de cuotas</span> 
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ data.solicitud.periodo }}</span>
+    <span class="detail-item__title">Periodo</span> 
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ ddmmyyyy(data.solicitud.fecha) }}</span>
+    <span class="detail-item__title">Fecha de solicitud</span> 
+  </div>
+</div>
