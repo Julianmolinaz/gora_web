@@ -4,6 +4,8 @@ const documentosStore = defineStore("documentos", {
   state: () => ({
     device: tipoDispositivo(),
     solicitudId: '{{ solicitudId }}',
+    modo: '{{ modo }}',
+    urls: JSON.parse('{{ urls | dump }}'.replace(/&quot;/g,'"')),
     docs: [
       { 
         estado: true,
@@ -76,6 +78,16 @@ const documentosStore = defineStore("documentos", {
   actions: {
     aceptar() {
       window.location.href = `${URL}/cuenta`; 
+    },
+    setUrls() {
+      console.log("setUrls");
+      this.docs.forEach((doc) => {
+        this.urls.forEach(url => {
+          if (url.codigo == doc.codigo) {
+            doc.file = url.url;
+          } 
+        })       
+      }); 
     }
   }
 });

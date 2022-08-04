@@ -12,7 +12,7 @@
     </div>
     <div class="doc-body">
       <div class="doc-image__container">
-        <img v-if="doc.file" :src="doc.file" alt="" class="doc-image">
+        <img v-if="doc.file" :src="doc.file" :alt="doc.code" class="doc-image">
         <img v-else :src="'/imagenes/' + doc.icono" alt="" class="doc-image">
       </div>
       <p class="doc-desc">[[ doc.desc ]]</p>

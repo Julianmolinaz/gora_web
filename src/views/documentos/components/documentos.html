@@ -36,6 +36,14 @@
     },
     setup() {
       const docsSt = documentosStore();
+
+      onMounted(() => {
+        console.log("view documentos");
+        if (docsSt.modo == "edicion") {
+          docsSt.setUrls();
+        }
+      });
+
       return {
         docsSt,
       }

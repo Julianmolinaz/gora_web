@@ -1,7 +1,7 @@
 const StorageDocumentos = require("../storage/storage_documentos");
 const DocumentosRepository = require("../../database/repositories/documentos.repository");
 
-const AWS_BUCKET_NAME = "gora-web-1656809609249";
+const BUCKET_NAME = "gora-web-1656809609249";
 const ENCODING = "base64";
 
 class SubirDocumento {
@@ -69,7 +69,9 @@ class SubirDocumento {
       await this.storage.upload(
         this.nombreDoc,
         this.buffer,
-        this.tipoDoc
+        ENCODING,
+        this.tipoDoc,
+        BUCKET_NAME
       );
     } catch (err) {
       throw err;

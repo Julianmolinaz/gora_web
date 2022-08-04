@@ -16,10 +16,10 @@ class StorageDocumentos {
     this.s3 = new AWS.S3();
   }
 
-  async upload(filename, file, encoding, tipoDoc) {
+  async upload(filename, file, encoding, tipoDoc, bucketName) {
     try {
       const params = {
-        Bucket: AWS_BUCKET_NAME,
+        Bucket: bucketName,
         Key: filename,
         Body: file,
         ContentEncoding: encoding,
@@ -32,7 +32,7 @@ class StorageDocumentos {
     }
   }
 
-  async getPublicURL(filename) {
+  async getPublicURL(filename, bucketName) {
     const url = await this.s3.getSignedUrlPromise('getObject', {
       Bucket: AWS_BUCKET_NAME,
       Key: filename,
