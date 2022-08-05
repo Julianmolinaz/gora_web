@@ -5,7 +5,7 @@ const documentosStore = defineStore("documentos", {
     device: tipoDispositivo(),
     solicitudId: '{{ solicitudId }}',
     modo: '{{ modo }}',
-    urls: JSON.parse('{{ urls | dump }}'.replace(/&quot;/g,'"')),
+    urls: JSON.parse('{{ urls | dump }}'.replace(/&quot;/g,'"').replace(/&amp;/g, "&")),
     docs: [
       { 
         estado: true,
@@ -84,6 +84,7 @@ const documentosStore = defineStore("documentos", {
       this.docs.forEach((doc) => {
         this.urls.forEach(url => {
           if (url.codigo == doc.codigo) {
+            console.log("url.url", url.url);
             doc.file = url.url;
           } 
         })       

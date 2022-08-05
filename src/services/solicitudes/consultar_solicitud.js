@@ -20,7 +20,6 @@ class ConsultarSolicitud {
     await this.revisarDocumentos();
     await this.obtenerCredito();
     await this.obtenerVentas();
-    console.log(this.data);
   }
 
   async obtenerSolicitud() {
@@ -60,7 +59,16 @@ class ConsultarSolicitud {
 
     docs.forEach(doc => {
       let arr = doc.nombre.split("_");
-      let key = arr[1] + '_' + arr[2].split(".")[0];
+      let size = arr.length;
+      let key = "";
+
+      for (let i = 1; i < size; i++) {
+        if (i == size - 1) {
+          key += arr[i].split(".")[0];
+        } else {
+          key += arr[i] + "_";
+        }
+      }
       tempListDocs.detalle[key].completo = true;
     }); 
 

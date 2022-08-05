@@ -25,10 +25,20 @@ class ShowDocumentos {
 
   async getUrlDocumentos() {
     for (let doc of this.documentos) {
-      let url = await this.storage.getPublicURL(doc.ruta, BUCKET_NAME)
-      const arr = doc.nombre.split("_");
-      const codigo = arr[1]+ '_' + arr[arr.length -1].split(".")[0];
-      this.urls.push({id:doc.id,codigo,url});
+      let url = await this.storage.getPublicURL(doc.ruta, BUCKET_NAME);
+
+      let arr = doc.nombre.split("_");
+      let size = arr.length;
+      let codigo = "";
+
+      for (let i = 1; i < size; i++) {
+        if (i == size - 1) {
+          codigo += arr[i].split(".")[0];
+        } else {
+          codigo += arr[i] + "_";
+        }
+      }
+      this.urls.push({ id: doc.id, codigo, url });
     }
   }
 }
