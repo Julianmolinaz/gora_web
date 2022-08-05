@@ -2,6 +2,7 @@
 <script>
 const documentosStore = defineStore("documentos", {
   state: () => ({
+    pendientes: 0,
     device: tipoDispositivo(),
     solicitudId: '{{ solicitudId }}',
     modo: '{{ modo }}',

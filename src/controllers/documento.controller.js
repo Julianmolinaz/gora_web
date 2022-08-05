@@ -20,9 +20,15 @@ class DocumentoController {
         solicitudId, doc.base64, doc.nombre
       );
       await subirDocumento.exec();
-      return res.json(req.body);
+      return res.json({
+        success: true
+      });
     } catch (err) {
       console.error(err);
+      return res.json({
+        success: false,
+        msg: err.message
+      });
     }
   }
 
