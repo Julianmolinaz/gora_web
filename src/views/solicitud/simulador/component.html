@@ -7,10 +7,13 @@
 	  <!--PRODUCTO-->
     <div class="group">
       <div class="input-group">
-        <select v-model="st.simulador.productoId">
+        <select
+          v-model="st.simulador.productoId"
+          @change="st.resetTotales()"
+        >
           <option
-          :value="producto.id"
-          v-for="(producto, i) in st.insumos.productos"
+            :value="producto.id"
+            v-for="(producto, i) in st.insumos.productos"
           >
           [[ producto.nombre ]]
           </option>
@@ -22,13 +25,16 @@
       <div class="group">
         <!-- TIPO DE VEHICULO -->
         <div class="input-group">
-          <select v-model="st.simulador.tipoVehiculoId">
-            <option
-            v-for="(tipo, i) in st.insumos.tipoVehiculos"
-            :value="tipo.id"
+          <select
+            v-model="st.simulador.tipoVehiculoId"
+            @change="st.resetTotales()"
           >
-            [[ tipo.nombre ]]
-          </option>
+            <option
+              v-for="(tipo, i) in st.insumos.tipoVehiculos"
+              :value="tipo.id"
+            >
+              [[ tipo.nombre ]]
+            </option>
           </select>
           <label for="tipo de vehículo">Tipo de vehículo</label>
         </div>
@@ -36,7 +42,11 @@
       <div class="group">
         <!-- MODELO -->
         <div class="input-group">
-          <input type="number" v-model="st.simulador.modelo">
+          <input
+            type="number"
+            v-model="st.simulador.modelo"
+            @input="st.resetTotales()"
+          />
           <label for="modelo">Modelo</label>
         </div>
       </div>
@@ -45,19 +55,27 @@
       <div class="group">
         <!-- CILINDRAJE -->
         <div class="input-group">
-          <input type="number" v-model="st.simulador.cilindraje">
+          <input
+            type="number"
+            v-model="st.simulador.cilindraje"
+            @input="st.resetTotales()"
+          >
           <label for="cilindraje">Cilindraje</label>
         </div>
       </div>
       <div class="group">
         <!-- PERIODO -->
         <div class="input-group">
-          <select v-model="st.simulador.periodo">
+          <select
+            v-model="st.simulador.periodo"
+            @change="st.resetTotales()"
+          >
             <option
               :value="periodo"
               v-for="(periodo, i) in st.insumos.periodos"
               :key="i"
-            >[[ periodo ]] 
+            >
+              [[ periodo ]] 
             </option>
           </select>
           <label for="Periodo">Periodo</label>

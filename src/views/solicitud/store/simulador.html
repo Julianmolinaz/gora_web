@@ -20,6 +20,9 @@
       }
     },
     actions: {
+      resetTotales() {
+        this.simulador.valorCuota = 0;
+      },
       initCuotas() {
         this.simulador.numCuotas = Math.floor(this.insumos.maxCuotas / 2);
       },
@@ -27,12 +30,14 @@
         if (this.simulador.numCuotas >= this.insumos.maxCuotas) {
           return false;
         }
+        this.resetTotales();
         this.simulador.numCuotas++;
       },
       decrementar() {
         if (this.simulador.numCuotas <= this.insumos.minCuotas) {
           return false;
         }
+        this.resetTotales();
         this.simulador.numCuotas--;
       },
       async calcularCuota(e) {

@@ -8,17 +8,7 @@ const solicitudStore = defineStore("solicitud", {
   getters: {},
   actions: {
     navigationTo(slug) {
-      if (this.storage.getItem("slug") === null) {
-        this.storage.setItem("slug", slug); 
-        router.push({ name: slug });
-      } else {
-        if (slug === 'simulador') {
-          router.push({ name: this.storage.getItem("slug") });
-        } else {
-          this.storage.setItem("slug", slug); 
-          router.push({ name: slug });
-        }
-      }
+      router.push({ name: slug });
     },
     /**
      * Permite crear un clinte, su solicitud,

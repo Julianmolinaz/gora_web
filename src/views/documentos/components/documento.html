@@ -16,7 +16,13 @@
         <img v-else :src="'/imagenes/' + doc.icono" alt="" class="doc-image">
       </div>
       <p class="doc-desc">[[ doc.desc ]]</p>
-      <input ref="fileInput" type="file" @change="loadFile($event)" hidden>
+      <input
+        ref="fileInput"
+        type="file"
+        @change="loadFile($event)"
+        accept=".jpg, .jpeg, .png"
+        hidden
+      >
       <div class="doc-acciones">
         <a @click="clickUploadFile" href="#" class="bt doc-bts">
           <img

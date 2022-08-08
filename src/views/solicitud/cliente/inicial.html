@@ -152,7 +152,7 @@
             </div>
           </div>
           <div class="solicitud-bts">
-            <a href="" class="bt">Volver</a>
+            <a href="" class="bt" @click.prevent="volver">Volver</a>
             <button class="bt bt__night">Continuar</button>
           </div>
         </form>
@@ -183,6 +183,10 @@
       const aceptarTerminos = () => {
         emitter.emit("showModalAceptarTerminos", true);
       };
+      
+      const volver = () => {
+        solicitudSt.navigationTo("simulador");
+      }
 
       const rules = computed(() => {
         return {
@@ -229,6 +233,7 @@
         //......
         v$,
         aceptarTerminos,
+        volver
       }
     },
     methods: {
