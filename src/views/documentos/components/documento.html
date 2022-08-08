@@ -16,7 +16,7 @@
         <img v-else :src="'/imagenes/' + doc.icono" alt="" class="doc-image">
       </div>
       <p class="doc-desc">[[ doc.desc ]]</p>
-      <input ref="file" type="file" @change="loadFile" hidden>
+      <input ref="fileInput" type="file" @change="loadFile($event)" hidden>
       <div class="doc-acciones">
         <a @click="clickUploadFile" href="#" class="bt doc-bts">
           <img
@@ -28,12 +28,12 @@
             <span v-else>Subir imagen</span>
         </a>
         <a
-          href="#"
+          href=""
           class="bt doc-bts"
           @click="showPanelPhoto"
           v-if="documentosSt.device === 'desktop'"
         >
-          <img src="/iconos/octicons/camera.svg" alt="">
+          <img src="/iconos/octicons/camera.svg" alt="boton camara">
           Tomar foto
         </a>
       </div>
@@ -53,59 +53,75 @@
     delimiters: ['[[', ']]'],
     props: [ "doc" ],
     name: "DocumentoComponent",
-    data: () => ({
-      file: "",
-      extensiones: ['jpg', 'jpeg', 'png'],
-      documentosSt: documentosStore(),
-    }),
-    methods: {
-      // se ejecuta al dar click al boton de subir archivo
-      clickUploadFile(e) {
+    setup(props) {
+      const extensiones = ['jpg', 'jpeg', 'png'];
+      const documentosSt = documentosStore();
+      const fileInput = ref(null);
+      const MAX_WIDTH = 600;
+
+      const clickUploadFile = (e) => {
         e.preventDefault();
-        this.$refs.file.click();
-      },
+        fileInput.value.click();
+      }
 
-      // valida y convierte la imagen a base 64
-      async loadFile(e) {
-        let file = e.target.files[0];
-        let ext = file.type.split('/')[1];
-        if (this.extensiones.indexOf(ext) > -1) {
-          let reader  = new FileReader();
-          reader.onloadend = () => {
-            this.doc.filename = file.name;
-            this.doc.file = reader.result;
-            this.doc.ext = ext;
-            this.doc.completo = true;
-            setTimeout(async () => await this.sendDoc(), 200);
+      const loadFile = (e) => {
+        const file = e.target.files[0];
+        props.doc.filename = file.name;
+        props.doc.ext = file.type.split("/")[1];
+        
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = function(event) {
+          const imgElement = document.createElement("img");
+          imgElement.src = event.target.result;
+
+          imgElement.onload = function(e) {
+            const canvas = document.createElement("canvas");
+            const scaleSize = MAX_WIDTH / e.target.width;
+            canvas.width = MAX_WIDTH;
+            canvas.height = e.target.height * scaleSize;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
+            const srcEncoded = ctx.canvas.toDataURL("image/jpeg", 0.7); 
+            props.doc.file = srcEncoded;
+            setTimeout(async () => await sendDoc(), 200);
           }
-          reader.readAsDataURL(file);
-        } else {
-          alertify.alert('Error', 'El archivo debe ser una imagen');
-        } 
-      },
+        }
+      }
 
-      sendDoc() {
-        const solicitudId = '{{ solicitudId }}';
-        const data = { base64: this.doc.file, nombre: this.doc.codigo }; 
-        this.documentosSt.pendientes++;
+      const sendDoc = () => {
+        const data = {
+          base64: props.doc.file,
+          nombre: props.doc.codigo
+        };
+        documentosSt.pendientes++;
 
         axios.post(
-          `${URL}/api/documentos/${solicitudId}`, 
-          data 
-        )
-        .then(res => {
-          if (res.data.success) {
-            this.documentosSt.pendientes--; 
-          } else {
-            console.log(res.data.msg);
+          `${URL}/api/documentos/${documentosSt.solicitudId}`,
+          data
+        ).then(res => {
+          if (res.data.success) documentosSt.pendientes --;
+          else {
+            alertify.alert("Ocurrió un error al cargar el documento");
           }
         });
-      },
+      }
 
-      showPanelPhoto(e) {
+      const showPanelPhoto = (e) => {
         e.preventDefault();
-        console.log("show panel photo");
         emitter.emit("SHOW_MODAL_CAMARA", this.doc);
+      }
+
+      return {
+        fileInput,
+        extensiones,
+        documentosSt,
+        
+        clickUploadFile,
+        loadFile,
+        showPanelPhoto,
       }
     }
   }
