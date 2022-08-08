@@ -33,4 +33,6 @@ const { webRouter, apiRouter } = require("./src/routes");
 webRouter(app);
 apiRouter(app);
 
+app.use("/*", (req, res) => res.redirect("/errors/403"));
+
 module.exports = { app };
