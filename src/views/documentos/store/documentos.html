@@ -78,7 +78,7 @@ const documentosStore = defineStore("documentos", {
   }),
   actions: {
     aceptar() {
-      window.location.href = `${URL}/cuenta`; 
+      window.location.href = `${URL}/cuenta/${this.solicitudId}`; 
     },
     setUrls() {
       console.log("setUrls");
