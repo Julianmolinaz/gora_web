@@ -143,7 +143,11 @@ class CrearSolicitudCompleta {
   }
 
   async vincularClienteConUsuario() {
-    const vincular = new VincularCliente(this.usuarioId, this.cliente.id);
+    const vincular = new VincularCliente(
+      this.usuarioId,
+      this.cliente.id,
+      this.transaction
+    );
     const usuario = await vincular.exec();
   }
 
@@ -274,7 +278,6 @@ class CrearSolicitudCompleta {
   /****************
    * VEHICULO
    ****************/
-
   castVehiculo() {
     const fechaProximoAno = moment().add(1, "Y").format("YYYY-MM-DD");
     return {

@@ -1,7 +1,7 @@
 const UsuariosRepository = require("../../database/repositories/usuarios.repository");
 
 class VincularCliente {
-  constructor(usuarioId, clienteId, transaction) {
+  constructor(usuarioId, clienteId, transaction = null) {
     this.clienteId = clienteId; 
     this.usuarioId = usuarioId;
     this.transaction = transaction;
