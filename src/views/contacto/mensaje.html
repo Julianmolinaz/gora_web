@@ -33,18 +33,19 @@
       <div class="mensaje-terminos">
         <input type="checkbox" v-model="terminos">
         <label for="aceptar términos y condiciones" class="mensaje-terminos__label">
-          <a href="javascript:void(0);">
-          He leido y acepto los términos y condiciones
+          <a href="" @click.prevent="showModalTerminos">
+            He leido y acepto los términos y condiciones
           </a>
         </label>
       </div>
       <div class="mensaje-enviar">
-      <a
-        href="javascript:void(0);"
-        class="bt bt__night"
-        @click="sendMensaje"
-      >Enviar
-      </a>
+        <a
+          href=""
+          class="bt bt__night"
+          @click.prevent="sendMensaje"
+        >
+          Enviar
+        </a>
       </div>
     </form>
     </div>
@@ -71,35 +72,43 @@
     }),
     methods: {
       sendMensaje() {
-      if (!this.validacion()) return false;
-      axios.post("/api/contactos/send-mensaje", this.mensaje)
-        .then(res => {
-          alertify.success(res.data.message, 5);
-          this.mensaje = new Mensaje();
-        }).catch(error => {
-          console.log(error);
-        });		  
+        if (!this.validacion()) return false;
+        axios.post("/api/contactos/send-mensaje", this.mensaje)
+          .then(res => {
+            alertify.success(res.data.message, 5);
+            this.mensaje = new Mensaje();
+          }).catch(error => {
+            console.log(error);
+          });		  
       },
       validacion() {
-      let str = "";
-      if (!this.mensaje.nombre) {
-        str += "Se requiere su nombre completo<br>";
-      }
-      if (!this.mensaje.email) {
-        str += "Se requiere su correo electrónico<br>";
-      }
-      if (!this.mensaje.contenido) {
-        str += "El mensaje es requerido<br>";
-      }
-      if (!this.terminos) {
-        str += "Debe aceptar términos y condiciones<br>";
-      }
-      if (str.length) {
-        alertify.alert("Atención", str);
-        return false;
-      }
-      return true;
-      }
+        let str = "";
+        if (!this.mensaje.nombre) {
+          str += "Se requiere su nombre completo<br>";
+        }
+        if (!this.mensaje.email) {
+          str += "Se requiere su correo electrónico<br>";
+        }
+        if (!this.mensaje.contenido) {
+          str += "El mensaje es requerido<br>";
+        }
+        if (!this.terminos) {
+          str += "Debe aceptar términos y condiciones<br>";
+        }
+        if (str.length) {
+          alertify.alert("Atención", str);
+          return false;
+        }
+        return true;
+      },
+      showModalTerminos() {
+        alertify.confirm(
+            "Autorización de tratamiento de datos personales",
+            "De conformidad con lo dispuesto en la ley 1581 de 2012, le informamos que los datos personales que usted nos ha entregado como cliente o prestador de bienes o servicios, harán parte de nuestra base de datos para ser usados con la siguiente finalidad. Realizar evaluaciones de servicio; investigaciones de mercado; enviar información sobre eventos; concursos y rifas; enviar comunicaciones publicitarias; comerciales y promocionales de nuestros productos y servicios; enviar información relacionada con productos para la financiación en la adquisición de nuestros bienes y servicios; realizar encuestas y dar a conocer noticias relacionadas con los productos y servicios de nuestra empresa. El manejo de dichos datos se hará de acuerdo a los establecido en el “Manual de Políticas y Procedimientos para el Tratamiento de Datos Personales”, que contiene las políticas establecidas para nuestra compañía INVERSIONES GORA SAS para el tratamiento de datos, los mecanismos para la efectividad de los derechos del Titular de la información a conocer, actualizar, rectificar, suprimir los datos que correspondan en nuestras bases de datos, así como reclamar al responsable y revocar la autorización para su uso.",
+            () => { this.terminos = true },
+            () => {}
+          ).set("labels", { ok: "Acepto", cancel: "Salir" });
+        }
     }
   });
   appMensaje.mount("#app-mensaje");
