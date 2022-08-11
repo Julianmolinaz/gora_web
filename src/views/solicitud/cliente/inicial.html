@@ -115,7 +115,12 @@
             <div class="group">
               <!-- EMAIL -->
               <div class="input-group">
-                <input type="email" v-model="clienteSt.el.email" name="email" autocomplete="off">
+                <input
+                  type="email"
+                  v-model="clienteSt.el.email"
+                  name="email"
+                  autocomplete="off"
+                >
                 <label for="email">Correo electrónico*</label>
               </div>
               <span class="helper-txt error" v-if="v$.email.$error">
@@ -127,7 +132,19 @@
             <div class="group">
               <!-- CONTRASEÑA -->
               <div class="input-group">
-                <input type="password" v-model="clienteSt.el.password" name="password">
+                <input
+                  :type="showPassword ? 'text' : 'password'"
+                  v-model="clienteSt.el.password"
+                  name="password"
+                />
+                <a
+                  href=""
+                  class="material-icons-outlined input-group__icon"
+                  @click.prevent="visibilityPassword()"
+                >
+                  <span v-if="showPassword">visibility</span>
+                  <span v-else>visibility_off</span>
+                </a>
                 <label for="password">Contraseña*</label>
               </div>
               <span class="helper-txt" v-if="!v$.password.$error">
@@ -140,7 +157,19 @@
             <div class="group">
               <!-- CONFIRMACION CONTRASEÑA -->
               <div class="input-group">
-                <input type="password" v-model="clienteSt.el.confirm" name="confirm">
+                <input
+                  :type="showConfirm ? 'text' : 'password'"
+                  v-model="clienteSt.el.confirm"
+                  name="confirm"
+                />
+                <a
+                  href=""
+                  class="material-icons-outlined input-group__icon"
+                  @click.prevent="visibilityConfirm()"
+                >
+                  <span v-if="showConfirm">visibility</span>
+                  <span v-else>visibility_off</span>
+                </a>
                 <label for="confirm">Confirmar*</label>
               </div>
               <span class="helper-txt" v-if="!v$.confirm.$error">
@@ -179,6 +208,11 @@
     setup() {
       const clienteSt = clienteStore();
       const solicitudSt = solicitudStore();
+      let showPassword = ref(false);
+      let showConfirm = ref(false);
+
+      const visibilityPassword = () => showPassword.value = !showPassword.value; 
+      const visibilityConfirm = () => showConfirm.value = !showConfirm.value;
 
       const aceptarTerminos = () => {
         emitter.emit("showModalAceptarTerminos", true);
@@ -230,10 +264,14 @@
         //......
         clienteSt,
         solicitudSt,
+        showPassword,
+        showConfirm,
         //......
         v$,
         aceptarTerminos,
-        volver
+        volver,
+        visibilityPassword,
+        visibilityConfirm,
       }
     },
     methods: {

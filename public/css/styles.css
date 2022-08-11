@@ -184,6 +184,10 @@ input[type=number] {
   font-family: Regular;
   width: 93%;
 }
+.input-group__icon {
+  text-decoration: none;
+  color: var(--grayum);
+}
 .input-checkbox { 
   display: flex;
   align-items: center;
