@@ -24,7 +24,9 @@
         this.simulador.valorCuota = 0;
       },
       initCuotas() {
-        this.simulador.numCuotas = Math.floor(this.insumos.maxCuotas / 2);
+        if (!this.simulador.numCuotas) {
+          this.simulador.numCuotas = Math.floor(this.insumos.maxCuotas / 2);
+        }
       },
       incrementar() {
         if (this.simulador.numCuotas >= this.insumos.maxCuotas) {
@@ -42,10 +44,11 @@
       },
       async calcularCuota(e) {
         e.preventDefault();
-        await this.setSimulador();
-        this.getValorCuota();
+        this.setSimulador();
+        await this.getValorCuota();
       },
       setSimulador() {
+        console.log("setSimulador");
         this.localStorage.setItem("simulador", JSON.stringify(this.simulador));
       },
       async getValorCuota() {

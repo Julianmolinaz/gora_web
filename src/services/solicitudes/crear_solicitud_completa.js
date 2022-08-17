@@ -181,7 +181,7 @@ class CrearSolicitudCompleta {
       vlr_fin: await this.getVlrFin(),
       periodo: this.dataSimulador.periodo,
       meses: this.getMeses(),
-      cuotas: this.dataSimulador.numCuotas,
+      cuotas: this.getNumCuotas(),
       vlr_cuota: await this.getValorCuota(),
       p_fecha: 1, // ***
       s_fecha: 15, // ****
@@ -229,6 +229,11 @@ class CrearSolicitudCompleta {
 
   getMeses() {
     return this.dataSimulador.numCuotas;
+  }
+
+  getNumCuotas() {
+    let factor = this.dataSimulador.periodo === "Quincenal" ? 2 : 1;
+    return this.dataSimulador.numCuotas * factor;
   }
 
   async crearSolicitud() {
