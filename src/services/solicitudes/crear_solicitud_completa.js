@@ -6,6 +6,7 @@
 
 // Persistencia 
 const mainConexion = require("../../database/conexiones/main.conexion");
+const localConexion = require("../../database/conexiones/local.conexion");
 const ClientesRepository = require("../../database/repositories/clientes.repository");
 const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
 const ConsecutivosRepository = require("../../database/repositories/consecutivos.repository");
@@ -54,6 +55,7 @@ class CrearSolicitudCompleta {
 
   async exec() {
     this.transaction = await mainConexion.transaction(); 
+    this.localTransaction = await localConexion.transaction();
     
     try {
       this.validarSimulador();
@@ -71,8 +73,10 @@ class CrearSolicitudCompleta {
       await this.generarVentas();
 
       this.transaction.commit();
+      this.localTransaction.commit();
     } catch (error) {
       this.transaction.rollback();
+      this.localTransaction.rollback();
       throw error;
     }
   }
@@ -146,7 +150,7 @@ class CrearSolicitudCompleta {
     const vincular = new VincularCliente(
       this.usuarioId,
       this.cliente.id,
-      this.transaction
+      this.localTransaction
     );
     const usuario = await vincular.exec();
   }

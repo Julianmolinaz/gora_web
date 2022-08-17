@@ -40,9 +40,6 @@ class InfoObligaciones {
     });
   }
 
-  /**
-   *
-   */
   async obtenerVentas() {
     for (let element of this.info) {
       let ventas = await VentasRepository.obtenerPorSolicitud(element.solicitud.id);
