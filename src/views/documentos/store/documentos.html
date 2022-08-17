@@ -78,7 +78,11 @@ const documentosStore = defineStore("documentos", {
   }),
   actions: {
     aceptar() {
-      window.location.href = `${URL}/cuenta/${this.solicitudId}`; 
+      if (this.pendientes) {
+        alertify.alert("Alerta", "Existen documentos pendientes por cargar");
+      } else {
+        window.location.href = `${URL}/cuenta/${this.solicitudId}`; 
+      }
     },
     setUrls() {
       console.log("setUrls");

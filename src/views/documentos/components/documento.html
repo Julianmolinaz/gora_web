@@ -12,8 +12,16 @@
     </div>
     <div class="doc-body">
       <div class="doc-image__container">
-        <img v-if="doc.file" :src="doc.file" :alt="doc.code" class="doc-image">
-        <img v-else :src="'/imagenes/' + doc.icono" alt="" class="doc-image">
+        <div v-if="loading" style="width: 100%;display: flex; justify-content: center">
+          <div class="loader"></div>
+        </div>
+        <img v-else-if="doc.file" :src="doc.file" :alt="doc.code" class="doc-image">
+        <img
+          v-else :src="'/imagenes/' + doc.icono"
+          alt="icono documento"
+          class="doc-image"
+          @click="clickUploadFile"
+        >
       </div>
       <p class="doc-desc">[[ doc.desc ]]</p>
       <input
@@ -64,6 +72,9 @@
       const documentosSt = documentosStore();
       const fileInput = ref(null);
       const MAX_WIDTH = 600;
+      const loading = ref(false);
+      let docFile = null;
+      let docFilename = null;
 
       const clickUploadFile = (e) => {
         e.preventDefault();
@@ -71,9 +82,9 @@
       }
 
       const loadFile = (e) => {
+        loading.value = true;
+
         const file = e.target.files[0];
-        props.doc.filename = file.name;
-        props.doc.ext = file.type.split("/")[1];
         
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -90,8 +101,9 @@
 
             const ctx = canvas.getContext("2d");
             ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
-            const srcEncoded = ctx.canvas.toDataURL("image/jpeg", 0.7); 
-            props.doc.file = srcEncoded;
+            docFile = ctx.canvas.toDataURL("image/jpeg", 0.7); 
+
+            // subir documento
             setTimeout(async () => await sendDoc(), 200);
           }
         }
@@ -99,7 +111,7 @@
 
       const sendDoc = () => {
         const data = {
-          base64: props.doc.file,
+          base64: docFile,
           nombre: props.doc.codigo
         };
         documentosSt.pendientes++;
@@ -108,8 +120,11 @@
           `${URL}/api/documentos/${documentosSt.solicitudId}`,
           data
         ).then(res => {
-          if (res.data.success) documentosSt.pendientes --;
-          else {
+          if (res.data.success) {
+            documentosSt.pendientes --;
+            loading.value = false;
+            props.doc.file = docFile;
+          } else {
             alertify.alert("Ocurrió un error al cargar el documento");
           }
         });
@@ -124,6 +139,7 @@
         fileInput,
         extensiones,
         documentosSt,
+        loading,
         
         clickUploadFile,
         loadFile,
