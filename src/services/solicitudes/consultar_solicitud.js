@@ -17,9 +17,14 @@ class ConsultarSolicitud {
 
   async exec() {
     await this.obtenerSolicitud();
+    await this.obtenerReferencias();
     await this.revisarDocumentos();
     await this.obtenerCredito();
     await this.obtenerVentas();
+  }
+
+  async obtenerReferencias() {
+    let referenciasTemp = await ReferenciasRepository.findBySolicitud(this.solicitudId); 
   }
 
   async obtenerSolicitud() {
