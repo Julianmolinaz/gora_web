@@ -24,6 +24,7 @@
   height: 5rem;
   display: block;
   margin: auto;
+  cursor: pointer;
 }
 .nav__menu-icon {
   float: right;

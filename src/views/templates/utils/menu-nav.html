@@ -1,4 +1,9 @@
 <script>
+  const navLogo = document.querySelector("#nav-logo");
+  navLogo.addEventListener("click", () => {
+    window.location.href = "/";
+  });
+
   const btnNavMenu = document.querySelector("#nav__menu-icon_");
   btnNavMenu.addEventListener("click", () => {
     toggleClassNavMenu();
