@@ -20,6 +20,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-nunjucks": "^2.2.5",
+    "express-rate-limit": "^6.5.1",
     "jsdoc": "^3.6.11",
     "jsonwebtoken": "^8.5.1",
     "mitt": "^3.0.0",
