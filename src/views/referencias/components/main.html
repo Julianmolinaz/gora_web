@@ -29,6 +29,7 @@
         class="bt bt__night"
         v-on:click.stop.prevent="referenciasSt.onSubmit"
       >
+        <span class="loader" v-if="referenciasSt.loader"></span>
         Continuar
       </a>
     </div>

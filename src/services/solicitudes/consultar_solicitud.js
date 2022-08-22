@@ -23,7 +23,6 @@ class ConsultarSolicitud {
     await this.revisarDocumentos();
     await this.obtenerCredito();
     await this.obtenerVentas();
-    console.log(this.data);
   }
 
   async obtenerReferencias() {

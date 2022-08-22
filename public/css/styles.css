@@ -422,8 +422,14 @@ input[type=number] {
   border-top: 0.8rem solid var(--sky);
   width: 6rem;
   height: 6rem;
-  -webkit-animation: spin 1s linear infinite; /* Safari */
-  animation: spin 1s linear infinite;
+  -webkit-animation: spin 0.7s linear infinite; /* Safari */
+  animation: spin 0.7s linear infinite;
+}
+.bt .loader {
+  border: 0.2rem solid #f3f3f3;
+  border-top: 0.2rem solid var(--dark);
+  width: 2rem;
+  height: 2rem;
 }
 
 /* Safari */
