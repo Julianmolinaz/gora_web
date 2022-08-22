@@ -1,10 +1,11 @@
 <script>
 const referenciasStore = defineStore("referencias", {
   state: () => ({
+    loader: false,
     numReferencias: '{{ CANTIDAD_REFS }}',
     refsValidas: 0,
-    refs: [],
-    estado: 'crear',
+    refs: JSON.parse('{{ referencias | dump }}'.replace(/&quot;/g,'"').replace(/&amp;/g, "&")),
+    estado: '{{ estado }}',
     ltParentesco: '{{ ltParentesco }}'.split(','),
     solicitudId: '{{ solicitudId }}'
   }),
@@ -18,12 +19,15 @@ const referenciasStore = defineStore("referencias", {
         // si se va a editar
       }
     },
-    onSubmit() {
+    async onSubmit() {
+      if (this.loader) return false;
+      this.loader = true;
       // validacion de formularios
       this.refsValidas = 0;
       emitter.emit("SUBMIT_REF");
 
       if (this.refsValidas != this.numReferencias) {
+        this.loader = false;
         alertify.notify("Complete la información por favor", "error");
         return;
       }
@@ -32,18 +36,26 @@ const referenciasStore = defineStore("referencias", {
       const route = `/api/referencias/multiple/${this.solicitudId}`;
       const data = { referencias: this.refs }
 
-      axios.post(route, data)
-        .then((res) => {
-          alertify.notify(res.data.msg, "success", 2, 
-            () => {
-              window.location.href = `${URL}/documentos/create/${this.solicitudId}`; 
-            }
-          );
-        })
-        .catch((error) => {
-          console.error(error);
-          alertify.alert("Ocurrió un error", error);
-        });
+      try {
+        const res = (this.estado == "crear") 
+          ? await axios.post(route, data)
+          : await axios.put(route, data);
+
+        alertify.notify(
+          res.data.msg,
+          "success",
+          2, 
+          () => {
+          window.location.href = (this.estado === "crear")
+            ? `${URL}/documentos/create/${this.solicitudId}`
+            : `${URL}/cuenta/${this.solicitudId}`
+          }
+        );
+      } catch (err) {
+        this.loader = false;
+        console.error(error);
+        alertify.alert("Ocurrió un error", error);
+      }
     },
   }
 });

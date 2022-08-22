@@ -12,7 +12,9 @@
     </div>
   <div class="detail-item">
     <span class="detail-item__value">
-      {% for venta in data.ventas %}{{venta.producto}}{% endfor %}
+      {% for venta in data.ventas %}
+        {{ venta.producto if loop.index0 else venta.producto + " | " }}
+      {% endfor %}
     </span>
     <span class="detail-item__title">Productos</span> 
   </div>

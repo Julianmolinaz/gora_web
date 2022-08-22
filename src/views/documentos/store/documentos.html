@@ -57,7 +57,7 @@ const documentosStore = defineStore("documentos", {
         codigo: "selfie_rostro",
         titulo: "Fotografía rostro",
         icono: "selfie.png",
-        desc: "Fotografia de frente sin tapabocas, gafas o sombrero",
+        desc: "Fotografia de frente sin tapabocas, gafas o sombrero, (Rostro descubierto)",
         completo: false,
         file: null,
         ext: null,
@@ -78,7 +78,11 @@ const documentosStore = defineStore("documentos", {
   }),
   actions: {
     aceptar() {
-      window.location.href = `${URL}/cuenta`; 
+      if (this.pendientes) {
+        alertify.alert("Alerta", "Existen documentos pendientes por cargar");
+      } else {
+        window.location.href = `${URL}/cuenta/${this.solicitudId}`; 
+      }
     },
     setUrls() {
       console.log("setUrls");

@@ -1,0 +1,43 @@
+<div class="detail-card">
+  <div class="detail-header">
+    <span class="material-icons-outlined detail-header__icon">
+      groups
+    </span>
+    <div class="detail-item__name">Referencias</div>
+  </div>
+  {% for referencia in data.referencias %}
+  <div class="detail-item">
+    <div
+      class="detail-item__title"
+      style="font-family: bold;"
+    >
+      {{ "Referencia " + loop.index }}
+    </div>
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ referencia.nombre }}</span>
+    <div class="detail-item__title">Nombre</div>
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ referencia.parentesco }}</span>
+    <div class="detail-item__title">Parentesco</div>
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ referencia.celular }}</span>
+    <div class="detail-item__title">Teléfono</div>
+  </div>
+  {% endfor %}
+  <div class="center" style="margin-top: 2rem">
+    <a
+      href="/referencias/edit/{{ data.solicitud.id }}"
+      class="bt bt__night bt-doc"
+    >
+     Editar Referencias 
+    </a>
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__title">
+      Si require ingresar o editar referencias de click en el boton
+    </span> 
+  </div>
+</div>

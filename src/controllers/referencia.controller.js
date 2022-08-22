@@ -1,4 +1,5 @@
 const CrearReferencias = require("../services/referencias/crear_referencias.js"); 
+const ActualizarReferencias = require("../services/referencias/actualizar_referencias.js"); 
 const ReferenciasRepository = require("../database/repositories/referencias.repository.js"); 
 
 class ReferenciaController {
@@ -7,11 +8,13 @@ class ReferenciaController {
     const ltParentesco = await ReferenciasRepository.getEnumValues('parentesco');
     return res.render("referencias/create.html", { 
       ltParentesco,
-      solicitudId
+      solicitudId,
+      referencias: [],
+      estado: "crear"
     });   
   }
 
-  static async storeMultiple(req, res) {
+  static async storeMultiple(req, res) { console.log("storeMultiple");
     const solicitudId = req.params.solicitudId;
     const { referencias } = req.body;
     try {
@@ -21,8 +24,50 @@ class ReferenciaController {
       );
       await crearReferencias.exec();
 
-      return res.status(200).json({
+      return res.status(201).json({
         msg: "Se han creado las referencias exitosamente"
+      });
+    } catch (error) {
+      console.error(error);
+      // organizar las validaciones
+      return res.status(400).json({ error }); 
+    }
+  }
+
+  static async edit(req, res) {console.log("updateMultiple");
+    const solicitudId = req.params.solicitudId;
+    const ltParentesco = await ReferenciasRepository.getEnumValues('parentesco');
+    const referencias_ = await ReferenciasRepository.findSolicitud(solicitudId); 
+    const referencias = referencias_.map((ref) => {
+      return {
+        id: ref.id,
+        nombre: ref.nombre,
+        parentesco: ref.parentesco,
+        celular: ref.celular
+      }
+    });
+
+    return res.render("referencias/create.html", {
+      ltParentesco,
+      solicitudId,
+      referencias,
+      estado: "editar"
+    });
+  }
+
+  static async updateMultiple(req, res) {
+    const { solicitudId } = req.params;
+    const { referencias } = req.body;
+
+    try {
+      const actualizarReferencias = new ActualizarReferencias(
+        referencias,
+        solicitudId
+      );
+      await actualizarReferencias.exec();
+
+      return res.status(201).json({
+        msg: "Se han actualizado las referencias exitosamente"
       });
     } catch (error) {
       console.error(error);

@@ -20,6 +20,7 @@ function generarCodigo(digitos) {
   let codigo = "";
   for (let i = 0; i < digitos; i++) {
     let digito = Math.floor(Math.random() * 10);
+    if (i == 0 && digito == 0) digito = 1; 
     codigo += `${digito}`;
   }
   console.log({codigo});

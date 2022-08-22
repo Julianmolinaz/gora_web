@@ -1,4 +1,5 @@
 const VentasRepository = require("../../database/repositories/ventas.repository");
+const ReferenciasRepository = require("../../database/repositories/referencias.repository");
 const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
 const CreditosRepository = require("../../database/repositories/creditos.repository");
 const DocumentosRepository = require("../../database/repositories/documentos.repository");
@@ -9,6 +10,7 @@ class ConsultarSolicitud {
     this.solicitudId = solicitudId;
     this.data = {
       solicitud: null, // info solicitud
+      referencias: [],
       documentos: null,
       credito: null,
       ventas: [],
@@ -17,9 +19,21 @@ class ConsultarSolicitud {
 
   async exec() {
     await this.obtenerSolicitud();
+    await this.obtenerReferencias();
     await this.revisarDocumentos();
     await this.obtenerCredito();
     await this.obtenerVentas();
+  }
+
+  async obtenerReferencias() {
+    let referenciasTemp = await ReferenciasRepository.findSolicitud(this.solicitudId); 
+    this.data.referencias = referenciasTemp.map((referencia) => {
+      return {
+        nombre: referencia.nombre,
+        parentesco: referencia.parentesco,
+        celular: referencia.celular
+      }
+    });
   }
 
   async obtenerSolicitud() {

@@ -21,7 +21,7 @@
   <section class="sheet-header">
     <div class="sheet-title__container">
       <div class="sheet-title">
-        <span>Hola, Pablo Adrian</span>
+        <span id="saludo-usuario"></span>
         <img src="/iconos/hombre.png" alt="" class="sheet-title__icon">
       </div>
     </div>
@@ -48,4 +48,21 @@
     {% endfor %}
   </section>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  class IndexCuenta {
+    constructor() {
+      this.saludoUsuario = document.querySelector("#saludo-usuario");
+      this.saludar();
+    }
+
+    saludar() {
+      this.saludoUsuario.textContent = `Hola, ${session.nombre}`;
+    }
+  }
+
+  new IndexCuenta();
+</script>
 {% endblock %}

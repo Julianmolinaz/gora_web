@@ -3,7 +3,6 @@
   <li 
     :class="['nodo', (nodo.activo) ? 'nodo--active' : '']"
     v-for="nodo in clienteSt.nodos"
-    @click="clienteSt.ir(nodo.indice)"
   >[[ nodo.indice ]]
   </li>
 </ul>

@@ -16,8 +16,37 @@ class ReferenciasRepository {
       throw err;
     }
   }
+
   static async eliminarTodo() {
     await Referencia.destroy({ where: {} });
+  }
+
+  /**
+   *@parm {Number} solilicitudId
+   */
+  static async findSolicitud(solicitudId) {
+    try {
+      const referencias = await Referencia.findAll({
+        where: { precredito_id: solicitudId }
+      });
+      return referencias;
+    } catch (err) {
+      throw err;
+    } 
+  }
+
+  static async actualizar(referenciaId, dataReferencia, transaction = null) {
+    try {
+      const referencia = await Referencia.update(
+        dataReferencia,
+        { 
+          where: { id: referenciaId },
+          transaction
+        }
+      );
+    } catch (err) {
+      throw err; 
+    }
   }
 }
 

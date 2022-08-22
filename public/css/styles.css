@@ -184,6 +184,10 @@ input[type=number] {
   font-family: Regular;
   width: 93%;
 }
+.input-group__icon {
+  text-decoration: none;
+  color: var(--grayum);
+}
 .input-checkbox { 
   display: flex;
   align-items: center;
@@ -408,4 +412,33 @@ input[type=number] {
   color: var(--sky);
   font-size: 1.4rem;
   font-family: regular; 
+}
+/******************
+ * LOADER 
+ ******************/
+.loader {
+  border: 0.8rem solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 0.8rem solid var(--sky);
+  width: 6rem;
+  height: 6rem;
+  -webkit-animation: spin 0.7s linear infinite; /* Safari */
+  animation: spin 0.7s linear infinite;
+}
+.bt .loader {
+  border: 0.2rem solid #f3f3f3;
+  border-top: 0.2rem solid var(--dark);
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

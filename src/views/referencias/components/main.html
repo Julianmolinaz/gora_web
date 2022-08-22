@@ -28,7 +28,9 @@
         href="#"
         class="bt bt__night"
         v-on:click.stop.prevent="referenciasSt.onSubmit"
-      >Continuar
+      >
+        <span class="loader" v-if="referenciasSt.loader"></span>
+        Continuar
       </a>
     </div>
   </div>

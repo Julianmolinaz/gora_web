@@ -6,6 +6,7 @@
 
 // Persistencia 
 const mainConexion = require("../../database/conexiones/main.conexion");
+const localConexion = require("../../database/conexiones/local.conexion");
 const ClientesRepository = require("../../database/repositories/clientes.repository");
 const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
 const ConsecutivosRepository = require("../../database/repositories/consecutivos.repository");
@@ -54,6 +55,7 @@ class CrearSolicitudCompleta {
 
   async exec() {
     this.transaction = await mainConexion.transaction(); 
+    this.localTransaction = await localConexion.transaction();
     
     try {
       this.validarSimulador();
@@ -71,8 +73,10 @@ class CrearSolicitudCompleta {
       await this.generarVentas();
 
       this.transaction.commit();
+      this.localTransaction.commit();
     } catch (error) {
       this.transaction.rollback();
+      this.localTransaction.rollback();
       throw error;
     }
   }
@@ -143,7 +147,11 @@ class CrearSolicitudCompleta {
   }
 
   async vincularClienteConUsuario() {
-    const vincular = new VincularCliente(this.usuarioId, this.cliente.id);
+    const vincular = new VincularCliente(
+      this.usuarioId,
+      this.cliente.id,
+      this.localTransaction
+    );
     const usuario = await vincular.exec();
   }
 
@@ -173,7 +181,7 @@ class CrearSolicitudCompleta {
       vlr_fin: await this.getVlrFin(),
       periodo: this.dataSimulador.periodo,
       meses: this.getMeses(),
-      cuotas: this.dataSimulador.numCuotas,
+      cuotas: this.getNumCuotas(),
       vlr_cuota: await this.getValorCuota(),
       p_fecha: 1, // ***
       s_fecha: 15, // ****
@@ -221,6 +229,11 @@ class CrearSolicitudCompleta {
 
   getMeses() {
     return this.dataSimulador.numCuotas;
+  }
+
+  getNumCuotas() {
+    let factor = this.dataSimulador.periodo === "Quincenal" ? 2 : 1;
+    return this.dataSimulador.numCuotas * factor;
   }
 
   async crearSolicitud() {
@@ -274,7 +287,6 @@ class CrearSolicitudCompleta {
   /****************
    * VEHICULO
    ****************/
-
   castVehiculo() {
     const fechaProximoAno = moment().add(1, "Y").format("YYYY-MM-DD");
     return {

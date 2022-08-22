@@ -21,6 +21,13 @@
             <div class="group">
               <div class="input-group">
                 <input type="password" id="password">
+                <a
+                  href=""
+                  class="material-icons-outlined input-group__icon"
+                  id="showPassword"
+                >
+                  <span id="icon-visibility">visibility_off</span>
+                </a>
                 <label for="password">Contraseña</label>
               </div>
             </div>
@@ -52,16 +59,28 @@
       this.form = document.querySelector("#login-form");
       this.num_doc = document.querySelector("#num_doc");
       this.password = document.querySelector("#password");
+      this.showPassword = document.querySelector("#showPassword");
+      this.iconVisibility = document.querySelector("#icon-visibility");
       this.actions();    
     }
 
     actions() {
       this.close.addEventListener("click", () => this.show());
       this.form.addEventListener("submit", this.enviarCredenciales);
+      this.showPassword.addEventListener("click", (event) => this.visiblePassword(event));
     }
 
     show() {
       this.modal.classList.toggle("modal--show");
+      this.reset();
+    }
+
+    reset() {
+      this.iconVisibility.textContent = "visibility_off";
+      this.password.type = "password";
+
+      this.password.value = "";
+      this.num_doc.value = "";
     }
 
     enviarCredenciales(event) {
@@ -83,8 +102,19 @@
           }
         })
         .catch( error => {
-          alertify.alert("Ocurrió un error");
+          alertify.alert(error.response.data);
         })
+    }
+
+    visiblePassword(event) {
+      event.preventDefault();
+      if (this.iconVisibility.textContent === "visibility") {
+        this.iconVisibility.textContent = "visibility_off";
+        this.password.type = "password";
+      } else {
+        this.iconVisibility.textContent = "visibility";
+        this.password.type = "text";
+      }
     }
   }
 
