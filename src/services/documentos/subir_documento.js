@@ -5,8 +5,10 @@ const BUCKET_NAME = "gora-web-1656809609249";
 const ENCODING = "base64";
 
 class SubirDocumento {
-  constructor(solicitudId, base64, nombre) {
+  constructor(solicitudId, clienteId, base64, nombre) {
+    this.documento = null;
     this.solicitudId = solicitudId;
+    this.clienteId = clienteId;
     this.base64 = base64;
     this.nombre = nombre;
 
@@ -38,13 +40,14 @@ class SubirDocumento {
       nombre: this.nombreDoc,
       ruta: this.nombreDoc,
       precredito_id: this.solicitudId,
+      cliente_id: this.clienteId,
       user_create_id: process.env.USER_ID_DEFAULT
     };
 
     if (doc) {
-      await this.sobreescribirDoc(doc.id, newDoc);
+      this.documento = await this.sobreescribirDoc(doc.id, newDoc);
     } else {
-      await this.crearDoc(newDoc);
+      this.documento = await this.crearDoc(newDoc);
     }
   }
 
@@ -56,7 +59,8 @@ class SubirDocumento {
   }
 
   async crearDoc(doc) {
-    await DocumentosRepository.create(doc);
+    const result = await DocumentosRepository.create(doc);
+    return result;
   }
 
   async consultarDoc() {
@@ -66,13 +70,14 @@ class SubirDocumento {
 
   async cargarDoc() {
     try {
-      await this.storage.upload(
+      const result = await this.storage.upload(
         this.nombreDoc,
         this.buffer,
         ENCODING,
         this.tipoDoc,
         BUCKET_NAME
       );
+      if (result) console.log("Documento cargado");
     } catch (err) {
       throw err;
     }

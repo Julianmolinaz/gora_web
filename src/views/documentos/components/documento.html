@@ -15,7 +15,13 @@
         <div v-if="loading" style="width: 100%;display: flex; justify-content: center">
           <div class="loader"></div>
         </div>
-        <img v-else-if="doc.file" :src="doc.file" :alt="doc.code" class="doc-image">
+        <div  v-else-if="doc.file" style="display: flex; align-items: center; gap: 1rem">
+          <img :src="doc.file" :alt="doc.code" class="doc-image">
+          <div class="doc-delete" @click="deleteDoc">
+            <span class="material-icons doc-delete__icon">delete</span>
+            <span class="doc-delete__title">Eliminar</span>
+          </div>
+        </div>
         <img
           v-else :src="'/imagenes/' + doc.icono"
           alt="icono documento"
@@ -124,7 +130,9 @@
             documentosSt.pendientes --;
             loading.value = false;
             props.doc.file = docFile;
+            props.doc.id = res.data.documento.id;
           } else {
+            loading.value = false;
             alertify.alert("Ocurrió un error al cargar el documento");
           }
         });
@@ -133,6 +141,10 @@
       const showPanelPhoto = (e) => {
         e.preventDefault();
         emitter.emit("SHOW_MODAL_CAMARA", this.doc);
+      }
+
+      const deleteDoc =() => {
+        documentosSt.deleteDoc(props.doc.id); 
       }
 
       return {
@@ -144,7 +156,23 @@
         clickUploadFile,
         loadFile,
         showPanelPhoto,
+        deleteDoc,
       }
     }
   }
 </script>
+<style lang="scss">
+.doc-delete {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+.doc-delete__icon {
+  color: var(--danger);
+}
+.doc-delete__title {
+  font-family: regular;
+  font-family: 1.4rem;
+}
+</style>

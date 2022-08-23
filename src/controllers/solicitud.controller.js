@@ -13,18 +13,17 @@ class SolicitudController {
 
   static async storeWithCliente(req, res) {
     try {
-      console.log(req.body);
-      const { cliente, simulador, usuarioId, nombre } = req.body;
+      const { cliente, simulador, usuarioId_, nombre_ } = req.body;
       const useCase = new CrearSolicitudCompleta(
         cliente,
         simulador,
-        usuarioId
+        usuarioId_
       );
       await useCase.exec();
 
       const token = await getAccessToken(
-        usuarioId,
-        nombre,
+        usuarioId_,
+        nombre_,
         useCase.cliente.id
       );
 
