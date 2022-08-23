@@ -41,6 +41,15 @@ class StorageDocumentos {
     return url;
   }
 
+  async destroy(filename) {
+    return new Promise((resolve, reject) => {
+      const params = { Bucket: AWS_BUCKET_NAME, Key: filename };
+      this.s3.deleteObject(params, (err, data) => {
+        if (err) reject(err);  
+        else resolve(data);
+      });
+    });
+  }
 }
 
 module.exports = StorageDocumentos;

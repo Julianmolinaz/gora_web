@@ -85,16 +85,42 @@ const documentosStore = defineStore("documentos", {
       }
     },
     setUrls() {
-      console.log("setUrls");
       this.docs.forEach((doc) => {
         this.urls.forEach(url => {
           if (url.codigo == doc.codigo) {
-            console.log("url.url", url.url);
+            doc.id = url.id;
             doc.file = url.url;
           } 
         })       
       }); 
+    },
+    deleteDoc(docId) {
+      alertify.confirm(
+        "Confirmar",
+        "¿Esta seguro de eliminar la imagen?",
+        () => {
+          axios.delete(`${URL}/api/documentos/${docId}`)
+            .then(res => {
+              alertify.notify("La imagen fue eliminada", "success",
+                2, () => this.deleteItemDoc(docId));
+            })
+            .catch(err => console.eror(err.message))
+        },
+        () => {}
+      );   
+    },
+
+    /* Elimina el id y el file de un doc al ser deleteDoc */
+    deleteItemDoc(docId) {
+      this.docs.forEach(doc => {
+        if (doc.id == docId) {
+          doc.id = null,
+          doc.file = null
+        }
+      })
     }
   }
 });
+
+
 </script>

@@ -24,9 +24,9 @@ const authorization = async (req, res, next) => {
       }
     }
     
-    req.body.usuarioId = data.id;
-    req.body.nombre = data.nombre;
-    req.body.clienteId = data.ref;
+    req.body.usuarioId_ = data.id;
+    req.body.nombre_ = data.nombre;
+    req.body.clienteId_ = data.ref;
     return next();
   } catch {
     const origin = req.originalUrl.split("/");

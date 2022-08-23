@@ -65,6 +65,19 @@ class DocumentosRepository {
       console.error(error);
     }
   }
+
+  static async destroy(docId, transaction = null) {
+    try {
+      const result = await Documento.destroy({
+        where: { id: docId },
+        transaction
+      });
+      return result;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
 
 module.exports = DocumentosRepository;

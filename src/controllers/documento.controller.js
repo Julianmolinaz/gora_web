@@ -1,7 +1,11 @@
-const SubirDocumento = require("../services/documentos/subir_documento");
-const ShowDocumentos = require("../services/documentos/show_documentos");
+const {
+  EliminarDocumento,
+  ShowDocumentos,
+  SubirDocumento
+} = require("../services/documentos");
 
 class DocumentoController {
+
   static create(req, res) {
     const solicitudId = req.params.solicitudId;
     return res.render("documentos/create.html", {
@@ -17,11 +21,15 @@ class DocumentoController {
       const doc = req.body;
 
       const subirDocumento = new SubirDocumento(
-        solicitudId, doc.base64, doc.nombre
+        solicitudId,
+        doc.clienteId_,
+        doc.base64,
+        doc.nombre
       );
       await subirDocumento.exec();
       return res.json({
-        success: true
+        success: true,
+        documento: subirDocumento.documento 
       });
     } catch (err) {
       console.error(err);
@@ -44,8 +52,27 @@ class DocumentoController {
         solicitudId
       });
     } catch (error) {
-      console.error(error); 
+      console.error(error);
     }
+  }
+
+  static async destroy(req, res) {
+    try {
+      const { documentoId } = req.params;
+      const { clienteId_ } = req.body;
+
+      const eliminarDocumento = new EliminarDocumento(
+        documentoId, clienteId_
+      );
+      await eliminarDocumento.exec();
+      return res.json(req.params);
+    } catch (err) {
+      console.error(err);
+      return res.json({
+        success: false,
+        msg: err.message
+      });
+    } 
   }
 }
 
