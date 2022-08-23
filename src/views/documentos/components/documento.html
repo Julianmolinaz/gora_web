@@ -91,6 +91,7 @@
         loading.value = true;
 
         const file = e.target.files[0];
+	const factorPixel = 1;
         
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -107,7 +108,7 @@
 
             const ctx = canvas.getContext("2d");
             ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
-            docFile = ctx.canvas.toDataURL("image/jpeg", 0.7); 
+            docFile = ctx.canvas.toDataURL("image/jpeg", factorPixel); 
 
             // subir documento
             setTimeout(async () => await sendDoc(), 200);
