@@ -27,6 +27,7 @@
         </div>
         <div class="modal__timer" v-if="segundos > 0">
           <span>[[ segundos ]] seg</span>
+          <span>Para solicitar su nuevo código</span>
         </div>
       </div>
       <div class="modal__footer">
@@ -35,12 +36,13 @@
           class="bt bt__sun"
           @click="aceptarTerminos"
           v-if="showAceptar"
-        >Enviar código
+        >
+          Enviar código
         </a>
         <a
           href="#"
           class="link bt-reenviar"
-          v-if="segundos == 0" 
+          v-if="!segundos" 
           @click="reenviarCodigo"
         >
           Solicitar nuevo código
@@ -65,7 +67,7 @@
       let codigo = ref('');
       const SIZECOD = 4;
       const clienteSt = clienteStore();
-      const numSegundos = 120;
+      const numSegundos = '{{ SEG_CODIGO_TERMINOS }}';
 
       const show = (action) => {
         showModal.value = action;
@@ -95,11 +97,11 @@
       let showReenviarCodigo = ref(false);
       const reenviarCodigo = async (event) => {
         event.preventDefault();
-        resetCodigo();
-        await clienteSt.generarCodigoTerminos();
+        cuentaRegresiva();
+        //await clienteSt.generarCodigoTerminos();
       }
 
-      let segundos = ref();
+      let segundos = ref(null);
       const cuentaRegresiva = () => {
         segundos.value = numSegundos;
         let interval;
@@ -166,6 +168,7 @@
     font-family: regular;
     font-size: 1.4rem;
     display: flex;
+    flex-direction: column;
     justify-content: end;
     align-items: center;
   }
