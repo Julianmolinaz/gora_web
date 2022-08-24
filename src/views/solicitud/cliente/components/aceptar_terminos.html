@@ -112,6 +112,7 @@
       let showModal = ref(false);
 
       const leerCodigo = () => {
+        console.log("leer codigo");
         let sizeCodigo = codigo.value.toString().length;
         if (sizeCodigo === SIZECOD) {
           showAceptar.value = true;  
@@ -124,6 +125,7 @@
 
       onMounted(() => {
         emitter.on("showModalAceptarTerminos", (action) => {
+          console.log("show modal aceptar terminos");
           document.querySelector("#input").focus();
           show(action);
           cuentaRegresiva();

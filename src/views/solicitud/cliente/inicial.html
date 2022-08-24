@@ -74,7 +74,7 @@
               <!-- NUM_DOC -->
               <div class="input-group">
                 <input type="text" v-model="clienteSt.el.num_doc" name="num_doc">
-                <label for="num_doc"># identificación*</label>
+                <label for="num_doc"># Identificación*</label>
               </div>
               <span class="helper-txt error" v-if="v$.num_doc.$error">
                 [[ v$.num_doc.$errors[0].$message ]]
@@ -276,6 +276,7 @@
     },
     methods: {
       async onSubmit() {
+        console.log("onSubmit");
         this.v$.$validate();
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
