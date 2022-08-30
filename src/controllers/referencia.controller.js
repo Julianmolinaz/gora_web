@@ -35,7 +35,7 @@ class ReferenciaController {
     }
   }
 
-  static async edit(req, res) {console.log("updateMultiple");
+  static async edit(req, res) {
     const solicitudId = req.params.solicitudId;
     const ltParentesco = await ReferenciasRepository.getEnumValues('parentesco');
     const referencias_ = await ReferenciasRepository.findSolicitud(solicitudId); 
@@ -60,6 +60,7 @@ class ReferenciaController {
     const { solicitudId } = req.params;
     const { referencias } = req.body;
 
+    console.log({referencias});
     try {
       const actualizarReferencias = new ActualizarReferencias(
         referencias,
