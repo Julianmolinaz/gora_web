@@ -11,6 +11,7 @@ const UsuariosRepository = require("./../database/repositories/usuarios.reposito
 const ClientesRepository = require("./../database/repositories/clientes.repository");
 
 const CrearUsuarioFlujoInicial = require("./../services/usuarios/crear_usuario_flujo_inicial");
+const { getAccessToken } = require("./../helpers/getters");
 
 class UsuarioController {
   /**
@@ -126,7 +127,7 @@ class UsuarioController {
       const { codigo, dataUsuario } = req.body;
       const useCase = new CrearUsuarioFlujoInicial(codigo, dataUsuario);  
       await useCase.exec();
-      
+
       return res
         .cookie("access_token", useCase.token, { httpOnly: true, secure: process.env.ENV === "production" })
         .status(201)
@@ -134,6 +135,7 @@ class UsuarioController {
           msg: "Usuario registrado exitosamente",
           success: true,
           dat: {
+            usuarioId: useCase.usuario.id,
             cliente: useCase.clienteExiste // true || false
           }
         }); 

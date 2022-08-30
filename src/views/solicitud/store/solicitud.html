@@ -24,6 +24,7 @@ const solicitudStore = defineStore("solicitud", {
 
       axios.post("/api/solicitudes/store-with-cliente", data)
         .then(res => {
+          console.log({res});
           alertify.notify(res.data.msg, "success", 2, () => {
             const solicitudId = res.data.dat.solicitudId;
             const route = `/referencias/create/${solicitudId}`;
@@ -31,11 +32,14 @@ const solicitudStore = defineStore("solicitud", {
           });
         })
         .catch(error => {
-          const errors = error.response.data.error;
-          if (errors.name == "ValidationError") {
-            alertify.alert("Error", arrToString(errors.msg, "<br>")); 
+          console.error({error});
+          const err = error.response.data;
+          if (err.name == "ValidationError") {
+            alertify.alert("Error", arrToString(err.message, "<br>")); 
+          } else if (err.name == "UniqueError") {
+            alertify.alert("Error", err.message);
           } else {
-            alertify.alert("Error", errors.message);
+            alertify.alert("Error", err.message);
           }
         });
     }
