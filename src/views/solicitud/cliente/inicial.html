@@ -276,7 +276,6 @@
     },
     methods: {
       async onSubmit() {
-        console.log("onSubmit");
         this.v$.$validate();
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 

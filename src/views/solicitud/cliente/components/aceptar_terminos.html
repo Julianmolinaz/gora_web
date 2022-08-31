@@ -37,6 +37,7 @@
           @click="aceptarTerminos"
           v-if="showAceptar"
         >
+          <span v-if="loader" class="loader"></span>
           Enviar código
         </a>
         <a
@@ -68,6 +69,7 @@
       const SIZECOD = 4;
       const clienteSt = clienteStore();
       const numSegundos = '{{ SEG_CODIGO_TERMINOS }}';
+      const loader = ref(false);
 
       const show = (action) => {
         showModal.value = action;
@@ -79,12 +81,15 @@
         emitter.emit("showModalTerminosCondiciones");
       }
 
-      let showAceptar = ref(false);
+      let showAceptar = ref(true);
 
       const aceptarTerminos = async (event) => {
+        loader.value = true;
         event.preventDefault();
+
         if (codigo.value.toString().length == 4) {
           await clienteSt.crearUsuarioFlujoInicial(codigo.value);
+          loader.value = false;
         } else {
           alertify.alert("Error", "Se requiere un codigo válildo");
         }
@@ -139,6 +144,7 @@
         showAceptar,
         segundos,
         codigo,
+        loader,
         // ------
         show,
         close,

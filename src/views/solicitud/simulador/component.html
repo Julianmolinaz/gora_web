@@ -112,8 +112,15 @@
 	  <button
         class="bt calc-form__submit"
         @click="st.calcularCuota($event)"
-      >Calcular Cuota
+        v-if="!st.loader"
+      >
+        Calcular Cuota
 	  </button>
+      <div
+        v-else
+        class="loader calc-form__submit"
+        style="width:4rem;height:4rem;"
+      ></div>
 	</form>
   </div>
 </script>
