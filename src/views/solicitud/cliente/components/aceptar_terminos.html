@@ -31,7 +31,11 @@
         </div>
       </div>
       <div class="modal__footer">
-        <div v-if="loader" class="loader" style="width:4rem;height:4rem"></div>
+        <div
+          v-if="loader"
+          class="loader"
+          style="width:4rem; height:4rem"
+        ></div>
         <a
           href="#"
           class="bt bt__sun"
@@ -112,7 +116,7 @@
       const reenviarCodigo = async (event) => {
         event.preventDefault();
         cuentaRegresiva();
-        //await clienteSt.generarCodigoTerminos();
+        await clienteSt.generarCodigoTerminos();
       }
 
       let segundos = ref(null);
