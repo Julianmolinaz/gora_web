@@ -35,7 +35,11 @@ class ActualizarReferencias {
       if (this.errors.length) throw errors;
     
       for (let ref of this.arrRef) {
-        await this.actualizarRef(ref);
+        if (ref.id) {
+          await this.actualizarRef(ref);
+        } else {
+          await this.crearRef(ref);
+        }
       }
 
       this.transaction.commit();
@@ -65,7 +69,7 @@ class ActualizarReferencias {
     }
   }
 
-  castReferencia(ref) {
+  castReferenciaAActualizar(ref) {
     return {
       nombre: ref.nombre, 
       parentesco: ref.parentesco,
@@ -75,8 +79,28 @@ class ActualizarReferencias {
     };
   }
 
+  castReferenciaACrear(ref) {
+    return {
+      nombre: ref.nombre, 
+      parentesco: ref.parentesco,
+      celular: ref.celular,
+      precredito_id: this.solicitudId,
+      created_by: process.env.USER_ID_DEFAULT,
+    };
+  } 
+
+  async crearRef(ref) {
+    const castRef = this.castReferenciaACrear(ref);
+    const newRef = await ReferenciasRepository.crear(
+      castRef,
+      this.transaction
+    );
+    this.refs.push(newRef);
+
+  }
+
   async actualizarRef(ref) {
-    const castRef = this.castReferencia(ref);
+    const castRef = this.castReferenciaAActualizar(ref);
     const newRef = await ReferenciasRepository.actualizar(
       ref.id,
       castRef,

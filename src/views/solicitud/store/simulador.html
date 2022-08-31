@@ -2,6 +2,7 @@
   const simuladorStore = defineStore("simulador", {
     state: () => ({
       localStorage: window.localStorage,
+      loader: false,
       insumos: {},
       simulador: this.localStorage.simulador
         ? JSON.parse(this.localStorage.simulador)
@@ -48,14 +49,17 @@
         await this.getValorCuota();
       },
       setSimulador() {
-        console.log("setSimulador");
         this.localStorage.setItem("simulador", JSON.stringify(this.simulador));
       },
       async getValorCuota() {
+        this.loader = true;
         try {
           const res = await axios.post("/api/simulador/get-valor-cuota", this.simulador)
-          this.simulador.valorCuota = res.data.valorCuota;
-          this.setSimulador();
+            setTimeout(() => {
+              this.loader = false;
+              this.simulador.valorCuota = res.data.valorCuota;
+              this.setSimulador();
+            }, 500);
         } catch (err) {
           const error = err.response.data.error;
           alertify.alert("Ocurrió un error", error);

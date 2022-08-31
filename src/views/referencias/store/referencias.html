@@ -4,7 +4,7 @@ const referenciasStore = defineStore("referencias", {
     loader: false,
     numReferencias: '{{ CANTIDAD_REFS }}',
     refsValidas: 0,
-    refs: JSON.parse('{{ referencias | dump }}'.replace(/&quot;/g,'"').replace(/&amp;/g, "&")),
+    refs: JSON.parse('{{ referencias | dump }}'.replace(/&quot;/g,'"').replace(/&amp;/g, "&")) || [],
     estado: '{{ estado }}',
     ltParentesco: '{{ ltParentesco }}'.split(','),
     solicitudId: '{{ solicitudId }}'
@@ -15,8 +15,12 @@ const referenciasStore = defineStore("referencias", {
         for (let i = 0; i < this.numReferencias; i++) {
           this.refs.push(new Referencia({}));
         }
-      } else {
-        // si se va a editar
+      } else if (this.estado == 'editar'){
+        for (let i = 0; i < this.numReferencias; i++) {
+          if (!this.refs[i]) {
+              this.refs.push(new Referencia({}));
+          }
+        }
       }
     },
     async onSubmit() {
@@ -52,9 +56,9 @@ const referenciasStore = defineStore("referencias", {
           }
         );
       } catch (err) {
+        console.error(err);
         this.loader = false;
-        console.error(error);
-        alertify.alert("Ocurrió un error", error);
+        alertify.alert("Ocurrió un error", err);
       }
     },
   }

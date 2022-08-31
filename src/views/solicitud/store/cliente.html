@@ -4,6 +4,7 @@ const clienteStore = defineStore("cliente", {
     el: new Cliente({}),
     insumos: [],
     validar: true,
+    usuarioId: null,
     nodos: [
       { indice: 1, activo: false, nombre: "Información inicial", completo: false},
       { indice: 2, activo: false, nombre: "Información personal", completo: false},
@@ -61,12 +62,10 @@ const clienteStore = defineStore("cliente", {
      */
 
     async generarCodigoTerminos() {
-      console.log("Generar código términos");
       try {
         const data = this.castDataUsuario();
         const res = await axios.post("/api/usuarios/generar-codigo-terminos", data);
       } catch (error) {
-        console.error("error al generar el código", error);
         const resError = error.response.data.error;
         if (resError.name === "ValidationError") {
           alertify.alert("Error en validación", arrToString(resError.message, "<br>")); 
@@ -76,7 +75,6 @@ const clienteStore = defineStore("cliente", {
     },
 
     async crearUsuarioFlujoInicial(codigo) {
-      console.log("Crear usuario flujo inicial");
       try {
         const data = {
           dataUsuario: this.castDataUsuario(),
@@ -97,7 +95,6 @@ const clienteStore = defineStore("cliente", {
           this.ir(2);
         }
       } catch (error) {
-        console.error("Ocurrió un error al crear usuario en flujo inicial", error);
         const resError = error.response.data.error;
         if (resError.name === "ValidationError") {
           alertify.alert("Error en validación", arrToString(resError.message, "<br>")); 
@@ -125,10 +122,12 @@ const clienteStore = defineStore("cliente", {
         const usuario = JSON.parse(JSON.stringify(this.el));
         delete usuario.id; 
         const res = await axios.post("/api/usuarios", usuario);
+        console.log({ res });
         if (res.data.clienteExiste) {
           alertify.alert("Querido cliente, usted ha tenido solicitudes con nosotros, pongase en contacto con un asesor para ser atendido")
           window.location.href = "/";
         } else {
+          this.usuarioId = res.data.usuarioId;
           this.ir(2);
         }
       } catch (error) {

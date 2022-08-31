@@ -8,9 +8,9 @@ const appKey = process.env.TOKEN_SECRET;
 const authorization = async (req, res, next) => {
   try {
     const token = req.cookies.access_token;
-    if (!token) {
-      throw "Sesión no existe";
-    }
+
+    if (!token) throw "Sesión no existe";
+
     const data = jwt.verify(token, appKey);
 
     // Valida si la solicitud le pertenece al usuario
@@ -19,9 +19,8 @@ const authorization = async (req, res, next) => {
       const solicitud = await SolicitudesRepository.findWithIdAndCliente(
         solicitudId, data.ref 
       );
-      if (!!!solicitud) {
-        throw "Error en validación";
-      }
+
+      if (!!!solicitud) throw "Error en sesión, ingrese nuevamente";
     }
     
     req.body.usuarioId_ = data.id;

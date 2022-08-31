@@ -31,11 +31,13 @@ const solicitudStore = defineStore("solicitud", {
           });
         })
         .catch(error => {
-          const errors = error.response.data.error;
-          if (errors.name == "ValidationError") {
-            alertify.alert("Error", arrToString(errors.msg, "<br>")); 
+          const err = error.response.data;
+          if (err.name == "ValidationError") {
+            alertify.alert("Error", arrToString(err.message, "<br>")); 
+          } else if (err.name == "UniqueError") {
+            alertify.alert("Error", err.message);
           } else {
-            alertify.alert("Error", errors.message);
+            alertify.alert("Error", err.message);
           }
         });
     }

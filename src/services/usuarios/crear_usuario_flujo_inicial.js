@@ -3,7 +3,8 @@ const { SimpleError, ValidationError } = require("../../errors");
 
 const ValidarCodigoTerminos = require("./validar_codigo_terminos");
 const ValidarUsuario = require("./validar_usuario");
-const Login = require("./../auth/login");
+const { getAccessToken } = require("../../helpers/getters");
+//const Login = require("./../auth/login");
 
 const UsuariosRepository = require("../../database/repositories/usuarios.repository");
 const ClientesRepository = require("../../database/repositories/clientes.repository");
@@ -30,10 +31,11 @@ class CrearUsuarioFlujoInicial {
       await this.crearUsuario();
 
       await this.validarSiClienteExiste();
+      
+      await this.getToken();
 
       this.transaction.commit();
 
-      await this.login();
     } catch (error) {
       throw error;
       this.transaction.rollback();
@@ -75,12 +77,12 @@ class CrearUsuarioFlujoInicial {
     this.cliente = !!cliente;
   }
 
-  async login() {
-    const login = new Login({
-      num_doc: this.dataUsuario.num_doc,
-      password: this.dataUsuario.password
-    }); 
-    this.token = await login.exec();
+  async getToken() {
+    this.token = await getAccessToken(
+      this.usuario.id,
+      this.usuario.primer_nombre +" "+ this.usuario.primer_apellido,
+      null
+    );
   }
 }
 

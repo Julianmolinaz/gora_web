@@ -57,9 +57,14 @@ class Login {
   }
 
   async getUsuario() {
-    this.usuario = await UsuariosRepository.findNumDoc(this.data.num_doc);
-    if (!this.usuario) {
-      throw "Credenciales invalidas";
+    try {
+      this.usuario = await UsuariosRepository.findNumDoc(this.data.num_doc);
+      if (!this.usuario) {
+        throw "Credenciales invalidas";
+      }
+    } catch (error) {
+      console.error("error al obtener usuario", error);
+      throw error;
     }
   }
 

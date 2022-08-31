@@ -28,10 +28,7 @@ class SolicitudController {
       );
 
       return res
-        .cookie("access_token", token, {
-          httpOnly: true,
-          secure: process.env.ENV === "production"
-        })
+        .cookie("access_token", token)
         .json({ 
           msg: "Cliente creado exitosamente",
           dat: {

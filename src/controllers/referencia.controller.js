@@ -6,15 +6,16 @@ class ReferenciaController {
   static async create(req, res) {
     const solicitudId = req.params.solicitudId;
     const ltParentesco = await ReferenciasRepository.getEnumValues('parentesco');
-    return res.render("referencias/create.html", { 
+    const response = {
       ltParentesco,
       solicitudId,
       referencias: [],
       estado: "crear"
-    });   
+    };
+    return res.render("referencias/create.html", response);   
   }
 
-  static async storeMultiple(req, res) { console.log("storeMultiple");
+  static async storeMultiple(req, res) {
     const solicitudId = req.params.solicitudId;
     const { referencias } = req.body;
     try {
@@ -34,7 +35,7 @@ class ReferenciaController {
     }
   }
 
-  static async edit(req, res) {console.log("updateMultiple");
+  static async edit(req, res) {
     const solicitudId = req.params.solicitudId;
     const ltParentesco = await ReferenciasRepository.getEnumValues('parentesco');
     const referencias_ = await ReferenciasRepository.findSolicitud(solicitudId); 

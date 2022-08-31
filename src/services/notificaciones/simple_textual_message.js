@@ -24,7 +24,7 @@ async function sendSms(from, to, text) {
       return false;
     }
   } catch (error) {
-	  console.error(error);
+    console.error(error);
     throw error;
   }  
 }

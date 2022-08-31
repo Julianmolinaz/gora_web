@@ -31,11 +31,12 @@
         </div>
       </div>
       <div class="modal__footer">
+        <div v-if="loader" class="loader" style="width:4rem;height:4rem"></div>
         <a
           href="#"
           class="bt bt__sun"
           @click="aceptarTerminos"
-          v-if="showAceptar"
+          v-else-if="!loader && showAceptar"
         >
           Enviar código
         </a>
@@ -68,6 +69,7 @@
       const SIZECOD = 4;
       const clienteSt = clienteStore();
       const numSegundos = '{{ SEG_CODIGO_TERMINOS }}';
+      const loader = ref(false);
 
       const show = (action) => {
         showModal.value = action;
@@ -79,16 +81,28 @@
         emitter.emit("showModalTerminosCondiciones");
       }
 
-      let showAceptar = ref(false);
+      let showAceptar = ref(true);
 
       const aceptarTerminos = async (event) => {
+        loader.value = true;
         event.preventDefault();
+
         if (codigo.value.toString().length == 4) {
           await clienteSt.crearUsuarioFlujoInicial(codigo.value);
+            closeLoader();
         } else {
-          alertify.alert("Error", "Se requiere un codigo válildo");
+          closeLoader(
+            () => alertify.alert("Error", "Se requiere un codigo válildo")
+          );
         }
       }
+
+      const closeLoader = (callback) => {
+        setTimeout(() => {
+          loader.value = false;
+          callback();
+        }, 300);
+      } 
 
       const resetCodigo = () => {
         codigo.value = '';
@@ -114,7 +128,6 @@
       let showModal = ref(false);
 
       const leerCodigo = () => {
-        console.log("leer codigo");
         let sizeCodigo = codigo.value.toString().length;
         if (sizeCodigo === SIZECOD) {
           showAceptar.value = true;  
@@ -127,7 +140,6 @@
 
       onMounted(() => {
         emitter.on("showModalAceptarTerminos", (action) => {
-          console.log("show modal aceptar terminos");
           document.querySelector("#input").focus();
           show(action);
           cuentaRegresiva();
@@ -139,6 +151,7 @@
         showAceptar,
         segundos,
         codigo,
+        loader,
         // ------
         show,
         close,

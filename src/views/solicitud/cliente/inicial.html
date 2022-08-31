@@ -276,7 +276,9 @@
     },
     methods: {
       async onSubmit() {
-        console.log("onSubmit");
+          await this.clienteSt.generarCodigoTerminos(); 
+          emitter.emit("showModalAceptarTerminos", true);
+          return false;
         this.v$.$validate();
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 

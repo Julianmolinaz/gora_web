@@ -11,6 +11,7 @@ const UsuariosRepository = require("./../database/repositories/usuarios.reposito
 const ClientesRepository = require("./../database/repositories/clientes.repository");
 
 const CrearUsuarioFlujoInicial = require("./../services/usuarios/crear_usuario_flujo_inicial");
+const { getAccessToken } = require("./../helpers/getters");
 
 class UsuarioController {
   /**
@@ -19,7 +20,6 @@ class UsuarioController {
    **/
 
   static async generarCodigoTerminos(req, res) {
-    console.log("UsuarioController@generarCodigoTerminos");
     try {
       const data = req.body;
       const useCase = new GenerarCodigoUsuarioNuevo(data);
@@ -27,7 +27,6 @@ class UsuarioController {
 
       return res.json({ success: true });
     } catch (error) {
-      console.log("ERROR UsuarioController@generarCodigoTerminos");
       console.error(error);
       return res.json({
         success: false,
@@ -38,14 +37,12 @@ class UsuarioController {
   }
 
   static async validarCodigoTerminos(req, res) {
-    console.log("UsuarioController@validarCodigoTerminos");
     try {
       const { numDoc, codigo } = req.body;
       const useCase = new ValidarCodigoTerminos(numDoc, codigo);
       const result = await useCase.exec();
       return res.json({ success: result });
     } catch (error) {
-      console.log("ERROR UsuarioController@validarCodigoTerminos");
       console.error(error);
       return res.json({
         success: false,
@@ -56,7 +53,6 @@ class UsuarioController {
   }
 
   static async validarExistenciaDeUsuario(req, res) {
-    console.log("UsuarioController@validarExistenciaDeUsuario");
     try {
       const { numDoc } = req.body;            
       const usuarioExistente = new UsuarioExistente(numDoc);
@@ -68,7 +64,6 @@ class UsuarioController {
           error: false
         });
     } catch (error) {
-      console.log("ERROR UsuarioController@validarExistenciaDeUsuario");
       console.error(error);
       return res
         .status(500)
@@ -80,7 +75,6 @@ class UsuarioController {
   }
 
   static async salvarUsuarioFlujoSolicitud(req, res) {
-    console.log("UsuarioController@salvarUsuarioFlujoSolicitud");
     try {
       const data = req.body;
       const { num_doc, password } = data;
@@ -114,31 +108,29 @@ class UsuarioController {
           }
         }); 
     } catch (error) {
-      console.log("ERROR UsuarioController@salvarUsuarioFlujoSolicitud");
       console.error(error);
       return res.status(400).json({ error });
     }
   }
 
   static async crearUsuarioFlujoInicial(req, res) {
-    console.log("UsuarioController@crearUsuarioFlujoInicial");
     try {
       const { codigo, dataUsuario } = req.body;
       const useCase = new CrearUsuarioFlujoInicial(codigo, dataUsuario);  
       await useCase.exec();
-      
+
       return res
-        .cookie("access_token", useCase.token, { httpOnly: true, secure: process.env.ENV === "production" })
+        .cookie("access_token", useCase.token)
         .status(201)
         .json({
           msg: "Usuario registrado exitosamente",
           success: true,
           dat: {
+            usuarioId: useCase.usuario.id,
             cliente: useCase.clienteExiste // true || false
           }
         }); 
     } catch (error) {
-      console.log("ERROR UsuarioController@crearUsuarioFlujoInicial");
       console.error(error);
       return res
         .status(500)
