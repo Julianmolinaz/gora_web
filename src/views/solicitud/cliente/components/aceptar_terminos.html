@@ -140,7 +140,6 @@
 
       onMounted(() => {
         emitter.on("showModalAceptarTerminos", (action) => {
-          console.log("show modal aceptar terminos");
           document.querySelector("#input").focus();
           show(action);
           cuentaRegresiva();

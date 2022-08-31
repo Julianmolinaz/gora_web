@@ -26,6 +26,11 @@ class GenerarCodigoUsuarioNuevo {
 
   generarCodigo(){
     this.codigo = generarCodigo(4);
+    console.log('CODIGO PARA ACEPTAR TERMINOS: ', {
+      doc: this.data.num_doc,
+      codigo: this.codigo,
+      movil: this.data.movil
+    });
   }
 
   async guardarCodigo(){

@@ -15,7 +15,7 @@ class ReferenciaController {
     return res.render("referencias/create.html", response);   
   }
 
-  static async storeMultiple(req, res) { console.log("storeMultiple");
+  static async storeMultiple(req, res) {
     const solicitudId = req.params.solicitudId;
     const { referencias } = req.body;
     try {
@@ -60,7 +60,6 @@ class ReferenciaController {
     const { solicitudId } = req.params;
     const { referencias } = req.body;
 
-    console.log({referencias});
     try {
       const actualizarReferencias = new ActualizarReferencias(
         referencias,

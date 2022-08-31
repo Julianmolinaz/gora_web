@@ -12,7 +12,6 @@ const jwt = require("jsonwebtoken");
 
 class Login {
   constructor(data) {
-    console.log({data});
     this.data = data;
     this.usuario = null;
     this.errors = [];
@@ -60,7 +59,6 @@ class Login {
   async getUsuario() {
     try {
       this.usuario = await UsuariosRepository.findNumDoc(this.data.num_doc);
-      console.log("usuario", this.usuario);
       if (!this.usuario) {
         throw "Credenciales invalidas";
       }

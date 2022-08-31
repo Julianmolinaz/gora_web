@@ -29,7 +29,6 @@ class CrearUsuarioFlujoInicial {
       await this.validarCodigoTerminos();
 
       await this.crearUsuario();
-      console.log("usuario creado", this.usuario);
 
       await this.validarSiClienteExiste();
       
@@ -38,7 +37,6 @@ class CrearUsuarioFlujoInicial {
       this.transaction.commit();
 
     } catch (error) {
-      console.error("CrearUsuarioFlujoInicial@error");
       throw error;
       this.transaction.rollback();
     }
@@ -82,7 +80,7 @@ class CrearUsuarioFlujoInicial {
   async getToken() {
     this.token = await getAccessToken(
       this.usuario.id,
-      this.usuario.nombre,
+      this.usuario.primer_nombre +" "+ this.usuario.primer_apellido,
       null
     );
   }

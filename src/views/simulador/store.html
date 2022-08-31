@@ -52,10 +52,8 @@
         this.getValorCuota();
       },
       getValorCuota() {
-        console.log("simulador", this.simulador);
         axios.post("/api/simulador/get-valor-cuota", this.simulador)
         .then((res) => {
-          console.log({res});
           this.valorCuota = res.data.valorCuota;
         })
         .catch((err) => {

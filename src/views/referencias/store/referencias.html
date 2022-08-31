@@ -56,9 +56,8 @@ const referenciasStore = defineStore("referencias", {
           }
         );
       } catch (err) {
-          console.log(err);
-        this.loader = false;
         console.error(err);
+        this.loader = false;
         alertify.alert("Ocurrió un error", err);
       }
     },
