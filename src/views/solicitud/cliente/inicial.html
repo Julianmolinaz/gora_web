@@ -276,16 +276,13 @@
     },
     methods: {
       async onSubmit() {
-          await this.clienteSt.generarCodigoTerminos(); 
-          emitter.emit("showModalAceptarTerminos", true);
-          return false;
         this.v$.$validate();
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
           const usuario = await this.clienteSt.validarExistenciaDeUsuario();
           if (usuario.existe) {
-            alertify.alert('Atención', 'El usuario ya existe');
+            alertify.alert('Atención', 'El usuario ya esta registrado, para acceder de click en ingresar');
             return false;
           }
           await this.clienteSt.generarCodigoTerminos(); 
