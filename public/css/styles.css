@@ -403,6 +403,13 @@ input[type=number] {
   font-size: 2.4rem;
   font-family: bold;
 }
+.modal__subtitulo {
+  margin: 1rem; 
+  font-size: 1.6rem;
+  font-family: regular;
+  color: var(--grayum);
+  text-align: center;
+}
 .modal__content {
   display: flex;
   gap: 0.4rem;
@@ -413,6 +420,9 @@ input[type=number] {
   color: var(--sky);
   font-size: 1.4rem;
   font-family: regular; 
+}
+.modal__link:active {
+  transform: scale(.9);
 }
 /******************
  * LOADER 

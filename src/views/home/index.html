@@ -26,6 +26,8 @@
     {% include "../templates/footer.html" %}
   </div>
   
+{% endblock %}
+{% block scripts %}
   <script src="/js/vue3.js"></script>
   <script src="/js/demi.js"></script>
   <script src="/js/pinia.js"></script>
@@ -37,6 +39,7 @@
     const { createPinia, defineStore } = Pinia; 
   </script>
 
+  {% include "./../auth/logup.html" %}
   {% include "./../solicitud/simulador/component.html" %}
   {% include "./../solicitud/store/simulador.html" %}
 
@@ -44,6 +47,13 @@
     const homeApp = createApp({
       setup() {
         const simuladorSt = simuladorStore();
+        const logup = new ModalLogup();
+
+        const solicitar = (e) => {
+          e.preventDefault();
+          if (!session) logup.show();
+          else alert('El usuario tiene session activa');
+        };
 
         onMounted(() => {
           // Se hace borra el storage al iniciar
@@ -53,6 +63,7 @@
 
         return {
           simuladorSt,
+          solicitar,
         }
       }
     });
@@ -62,6 +73,4 @@
     homeApp.component("simulador-component", objSimulador);
     homeApp.mount("#home");
   </script>
-
 {% endblock %}
-
