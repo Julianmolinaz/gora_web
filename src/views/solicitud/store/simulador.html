@@ -23,6 +23,7 @@
     actions: {
       resetTotales() {
         this.simulador.valorCuota = 0;
+        this.setSimulador();
       },
       initCuotas() {
         if (!this.simulador.numCuotas) {

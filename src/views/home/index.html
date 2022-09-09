@@ -51,8 +51,17 @@
 
         const solicitar = (e) => {
           e.preventDefault();
-          if (!session) logup.show();
-          else alert('El usuario tiene session activa');
+          const simulador_ = window.localStorage.getItem('simulador');
+          const simulador = (simulador_) ? JSON.parse(simulador_) : null;
+
+          if (simulador && simulador.valorCuota > 0) {
+            logup.show();
+          } else {
+            alertify.alert(
+              'Atención',
+              'Para solicitar su crédito, por favor calcule la cuota en la calculadora'
+            );
+          }          
         };
 
         onMounted(() => {

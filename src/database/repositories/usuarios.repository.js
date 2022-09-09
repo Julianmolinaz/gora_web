@@ -27,6 +27,7 @@ class UsuariosRepository {
       );
       return usuario;
     } catch (error) {
+      console.error(error);
       throw error; 
     }
   }

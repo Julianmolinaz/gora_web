@@ -16,10 +16,21 @@
             <div class="group">
               <div class="input-group">
                 <input class="num_doc" type="text" id="num_doc-logup">
-                <label for="num_doc">Número de documento</label>
+                <label for="num_doc">Número de documento*</label>
               </div>
               <span class="helper-txt">
                 Ingrese su número de identificación
+              </span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="group">
+              <div class="input-group">
+                <input class="num_doc" type="tel" id="movil-logup">
+                <label for="num_doc">Teléfono Celular*</label>
+              </div>
+              <span class="helper-txt">
+                Ingrese su número celular
               </span>
             </div>
           </div>
@@ -27,14 +38,14 @@
             <div class="group">
               <div class="input-group">
                 <input id="password-logup" type="password" />
-                <label for="password">Contraseña</label>
+                <label for="password">Contraseña*</label>
               </div> 
-              <span class="helper-txt">Cree una contraseña</span>
+              <span class="helper-txt">Cree una nueva contraseña</span>
             </div>
             <div class="group">
               <div class="input-group">
                 <input id="confirm-logup" type="password" />
-                <label for="confirm">Confirmar</label>
+                <label for="confirm">Confirmar*</label>
               </div>
               <span class="helper-txt">Confirme su contraseña</span>
             </div>
@@ -58,6 +69,7 @@
     constructor() {
       this.form = {
         num_doc: document.querySelector('#num_doc-logup'),
+        movil : document.querySelector('#movil-logup'),
         password: document.querySelector('#password-logup'),
         confirm: document.querySelector('#confirm-logup')
       };
@@ -91,7 +103,31 @@
     submitLogUp() {
       const isValid = this.validations();
       if (!isValid) return false;
-      window.location.href = `${'{{URL}}'}/solicitudes/create`;
+      axios.post('/api/users', {
+        num_doc: this.form.num_doc.value,
+        movil: this.form.movil.value,
+        password: this.form.password.value,
+        confirm: this.form.confirm.value
+      })
+      .then(res => {
+        alertify.notify(res.data.msg, 'success', 2, () => {
+          window.location.href = `${'{{URL}}'}/solicitudes/create`;
+        });
+      })
+      .catch(error => {
+        if (error.response) {
+          const err = error.response.data;
+          if (err.body.name == 'UniqueError') {
+            alertify.alert(
+              'Error',
+              err.body.message + '<br>' +
+              'Por favor de click en ya tengo una cuenta',
+              () => {}
+            );
+          }
+        }
+      });
+      //window.location.href = `${'{{URL}}'}/solicitudes/create`;
     }
 
     validations() {
@@ -99,11 +135,17 @@
       if (!this.form.num_doc.value) {
         str += 'El número de documento es requerido<br>';
       }
+      if (!this.form.movil.value) {
+          str += 'El teléfono celular es requerido<br>';
+      }
       if (!this.form.password.value) {
         str += 'La contraseña es requerida<br>';
       }
       if (!this.form.confirm.value) {
-        str += 'La confirmación de la contraseña es requerida<br>';
+        str += 'La confirmación de la contraseña es requerida';
+      }
+      if (this.form.password.value !== this.form.confirm.value) {
+        str += 'La confirmación de la contraseña no coincide'
       }
 
       if (str.length) {

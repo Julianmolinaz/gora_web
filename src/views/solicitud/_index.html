@@ -4,38 +4,52 @@
   <link rel="stylesheet" href="../css/solicitud/movil.css">
   <link
 	rel="stylesheet"
-	href="/css/solicitud/tablet.css"
+	href="../css/solicitud/tablet.css"
 	media="screen and (min-width: 768px)"
   >
   <link 
 	rel="stylesheet" 
-	href="/css/solicitud/desktop.css"
+	href="../css/solicitud/desktop.css"
 	media="screen and (min-width: 992px)"
   >
 {% endblock %}
 
+{% block title %} Solicitud GORA {% endblock %}
+
 {% block content %}
-  <div id="app-solicitud">
-    <cliente-component></cliente-component>
+
+  <div id="app-solicitud">  
+    <router-view></router-view>
   </div>
 
-  <!-- Vue 3 -->
-  <script src="/js/vue3.js"></script>
-  <script src="/js/demi.js"></script>
+  <script>
+   // window.onbeforeunload = function() {
+   //   return "¿Desea recargar la pagina web?";
+   // }
+  </script>
+  <!-- Vue -->
+  <script src="./../../js/vue3.js"></script>
+  <script src="./../../js/demi.js"></script>
   <!-- Pinia -->
-  <script src="/js/pinia.js"></script>
+  <script src="./../../js/pinia.js"></script>
+  <!-- Vue router -->
+  <script src="./../../js/vue-router.js"></script>
   <!-- Emit -->
-  <script src="/js/mitt.js"></script>
+  <script src="./../../js/mitt.js"></script>
   <!-- Entidades -->
-  <script src="/js/mios/entidades/Cliente.js"></script>
-  <script src="/js/mios/entidades/Simulador.js"></script>
-  <script src="/js/mios/reglas/filters.js"></script>
-  <script src="/js/mios/utils/transform.js"></script>
+  <script src="./../../js/mios/entidades/Cliente.js"></script>
+  <script src="./../../js/mios/entidades/Simulador.js"></script>
+  <script src="./../../js/mios/reglas/filters.js"></script>
+  <script src="./../../js/mios/utils/transform.js"></script>
   <!-- Vuelidate -->
-  <script src="/libs/vuelidate/demi.js"></script>
-  <script src="/libs/vuelidate/core.js"></script>
-  <script src="/libs/vuelidate/validators.js"></script>
-  <script src="/js/mios/reglas/vuelidate.js"></script>
+  <script src="./../../libs/vuelidate/demi.js"></script>
+  <script src="./../../libs/vuelidate/core.js"></script>
+  <script src="./../../libs/vuelidate/validators.js"></script>
+  <script src="./../../js/mios/reglas/vuelidate.js"></script>
+
+  {% include "./routes.html" %}
+
+  <!-- Importación de librerias -->
 
   <script>
     const { ref, reactive, createApp, computed, onMounted, nextTick, inject } = Vue;
@@ -49,18 +63,14 @@
   <!-- Importación modulos store -->
 
   {% include "./store/cliente.html" %}
+  {% include "./store/pasos.html" %}
   {% include "./store/simulador.html" %}
   {% include "./store/solicitud.html" %}
 
-
   <!-- Main component vue -->
-  {% include "./cliente/index.html" %}
 
-  <script>
+  <script type="text/javascript">
     const appSolicitud = createApp({
-      components: {
-        ClienteComponent: objCliente,
-      },
       setup(){
         const solicitudSt = solicitudStore();
         const clienteSt = clienteStore();
@@ -77,7 +87,7 @@
 
         onMounted(() => {
           if (solicitudSt.estado === 'crear') {
-            //
+            solicitudSt.navigationTo("simulador");
           }
           getInsumosCliente();
         });
@@ -99,7 +109,9 @@
     appSolicitud.provide('emitter', emitter);
     /* Use */
     appSolicitud.use(pinia);
+    appSolicitud.use(router);
 
     appSolicitud.mount("#app-solicitud");
   </script>
+
 {% endblock %}
