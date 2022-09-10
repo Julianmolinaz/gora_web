@@ -4,11 +4,32 @@ const { reply } = require('../helpers/response');
 const { getAccessToken } = require("../helpers/getters");
 
 const {
+  EsUsuario,
   RegistroInicial,
   ActualizarUsuario
 } = require('./../services/users');
 
 class UserController {
+  static async esUsuario(req, res) {
+    try {
+      const dataUsuario = req.body;
+      const useCase = await EsUsuario.make(dataUsuario);
+      reply(req, res, {
+        success: true,
+        body: { esUsuario: useCase },
+        msg: 'ok'
+      });
+    } catch (err) {
+      console.error(err);
+      reply(req, res, {
+        status: err.status || 500,
+        success: false,
+        body: err,
+        msg: 'Ocurrió un error al validar la existencia del usuario'
+      });
+    }
+  }
+
   static async store(req, res) {
     try {
       const dataUsuario = req.body;

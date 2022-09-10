@@ -25,13 +25,12 @@
         this.opLogin[i].addEventListener("click", () => {
           event.preventDefault();
           if (session) logout();
-          else showModalLogin();
+          else this.showModalLogin();
         });
       }
     }
 
     showModalLogin(action = null) {
-      console.log({action});
       this.modalLogin.show(action);
     }
   }

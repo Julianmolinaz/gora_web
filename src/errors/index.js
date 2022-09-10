@@ -26,6 +26,7 @@ class SimpleError extends Error {
   constructor(message) {
     super(message);
     this.name = "SimpleError";
+    this.status = 500;
   }
 }
 

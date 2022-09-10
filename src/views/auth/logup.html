@@ -100,33 +100,58 @@
       this.modal.classList.toggle("modal--show");
     }
 
-    submitLogUp() {
+    async submitLogUp() {
       const isValid = this.validations();
       if (!isValid) return false;
-      axios.post('/api/users', {
-        num_doc: this.form.num_doc.value,
-        movil: this.form.movil.value,
-        password: this.form.password.value,
-        confirm: this.form.confirm.value
-      })
-      .then(res => {
-        alertify.notify(res.data.msg, 'success', 2, () => {
-          window.location.href = `${'{{URL}}'}/solicitudes/create`;
+    
+      try {
+        const res = await axios.post('/api/users/es-usuario', {
+          num_doc: this.form.num_doc.value,
+          movil: this.form.movil.value
         });
-      })
-      .catch(error => {
-        if (error.response) {
-          const err = error.response.data;
-          if (err.body.name == 'UniqueError') {
-            alertify.alert(
-              'Error',
-              err.body.message + '<br>' +
-              'Por favor de click en ya tengo una cuenta',
-              () => {}
-            );
-          }
+        console.log(res);
+
+        if (res.data.body.esUsuario) {
+          alertify.alert('Atención',
+            'El usuario ya existe, de click en "Ya tengo una cuenta" e ingrese a su cuenta'
+          );
+        } else {
+          alert('Mostrar modal terminos');
         }
-      });
+      } catch (err) {
+        console.error(err);
+        if (err.response) {
+          const myError = err.response.data;
+          if (myError.body.name === 'ValidaError') {
+            console.log(myError.body.message);
+          } else if (myError.body.name === 'SimpleError'){
+            alert(myError.body.message);
+          } else {
+            alert("Error inesperado");
+          }
+        } else {
+          alert(err.message);
+        }
+      }
+
+     // .then(res => {
+     //   alertify.notify(res.data.msg, 'success', 2, () => {
+     //     window.location.href = `${'{{URL}}'}/solicitudes/create`;
+     //   });
+     // })
+     // .catch(error => {
+     //   if (error.response) {
+     //     const err = error.response.data;
+     //     if (err.body.name == 'UniqueError') {
+     //       alertify.alert(
+     //         'Error',
+     //         err.body.message + '<br>' +
+     //         'Por favor de click en ya tengo una cuenta',
+     //         () => {}
+     //       );
+     //     }
+     //   }
+     // });
     }
 
     validations() {

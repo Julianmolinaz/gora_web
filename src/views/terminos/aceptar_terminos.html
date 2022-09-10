@@ -1,0 +1,212 @@
+<template id="aceptar-terminos-template">
+  <section :class="['modal', showModal ? 'modal--show': '']">
+    <div class="modal__container">
+      <div class="modal__header">
+        <div class="modal--close" @click="show(false)">&otimes;</div>
+        <img src="/imagenes/logo.png" alt="logo" class="modal__logo">
+        <span class="modal__titulo" style="text-align:center;">
+          Aceptar términos y condiciones
+        </span>
+      </div>
+      <div class="modal__content">
+        <p class="acep-term-txt">
+          Hemos envíado un código de confirmación a su celular,
+          por favor digítelo de click en "Enviar código" para aceptar términos y condiciones.
+        </p>
+        <a href="#" @click="leerTerminos" class="link">
+          Leer términos y condiciones
+        </a>
+        <div class="terminos-form">
+          <input
+            type="number"
+            class="terminos__input-form"
+            id="input"
+            v-model="codigo"
+            @input="leerCodigo"
+          />
+        </div>
+        <div class="modal__timer" v-if="segundos > 0">
+          <span>[[ segundos ]] seg</span>
+          <span>Para solicitar su nuevo código</span>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <div
+          v-if="loader"
+          class="loader"
+          style="width:4rem; height:4rem"
+        ></div>
+        <a
+          href="#"
+          class="bt bt__sun"
+          @click="aceptarTerminos"
+          v-else-if="!loader && showAceptar"
+        >
+          Enviar código
+        </a>
+        <a
+          href="#"
+          class="link bt-reenviar"
+          v-if="!segundos" 
+          @click="reenviarCodigo"
+        >
+          Solicitar nuevo código
+        </a>
+      </div>
+    </div>
+    <terminos-condiciones></terminos-condiciones>
+  </section>
+</template>
+
+{% include "./terminos.html" %}
+
+<script>
+   const objAceptarTerminos = {
+    template: "#aceptar-terminos-template",
+    name: "AceptarTerminos",
+    components: {
+      TerminosCondiciones: objTerminosCondiciones,
+    },
+    delimiters: ['[[', ']]'],
+    setup() {
+      let codigo = ref('');
+      const SIZECOD = 4;
+      //const clienteSt = clienteStore();
+      const numSegundos = '{{ SEG_CODIGO_TERMINOS }}';
+      const loader = ref(false);
+
+      const show = (action) => {
+        showModal.value = action;
+        resetCodigo();
+      }
+    
+      const leerTerminos = (e) => {
+        e.preventDefault();
+        emitter.emit("showModalTerminosCondiciones");
+      }
+
+      let showAceptar = ref(true);
+
+      const aceptarTerminos = async (event) => {
+        loader.value = true;
+        event.preventDefault();
+
+        if (codigo.value.toString().length == 4) {
+          //await clienteSt.crearUsuarioFlujoInicial(codigo.value);
+          closeLoader();
+        } else {
+          closeLoader(
+            () => alertify.alert("Error", "Se requiere un codigo válildo")
+          );
+        }
+      }
+
+      const closeLoader = (callback) => {
+        setTimeout(() => {
+          loader.value = false;
+          callback();
+        }, 300);
+      } 
+
+      const resetCodigo = () => {
+        codigo.value = '';
+      }
+
+      let showReenviarCodigo = ref(false);
+      const reenviarCodigo = async (event) => {
+        event.preventDefault();
+        cuentaRegresiva();
+        //await clienteSt.generarCodigoTerminos();
+      }
+
+      let segundos = ref(null);
+      const cuentaRegresiva = () => {
+        segundos.value = numSegundos;
+        let interval;
+        interval = setInterval(() => {
+          segundos.value --;
+          if (segundos.value <= 0) clearInterval(interval)
+        }, 1000);
+      }
+
+      let showModal = ref(false);
+
+      const leerCodigo = () => {
+        let sizeCodigo = codigo.value.toString().length;
+        if (sizeCodigo === SIZECOD) {
+          showAceptar.value = true;  
+        } else if (sizeCodigo > SIZECOD) {
+          codigo.value = parseInt(codigo.value.toString().slice(0, SIZECOD));
+        } else {
+          showAceptar.value = false;
+        }
+      }
+
+      onMounted(() => {
+        emitter.on("showModalAceptarTerminos", (action) => {
+          document.querySelector("#input").focus();
+          show(action);
+          cuentaRegresiva();
+        });
+      });
+
+      return {
+        showModal,
+        showAceptar,
+        segundos,
+        codigo,
+        loader,
+        // ------
+        show,
+        close,
+        leerTerminos,
+        leerCodigo,
+        aceptarTerminos,
+        reenviarCodigo,
+      };
+    }
+  };
+</script>
+<style scoped>
+  .modal__container {
+    max-width: 50rem;
+    color: var(--medium);
+  }
+  .modal__content {
+    font-family: regular;
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  .modal__timer {
+    font-family: regular;
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+  }
+  .acep-term-txt {
+    text-align: center;
+  }
+  .modal__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  .terminos-form {
+    display: flex;
+    justify-content: center;
+  }
+  .bt {
+    width: fit-content;
+  }
+  .bt-reenviar {
+    font-size: 1.6rem;
+    font-family: regular;
+  }
+</style>
