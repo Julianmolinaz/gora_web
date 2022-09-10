@@ -16,7 +16,7 @@
             <div class="group">
               <div class="input-group">
                 <input class="num_doc" type="text" id="num_doc-logup">
-                <label for="num_doc">Número de documento*</label>
+                <label for="num_doc">Número de documento *</label>
               </div>
               <span class="helper-txt">
                 Ingrese su número de identificación
@@ -27,7 +27,7 @@
             <div class="group">
               <div class="input-group">
                 <input class="num_doc" type="tel" id="movil-logup">
-                <label for="num_doc">Teléfono Celular*</label>
+                <label for="num_doc">Teléfono Celular *</label>
               </div>
               <span class="helper-txt">
                 Ingrese su número celular
@@ -38,14 +38,14 @@
             <div class="group">
               <div class="input-group">
                 <input id="password-logup" type="password" />
-                <label for="password">Contraseña*</label>
+                <label for="password">Contraseña *</label>
               </div> 
               <span class="helper-txt">Cree una nueva contraseña</span>
             </div>
             <div class="group">
               <div class="input-group">
                 <input id="confirm-logup" type="password" />
-                <label for="confirm">Confirmar*</label>
+                <label for="confirm">Confirmar *</label>
               </div>
               <span class="helper-txt">Confirme su contraseña</span>
             </div>
@@ -92,7 +92,7 @@
       this.btnIngresar.addEventListener('click', (e) => {
         e.preventDefault();
         this.show();
-        login.showModalLogin();
+        login.showModalLogin('solicitud');
       });
     }
 
@@ -127,7 +127,6 @@
           }
         }
       });
-      //window.location.href = `${'{{URL}}'}/solicitudes/create`;
     }
 
     validations() {

@@ -18,6 +18,17 @@ class UsuariosRepository {
     }
   }
 
+  static async findAllSome(query) {
+    try {
+      const usuarios = await Usuario.findAll({
+        where: query
+      });
+      return usuarios;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async save(data, transaction = null) {
     try {
       data.password = await encriptar(data.password.trim());

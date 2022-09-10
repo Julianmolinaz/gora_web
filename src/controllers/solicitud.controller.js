@@ -1,10 +1,16 @@
 const CrearSolicitudCompleta = require("../services/solicitudes/crear_solicitud_completa");
 const { Error } = require("../errors");
 const { getAccessToken } = require("./../helpers/getters");
+const { UsuariosRepository } = require("./../database/repositories");
 
 class SolicitudController {
-  static create(req, res) {
-    return res.render("solicitud/index.html");
+  static async create(req, res) {
+    const { usuarioId_ } = req.body;
+    const usuario = await UsuariosRepository.find(usuarioId_);
+    console.log({ usuario });
+    return res.render("solicitud/index.html", {
+      usuario: { num_doc: usuario.num_doc, movil: usuario.movil }
+    });
   }
   
   static async store(req, res) {
@@ -23,7 +29,7 @@ class SolicitudController {
 
       const token = await getAccessToken(
         usuarioId_,
-        nombre_,
+        useCase.cliente.primer_nombre +' '+ useCase.cliente.primer_apellido,
         useCase.cliente.id
       );
 

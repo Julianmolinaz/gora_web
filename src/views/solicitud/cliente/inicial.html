@@ -72,8 +72,13 @@
             </div>
             <div class="group">
               <!-- NUM_DOC -->
-              <div class="input-group">
-                <input type="text" v-model="clienteSt.el.num_doc" name="num_doc">
+              <div class="input-group input-group--disabled">
+                <input
+                  type="text"
+                  v-model="clienteSt.el.num_doc"
+                  name="num_doc"
+                  disabled
+                >
                 <label for="num_doc"># Identificación*</label>
               </div>
               <span class="helper-txt error" v-if="v$.num_doc.$error">
@@ -84,8 +89,13 @@
           <div class="col-2">
             <div class="group">
               <!-- MOVIL -->
-              <div class="input-group">
-                <input type="tel" v-model="clienteSt.el.movil" name="movil">
+              <div class="input-group input-group--disabled">
+                <input
+                  type="tel"
+                  v-model="clienteSt.el.movil"
+                  name="movil"
+                  disabled
+                >
                 <label for="movil">Teléfono celular*</label>
               </div>
               <span class="helper-txt" v-if="!v$.movil.$error">
@@ -221,13 +231,6 @@
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
           this.clienteSt.ir(2)
-          //const usuario = await this.clienteSt.validarExistenciaDeUsuario();
-          //if (usuario.existe) {
-          //  alertify.alert('Atención', 'El usuario ya esta registrado, para acceder de click en ingresar');
-          //  return false;
-          //}
-          //await this.clienteSt.generarCodigoTerminos(); 
-          //emitter.emit("showModalAceptarTerminos", true);
         }
       }
     }

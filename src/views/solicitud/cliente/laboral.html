@@ -53,12 +53,10 @@
           >
             <div
               class="col"
-              v-if="
-                clienteSt.el.tipo_actividad == 'Dependiente' ||
-                clienteSt.el.tipo_actividad == 'Independiente'"
+              v-if="clienteSt.el.tipo_actividad == 'Dependiente'"
             >
               <div class="group">
-                <!-- EMPRESA -->
+                <!-- NOMBRE EMPRESA -->
                 <div class="input-group">
                   <input name="empresa" type="text" v-model="clienteSt.el.empresa" />
                   <label for="empresa">
@@ -121,9 +119,7 @@
             </div>
             <div 
               class="col" 
-              v-if="
-              clienteSt.el.tipo_actividad == 'Dependiente' ||
-              clienteSt.el.tipo_actividad == 'Independiente'"              
+              v-if="clienteSt.el.tipo_actividad == 'Dependiente'"
             >
               <div class="group">
                 <!-- DIR_EMPRESA -->
@@ -145,12 +141,10 @@
             </div>
             <div
               class="col"
-              v-if="
-                clienteSt.el.tipo_actividad == 'Dependiente' ||
-                clienteSt.el.tipo_actividad == 'Independiente'"
+              v-if="clienteSt.el.tipo_actividad == 'Dependiente'"
             >
               <div class="group">
-                <!--  TEL_EMPRESA -->
+                <!-- TEL_EMPRESA -->
                 <div class="input-group">
                   <input
                     name="tel_empresa"
@@ -171,7 +165,8 @@
               class="col"
               v-if="
                 clienteSt.el.tipo_actividad == 'Dependiente' ||
-                clienteSt.el.tipo_actividad == 'Independiente'"
+                clienteSt.el.tipo_actividad == 'Independiente'
+              "
             >
               <div class="group">
                 <!-- FECHA_VINCULACION -->

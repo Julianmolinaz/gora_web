@@ -30,8 +30,9 @@
       }
     }
 
-    showModalLogin() {
-      this.modalLogin.show();
+    showModalLogin(action = null) {
+      console.log({action});
+      this.modalLogin.show(action);
     }
   }
 </script>

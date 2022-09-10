@@ -60,7 +60,7 @@ class CrearSolicitudCompleta {
     try {
       this.validarSimulador();
 
-      this.validarCliente();
+      await this.validarCliente();
       await this.validarClienteUnico(); 
       await this.crearCliente(); // desde repository
 
@@ -123,7 +123,7 @@ class CrearSolicitudCompleta {
   async validarCliente() {
     const caseValidarCliente = new ValidarCliente(this.dataCliente); 
     await caseValidarCliente.exec();
-
+    
     if (caseValidarCliente.fails()) {
       throw new ValidationError(caseValidarCliente.errors);
     }

@@ -148,7 +148,10 @@ class ValidarCliente {
   } 
 
   validarEmpresa() {
-    if (ValidadorHp.isEmpty(this.data.empresa)) {
+    if (
+      this.data.tipo_actividad === "Dependiente" &&
+      ValidadorHp.isEmpty(this.data.empresa)
+    ) {
       this.errors.push("El nombre de la empresa es requerida");
     }
   } 
@@ -163,13 +166,18 @@ class ValidarCliente {
   } 
 
   validarDirEmpresa() {
-    if (ValidadorHp.isEmpty(this.data.dir_empresa)) {
+    if (
+      this.data.tipo_actividad === "Dependiente" &&
+      ValidadorHp.isEmpty(this.data.dir_empresa)
+    ) {
       this.errors.push("La direccion de la empresa es requerida");
     } 
   } 
 
   validarTelEmpresa() {
-    if (ValidadorHp.isEmpty(this.data.tel_empresa)) {
+    if (
+      this.data.tipo_actividad == "Dependiente" &&
+      ValidadorHp.isEmpty(this.data.tel_empresa)) {
       this.errors.push("El teléfono de la empresa es requerida");
     }
   } 

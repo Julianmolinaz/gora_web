@@ -54,6 +54,7 @@
 <script>
   class ModalLogin {
     constructor() {
+      this.mode = null;
       this.close = document.querySelector("#btn-close");
       this.modal = document.querySelector("#modal-login");
       this.form = document.querySelector("#login-form");
@@ -61,16 +62,20 @@
       this.password = document.querySelector("#password");
       this.showPassword = document.querySelector("#showPassword");
       this.iconVisibility = document.querySelector("#icon-visibility");
-      this.actions();    
+      this.actions(); 
     }
 
     actions() {
       this.close.addEventListener("click", () => this.show());
-      this.form.addEventListener("submit", this.enviarCredenciales);
+      this.form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        this.enviarCredenciales();
+      });
       this.showPassword.addEventListener("click", (event) => this.visiblePassword(event));
     }
 
-    show() {
+    show(mode = null) {
+      this.mode = mode;
       this.modal.classList.toggle("modal--show");
       this.reset();
     }
@@ -78,24 +83,27 @@
     reset() {
       this.iconVisibility.textContent = "visibility_off";
       this.password.type = "password";
-
       this.password.value = "";
       this.num_doc.value = "";
     }
 
-    enviarCredenciales(event) {
-      event.preventDefault();
+    enviarCredenciales() {
       const route = `${'{{URL}}'}/api/auth/login`;
+
       const data = {
         num_doc: this.num_doc.value,
         password: this.password.value
       }
-      
+
       axios.post(route, data)
         .then((res) => {
           if (res.data.success) {
             alertify.notify("Su ingreso fue exitoso !!!", "success", 2, () => {
-              window.location.href = `${'{{URL}}'}/cuenta`;        
+              if (this.mode === 'solicitud') {
+                window.location.href = `${'{{URL}}'}/solicitudes/create`;
+              } else {
+                window.location.href = `${'{{URL}}'}/cuenta`;        
+              }
             })
           } else {
             alertify.alert('Alerta =(', 'Credenciales invalidas, intente de nuevo'); 
