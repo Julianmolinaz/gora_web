@@ -1,6 +1,6 @@
 class HomeController {
   static index(req, res) {
-    return res.render("home/index.html");
+    return res.render("inicio/index.html");
   }
 }
 

@@ -1,0 +1,65 @@
+<script>
+const terminosStore = defineStore('terminos', {
+  state: () => ({
+    SIZE_COD: 4,
+    NUM_SEG: '{{ SEG_CODIGO_TERMINOS }}',
+    show: false,
+    showTxt: false,
+    codigo: '',
+    codigoValido: false,
+    segundos: null,
+  }),
+  getters: {},
+  actions: {
+    showTerminos(action) {
+      this.show = action;
+      this.resetCodigo();
+
+      if (action) {
+        this.segundos = JSON.parse(JSON.stringify(this.NUM_SEG));
+        this.cuentaRegresiva();
+        document.querySelector('#input').focus();
+      }
+    },
+    showText(action) {
+      this.showTxt = action;
+    },
+    resetCodigo() {
+      this.codigo = '';  
+    },
+    leerTerminos() {
+      this.showText(true); 
+    },
+    cuentaRegresiva() {
+      this.segundos = JSON.parse(JSON.stringify(this.NUM_SEG));
+      let interval;
+      interval = setInterval(() => {
+        this.segundos--;
+        if (this.segundos <= 0) clearInterval(interval);
+      }, 1000);
+    },
+    reenviarCodigo() {
+      this.cuentaRefresiva();
+      this.resetCodigo();
+      // pedir nuevo código
+    },
+    leerCodigo() {
+      const size = this.codigo.toString().length; 
+      if (size === this.SIZE_COD) {
+        this.codigoValido = true; 
+      } else if (size > this.SIZE_COD) {
+        this.codigo = parseInt(
+          this.codigo.toString().slice(0, this.SIZE_COD)
+        );
+      } else {
+        this.codigoValido = false; 
+      }
+    },
+    onSubmit() {
+      if (this.codigo.toString().length === this.SIZE_COD) {
+        
+      }
+    }
+  }
+});
+</script>

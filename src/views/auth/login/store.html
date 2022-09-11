@@ -1,0 +1,16 @@
+<script>
+const loginStore = defineStore("login", {
+  state: () => ({
+    show: false,
+  }),
+  getters: {},
+  actions: {
+    /**
+     *  @param {boolean} true: open | false: close
+     **/
+    showLogin(action) {
+      this.show = action;
+    }
+  }
+});
+</script>

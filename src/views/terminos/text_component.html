@@ -1,8 +1,8 @@
-<template id="terminos-template">
-  <section :class="['modal', showModal ? 'modal--show': '']">
+<script type="text/x-template" id="text-template">
+  <section :class="['modal', terminosSt.showTxt ? 'modal--show': '']">
     <div class="modal__container">
       <div class="modal__header">
-        <div class="modal--close" @click="close">&otimes;</div>
+        <div class="modal--close" @click="terminosSt.showText(false)">&otimes;</div>
         <img src="/imagenes/logo.png" alt="logo" class="modal__logo">
         <span class="modal__titulo">Términos y condiciones</span>
       </div>
@@ -19,31 +19,35 @@
         </div>
       </div>
       <div class="modal__footer">
-        <a href="" class="bt bt__night" @click="close">Salir</a>
+        <a
+          href=""
+          class="bt bt__night"
+          @click.stop.prevent="terminosSt.showText(false)"
+        >
+          Salir
+        </a>
       </div>
     </div>
   </section>
-</template>
+</script>
 
 <script>
-  const objTerminosCondiciones = {
-    template: "#terminos-template",
-    name: "TerminosCondiciones",
+  const objText = {
+    template: "#text-template",
+    name: "TextComponent",
     delimiters: ['[[', ']]'],
     setup() {
+      const terminosSt = terminosStore();
+
       const showModal = ref(false);
       const show = () => showModal.value = true;
       const close = (e) => {
         e.preventDefault();
         showModal.value = false;
       }
-      onMounted(() => {
-        emitter.on("showModalTerminosCondiciones", () => {
-          show();
-        });
-      });
 
       return {
+        terminosSt,
         showModal,
         close,
       }

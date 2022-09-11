@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta content='maximum-scale=1.0, initial-scale=1.0, width=device-width' name='viewport'>
+  
+  <link rel="icon" type="image/x-icon" href="/iconos/support.png">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/navbar/movil.css">
+
+  <link rel="stylesheet" href="/css/navbar/desktop.css" media="screen and (min-width: 800px)">
+
+  <!-- Alertify -->
+  <link rel="stylesheet" href="/libs/alertify/alertify.min.css">
+  <script src="/libs/alertify/alertify.min.js"></script>
+
+  <link rel="stylesheet" href="/css/banner/movil.css">
+  <link
+	rel="stylesheet"
+	href="/css/banner/tablet.css"
+	media="screen and (min-width: 768px)"
+  >
+  <link 
+	rel="stylesheet" 
+	href="/css/banner/desktop.css"
+	media="screen and (min-width: 992px)"
+  >
+
+  <script src="/js/axios.js"></script>
+
+  <title>{% block title %} title {% endblock %}</title>
+</head>
+<body class="body">
+  <div id="app">
+    <header>{% include "./navbar.html" %}</header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+  
+  {% include "./libraries.html" %}
+
+  {% block scripts %} {% endblock %}
+</body>
+</html>
