@@ -75,7 +75,7 @@
               </div>
             </div>
             <div class="group center">
-              <button class="bt bt__night" @click="logupSt.onSubmit">
+              <button class="bt bt__night" @click="checkCuenta">
                 Crear Cuenta
               </button>
             </div>
@@ -102,8 +102,14 @@
       const logupSt = logupStore();
       const inicioSt = inicioStore();
 
+      const checkCuenta = async () => {
+        await inicioSt.checkCuenta();
+      }
+
       return {
         logupSt,
+        inicioSt,
+        checkCuenta,
       }
     }
   };

@@ -6,7 +6,8 @@ const { getAccessToken } = require("../helpers/getters");
 const {
   EsUsuario,
   RegistroInicial,
-  ActualizarUsuario
+  ActualizarUsuario,
+  RegistroConCodigo,
 } = require('./../services/users');
 
 class UserController {
@@ -29,6 +30,28 @@ class UserController {
       });
     }
   }
+
+  static async register(req, res) {
+    try {
+      const { dataUsuario, codigo } = req.body;
+      const registro = new RegistroConCodigo(dataUsuario, codigo);
+      await registro.exec();
+     
+      const token = await getAccessToken(registro.usuario.id, null, { codigo });
+      res.cookie('access_token', token);
+
+      reply(req, res, {});
+    } catch (err) {
+      console.error(err);
+      reply(req, res, {
+        status: err.status,
+        success: false,
+        body: err,
+        msg: 'Ocurrió un error al registrar el usuario'
+      }); 
+    }
+    
+  } 
 
   static async store(req, res) {
     try {

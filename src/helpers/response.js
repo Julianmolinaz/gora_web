@@ -1,8 +1,9 @@
 exports.reply = (req, res, info) => {
-  let success = info.success ? true : false;
-  let status = info.status || 200;
-  let msg = info.msg || 'Ok';
-  let body = info.body || null;
+  const success = (info.success == undefined || info.sucess == true)
+    ? true : false;
+  const status = info.status || 200;
+  const msg = info.msg || 'Ok';
+  const body = info.body || null;
 
   res.status(status).json({
     success,

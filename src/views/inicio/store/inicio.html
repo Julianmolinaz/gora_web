@@ -1,11 +1,38 @@
 <script>
   const inicioStore = defineStore("inicio", {
     state: () => ({
-
+      session_: sessionStore(),
+      terminos_: terminosStore(),
+      logup_: logupStore(),
+      login_: loginStore(),
     }),
     getters: {},
     actions: {
-      
+      solicitar() {
+        this.terminos_.showTerminos(true);
+        return;
+        if (this.session_.el) {
+          this.terminos_.showTerminos(true);
+        } else {
+          this.logup_.showLogup(true);
+        }
+      },
+      async checkCuenta() {
+        const esUsuario = await this.logup_.esUsuario(); 
+        if (esUsuario) {
+          alertify.confirm(
+            "Atención",
+            "El usuario ya se encuentra registrado, por favor ingrese con su cedula y contraseña",
+            () => {
+              this.logup_.showLogup(false);
+              this.login_.showLogin(true);
+            },
+            () => {}
+          ); 
+        } else {
+          this.terminos_.showTerminos(true);
+        }
+      }
     }
   });
 </script>

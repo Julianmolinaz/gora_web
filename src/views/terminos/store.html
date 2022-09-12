@@ -16,8 +16,6 @@ const terminosStore = defineStore('terminos', {
       this.resetCodigo();
 
       if (action) {
-        this.segundos = JSON.parse(JSON.stringify(this.NUM_SEG));
-        this.cuentaRegresiva();
         document.querySelector('#input').focus();
       }
     },
@@ -38,10 +36,9 @@ const terminosStore = defineStore('terminos', {
         if (this.segundos <= 0) clearInterval(interval);
       }, 1000);
     },
-    reenviarCodigo() {
-      this.cuentaRefresiva();
+    pedirCodigo() {
       this.resetCodigo();
-      // pedir nuevo código
+      this.cuentaRegresiva();
     },
     leerCodigo() {
       const size = this.codigo.toString().length; 
@@ -55,7 +52,7 @@ const terminosStore = defineStore('terminos', {
         this.codigoValido = false; 
       }
     },
-    onSubmit() {
+    onSubmit(dataUsuario) {
       if (this.codigo.toString().length === this.SIZE_COD) {
         
       }

@@ -12,8 +12,8 @@
       </div>
       <div class="modal__content">
         <p class="acep-term-txt">
-          Para recibir el código de confirmación en su celular 
-          por favor de click en "Enviar código" y luego digítelo.
+          Para aceptar terminos y condiciones de click en "Recibir código",
+          a cambio recibirá un mensaje de texto con el código, por favor digitelo en el cuadro
         </p>
         <a href="#" @click="terminosSt.leerTerminos" class="link">
           Leer términos y condiciones
@@ -42,17 +42,17 @@
           href="#"
           class="bt bt__sun"
           @click="aceptarTerminos"
-          v-else-if="!loader && showAceptar"
+          v-else-if="!loader && terminosSt.codigoValido"
         >
-          Enviar código
+          Envíar código
         </a>
         <a
           href="#"
-          class="link bt-reenviar"
+          class="bt"
           v-if="!terminosSt.segundos" 
-          @click="terminosSt.reenviarCodigo"
+          @click="terminosSt.pedirCodigo"
         >
-          Solicitar nuevo código
+          Recibir código
         </a>
       </div>
     </div>

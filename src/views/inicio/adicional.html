@@ -10,6 +10,7 @@
 {% include "./../auth/logup/store.html" %}
 {% include "./../terminos/store.html" %}
 {% include "./../session/store.html" %}
+{% include "./store/inicio.html" %}
 
 <!-- COMPONENTS -->
 {% include "./../simulador/component.html" %}
@@ -30,17 +31,8 @@
       const logupSt = logupStore();
       const terminosSt = terminosStore();
       const sessionSt = sessionStore();
+      const inicioSt = inicioStore();
 
-      const solicitar = () => {
-        if (sessionSt.el) {
-          terminosSt.showTerminos(true);
-        } else {
-          logupSt.showLogup(true);
-        }
-
-        //logupSt.showLogup(true);
-        //terminosSt.showTerminos(true);
-      }
 
       onMounted(() => {
         sessionSt.getSession();
@@ -49,7 +41,7 @@
       return {
         loginSt,
         logupSt,
-        solicitar,
+        inicioSt,
       }
     },
   });

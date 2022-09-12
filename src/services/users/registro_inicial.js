@@ -3,10 +3,11 @@ const ValidadorHp = require("./../../helpers/validador");
 const { ValidationError, UniqueError } = require("../../errors");
 const { UsuariosRepository } = require("../../database/repositories");
 
-const RegistroInicial = function(dataUser) {
+const RegistroInicial = function(dataUser, transaction = null) {
   this.dataUser = dataUser;
   this.errors = [];
   this.usuario = null;
+  this.transaction = transaction;
 
   this.exec = async () => {
     await validateUser();
@@ -42,7 +43,9 @@ const RegistroInicial = function(dataUser) {
   }
 
   const saveUser = async () => {
-    this.usuario = await UsuariosRepository.save(dataUser);
+    this.usuario = await UsuariosRepository.save(
+      dataUser, this.transaction
+    );
   }
 }
 

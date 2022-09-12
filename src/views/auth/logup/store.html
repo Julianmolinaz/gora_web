@@ -20,7 +20,8 @@ const logupStore = defineStore("logup", {
     },
 
     async esUsuario() {
-      if (!this.validation()) return false;
+      const valid = await this.validation();
+      if (!valid) throw "Error de validación";
       try {
         const res = await axios.post("/api/users/es-usuario", {
           num_doc: this.credentials.num_doc,
