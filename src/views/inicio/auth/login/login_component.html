@@ -19,7 +19,7 @@
             <div class="col">
               <div class="group">
                 <div class="input-group">
-                  <input type="text" id="num_doc">
+                  <input type="text" v-model="loginSt.el.num_doc">
                   <label for="num_doc">Número de documento</label>
                 </div>
               </div>
@@ -27,7 +27,7 @@
             <div class="col">
               <div class="group">
                 <div class="input-group">
-                  <input type="password" id="password">
+                  <input type="password" id="password" v-model="loginSt.el.password">
                   <a
                     href=""
                     class="material-icons-outlined input-group__icon"
@@ -45,7 +45,12 @@
               </div>
             </div>
             <div class="group center">
-              <button type="submit" class="bt bt__night" id="btn-ingresar">
+              <button
+                type="submit"
+                class="bt bt__night"
+                id="btn-ingresar"
+                @click.stop.prevent="loginSt.onSubmit"
+              >
                 Ingresar
               </button>
             </div>

@@ -8,6 +8,7 @@ const {
   RegistroInicial,
   ActualizarUsuario,
   RegistroConCodigo,
+  ObtenerTipoUsuario
 } = require('./../services/users');
 
 class UserController {
@@ -33,13 +34,29 @@ class UserController {
 
   static async register(req, res) {
     try {
-      const { dataUsuario, codigo } = req.body;
-      const registro = new RegistroConCodigo(dataUsuario, codigo);
-      await registro.exec();
-     
-      const token = await getAccessToken(registro.usuario.id, null, { codigo });
-      res.cookie('access_token', token);
+      console.log(req.body);
+      const { vector, dataUsuario, codigo, dataSimulador } = req.body;
+      const strVector = JSON.stringify(vector);
 
+      if ( strVector === '[0,0,0]' || strVector === '[0,1,1]') {
+        const registro = new RegistroConCodigo(dataUsuario, codigo);
+        await registro.exec();
+
+        const token = await getAccessToken(
+          registro.usuario.id,
+          registro.cliente ? `${registro.cliente.primer_nombre} ${registro.cliente.primer_apellido}` : '',
+          registro.cliente ? registro.cliente.id : null,
+          { codigo }
+        );
+
+        res.cookie('access_token', token);
+      } else if (strVector === '[0,1,0]') {
+
+
+      } else {
+        throw "No existe un vector valido." 
+      }
+     
       reply(req, res, {});
     } catch (err) {
       console.error(err);
@@ -50,8 +67,18 @@ class UserController {
         msg: 'Ocurrió un error al registrar el usuario'
       }); 
     }
-    
-  } 
+  }
+
+  static async getTipoUsuario(req, res) {
+    try {
+      const { num_doc } = req.params
+      const useCase = new ObtenerTipoUsuario(num_doc);
+      const result = await useCase.exec();
+      return res.send(result);
+    } catch (error) {
+      return res.send(error);
+    }
+  }
 
   static async store(req, res) {
     try {

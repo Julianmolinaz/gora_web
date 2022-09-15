@@ -4,7 +4,7 @@ const ValidadorHp = require("../../helpers/validador");
 const { generarCodigo } = require("../../helpers/getters");
 const { sendSms } = require("../notificaciones/simple_textual_message"); 
 
-const GenerarCodigo = function (dataUsuario) {
+const GenerarCodigoUsuarioNuevo = function (dataUsuario) {
   this.dataUsuario = dataUsuario;
   const errors = [];
   this.codigo = '';
@@ -28,12 +28,12 @@ const GenerarCodigo = function (dataUsuario) {
     }
 
     if (errors.length) {
-      throw new ValidationError(errors);
+      throw new ValidationError(errors)
     }
   }
 
   const getCodigo = () => {
-    this.codigo = generarCodigo(4); 
+    this.codigo = generarCodigo(process.env.DIGITOS_CODIGO_TERMINOS); 
   }
 
   const guardarCodigo = async () => {
@@ -48,11 +48,11 @@ const GenerarCodigo = function (dataUsuario) {
     const from = "INVERSIONES GORA SAS";
     const to = process.env.COUNTRY_CODE + this.dataUsuario.movil;
     console.log(to);
-    const message = `GORA: para aceptar terminos y condiciones escriba el siguiente codigo: ${this.codigo}`;
+    const message = `DE GORA: digite el codigo ${this.codigo} para aceptar terminos y condiciones.`;
     const response = await sendSms(from, to, message);
     console.log({ response });
     return response;
   }
 }
 
-module.exports = GenerarCodigo;
+module.exports = GenerarCodigoUsuarioNuevo;

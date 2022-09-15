@@ -12,6 +12,7 @@ class UsuariosRepository {
       const usuario = await Usuario.findOne({
         where: { num_doc: numDoc },
       });
+      console.log({ usuario });
       return usuario;
     } catch (error) {
       throw error;

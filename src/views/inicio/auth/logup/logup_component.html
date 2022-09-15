@@ -16,7 +16,8 @@
         <div class="modal__titulo">Registrarse</div>
         <div class="divider" style="--width-div: 7.8rem"></div>
         <div class="modal__subtitulo">
-          Para continuar con el proceso es necesario que cree una cuenta
+          Por favor registre,
+          si usted ya tiene una cuenta de click en "Ya tengo una cuenta"
         </div>
       </div>
       <div class="modal__content">
@@ -75,8 +76,8 @@
               </div>
             </div>
             <div class="group center">
-              <button class="bt bt__night" @click="checkCuenta">
-                Crear Cuenta
+              <button class="bt bt__night" @click="registrar">
+                Registrarme
               </button>
             </div>
             <div class="col">
@@ -102,14 +103,14 @@
       const logupSt = logupStore();
       const inicioSt = inicioStore();
 
-      const checkCuenta = async () => {
-        await inicioSt.checkCuenta();
+      const registrar = async () => {
+        await inicioSt.registrar ();
       }
 
       return {
         logupSt,
         inicioSt,
-        checkCuenta,
+        registrar,
       }
     }
   };

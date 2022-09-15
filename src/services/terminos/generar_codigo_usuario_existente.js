@@ -1,16 +1,17 @@
 const { UsuariosRepository, CodigosRepository } = require("../../database/repositories");
-const { ValidationError } = require("../../errors");
+const { ValidationError, SimpleError } = require("../../errors");
 const ValidadorHp = require("../../helpers/validador"); 
 const { generarCodigo } = require("../../helpers/getters");
 const { sendSms } = require("../notificaciones/simple_textual_message"); 
 
 
 const GenerarCodigoUsuarioExistente = function (usuarioId) {
-  this.usuarioId = (usuarioId)
-    ? usuarioId
-    : throw new SimpleError("No se puede generar el codigo, por favor pongase en constacto con un asesor");
-
+  if (!usuarioId) {
+    throw new SimpleError("No se puede generar el codigo, por favor pongase en constacto con un asesor");
+  }
+  this.usuarioId = usuarioId;
   this.usuario = null;
+  this.codigo = null;
 
   this.exec = async () => {
     await getUsuario();
@@ -42,12 +43,14 @@ const GenerarCodigoUsuarioExistente = function (usuarioId) {
   }
 
   const enviarCodigo = async () => {
-    const from = "INVERSIONES GORA SAS";
-    const to = process.env.COUNTRY_CODE + this.dataUsuario.movil;
-    const message = `DE GORA: digite el codigo ${this.codigo} para aceptar terminos y condiciones.`;
-    return response;
+    try {
+      const from = "INVERSIONES GORA SAS";
+      const to = process.env.COUNTRY_CODE + this.dataUsuario.movil;
+      const message = `DE GORA: digite el codigo ${this.codigo} para aceptar términos y condiciones.`;
+      return response;
+    } catch (err) {
+      throw SimpleError("Se presento un error al enviar el código para haceptar términos y codiciones");
+    }
   }
 
 }
-
-module.exports = GenerarCodigoUsuarioExistente;

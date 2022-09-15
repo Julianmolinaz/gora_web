@@ -1,12 +1,14 @@
 const local = require("../../database/conexiones/local.conexion"); 
 const RegistroInicial = require("./registro_inicial")
 const { ValidarCodigoTerminos } = require("../../services/terminos")
+const { ClientesRepository } = require("../../database/repositories");
 
 const RegistroConCodigo = function (dataUsuario, codigo) {
   console.log("Registro con codigo");
   this.dataUsuario = dataUsuario;
   this.codigo = codigo;
   this.usurio = null;
+  this.cliente = null;
   
   this.exec = async () => {
     const transaction = await local.transaction();
@@ -20,6 +22,9 @@ const RegistroConCodigo = function (dataUsuario, codigo) {
       await registro.exec();
 
       this.usuario = registro.usuario;
+      
+      // Obtener cliente
+      this.cliente = await getCliente();
 
       // Validación de código
 
@@ -33,6 +38,12 @@ const RegistroConCodigo = function (dataUsuario, codigo) {
       await transaction.rollback();
       throw err;
     }
+  }
+
+  const getCliente = async () => {
+    return await ClientesRepository.findSome(
+      { num_doc: this.usuario.num_doc }
+    );    
   }
 }
 

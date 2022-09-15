@@ -23,6 +23,7 @@ function generarCodigo(digitos) {
     if (i == 0 && digito == 0) digito = 1; 
     codigo += `${digito}`;
   }
+  console.log({ codigo });
   return codigo;
 }
   

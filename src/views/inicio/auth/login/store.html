@@ -1,0 +1,44 @@
+<script>
+class Login {
+  constructor() {
+    this.num_doc = null;
+    this.password = null;
+  }
+} 
+const loginStore = defineStore("login", {
+  state: () => ({
+    show: false,
+    el: new Login(),
+    inicio_: inicioStore(),
+  }),
+  getters: {},
+  actions: {
+    /**
+     *  @param {boolean} true: open | false: close
+     **/
+    showLogin(action) {
+      this.show = action;
+    },
+
+    async onSubmit() {
+      this.validate();
+      alert("onsubmit");
+    },
+
+    validate() {
+      let errorStr = "";
+      if (!this.el.num_doc) {
+        errorStr += 'El documento es requerido <br>';
+      }
+      if (!this.el.password) {
+        errorStr += 'La contraseña es requerida';
+      }
+
+      if (errorStr.length) {
+        alertify.alert('Por favor revise los campos', errorStr, () => {});
+        throw "Error en la validación";
+      }
+    }
+  }
+});
+</script>

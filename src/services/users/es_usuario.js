@@ -2,6 +2,8 @@
 const validator = require('validator');
 const ValidadorHp = require("./../../helpers/validador"); 
 const { ValidationError, SimpleError } = require("../../errors");
+const ObtenerTipoUsuario = require("./obtener_tipo_usuario");
+
 const {
   UsuariosRepository,
   ClientesRepository
@@ -16,14 +18,8 @@ class EsUsuario {
   static async make(dataUsuario) {
     const instance = new this(dataUsuario);
     await instance.validateUser();
-    const existeUsuario_ = await instance.existeUsuario();
-
-    if (existeUsuario_) {
-      return true;
-    } else {
-      await instance.validarCliente();
-      return false;
-    }
+    const tipo = await instance.getTipoUsuario();
+    return tipo;
   }
 
   async validateUser() {
@@ -45,18 +41,16 @@ class EsUsuario {
     return usuario ? true : false;
   }
 
-  async validarCliente() {
-    const cliente = await ClientesRepository.findSome(
-      { num_doc: this.dataUsuario.num_doc }
-    );
+  async getTipoUsuario() {
+    const tipo = new ObtenerTipoUsuario(this.dataUsuario.num_doc);
+    await tipo.exec(); 
 
-    if (!cliente) return true;
-
-    if (cliente.movil == this.dataUsuario.movil) {
-      return true;
-    } else {
-      throw new SimpleError("No se puede crear la cuenta, comunìquese con un asesor. Gracias!!!");
-    }
+    if (tipo.vector[1]) {
+      if (tipo.cliente.movil != this.dataUsuario.movil) {
+        throw new SimpleError("No se puede crear la cuenta, comunìquese con un asesor. Gracias!!!");
+      } 
+    } 
+    return tipo.vector;
   }
 }
 

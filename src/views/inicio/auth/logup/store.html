@@ -19,7 +19,7 @@ const logupStore = defineStore("logup", {
       this.show = action;
     },
 
-    async esUsuario() {
+    async getTipoUsuario() {
       const valid = await this.validation();
       if (!valid) throw "Error de validación";
       try {

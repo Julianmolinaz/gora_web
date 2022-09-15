@@ -1,6 +1,8 @@
 <script>
   const inicioStore = defineStore("inicio", {
     state: () => ({
+      modo: 'ingresar',
+      vector: null,
       session_: sessionStore(),
       terminos_: terminosStore(),
       logup_: logupStore(),
@@ -9,27 +11,24 @@
     getters: {},
     actions: {
       solicitar() {
-        this.terminos_.showTerminos(true);
-        return;
-        if (this.session_.el) {
-          this.terminos_.showTerminos(true);
-        } else {
-          this.logup_.showLogup(true);
-        }
+        this.logup_.showLogup(true);
+        this.modo = 'registrar'; // pendiente de revisar
       },
-      async checkCuenta() {
-        const esUsuario = await this.logup_.esUsuario(); 
-        if (esUsuario) {
-          alertify.confirm(
+      // Revisa si el usuario existe ([1, *]) o no ([0, *]) 
+      async registrar() {
+        this.vector = await this.logup_.getTipoUsuario(); 
+        console.log(this.vector);
+
+        // si existe usuario [0, *]
+        if (this.vector[0]) {
+          alertify.alert(
             "Atención",
-            "El usuario ya se encuentra registrado, por favor ingrese con su cedula y contraseña",
-            () => {
-              this.logup_.showLogup(false);
-              this.login_.showLogin(true);
-            },
-            () => {}
+            "El usuario ya se encuentra registrado, por favor de click en 'Ya tengo una cuenta'",
+            () => {},
           ); 
-        } else {
+        } 
+        // si no existe usuario [1, *]
+        else {
           this.terminos_.showTerminos(true);
         }
       }

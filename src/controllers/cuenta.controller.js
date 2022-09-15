@@ -4,6 +4,7 @@ const ConsultarSolicitud = require("../services/solicitudes/consultar_solicitud"
 class CuentaController {
   static async index(req, res) {
     const { usuarioId_ } = req.body;
+    console.log(req.body);
     const info = new InfoObligaciones(usuarioId_);
     await info.exec();
     return res.render("cuenta/index.html", {

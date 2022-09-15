@@ -8,26 +8,33 @@ const terminosStore = defineStore('terminos', {
     codigo: '',
     codigoValido: false,
     segundos: null,
+    logup_: logupStore(),
+    inicio_: inicioStore(),
+    simulador_: simuladorSt(),
   }),
   getters: {},
   actions: {
+
     showTerminos(action) {
       this.show = action;
       this.resetCodigo();
-
       if (action) {
         document.querySelector('#input').focus();
       }
     },
+
     showText(action) {
       this.showTxt = action;
     },
+
     resetCodigo() {
       this.codigo = '';  
     },
+
     leerTerminos() {
       this.showText(true); 
     },
+
     cuentaRegresiva() {
       this.segundos = JSON.parse(JSON.stringify(this.NUM_SEG));
       let interval;
@@ -36,14 +43,28 @@ const terminosStore = defineStore('terminos', {
         if (this.segundos <= 0) clearInterval(interval);
       }, 1000);
     },
-    pedirCodigo() {
-      this.resetCodigo();
-      this.cuentaRegresiva();
+
+    async pedirCodigo() {
+      try {
+        if (this.inicio_.vector[0]) {
+          console.log("Pedir usuario existente");
+          const res = await this.pedirCodigoUsuarioExistente();
+        } else {
+          console.log("Pedir usuario usuario nuevo");
+          const res = await this.pedirCodigoUsuarioNuevo();
+        }
+        this.resetCodigo();
+        this.cuentaRegresiva();
+      } catch (err) {
+        console.log(err);
+      }
     },
-    leerCodigo() {
+
+    async leerCodigo() {
       const size = this.codigo.toString().length; 
       if (size === this.SIZE_COD) {
         this.codigoValido = true; 
+        await this.enviarCodigo();
       } else if (size > this.SIZE_COD) {
         this.codigo = parseInt(
           this.codigo.toString().slice(0, this.SIZE_COD)
@@ -52,9 +73,63 @@ const terminosStore = defineStore('terminos', {
         this.codigoValido = false; 
       }
     },
-    onSubmit(dataUsuario) {
-      if (this.codigo.toString().length === this.SIZE_COD) {
-        
+
+    async pedirCodigoUsuarioNuevo() {
+      return await axios.post('/api/terminos/generar-codigo', {
+        num_doc: this.logup_.credentials.num_doc,
+        movil: this.logup_.credentials.movil
+      });
+    },
+
+    async pedirCodigoUsuarioExistente() {
+      return await axios.get('/api/terminos/generar-codigo');
+    },
+
+    async enviarCodigo() {
+      try {
+        let res = null;
+        const generalData = {
+          vector: this.inicio_.vector,
+          codigo: this.codigo,
+          dataSimulador: this.simulador_.simulador
+        };
+
+        if (this.inicio_.vector[0] == 1) {
+          console.log("registro usuario existente");
+        }
+        else if (this.inicio_.vector[0] == 0){
+          console.log("registro usuario nuevo");
+          res = await axios.post(
+            '/api/users/register/', {
+              ...generalData,
+              dataUsuario: this.logup_.credentials,
+            }
+          );
+          if (res.data.success) {
+            alertify.alert(
+              "Mensaje exitoso",
+              "Su registro se realizó exitosamente, continuemos ...",
+              () => window.location.href = this.getRutaSolicitud()
+            );
+          }
+        } else {
+          console.error("No existe el vector de estado");
+          alert("Ha ocurrido un error");
+        }
+
+        console.log(2)
+
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    getRutaSolicitud() {
+      const strVector = JSON.stringify(this.inicio_.vector);
+      if (strVector == '[0,0,0]') {
+        return `${URL}/solicitudes/create`;
+      } else if (strVector == '[0,1,1]') {
+        return `${URL}/cuenta`;
       }
     }
   }
