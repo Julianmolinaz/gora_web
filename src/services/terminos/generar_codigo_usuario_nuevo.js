@@ -1,7 +1,7 @@
 const { CodigosRepository } = require("../../database/repositories");
 const { ValidationError } = require("../../errors");
-const ValidadorHp = require("../../helpers/validador"); 
 const { generarCodigo } = require("../../helpers/getters");
+const ValidadorHp = require("../../helpers/validador"); 
 const { sendSms } = require("../notificaciones/simple_textual_message"); 
 
 const GenerarCodigoUsuarioNuevo = function (dataUsuario) {
@@ -13,6 +13,7 @@ const GenerarCodigoUsuarioNuevo = function (dataUsuario) {
     validarDatos();
     await getCodigo();
     await guardarCodigo(); 
+    console.log(dataUsuario.num_doc, ":" ,this.codigo);
     await enviarCodigo();  
   }
 
@@ -27,9 +28,7 @@ const GenerarCodigoUsuarioNuevo = function (dataUsuario) {
       errors.push(['El teléfono celular no es un número valido']);
     }
 
-    if (errors.length) {
-      throw new ValidationError(errors)
-    }
+    if (errors.length) throw new ValidationError(errors)
   }
 
   const getCodigo = () => {
@@ -47,10 +46,8 @@ const GenerarCodigoUsuarioNuevo = function (dataUsuario) {
   const enviarCodigo = async () => {
     const from = "INVERSIONES GORA SAS";
     const to = process.env.COUNTRY_CODE + this.dataUsuario.movil;
-    console.log(to);
     const message = `DE GORA: digite el codigo ${this.codigo} para aceptar terminos y condiciones.`;
     const response = await sendSms(from, to, message);
-    console.log({ response });
     return response;
   }
 }

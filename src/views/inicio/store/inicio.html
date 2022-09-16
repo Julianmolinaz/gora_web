@@ -14,22 +14,35 @@
         this.logup_.showLogup(true);
         this.modo = 'registrar'; // pendiente de revisar
       },
-      // Revisa si el usuario existe ([1, *]) o no ([0, *]) 
-      async registrar() {
-        this.vector = await this.logup_.getTipoUsuario(); 
-        console.log(this.vector);
 
-        // si existe usuario [0, *]
-        if (this.vector[0]) {
-          alertify.alert(
-            "Atención",
-            "El usuario ya se encuentra registrado, por favor de click en 'Ya tengo una cuenta'",
-            () => {},
-          ); 
-        } 
-        // si no existe usuario [1, *]
-        else {
-          this.terminos_.showTerminos(true);
+      /****************************************************
+       * Revisa si el usuario existe ([1, *]) o no ([0, *]) 
+       ****************************************************/
+      async registrar() {
+
+        try {
+
+          this.vector = await this.logup_.getTipoUsuario(); 
+
+          /**************************
+           * Si existe usuario [0, *]
+           **************************/
+
+          if (this.vector[0]) {
+            alertify.alert("Atención",
+              "El usuario ya se encuentra registrado, por favor de click en 'Ya tengo una cuenta'",
+              () => {},
+            ); 
+          } 
+
+          /*****************************
+           * si no existe usuario [1, *]
+           *****************************/
+          else {
+            this.terminos_.showTerminos(true);
+          }
+        } catch (err) {
+          errorHandler(err)
         }
       }
     }

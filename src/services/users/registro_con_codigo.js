@@ -1,37 +1,45 @@
-const local = require("../../database/conexiones/local.conexion"); 
-const RegistroInicial = require("./registro_inicial")
 const { ValidarCodigoTerminos } = require("../../services/terminos")
 const { ClientesRepository } = require("../../database/repositories");
+const { getAccessToken } = require("../../helpers/getters");
+const RegistroInicial = require("./registro_inicial")
+const local = require("../../database/conexiones/local.conexion"); 
 
 const RegistroConCodigo = function (dataUsuario, codigo) {
-  console.log("Registro con codigo");
   this.dataUsuario = dataUsuario;
   this.codigo = codigo;
   this.usurio = null;
   this.cliente = null;
+  this.token = null;
   
   this.exec = async () => {
     const transaction = await local.transaction();
-
     try {
-      // Registro de usuario
-      
+
+      /*****************************
+       * Validación codigo términos
+       *****************************/
+      const terminos = new ValidarCodigoTerminos(
+        this.dataUsuario.num_doc,
+        this.codigo,
+        this.transaction
+      );
+      await terminos.exec();
+
+      /*****************************
+       * Registro de usuario
+       *****************************/
       const registro = new RegistroInicial(
         this.dataUsuario, transaction
       );
       await registro.exec();
 
       this.usuario = registro.usuario;
-      
-      // Obtener cliente
       this.cliente = await getCliente();
 
-      // Validación de código
-
-      const terminos = new ValidarCodigoTerminos(
-        this.dataUsuario.num_doc, this.codigo, this.transaction
-      );
-      await terminos.exec();
+      /*****************************
+       * Generar Token 
+       *****************************/
+      await getToken();
 
       await transaction.commit();
     } catch (err) {
@@ -44,6 +52,15 @@ const RegistroConCodigo = function (dataUsuario, codigo) {
     return await ClientesRepository.findSome(
       { num_doc: this.usuario.num_doc }
     );    
+  }
+
+  const getToken = async () => {
+    this.token = await getAccessToken(
+      this.usuario.id,
+      this.cliente ? `${this.cliente.primer_nombre} ${this.cliente.primer_apellido}` : '',
+      this.cliente ? this.cliente.id : null,
+      { codigo }
+    );
   }
 }
 

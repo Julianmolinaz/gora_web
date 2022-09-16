@@ -17,7 +17,8 @@ const RegistroInicial = function(dataUser, transaction = null) {
   const validateUser = async () => {
     if (ValidadorHp.isEmpty(this.dataUser.num_doc)) {
       this.errors.push(['El número de documento es requerido']);
-    } else {
+    }
+    else {
       if (await existUser()) {
         throw new UniqueError('Ya existe un usuario registrado');
       }
@@ -27,7 +28,8 @@ const RegistroInicial = function(dataUser, transaction = null) {
     }
     if (ValidadorHp.isEmpty(this.dataUser.password)) {
       this.errors.push(['La contraseña es requerida']);
-    } else {
+    }
+    else {
       if(!validator.equals(this.dataUser.password, this.dataUser.confirm)) {
         this.errors.push(['La confirmación de la contraseña no coincide']);
       }
@@ -47,6 +49,7 @@ const RegistroInicial = function(dataUser, transaction = null) {
       dataUser, this.transaction
     );
   }
+
 }
 
 module.exports = RegistroInicial;

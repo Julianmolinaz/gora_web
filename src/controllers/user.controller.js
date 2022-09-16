@@ -8,6 +8,7 @@ const {
   RegistroInicial,
   ActualizarUsuario,
   RegistroConCodigo,
+  RegistroConCodigoYSolicitud,
   ObtenerTipoUsuario
 } = require('./../services/users');
 
@@ -34,30 +35,56 @@ class UserController {
 
   static async register(req, res) {
     try {
+      const {
+        vector,
+        dataUsuario,
+        codigo,
+        dataSimulador
+      } = req.body;
+
       console.log(req.body);
-      const { vector, dataUsuario, codigo, dataSimulador } = req.body;
+
       const strVector = JSON.stringify(vector);
 
+      /**
+       * Usuario nuevo con o sin solicitud activa
+       */
+
       if ( strVector === '[0,0,0]' || strVector === '[0,1,1]') {
+        console.log("Usuario nuevo con o sin solicitud activa");
         const registro = new RegistroConCodigo(dataUsuario, codigo);
         await registro.exec();
 
-        const token = await getAccessToken(
-          registro.usuario.id,
-          registro.cliente ? `${registro.cliente.primer_nombre} ${registro.cliente.primer_apellido}` : '',
-          registro.cliente ? registro.cliente.id : null,
-          { codigo }
+        res.cookie('access_token', registro.token);
+        reply(req, res, {});
+      }
+
+      /**
+       * Usurio nuevo, con cliente existente y sin solicitud activa 
+       */
+
+      else if (strVector === '[0,1,0]') {
+        console.log("Usurio nuevo, con cliente existente y sin solicitud activa");
+        const registroConSolicitud = new RegistroConCodigoYSolicitud(
+          dataUsuario, codigo, dataSimulador
         );
+        await registroConSolicitud.exec();
+        res.cookie('access_token', registroConSolicitud.token);
+        reply(req, res, { 
+          body: { 
+            solicitudId: registroConSolicitud.solicitud.id
+          }
+        });
+      }
 
-        res.cookie('access_token', token);
-      } else if (strVector === '[0,1,0]') {
+      /**
+       * Si no existe el vectore se genera excepción
+       */
 
-
-      } else {
+      else {
         throw "No existe un vector valido." 
       }
      
-      reply(req, res, {});
     } catch (err) {
       console.error(err);
       reply(req, res, {

@@ -20,21 +20,17 @@ const logupStore = defineStore("logup", {
     },
 
     async getTipoUsuario() {
-      const valid = await this.validation();
-      if (!valid) throw "Error de validación";
       try {
-        const res = await axios.post("/api/users/es-usuario", {
-          num_doc: this.credentials.num_doc,
-          movil: this.credentials.movil
-        });
+        await this.validation();
+        const res = await axios.post("/api/users/es-usuario", this.credentials);
         return res.data.body.esUsuario;
       } catch (err) {
-        this.errorHandler();
+        throw err;
       }
     },
 
     async onSubmit() {
-      if (!this.validation()) return false;
+      if (! await this.validation()) return false;
       try {
         const res = await axios.post("/api/users", this.credentials);
         alertify.notify(
@@ -42,11 +38,11 @@ const logupStore = defineStore("logup", {
           "success", 3, () => {}
         );
       } catch (err) {
-        this.errorHandler(err);
+        errorHandler(err);
       }
     },
 
-    validation() {
+    async validation() {
       let str = '';
       if (!this.credentials.num_doc) {
         str += 'El número de documento es requerido<br>';
@@ -58,34 +54,14 @@ const logupStore = defineStore("logup", {
         str += 'La contraseña es requerida<br>';
       }
       if (!this.credentials.confirm) {
-        str += 'La confirmación de la contraseña es requerida';
+          str += 'La confirmación de la contraseña es requerida<br>';
       }
       if (this.credentials.password !== this.credentials.confirm) {
         str += 'La confirmación de la contraseña no coincide'
       }
 
-      if (str.length) {
-        alertify.alert('Error en validación', str, () => {});
-        return false;
-      }
-      return true;
+      if (str.length) throw str;
     },
-
-    errorHandler(err) {
-      console.error(err);
-      if (err.response) {
-        const myError = err.response.data;
-        if (myError.body.name === 'ValidaError') {
-          console.log(myError.body.message);
-        } else if (myError.body.name === 'SimpleError'){
-          alert(myError.body.message);
-        } else {
-          alertify.alert('Ocurrió un error, comuniquese con un asesor.');
-        }
-      } else {
-        alertify.alert('Ocurrió un error, comuniquese con un asesor.');
-      }
-    }
   }
 });
 </script>

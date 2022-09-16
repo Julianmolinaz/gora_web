@@ -1,52 +1,46 @@
-// Services
-const {
-  SolicitudesRepository,
-  ConsecutivosRepository,
-  VehiculosRepository,
-  VentasRepository
-} = require("../../database/repositories");
-
-const { GetPrecio, GetValorCuota } = require("../simulador");
-const ValidarSolicitud = require('./validar_solicitud');
+const { ConsecutivosRepository } = require("../../database/repositories");
 
 // Librerias
 const moment = require("moment");
-const ValidadorHp = require("../../helpers/validador");
-const { ValidationError, UniqueError } = require("../../errors");
+
+// Servicios
+const { GetPrecio, GetValorCuota } = require("../simulador"); 
+const { ValidarSolicitud } = require("./");
 
 // Constantes
 const NUM_FACT = 6; // id consecutivos
 
-class CrearSolicitud {
-  constructor (dataSimulador, clienteId, transaction) {
-    this.dataSimulador = dataSimulador;
+class CrearSolicitudClienteExiste {
+  
+  constructor (clienteId, dataSimulador, transaction = null) {
+    this.dataSolicitud = null;
     this.clienteId = clienteId;
-    this.transaction = transaction;
+    this.solicitud = null;
     this.ventas = [];
-    this.vehiculos = [];
+    this.tarifa = null;
+    this.precio = 0;
   }
 
-  async exec() {
-    try {
+  async exec () {
+    this.validarSimulador();
 
-      this.validarSimulador();
-
-      await this.castSolicitud();    
-
-      this.validarSolicitud();
-
-      await this.crearSolicitud();
-
-      await this.generarVentas();
-
-    } catch (err) {
-      throw err;
-    }
+    await this.castSolicitud();
+    this.validarSolicitud();
   }
+
 
   /***************
    * SOLICITUD
    ***************/
+
+  validarSolicitud() {
+    const caseValidarSolicitud = new ValidarSolicitud(this.dataSolicitud, "creacion");
+    caseValidarSolicitud.exec();
+
+    if (caseValidarSolicitud.fails()) {
+      throw new ValidationError(caseValidarSolicitud.errors);
+    }
+  }
 
   validarSimulador() {
     const errSimulador = [];
@@ -77,15 +71,6 @@ class CrearSolicitud {
     if (errSimulador.length) {
       throw new ValidationError(errSimulador);
     } 
-  }
-
-  validarSolicitud() {
-    const caseValidarSolicitud = new ValidarSolicitud(this.dataSolicitud, "creacion");
-    caseValidarSolicitud.exec();
-
-    if (caseValidarSolicitud.fails()) {
-      throw new ValidationError(caseValidarSolicitud.errors);
-    }
   }
 
   async castSolicitud() {
@@ -162,74 +147,6 @@ class CrearSolicitud {
     );
   }
 
-  /***************
-   * VENTAS
-   ***************/
-  
-  // Evalua como se crearàn las ventas
-  async generarVentas() {
-    const productId = this.dataSimulador.productoId;
-    if (productId == 1 || productId == 2) {
-      const vehiculo = await this.crearVehiculo();
-      await this.crearVenta(productId, this.precio, vehiculo.id); 
-    } else if (productId == 3) {
-      const vehiculo1 = await this.crearVehiculo(); 
-      await this.crearVenta(2, this.tarifa.valor1, vehiculo1.id);
-      const vehiculo2 = await this.crearVehiculo();
-      await this.crearVenta(1, this.tarifa.valor2, vehiculo2.id);
-    }
-  }
-
-  castVenta(productoId, valorVenta, vehiculoId) {
-    return {
-      cantidad: 1,
-      valor: valorVenta,
-      producto_id: productoId,
-      precredito_id: this.solicitud.id,
-      vehiculo_id: vehiculoId,
-      created_by: process.env.USER_ID_DEFAULT,
-    };
-  }
-
-  async crearVenta(productoId, valorVenta, vehiculoId) {
-    const dataVenta = this.castVenta(
-      productoId, valorVenta, vehiculoId
-    );
-
-    const venta = await VentasRepository.crear(
-      dataVenta,
-      this.transaction
-    );
-    this.ventas.push(venta);
-  }
-
-  /****************
-   * VEHICULO
-   ****************/
-
-  castVehiculo() {
-    const fechaProximoAno = moment().add(1, "Y").format("YYYY-MM-DD");
-    return {
-      placa: "PENDING",
-      modelo: this.dataSimulador.modelo, 
-      cilindraje: this.dataSimulador.cilindraje,
-      vencimiento_soat: fechaProximoAno,
-      vencimiento_rtm: fechaProximoAno, 
-      tipo_vehiculo_id: this.dataSimulador.tipoVehiculoId,
-      created_by: process.env.USER_ID_DEFAULT,
-    };
-  }
-
-  async crearVehiculo() {
-    const dataVehiculo = this.castVehiculo();
-    const vehiculo = await VehiculosRepository.crear(
-      dataVehiculo,
-      this.transaction
-    );
-    this.vehiculos.push(vehiculo);
-    return vehiculo;
-  }
-
 }
 
-module.exports = CrearSolicitud;
+

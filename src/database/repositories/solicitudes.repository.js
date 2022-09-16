@@ -80,6 +80,7 @@ class SolicitudesRepository {
   }
 
   static async ultimaSolicitudNumDoc(num_doc) {
+    console.log("ultima solicitud");
     const solicitud = await main.query(
       `
         SELECT 

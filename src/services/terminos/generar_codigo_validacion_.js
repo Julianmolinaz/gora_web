@@ -1,7 +1,7 @@
 const { UsuariosRepository, CodigosRepository } = require("../../database/repositories");
 const { ValidationError } = require("../../errors");
-const ValidadorHp = require("../../helpers/validador"); 
 const { generarCodigo } = require("../../helpers/getters");
+const ValidadorHp = require("../../helpers/validador"); 
 const { sendSms } = require("../notificaciones/simple_textual_message"); 
 
 

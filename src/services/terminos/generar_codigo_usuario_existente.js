@@ -1,13 +1,14 @@
 const { UsuariosRepository, CodigosRepository } = require("../../database/repositories");
 const { ValidationError, SimpleError } = require("../../errors");
-const ValidadorHp = require("../../helpers/validador"); 
 const { generarCodigo } = require("../../helpers/getters");
+const ValidadorHp = require("../../helpers/validador"); 
 const { sendSms } = require("../notificaciones/simple_textual_message"); 
-
 
 const GenerarCodigoUsuarioExistente = function (usuarioId) {
   if (!usuarioId) {
-    throw new SimpleError("No se puede generar el codigo, por favor pongase en constacto con un asesor");
+    throw new SimpleError(
+      "No se puede generar el codigo, por favor pongase en constacto con un asesor"
+    );
   }
   this.usuarioId = usuarioId;
   this.usuario = null;
@@ -54,3 +55,5 @@ const GenerarCodigoUsuarioExistente = function (usuarioId) {
   }
 
 }
+
+module.exports = GenerarCodigoUsuarioExistente;

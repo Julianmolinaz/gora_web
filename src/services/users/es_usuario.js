@@ -1,13 +1,12 @@
-
 const validator = require('validator');
 const ValidadorHp = require("./../../helpers/validador"); 
 const { ValidationError, SimpleError } = require("../../errors");
 const ObtenerTipoUsuario = require("./obtener_tipo_usuario");
-
 const {
   UsuariosRepository,
   ClientesRepository
 } = require("../../database/repositories");
+
 
 class EsUsuario {
   constructor(dataUsuario) {
@@ -29,6 +28,13 @@ class EsUsuario {
     if (ValidadorHp.isEmpty(this.dataUsuario.movil)) {
       this.errors.push(['El teléfono celular es requerido']);
     }
+    if (ValidadorHp.isEmpty(this.dataUsuario.password)) {
+      this.errors.push(['La contraseña es requerida']);
+    }
+    if (ValidadorHp.isEmpty(this.dataUsuario.confirm)) {
+      this.errors.push(['La contraseña es requerida']);
+    }
+
     if (this.errors.length) {
       throw new ValidationError(this.errors);
     }

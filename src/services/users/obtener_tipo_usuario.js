@@ -2,8 +2,7 @@ const { SimpleError } = require("../../errors");
 const {
   UsuariosRepository,
   ClientesRepository,
-  SolicitudesRepository,
-  CreditosRepository
+  SolicitudesRepository
 } = require("../../database/repositories");
 
 /**
@@ -20,7 +19,7 @@ const ObtenerTipoUsuario = function (num_doc = null) {
   this.cliente = null;
   this.solicitud = null;
 
-  this.vector = [0, 0, 0];
+  this.vector = [0, 0, 0]; // por default
   
   this.exec = async () => {
     await validarUsuario();
@@ -49,12 +48,11 @@ const ObtenerTipoUsuario = function (num_doc = null) {
     this.solicitud = await getUltimaSolicitud();
 
     if (this.solicitud) {
-
       if (
         this.solicitud.aprobado === 'No' ||
         this.solicitud.aprobado === 'Desistio'
       )
-        this.vector[2] = 0;
+       this.vector[2] = 0;
 
       else if (this.solicitud.aprobado === 'En estudio')
         this.vector[2] = 1;
@@ -82,7 +80,6 @@ const ObtenerTipoUsuario = function (num_doc = null) {
 
   const getUsuario = async () => {
     const result = await UsuariosRepository.findNumDoc(num_doc);
-    console.log({result});
     return result;
   }
 

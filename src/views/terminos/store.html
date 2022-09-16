@@ -106,30 +106,63 @@ const terminosStore = defineStore('terminos', {
             }
           );
           if (res.data.success) {
-            alertify.alert(
-              "Mensaje exitoso",
-              "Su registro se realizó exitosamente, continuemos ...",
-              () => window.location.href = this.getRutaSolicitud()
+              console.log(res);
+            const response = this.getResponse(res);
+            alertify.alert(response.title, response.content, () =>
+              window.location.href = response.route 
             );
           }
         } else {
           console.error("No existe el vector de estado");
           alert("Ha ocurrido un error");
         }
-
-        console.log(2)
-
       } catch (err) {
-        console.log(err);
+        this.errorHandler(err);    
       }
     },
 
-    getRutaSolicitud() {
+    getResponse(res = null) {
+      console.log({ res });
       const strVector = JSON.stringify(this.inicio_.vector);
+      const msg = {
+        title: "Mensaje exitoso",
+        content: null,
+        route: null
+      };
+
       if (strVector == '[0,0,0]') {
-        return `${URL}/solicitudes/create`;
-      } else if (strVector == '[0,1,1]') {
-        return `${URL}/cuenta`;
+        msg.content = `Su registro se realizó exitosamente, 
+            ingrese la información requerida lugo de dar click en el boton`;
+        msg.route = `${URL}/solicitudes/create`
+      }
+      else if (strVector == '[0,1,0]') {
+        msg.content = `Querido cliente, usted fue registrado en nuestro portal, 
+            a continuación ingrese la información de sus referencias`; 
+        msg.route = `${URL}/referencias/create/${res.data.body.solicitudId}`;
+          console.log(msg);
+      } 
+      else if (strVector == '[0,1,1]') {
+        msg.content = `Querido cliente, usted ha sido registrado dentro de nuestro portal, 
+            actualmente usted tiene solicitudes pendientes, a continuación será redirigido a su cuenta.`; 
+        msg.route = `${URL}/cuenta`
+      }
+      return msg;
+    },
+
+    errorHandler(err) {
+      if (err && err.response) {
+          console.log("sii", err)
+        const myError = err.response.data;
+        if (myError.body.name === 'ValidaError') {
+          console.log(myError.body.message);
+        } else if (myError.body.name === 'SimpleError'){
+          alert(myError.body.message);
+        } else {
+          alertify.alert('Ocurrió un error, comuniquese con un asesor.');
+        }
+      } else {
+          console.error("sino", err.message);
+        alertify.alert('Error', 'Ocurrió un error, comuniquese con un asesor.');
       }
     }
   }

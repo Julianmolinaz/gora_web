@@ -1,7 +1,7 @@
 const validator = require('validator');
 const ValidadorHp = require("./../../helpers/validador"); 
-const { ValidationError, UniqueError } = require("../../errors");
 const { UsuariosRepository } = require("../../database/repositories");
+const { ValidationError, UniqueError } = require("../../errors");
 
 const ActualizarUsuario = function(dataUsuario, usuarioId) {
   this.dataUsuario = dataUsuario;
@@ -20,7 +20,8 @@ const ActualizarUsuario = function(dataUsuario, usuarioId) {
     }
     if (ValidadorHp.isEmpty(this.dataUsuario.num_doc)) {
       this.errors.push(['El número de documento es requerido']);
-    } else {
+    }
+    else {
       if (await existUser()) {
         throw new UniqueError('Ya existe un usuario registrado con el mismo documento');
       }
@@ -33,7 +34,8 @@ const ActualizarUsuario = function(dataUsuario, usuarioId) {
     }
     if (ValidadorHp.isEmpty(this.dataUsuario.email)) {
       this.errors.push(['El correo electrónico es requerido']);
-    } else {
+    }
+    else {
       if (validator.isEmail(this.dataUsuario.email)) {
         this.errors.push(['El correo electrónico no tiene el formato requerido']);
       }
@@ -43,11 +45,13 @@ const ActualizarUsuario = function(dataUsuario, usuarioId) {
     }
     if (ValidadorHp.isEmpty(this.dataUsuario.password)) {
       this.errors.push(['La contraseña es requerida']);
-    } else {
+    }
+    else {
       if(!validator.equals(this.dataUsuario.password, this.dataUsuario.confirm)) {
         this.errors.push(['La confirmación de la contraseña no coincide']);
       }
     }
+
     if (this.errors.length) {
       throw new ValidationError(this.errors);
     }
@@ -57,7 +61,6 @@ const ActualizarUsuario = function(dataUsuario, usuarioId) {
     const result = await UsuariosRepository.findAllSome(
       { id: this.usuarioId, num_doc: this.dataUsuario.num_doc }
     );
-
     return !!result;
   }
 

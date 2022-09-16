@@ -4,4 +4,7 @@ module.exports = {
   CodigosRepository: require('./codigos.repository'),
   SolicitudesRepository: require('./solicitudes.repository'),
   CreditosRepository: require('./creditos.repository'),
+  ConsecutivosRepository: require('./consecutivos.repository'),
+  VehiculosRepository: require('./vehiculos.repository'),
+  VentasRepository: require('./ventas.repository'),
 }
