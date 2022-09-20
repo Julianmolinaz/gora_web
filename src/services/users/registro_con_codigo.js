@@ -1,4 +1,5 @@
 const { ValidarCodigoTerminos } = require("../../services/terminos")
+const { VincularCliente } = require("../../services/usuarios")
 const { ClientesRepository } = require("../../database/repositories");
 const { getAccessToken } = require("../../helpers/getters");
 const RegistroInicial = require("./registro_inicial")
@@ -21,7 +22,7 @@ const RegistroConCodigo = function (dataUsuario, codigo) {
       const terminos = new ValidarCodigoTerminos(
         this.dataUsuario.num_doc,
         this.codigo,
-        this.transaction
+        transaction
       );
       await terminos.exec();
 
@@ -40,6 +41,12 @@ const RegistroConCodigo = function (dataUsuario, codigo) {
        * Generar Token 
        *****************************/
       await getToken();
+      
+      /*****************************
+       * Vincular Cliente con usuario 
+       *****************************/
+      if (this.cliente)
+        await vincularClienteConUsuario(transaction);
 
       await transaction.commit();
     } catch (err) {
@@ -61,6 +68,15 @@ const RegistroConCodigo = function (dataUsuario, codigo) {
       this.cliente ? this.cliente.id : null,
       { codigo }
     );
+  }
+
+  const vincularClienteConUsuario = async (transaction) => {
+    const vincular = new VincularCliente(
+      this.usuario.id,
+      this.cliente.id,
+      transaction
+    ); 
+    await vincular.exec();
   }
 }
 

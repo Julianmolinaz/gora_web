@@ -1,4 +1,7 @@
-const Login = require("../services/auth/login");
+const { Login } = require("../services/auth");
+const { LoginConTipoDeUsuario } = require("../services/auth");
+const { reply } = require('../helpers/response');
+
 
 class AuthController {
   static index(req, res) {
@@ -22,6 +25,30 @@ class AuthController {
         msg: "Credenciales invalidas"
       });
     }
+  }
+
+  static async loginSolicitud(req, res) {
+    try {
+      const data = req.body;
+      const login = new LoginConTipoDeUsuario(data); 
+      await login.exec();
+
+      res.cookie("access_token", login.token);
+
+      reply(req, res, {
+        body: {
+          vector: login.vector
+        }
+      });
+    } catch (err) {
+      console.log(err);
+      reply(req, res, {
+        status: err.status,
+        success: false,
+        body: err,
+        msg: "Validación de usuario incorrecta"
+      });
+    } 
   }
 
   static async logout(req, res) {

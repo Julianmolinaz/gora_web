@@ -1,6 +1,8 @@
 const local = require("../../database/conexiones/local.conexion"); 
 const main = require("../../database/conexiones/main.conexion"); 
-const { ClientesRepository } = require("../../database/repositories");
+const {
+  ClientesRepository, UsuariosRepository 
+} = require("../../database/repositories");
 
 const RegistroInicial = require("./registro_inicial")
 const { CrearSolicitud } = require("../solicitudes");
@@ -64,6 +66,12 @@ const RegistroConCodigoYSolicitud = function (
       this.solicitud = crearSolicitud.solicitud;
 
       /*****************************
+       * Vincular Cliente con usuario 
+       *****************************/
+      if (this.cliente)
+        await vincularClienteConUsuario(localTransaction);
+
+      /*****************************
        * Generar Token 
        *****************************/
       await getToken();
@@ -92,6 +100,22 @@ const RegistroConCodigoYSolicitud = function (
     );
   }
 
+  const vincularClienteConUsuario = async (localTransaction) => {
+    const data = {
+      cliente_id: this.cliente.id,
+      tipo_doc: this.cliente.tipo_doc,
+      primer_nombre: this.cliente.primer_nombre,
+      segundo_nombre: this.cliente.segundo_nombre,
+      primer_apellido: this.cliente.primer_apellido,
+      segundo_apellido: this.cliente.segundo_apellido
+    };
+
+    this.usuario = await UsuariosRepository.update(
+      this.usuario.id,
+      data,
+      localTransaction
+    );
+  }
 }
 
 module.exports = RegistroConCodigoYSolicitud;

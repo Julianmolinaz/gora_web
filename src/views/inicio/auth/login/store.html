@@ -10,6 +10,7 @@ const loginStore = defineStore("login", {
     show: false,
     el: new Login(),
     inicio_: inicioStore(),
+    terminos_: terminosStore(),
   }),
   getters: {},
   actions: {
@@ -21,8 +22,43 @@ const loginStore = defineStore("login", {
     },
 
     async onSubmit() {
-      this.validate();
-      alert("onsubmit");
+      try {
+        this.validate();
+        if (this.inicio_.mode === "register") {
+          await this.loginRegister();
+        }
+        if (this.inicio_.mode === "access") {
+          await this.loginAccess();
+        }
+      } catch (err) {
+        errorHandler(err);
+      }
+    },
+
+    async loginAccess() {
+      const res = await axios.post("/api/auth/login", this.el);
+      console.log({ res });
+    },
+
+    async loginRegister() {
+      const res = await axios.post("/api/auth/login-solicitud", this.el);
+      if (res.data.success) {
+        this.inicio_.vector = res.data.body.vector;
+        if (JSON.stringify(this.inicio_.vector) === "[1,1,1]") {
+          alertify.alert(
+            "Atención", 
+            `Querido cliente, actualmente usted tiene solicitudes pendientes,
+              a continuación será redirigido a su cuenta.`,
+            () => { window.location.href = `${URL}/cuenta` }
+          );
+        }
+        else {
+          this.showLogin(false);
+          this.terminos_.showTerminos(true);
+        }
+      } else {
+        alertify.alert("Erro", res.data.msg); 
+      }
     },
 
     validate() {
@@ -34,10 +70,7 @@ const loginStore = defineStore("login", {
         errorStr += 'La contraseña es requerida';
       }
 
-      if (errorStr.length) {
-        alertify.alert('Por favor revise los campos', errorStr, () => {});
-        throw "Error en la validación";
-      }
+      if (errorStr.length) throw errorStr;
     }
   }
 });

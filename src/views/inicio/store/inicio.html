@@ -1,7 +1,7 @@
 <script>
   const inicioStore = defineStore("inicio", {
     state: () => ({
-      modo: 'ingresar',
+      mode: 'access',
       vector: null,
       session_: sessionStore(),
       terminos_: terminosStore(),
@@ -12,7 +12,6 @@
     actions: {
       solicitar() {
         this.logup_.showLogup(true);
-        this.modo = 'registrar'; // pendiente de revisar
       },
 
       /****************************************************

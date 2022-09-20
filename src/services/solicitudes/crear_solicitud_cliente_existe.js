@@ -1,152 +1,83 @@
-const { ConsecutivosRepository } = require("../../database/repositories");
+const CrearSolicitud = require("./crear_solicitud");
+const { ValidarCodigoTerminos } = require("../../services/terminos");
 
-// Librerias
+const { ClientesRepository, UsuariosRepository } = require("../../database/repositories");
+
+const mainConexion = require("../../database/conexiones/main.conexion");
+const localConexion = require("../../database/conexiones/local.conexion");
+
 const moment = require("moment");
 
-// Servicios
-const { GetPrecio, GetValorCuota } = require("../simulador"); 
-const { ValidarSolicitud } = require("./");
-
-// Constantes
-const NUM_FACT = 6; // id consecutivos
+const NUM_FACT = process.env.MY_NUM_FACT;
 
 class CrearSolicitudClienteExiste {
   
-  constructor (clienteId, dataSimulador, transaction = null) {
-    this.dataSolicitud = null;
+  constructor (usuarioId, clienteId, dataSimulador, codigo) {
+    console.log("CrearSolicitudClienteExiste");
+    this.usuarioId = usuarioId;
     this.clienteId = clienteId;
+    this.dataSimulador = dataSimulador;
+    this.codigo = codigo;
+
+    this.usuario = null;
+    this.cliente = null;
     this.solicitud = null;
-    this.ventas = [];
-    this.tarifa = null;
-    this.precio = 0;
   }
 
   async exec () {
-    this.validarSimulador();
+    this.mainTransaction = await mainConexion.transaction();
+    this.localTransaction = await localConexion.transaction();
 
-    await this.castSolicitud();
-    this.validarSolicitud();
-  }
+    try {
 
+      await this.getUsuario();
 
-  /***************
-   * SOLICITUD
-   ***************/
+      await this.validarCodigo();
 
-  validarSolicitud() {
-    const caseValidarSolicitud = new ValidarSolicitud(this.dataSolicitud, "creacion");
-    caseValidarSolicitud.exec();
+      await this.getCliente(); 
 
-    if (caseValidarSolicitud.fails()) {
-      throw new ValidationError(caseValidarSolicitud.errors);
+      await this.crearSolicitud();
+
+      this.mainTransaction.commit();
+      this.localTransaction.commit();
+    } catch (err) {
+      this.mainTransaction.rollback();
+      this.localTransaction.rollback();
+      throw err;
     }
   }
 
-  validarSimulador() {
-    const errSimulador = [];
 
-    if (ValidadorHp.isEmpty(this.dataSimulador.productoId)) {
-      errSimulador.push("El producto es requerido en el simulador");
-    } else {
-      if (process.env.PRODUCTOS_DEFAULT.indexOf == -1) {
-        errSimulador.push("No existe el producto indicado en el simulador");
-      }   
-    }
-    if (ValidadorHp.isEmpty(this.dataSimulador.tipoVehiculoId)) {
-      errSimulador.push("El tipo de vehículo es requerido")
-    }
-    if (ValidadorHp.isEmpty(this.dataSimulador.modelo)) {
-      errSimulador.push("El modelo del vehículo es requerido en el simulador");
-    }
-    if (ValidadorHp.isEmpty(this.dataSimulador.cilindraje)) {
-      errSimulador.push("El cilindraje del vehículo es requerido en el simulador")
-    }
-    if (ValidadorHp.isEmpty(this.dataSimulador.periodo)) {
-      errSimulador.push("El periodo es requerido en el simulador");
-    }
-    if (ValidadorHp.isEmpty(this.dataSimulador.numCuotas)) {
-      errSimulador.push("El número de cuotas es requerido en el simulador");
-    }
-
-    if (errSimulador.length) {
-      throw new ValidationError(errSimulador);
-    } 
+  async getUsuario() {
+    this.usuario = await UsuariosRepository.find(this.usuarioId);
   }
 
-  async castSolicitud() {
-    this.dataSolicitud = { 
-      num_fact: await this.getConsecutivo(),
-      fecha: moment().format("YYYY-MM-DD"),
-      cartera_id: process.env.CARTERA_ID_DEFAULT,
-      funcionario_id: process.env.USER_ID_DEFAULT,
-      cliente_id: this.clienteId,
-      producto_id: this.dataSimulador.productoId,
-      punto_id: null,
-      vlr_fin: await this.getVlrFin(),
-      periodo: this.dataSimulador.periodo,
-      meses: this.getMeses(),
-      cuotas: this.getNumCuotas(),
-      vlr_cuota: await this.getValorCuota(),
-      p_fecha: 1, // ***
-      s_fecha: 15, // ****
-      estudio: "Sin estudio",
-      cuota_inicial: 0,
-      aprobado: "En estudio",      
-      observaciones: "",
-      user_create_id: process.env.USER_ID_DEFAULT,
-      version: 4 
-    };
-  }
-
-  async getConsecutivo() {
-    let objConsecutivo = await ConsecutivosRepository.find(NUM_FACT);
-    let incrementable = objConsecutivo.incrementable + 1; 
-    await ConsecutivosRepository.update({ incrementable }, NUM_FACT, this.transaction);
-    return `${objConsecutivo.prefijo}${incrementable}`;
-  }
-
-  async getVlrFin() {
-    return await this.getPrecio();
-  }
-
-  async getPrecio() {
-    let casePrecio = new GetPrecio({
-      productoId: this.dataSimulador.productoId,
-      tipoVehiculoId: this.dataSimulador.tipoVehiculoId,
-      modelo: this.dataSimulador.modelo,
-      cilindraje: this.dataSimulador.cilindraje,
-    }); 
-    this.precio = await casePrecio.execute();
-    this.tarifa = casePrecio.tarifa; // Se obtienen las tarifas
-    return this.precio;
-  }
-
-  async getValorCuota() {
-    const caseValorCuota = new GetValorCuota(
-        this.precio, 
-        this.getMeses(),
-        this.dataSimulador.periodo
+  async validarCodigo() {
+    const useCase = new ValidarCodigoTerminos(
+      this.usuario.num_doc,
+      this.codigo,
+      this.localTransaction
     );
-    await caseValorCuota.execute();
-    return caseValorCuota.valorCuota;  
+    await useCase.exec();
   }
 
-  getMeses() {
-    return this.dataSimulador.numCuotas;
+  async getCliente() {
+    this.cliente = await ClientesRepository.find(
+      this.clienteId
+    );    
   }
 
-  getNumCuotas() {
-    let factor = this.dataSimulador.periodo === "Quincenal" ? 2 : 1;
-    return this.dataSimulador.numCuotas * factor;
-  }
-
-  async crearSolicitud() {
-    this.solicitud = await SolicitudesRepository.crear(
-      this.dataSolicitud,
-      this.transaction
+  async crearSolicitud () {
+    const crearSolicitud = new CrearSolicitud(
+      this.dataSimulador,
+      this.clienteId,
+      this.mainTransaction
     );
+
+    await crearSolicitud.exec();
+    this.solicitud = crearSolicitud.solicitud;
   }
 
 }
 
-
+module.exports = CrearSolicitudClienteExiste;

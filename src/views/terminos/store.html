@@ -8,6 +8,7 @@ const terminosStore = defineStore('terminos', {
     codigo: '',
     codigoValido: false,
     segundos: null,
+    login_: loginStore(),
     logup_: logupStore(),
     inicio_: inicioStore(),
     simulador_: simuladorSt(),
@@ -47,10 +48,8 @@ const terminosStore = defineStore('terminos', {
     async pedirCodigo() {
       try {
         if (this.inicio_.vector[0]) {
-          console.log("Pedir usuario existente");
           const res = await this.pedirCodigoUsuarioExistente();
         } else {
-          console.log("Pedir usuario usuario nuevo");
           const res = await this.pedirCodigoUsuarioNuevo();
         }
         this.resetCodigo();
@@ -94,11 +93,29 @@ const terminosStore = defineStore('terminos', {
           dataSimulador: this.simulador_.simulador
         };
 
+        /*****************
+         * Mode access
+         ****************/
+
         if (this.inicio_.vector[0] == 1) {
           console.log("registro usuario existente");
+          res = await axios.post(
+            '/api/users/validate-code',
+            { ...generalData, dataUsuario: this.login_.el }
+          );
+          if (res.data.success) {
+            const response = this.getResponse(res);
+            alertify.alert(response.title, response.content, () =>
+              window.location.href = response.route 
+            );
+          }
         }
+
+        /*****************
+         * Mode register
+         ****************/
+
         else if (this.inicio_.vector[0] == 0){
-          console.log("registro usuario nuevo");
           res = await axios.post(
             '/api/users/register/', {
               ...generalData,
@@ -106,7 +123,6 @@ const terminosStore = defineStore('terminos', {
             }
           );
           if (res.data.success) {
-              console.log(res);
             const response = this.getResponse(res);
             alertify.alert(response.title, response.content, () =>
               window.location.href = response.route 
@@ -125,26 +141,33 @@ const terminosStore = defineStore('terminos', {
       console.log({ res });
       const strVector = JSON.stringify(this.inicio_.vector);
       const msg = {
-        title: "Mensaje exitoso",
+        title: "Validación exitosa",
         content: null,
         route: null
       };
 
       if (strVector == '[0,0,0]') {
         msg.content = `Su registro se realizó exitosamente, 
-            ingrese la información requerida lugo de dar click en el boton`;
-        msg.route = `${URL}/solicitudes/create`
+            ingrese la información requerida luego de dar click en el boton`;
+        msg.route = `${URL}/solicitudes/create`;
       }
       else if (strVector == '[0,1,0]') {
         msg.content = `Querido cliente, usted fue registrado en nuestro portal, 
             a continuación ingrese la información de sus referencias`; 
         msg.route = `${URL}/referencias/create/${res.data.body.solicitudId}`;
-          console.log(msg);
       } 
       else if (strVector == '[0,1,1]') {
         msg.content = `Querido cliente, usted ha sido registrado dentro de nuestro portal, 
             actualmente usted tiene solicitudes pendientes, a continuación será redirigido a su cuenta.`; 
-        msg.route = `${URL}/cuenta`
+        msg.route = `${URL}/cuenta`;
+      }
+      else if (strVector == '[1,0,0]') {
+        msg.content = `Querido cliente, ingrese la información requerida luego de dar click en el boton`;
+        msg.route = `${URL}/solicitudes/create`;
+      }
+      else if (strVector == '[1,1,0]') {
+        msg.content = `Querido cliente, a continuación ingrese la información de sus referencias`;
+        msg.route = `${URL}/referencias/create/${res.data.body.solicitudId}`;
       }
       return msg;
     },

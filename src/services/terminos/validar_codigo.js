@@ -29,7 +29,9 @@ class ValidarCodigoTerminos {
 
   async updateEstadoCodigo(codigo) {
     await CodigosRepository.update(
-      codigo.id, { estado: "CONFIRMADO" }, this.transaction
+      codigo.id,
+      { estado: "CONFIRMADO" },
+      this.transaction
     ); 
   }
 }

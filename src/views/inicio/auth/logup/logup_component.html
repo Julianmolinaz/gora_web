@@ -82,7 +82,12 @@
             </div>
             <div class="col">
               <div class="group center">
-                <a href="" class="modal__link" id="btn-in__login">
+                <a
+                  href=""
+                  class="modal__link"
+                  id="btn-in__login"
+                  @click.stop.prevent="loginSolicitud"
+                >
                   Ya tengo una cuenta
                 </a>
               </div>
@@ -107,10 +112,15 @@
         await inicioSt.registrar ();
       }
 
+      const loginSolicitud = () => {
+        logupSt.loginSolicitud(); 
+      }
+
       return {
         logupSt,
         inicioSt,
         registrar,
+        loginSolicitud,
       }
     }
   };

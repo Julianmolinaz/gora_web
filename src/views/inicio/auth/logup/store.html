@@ -12,9 +12,17 @@ const logupStore = defineStore("logup", {
   state: () => ({
     credentials: new Credentials(),
     show: false,
+    login_: loginStore(),
+    inicio_: inicioStore(),
   }),
   getters: {},
   actions: {
+    loginSolicitud() {
+      this.showLogup(false);
+      this.login_.showLogin(true); 
+      this.inicio_.mode = 'register';
+    },
+
     showLogup(action) {
       this.show = action;
     },

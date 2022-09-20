@@ -49,6 +49,7 @@ class CrearSolicitudCompleta {
 
     // otros
     this.transaction = null;
+    this.localTransaction = null;
     this.precio = 0;
     this.errors = [];
   }

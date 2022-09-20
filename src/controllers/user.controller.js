@@ -9,8 +9,11 @@ const {
   ActualizarUsuario,
   RegistroConCodigo,
   RegistroConCodigoYSolicitud,
-  ObtenerTipoUsuario
+  ObtenerTipoUsuario,
 } = require('./../services/users');
+
+const { CrearSolicitudClienteExiste } = require("../services/solicitudes");
+const { ValidarCodigoTerminos } = require("./../services/terminos");
 
 class UserController {
   static async esUsuario(req, res) {
@@ -35,14 +38,7 @@ class UserController {
 
   static async register(req, res) {
     try {
-      const {
-        vector,
-        dataUsuario,
-        codigo,
-        dataSimulador
-      } = req.body;
-
-      console.log(req.body);
+      const { vector, dataUsuario, codigo, dataSimulador } = req.body;
 
       const strVector = JSON.stringify(vector);
 
@@ -51,7 +47,6 @@ class UserController {
        */
 
       if ( strVector === '[0,0,0]' || strVector === '[0,1,1]') {
-        console.log("Usuario nuevo con o sin solicitud activa");
         const registro = new RegistroConCodigo(dataUsuario, codigo);
         await registro.exec();
 
@@ -64,7 +59,6 @@ class UserController {
        */
 
       else if (strVector === '[0,1,0]') {
-        console.log("Usurio nuevo, con cliente existente y sin solicitud activa");
         const registroConSolicitud = new RegistroConCodigoYSolicitud(
           dataUsuario, codigo, dataSimulador
         );
@@ -151,6 +145,57 @@ class UserController {
         msg: 'Ocurrio un error al actualizar el usuario',
         body: error
       });
+    } 
+  } 
+
+  static async validateUserCode(req, res) {
+    try {
+      const {
+        vector, codigo, dataSimulador, dataUsuario
+      } = req.body;
+
+      const strVector = JSON.stringify(vector);
+
+      /**
+       * Usuario registrado sin cliente ni solicitud activa
+       */
+
+      if (strVector === "[1,0,0]") {
+        const terminos = new ValidarCodigoTerminos(
+          dataUsuario.num_doc, codigo
+        );
+        await terminos.exec();
+        reply(req, res, { msg: "Ok" });
+      }
+
+      /**
+       * Usuario registrado con cliente sin solicitud activa
+       */
+
+      if (strVector === "[1,1,0]") {
+        const crearSolicitud = new CrearSolicitudClienteExiste(
+          req.body.usuarioId_,
+          req.body.clienteId_,
+          dataSimulador,
+          codigo
+        );
+        await crearSolicitud.exec();
+        reply(req, res, {
+          msg: "Ok",
+          body: {
+            solicitudId: crearSolicitud.solicitud.id
+          }
+        });
+      }
+
+    } catch (err) {
+      console.log(err);
+      reply(req, res, {
+        status: err.status,
+        success: false,
+        body: err,
+        msg: 'Ocurrió un error al validar el código'
+      }); 
     } 
   }
 }

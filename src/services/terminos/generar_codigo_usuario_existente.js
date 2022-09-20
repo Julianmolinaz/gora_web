@@ -46,11 +46,13 @@ const GenerarCodigoUsuarioExistente = function (usuarioId) {
   const enviarCodigo = async () => {
     try {
       const from = "INVERSIONES GORA SAS";
-      const to = process.env.COUNTRY_CODE + this.dataUsuario.movil;
+      const to = process.env.COUNTRY_CODE + this.usuario.movil;
       const message = `DE GORA: digite el codigo ${this.codigo} para aceptar términos y condiciones.`;
+      const response = await sendSms(from, to, message);
       return response;
     } catch (err) {
-      throw SimpleError("Se presento un error al enviar el código para haceptar términos y codiciones");
+      console.error(err);
+      throw new SimpleError("Se presento un error al enviar el código para haceptar términos y codiciones");
     }
   }
 

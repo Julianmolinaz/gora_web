@@ -32,15 +32,14 @@ class TerminosController {
       reply(req, res, {
         msg: 'Se generó el codigo exitosamente'
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       reply(req, res, {
         success: false,
         status: err.status,
         body: err,
         msg: 'Ocurrió un error al generar el código de terminos y condiciones'
       });
-      return res.status(400).json({ error });
     }
   }
 
