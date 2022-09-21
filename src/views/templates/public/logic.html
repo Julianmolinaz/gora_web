@@ -1,0 +1,37 @@
+<script>
+  const { ref, createApp, onMounted } = Vue;
+  const { createPinia, defineStore } = Pinia;
+</script>
+
+{% include "../../session/store.html" %}
+
+<script>
+  const navbarApp = createApp({
+    components: {},
+    delimiters: ['[[', ']]'],
+    components: {},
+    setup() {
+      const sessionSt = sessionStore();
+
+      const goCuenta = () => {
+        window.location.href = `${URL}/cuenta`;
+      }
+
+      const logout = () => {
+        window.location.href = `${URL}/auth/logout`;         
+      }
+
+      onMounted(() => {
+        sessionSt.getSession();
+      });
+
+      return {
+        sessionSt,
+        logout,
+        goCuenta,
+      }
+    }
+  });
+  navbarApp.use(createPinia());
+  navbarApp.mount('#navbar-app');
+</script>
