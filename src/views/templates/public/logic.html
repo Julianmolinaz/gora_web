@@ -12,6 +12,7 @@
     components: {},
     setup() {
       const sessionSt = sessionStore();
+      const openMenuMobile = ref(false);
 
       const goCuenta = () => {
         window.location.href = `${URL}/cuenta`;
@@ -21,11 +22,17 @@
         window.location.href = `${URL}/auth/logout`;         
       }
 
+      const showMenuMobile = () => {
+        openMenuMobile.value = !openMenuMobile.value;
+      }
+
       onMounted(() => {
         sessionSt.getSession();
       });
 
       return {
+        openMenuMobile,
+        showMenuMobile,
         sessionSt,
         logout,
         goCuenta,

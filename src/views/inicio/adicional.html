@@ -33,14 +33,33 @@
       const sessionSt = sessionStore();
       const inicioSt = inicioStore();
 
+      const goCuenta = () => {
+        window.location.href = `${URL}/cuenta`;
+      }
+
+      const logout = () => {
+        window.location.href = `${URL}/auth/logout`;         
+      }
+
+      const openMenuMobile = ref(false);
+
+      const showMenuMobile = () => {
+        openMenuMobile.value = !openMenuMobile.value;
+      }
+
       onMounted(() => {
         sessionSt.getSession();
       });
 
       return {
+        openMenuMobile,
+        showMenuMobile,
+        sessionSt,
         loginSt,
         logupSt,
         inicioSt,
+        goCuenta,
+        logout,
       }
     },
   });

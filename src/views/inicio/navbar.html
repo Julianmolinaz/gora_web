@@ -8,30 +8,56 @@
       id="nav-logo"
     >
   </div>
-    <span class="material-icons-outlined nav__menu-icon" id="nav__menu-icon_">
+    <span
+      class="material-icons-outlined nav__menu-icon"
+      id="nav__menu-icon_"
+      @click="showMenuMobile" 
+    >
       menu
     </span>
   </div>
 </nav>
-<div class="nav__options" id="nav-options_">
+<div
+  :class="['nav__options', openMenuMobile ? 'nav__options--active' : '']"
+  id="nav-options_"
+>
   <a class="nav__options-item" href="/">Inicio</a>
   <a class="nav__options-item" href="/nosotros">Nosotros</a>
   <a class="nav__options-item" href="/contacto">Contáctanos</a>
-  <a class="nav__options-item" href="/solicitudes/create">Solicitar</a>
-  <a href="#" class="nav__options-item cuenta"></a>
-  <a class="nav__options-item login" href="#">Ingresar</a>
+  <a
+    v-if="sessionSt.el"
+    href="#"
+    class="nav__options-item"
+  >
+    Ir a mi cuenta
+  </a>
+  <a
+    v-if="!sessionSt.el"
+    href="#"
+    class="nav__options-item login"
+  >
+    Ingresar
+  </a>
+  <a
+    v-else
+    href="#"
+    class="nav__options-item login"
+    @click.stop.prevent="logout"
+  >
+   Salir 
+  </a>
   <div class="nav__options-item">
     <div class="nav__social-network">
       <a href="https://www.facebook.com/inversionesgora" target="_blank">
-		<img src="iconos/facebook-square.svg" alt="facebook">
+		<img src="/iconos/facebook-square.svg" alt="facebook">
 	  </a>
       <a href="https://www.instagram.com/inversiones.gora/" target="_blank">
-		<img src="iconos/instagam-square.svg" alt="instagram">
+		<img src="/iconos/instagram-square.svg" alt="instagram">
 	  </a>
       <a href="https://wa.me/3207809668" target="_blank">
 		<img
 		  src="/iconos/whatsapp.png"
-		  alt="instagram"
+		  alt="icono whatsapp"
 		  style="
 			width:3.5rem;
 			height:3.5rem;
@@ -58,14 +84,29 @@
         <a href="/" class="desk-nav__options-item">Inicio</a>
         <a href="/nosotros" class="desk-nav__options-item">Nosotros</a>
         <a href="/contacto" class="desk-nav__options-item">Contáctanos</a>
-        <a href="/solicitudes/create" class="desk-nav__options-item">Solicitar</a>
-        <a href="#" class="desk-nav__options-item cuenta"></a>
         <a
+          v-if="sessionSt.el"
+          href=""
+          class="desk-nav__options-item cuenta"
+          @click.stop.prevent="goCuenta"
+        >
+          Ir a mi cuenta
+        </a>
+        <a
+          v-if="!sessionSt.el"
           href=""
           class="desk-nav__options-item login"
           @click.stop.prevent="loginSt.showLogin(true)"
         >
           Ingresar
+        </a>
+        <a
+          v-else
+          href=""
+          class="desk-nav__options-item login"
+          @click.stop.prevent="logout"
+        >
+          Salir
         </a>
       </div>
       <div class="desk-nav__social-network">

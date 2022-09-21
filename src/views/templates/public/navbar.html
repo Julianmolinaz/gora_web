@@ -9,12 +9,19 @@
       id="nav-logo"
     >
   </div>
-    <span class="material-icons-outlined nav__menu-icon" id="nav__menu-icon_">
+    <span
+        class="material-icons-outlined nav__menu-icon"
+        id="nav__menu-icon_"
+        @click="showMenuMobile" 
+    >
       menu
     </span>
   </div>
 </nav>
-<div class="nav__options" id="nav-options_">
+<div
+  :class="['nav__options', openMenuMobile ? 'nav__options--active' : '']"
+  id="nav-options_"
+>
   <a class="nav__options-item" href="/">Inicio</a>
   <a class="nav__options-item" href="/nosotros">Nosotros</a>
   <a class="nav__options-item" href="/contacto">Contáctanos</a>
@@ -75,7 +82,7 @@
         </a>
         <a
           v-else
-          href="#"
+          href=""
           class="desk-nav__options-item login"
           @click.stop.prevent="logout"
         >
