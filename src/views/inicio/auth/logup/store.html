@@ -19,8 +19,8 @@ const logupStore = defineStore("logup", {
   actions: {
     loginSolicitud() {
       this.showLogup(false);
-      this.login_.showLogin(true); 
-      this.inicio_.mode = 'register';
+      this.login_.showLogin(true, "register"); 
+      //this.inicio_.mode = 'register';
     },
 
     showLogup(action) {

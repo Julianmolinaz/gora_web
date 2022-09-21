@@ -11,23 +11,25 @@ const loginStore = defineStore("login", {
     el: new Login(),
     inicio_: inicioStore(),
     terminos_: terminosStore(),
+    mode: "access",
   }),
   getters: {},
   actions: {
     /**
      *  @param {boolean} true: open | false: close
      **/
-    showLogin(action) {
+    showLogin(action, mode) {
       this.show = action;
+      this.mode = mode;
     },
 
     async onSubmit() {
       try {
         this.validate();
-        if (this.inicio_.mode === "register") {
+        if (this.mode === "register") {
           await this.loginRegister();
         }
-        if (this.inicio_.mode === "access") {
+        if (this.mode === "access") {
           await this.loginAccess();
         }
       } catch (err) {
@@ -37,7 +39,11 @@ const loginStore = defineStore("login", {
 
     async loginAccess() {
       const res = await axios.post("/api/auth/login", this.el);
-      console.log({ res });
+      if (res.data.success) {
+        alertify.notify(res.data.msg, "success", 2, () => {
+          window.location.href = `${URL}/cuenta`;
+        });
+      }
     },
 
     async loginRegister() {
@@ -57,7 +63,7 @@ const loginStore = defineStore("login", {
           this.terminos_.showTerminos(true);
         }
       } else {
-        alertify.alert("Erro", res.data.msg); 
+        alertify.alert("Error", res.data.msg); 
       }
     },
 
