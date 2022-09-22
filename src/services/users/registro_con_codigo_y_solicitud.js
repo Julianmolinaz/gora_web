@@ -104,6 +104,7 @@ const RegistroConCodigoYSolicitud = function (
     const data = {
       cliente_id: this.cliente.id,
       tipo_doc: this.cliente.tipo_doc,
+      email: this.cliente.email,
       primer_nombre: this.cliente.primer_nombre,
       segundo_nombre: this.cliente.segundo_nombre,
       primer_apellido: this.cliente.primer_apellido,

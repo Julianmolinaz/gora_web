@@ -14,7 +14,6 @@ class CrearCliente {
       this.validarCliente();
       await this.validarClienteUnico();
       await this.salvarCliente(); 
-      // asignarlo a usuario
     } catch (error) {
       throw error;
     }
@@ -33,7 +32,7 @@ class CrearCliente {
       num_doc: this.data.num_doc
     });
 
-    if (cliente.length) {
+    if (cliente) {
       throw new UniqueError("Ya existe un cliente registrado");
     } 
   }
