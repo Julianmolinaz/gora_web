@@ -53,6 +53,10 @@
         navOptionsMobile.classList.toggle("nav__options--active"); 
       }
 
+      const goInicio = () => {
+        window.location.href = "/";
+      }
+
       onMounted(() => {
         sessionSt.getSession();
         navOptionsMobile = document.querySelector("#nav-options_")
@@ -68,6 +72,7 @@
         goCuenta,
         logout,
         openLoginModal,
+        goInicio,
       }
     },
   });

@@ -47,6 +47,10 @@
         }
       }
 
+      const goInicio = () => {
+        window.location.href = "/";
+      }
+
       onMounted(() => {
         sessionSt.getSession();
         navOptionsMobile = document.querySelector("#nav-options_")
@@ -64,6 +68,7 @@
         loginSt,
         logout,
         goCuenta,
+        goInicio
       }
     }
   });
