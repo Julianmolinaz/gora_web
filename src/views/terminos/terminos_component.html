@@ -1,0 +1,160 @@
+<script type="text/x-template" id="terminos-template">
+  <section :class="['modal', terminosSt.show ? 'modal--show': '']">
+    <div class="modal__container">
+      <div class="modal__header">
+        <div class="modal--close" @click="terminosSt.showTerminos(false)">
+          &otimes;
+        </div>
+        <img src="/imagenes/logo.png" alt="logo" class="modal__logo">
+        <span class="modal__titulo" style="text-align:center;">
+          Aceptar términos y condiciones
+        </span>
+      </div>
+      <div class="modal__content">
+        <p class="acep-term-txt">
+          Para aceptar terminos y condiciones de click en "Recibir código",
+          a cambio recibirá un mensaje de texto con el código, por favor digitelo en el cuadro
+        </p>
+        <a href="#" @click="terminosSt.leerTerminos" class="link">
+          Leer términos y condiciones
+        </a>
+        <div class="terminos-form">
+          <input
+            type="number"
+            class="terminos__input-form"
+            id="input"
+            v-model="terminosSt.codigo"
+            @input="terminosSt.leerCodigo"
+          />
+        </div>
+        <div class="modal__timer" v-if="terminosSt.segundos > 0">
+          <span>[[ terminosSt.segundos ]] seg</span>
+          <span>Para solicitar su nuevo código</span>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <div
+          v-if="loader"
+          class="loader"
+          style="width:4rem; height:4rem"
+        ></div>
+        <!--
+        <a
+          href="#"
+          class="bt bt__sun"
+          @click="aceptarTerminos"
+          v-else-if="!loader && terminosSt.codigoValido"
+        >
+          Envíar código
+        </a>
+        -->
+        <a
+          href="#"
+          class="bt"
+          v-if="!terminosSt.segundos" 
+          @click="terminosSt.pedirCodigo"
+        >
+          Recibir código
+        </a>
+      </div>
+    </div>
+    <text-component></text-component>
+  </section>
+</script>
+
+{% include "./text_component.html" %}
+
+<script>
+   const objTerminos = {
+    template: "#terminos-template",
+    name: "TerminosComponent",
+    components: {
+      TextComponent: objText,
+    },
+    delimiters: ['[[', ']]'],
+    setup() {
+      const terminosSt = terminosStore();
+      const loader = ref(false);
+
+      let showAceptar = ref(true);
+
+      const aceptarTerminos = async (event) => {
+        loader.value = true;
+        event.preventDefault();
+
+        if (terminosSt.codigo.toString().length == 4) {
+          //await clienteSt.crearUsuarioFlujoInicial(codigo.value);
+          closeLoader();
+        } else {
+          closeLoader(
+            () => alertify.alert("Error", "Se requiere un codigo válildo")
+          );
+        }
+      }
+
+      const closeLoader = (callback) => {
+        setTimeout(() => {
+          loader.value = false;
+          callback();
+        }, 300);
+      } 
+
+      return {
+        terminosSt,
+        showAceptar,
+        loader,
+        aceptarTerminos,
+      };
+    }
+  };
+</script>
+<style scoped>
+  .modal__container {
+    max-width: 50rem;
+    color: var(--medium);
+  }
+  .modal__content {
+    font-family: regular;
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  .modal__timer {
+    font-family: regular;
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+  }
+  .acep-term-txt {
+    text-align: center;
+  }
+  .modal__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  .terminos-form {
+    display: flex;
+    justify-content: center;
+  }
+  .terminos__input-form {
+    height: 6rem;
+    width: 10rem;
+    font-size: 3.6rem;
+    text-align: center;
+    outline: none;
+  }
+  .bt {
+    width: fit-content;
+  }
+  .bt-reenviar {
+    font-size: 1.6rem;
+    font-family: regular;
+  }
+</style>

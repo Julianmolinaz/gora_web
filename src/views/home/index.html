@@ -24,26 +24,54 @@
     {% include "./steps.html" %}
 
     {% include "../templates/footer.html" %}
+    <aceptar-terminos></aceptar-terminos>
   </div>
   
+{% endblock %}
+{% block scripts %}
   <script src="/js/vue3.js"></script>
   <script src="/js/demi.js"></script>
   <script src="/js/pinia.js"></script>
   <script src="/js/mios/entidades/Simulador.js"></script>
   <script src="/js/mios/reglas/filters.js"></script>
+  <!-- Emit -->
+  <script src="/js/mitt.js"></script>
 
   <script>
-    const { createApp, onMounted } = Vue;
+    const { ref, createApp, onMounted } = Vue;
     const { createPinia, defineStore } = Pinia; 
+    const emitter = mitt();
   </script>
 
+  {% include "./../auth/logup.html" %}
   {% include "./../solicitud/simulador/component.html" %}
   {% include "./../solicitud/store/simulador.html" %}
+  {% include "./../terminos/aceptar_terminos.html" %}
 
   <script>
     const homeApp = createApp({
+      components: {
+        AceptarTerminos: objAceptarTerminos,
+      },
       setup() {
         const simuladorSt = simuladorStore();
+        const logup = new ModalLogup();
+
+        const solicitar = (e) => {
+          e.preventDefault();
+          const simulador_ = window.localStorage.getItem('simulador');
+          const simulador = (simulador_) ? JSON.parse(simulador_) : null;
+
+          if (simulador && simulador.valorCuota > 0) {
+            if (session) alert('terminos');
+            else logup.show();
+          } else {
+            alertify.alert(
+              'Atención',
+              'Para solicitar su crédito, por favor calcule la cuota en la calculadora'
+            );
+          }          
+        };
 
         onMounted(() => {
           // Se hace borra el storage al iniciar
@@ -53,15 +81,18 @@
 
         return {
           simuladorSt,
+          solicitar,
         }
       }
     });
 
     homeApp.config.globalProperties.$filters = misFilters; 
     homeApp.use(createPinia());
+
+    /* Providers */
+    homeApp.provide('emitter', emitter);
+
     homeApp.component("simulador-component", objSimulador);
     homeApp.mount("#home");
   </script>
-
 {% endblock %}
-

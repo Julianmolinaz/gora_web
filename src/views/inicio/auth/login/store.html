@@ -1,0 +1,83 @@
+<script>
+class Login {
+  constructor() {
+    this.num_doc = null;
+    this.password = null;
+  }
+} 
+const loginStore = defineStore("login", {
+  state: () => ({
+    show: false,
+    el: new Login(),
+    inicio_: inicioStore(),
+    terminos_: terminosStore(),
+    mode: "access",
+  }),
+  getters: {},
+  actions: {
+    /**
+     *  @param {boolean} true: open | false: close
+     **/
+    showLogin(action, mode) {
+      this.show = action;
+      this.mode = mode;
+    },
+
+    async onSubmit() {
+      try {
+        this.validate();
+        if (this.mode === "register") {
+          await this.loginRegister();
+        }
+        if (this.mode === "access") {
+          await this.loginAccess();
+        }
+      } catch (err) {
+        errorHandler(err);
+      }
+    },
+
+    async loginAccess() {
+      const res = await axios.post("/api/auth/login", this.el);
+      if (res.data.success) {
+        alertify.notify(res.data.msg, "success", 2, () => {
+          window.location.href = `${URL}/cuenta`;
+        });
+      }
+    },
+
+    async loginRegister() {
+      const res = await axios.post("/api/auth/login-solicitud", this.el);
+      if (res.data.success) {
+        this.inicio_.vector = res.data.body.vector;
+        if (JSON.stringify(this.inicio_.vector) === "[1,1,1]") {
+          alertify.alert(
+            "Atención", 
+            `Querido cliente, actualmente usted tiene solicitudes pendientes,
+              a continuación será redirigido a su cuenta.`,
+            () => { window.location.href = `${URL}/cuenta` }
+          );
+        }
+        else {
+          this.showLogin(false);
+          this.terminos_.showTerminos(true);
+        }
+      } else {
+        alertify.alert("Error", res.data.msg); 
+      }
+    },
+
+    validate() {
+      let errorStr = "";
+      if (!this.el.num_doc) {
+        errorStr += 'El documento es requerido <br>';
+      }
+      if (!this.el.password) {
+        errorStr += 'La contraseña es requerida';
+      }
+
+      if (errorStr.length) throw errorStr;
+    }
+  }
+});
+</script>

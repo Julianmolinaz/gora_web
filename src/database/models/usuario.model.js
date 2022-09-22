@@ -11,7 +11,7 @@ const Usuario = local.define("Usuario", {
   primer_nombre: {
     type: DataTypes.STRING,
     field: "primer_nombre",
-    allowNull: false,
+    allowNull: true,
     set(value) {
       this.setDataValue("primer_nombre", capitalizar(value.trim()));
     }
@@ -24,7 +24,7 @@ const Usuario = local.define("Usuario", {
   },
   primer_apellido: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     set(value) {
       this.setDataValue("primer_apellido", capitalizar(value.trim()));
     }
@@ -41,7 +41,7 @@ const Usuario = local.define("Usuario", {
       'Pase Diplomático','Carnet Diplomático','Tarjeta de Identidad',
       'Rut','Número único de Identificación Personal','Nit de Extranjería'
     ),
-    defaultValue: "Cedular Ciudadanía"
+    allowNull: true,
   },
   num_doc: {
     type: DataTypes.STRING,
@@ -53,7 +53,7 @@ const Usuario = local.define("Usuario", {
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   password: {
     type: DataTypes.TEXT,

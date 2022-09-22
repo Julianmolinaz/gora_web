@@ -19,6 +19,16 @@ class CodigosRepository {
     return result;
   }
 
+  static async findAllSome(query) {
+    const result = await Codigo.findAll({ where: query }); 
+    return result;
+  }
+
+  static async findOneSome(query) {
+    const result = await Codigo.findOne({ where: query }); 
+    return result;
+  }
+
   static async update(codigoId, data, transaction = null) {
     const result = Codigo.update(data, {
       where: { id: codigoId },

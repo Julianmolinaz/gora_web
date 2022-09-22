@@ -1,65 +1,70 @@
 <script>
-  class Simulador {
-    constructor(payload) {
-      this.productoId = payload.ProductoId || "";
-      this.tipoVehiculoId = payload.tipoVehiculoId || "";
-      this.modelo = payload.modelo || "";
-      this.cilindraje = payload.cilindraje || "";
-      this.periodo = payload.periodo || "";
-      this.numCuotas = payload.numCuotas || "";
-      this.precio = payload.precio || "";
-      this.valorCuota = payload.valorCuota || "";
-    }
-  }
-
-  const simuladorObjStore = {
+  const simuladorSt = defineStore("simulador", {
     state: () => ({
+      localStorage: window.localStorage,
+      loader: false,
       insumos: {},
-      simulador: new Simulador({}),
-      valorCuota: 0,
-      loader: true,
+      simulador: this.localStorage.simulador
+        ? JSON.parse(this.localStorage.simulador)
+        : new Simulador({}),
     }),
     getters: {
       getCuotas() {
         if (
-            this.simulador.numCuotas &&
-            this.simulador.periodo === "Quincenal"
+          this.simulador.numCuotas &&
+          this.simulador.periodo === "Quincenal"
         ) {
-            return this.simulador.numCuotas * 2;
-          } else {
-            return this.simulador.numCuotas;
-          }
+          return this.simulador.numCuotas * 2;
+        } else {
+          return this.simulador.numCuotas;
+        }
       }
     },
     actions: {
+      resetTotales() {
+        this.simulador.valorCuota = 0;
+        this.setSimulador();
+      },
       initCuotas() {
-        this.simulador.numCuotas = Math.floor(this.insumos.maxCuotas / 2);
+        if (!this.simulador.numCuotas) {
+          this.simulador.numCuotas = Math.floor(this.insumos.maxCuotas / 2);
+        }
       },
       incrementar() {
         if (this.simulador.numCuotas >= this.insumos.maxCuotas) {
           return false;
         }
+        this.resetTotales();
         this.simulador.numCuotas++;
       },
       decrementar() {
         if (this.simulador.numCuotas <= this.insumos.minCuotas) {
           return false;
         }
+        this.resetTotales();
         this.simulador.numCuotas--;
       },
-      calcularCuota(e) {
+      async calcularCuota(e) {
         e.preventDefault();
-        this.getValorCuota();
+        this.setSimulador();
+        await this.getValorCuota();
       },
-      getValorCuota() {
-        axios.post("/api/simulador/get-valor-cuota", this.simulador)
-        .then((res) => {
-          this.valorCuota = res.data.valorCuota;
-        })
-        .catch((err) => {
+      setSimulador() {
+        this.localStorage.setItem("simulador", JSON.stringify(this.simulador));
+      },
+      async getValorCuota() {
+        this.loader = true;
+        try {
+          const res = await axios.post("/api/simulador/get-valor-cuota", this.simulador)
+            setTimeout(() => {
+              this.loader = false;
+              this.simulador.valorCuota = res.data.valorCuota;
+              this.setSimulador();
+            }, 500);
+        } catch (err) {
           const error = err.response.data.error;
-          alert(error);
-        });
+          alertify.alert("Ocurrió un error", error);
+        }
       },
       getInsumos() {
         axios.get("/api/simulador/insumos")
@@ -69,5 +74,5 @@
           })
       }
     }
-  }
+  });
 </script>

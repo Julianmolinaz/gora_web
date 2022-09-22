@@ -1,4 +1,8 @@
-const Login = require("../services/auth/login");
+const { Login } = require("../services/auth");
+const { LoginConTipoDeUsuario } = require("../services/auth");
+const { reply } = require('../helpers/response');
+
+const cookieParser = require("cookie-parser");
 
 class AuthController {
   static index(req, res) {
@@ -10,18 +14,42 @@ class AuthController {
       const data = req.body;
       const login = new Login(data);
       const token = await login.exec();
-
-      return res
-        .cookie("access_token", token)
-        .status(200)
-        .json({ success: true});
+      
+      res.cookie("access_token", token);
+      reply(req, res, {
+        msg: "Ingreso exitoso"
+      });
     } catch (error) {
       console.error(error);
-      return res.json({
+      reply(req, res, {
         success: false,
-        msg: "Credenciales invalidas"
+        msg: "Credenciales invalidas, verifique su documento y contraseña"
       });
     }
+  }
+
+  static async loginSolicitud(req, res) {
+    try {
+      const data = req.body;
+      const login = new LoginConTipoDeUsuario(data); 
+      await login.exec();
+
+      res.cookie("access_token", login.token);
+
+      reply(req, res, {
+        body: {
+          vector: login.vector
+        }
+      });
+    } catch (err) {
+      console.log(err);
+      reply(req, res, {
+        status: err.status,
+        success: false,
+        body: err,
+        msg: "Validación de usuario incorrecta"
+      });
+    } 
   }
 
   static async logout(req, res) {

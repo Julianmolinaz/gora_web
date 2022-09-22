@@ -104,7 +104,7 @@
   padding: 0 1rem;
 }
 .steps__submit {
-  margin-top: 4rem;
+  margin: 4rem 0;
   display: flex;
   justify-content: center;
   margin-left: auto;

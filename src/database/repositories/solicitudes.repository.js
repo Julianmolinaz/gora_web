@@ -1,5 +1,6 @@
 const Solicitud = require("../models/solicitud.model");
-//const mainConexion = require("../conexiones/main.conexion");
+const { QueryTypes } = require("sequelize");
+const main = require("../conexiones/main.conexion");
 
 class SolicitudesRepository {
 
@@ -67,6 +68,35 @@ class SolicitudesRepository {
     });
 
     return solicitudes;
+  }
+
+  static async listPorNumDoc(num_doc) {
+    const solicitudes = await Solicitud.findAll({
+      where: { num_doc },
+      order: [[ 'created_at', 'DESC' ]]
+    });
+
+    return solicitudes;
+  }
+
+  static async ultimaSolicitudNumDoc(num_doc) {
+    console.log("ultima solicitud");
+    const solicitud = await main.query(
+      `
+        SELECT 
+          precreditos.aprobado,
+          creditos.estado
+        FROM precreditos
+        INNER JOIN clientes ON precreditos.cliente_id = clientes.id
+        LEFT JOIN creditos ON precreditos.id = creditos.precredito_id
+        WHERE clientes.num_doc = ${num_doc}
+        ORDER BY precreditos.id DESC
+        LIMIT 1
+      `,
+      { type: QueryTypes.SELECT }
+    );    
+
+    return solicitud ? solicitud[0] : null;
   }
 }
 

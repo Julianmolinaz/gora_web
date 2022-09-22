@@ -1,24 +1,20 @@
-{% extends "../templates/main.html" %}
+{% extends "../templates/public/main.html" %}
 
 {% block adicionalHeader %}
-  
   <link
     rel="stylesheet"
-    href="./css/contacto/movil.css"
+    href="/css/contacto/movil.css"
   >
   <link
     rel="stylesheet"
-    href="./css/contacto/tablet.css"
+    href="/css/contacto/tablet.css"
     media="screen and (min-width: 768px)"
   >
   <link
     rel="stylesheet"
-    href="./css/contacto/desktop.css"
+    href="/css/contacto/desktop.css"
     media="screen and (min-width: 992px)"
   >
-  <!-- Vue 3 -->
-  <script src="../../../js/vue3.js"></script>
-
 {% endblock %}
 
 {% block title %} Contacto GORA {% endblock %}
@@ -30,14 +26,18 @@
       {% include "./general.html" %}
       </section>
       <section class="contactos">
-      {% include "./contactos.html" %}
+        <div id="app-contactos">
+          <form-contactos-component />
+        </div>
       </section>
     </div>
-    <div class="mensaje">
-      {% include "./mensaje.html" %}
+    <div class="mensaje" id="app-mensaje">
+      <mensaje-component />
     </div>  
   </div>
-  
-  {% include "../templates/footer.html" %}
+{% endblock %}
 
+{% block scripts %}
+  {% include "./contactos.html" %}
+  {% include "./mensaje.html" %}
 {% endblock %}

@@ -1,0 +1,193 @@
+<script>
+const terminosStore = defineStore('terminos', {
+  state: () => ({
+    SIZE_COD: 4,
+    NUM_SEG: '{{ SEG_CODIGO_TERMINOS }}',
+    show: false,
+    showTxt: false,
+    codigo: '',
+    codigoValido: false,
+    segundos: null,
+    login_: loginStore(),
+    logup_: logupStore(),
+    inicio_: inicioStore(),
+    simulador_: simuladorSt(),
+  }),
+  getters: {},
+  actions: {
+
+    showTerminos(action) {
+      this.show = action;
+      this.resetCodigo();
+      if (action) {
+        document.querySelector('#input').focus();
+      }
+    },
+
+    showText(action) {
+      this.showTxt = action;
+    },
+
+    resetCodigo() {
+      this.codigo = '';  
+    },
+
+    leerTerminos() {
+      this.showText(true); 
+    },
+
+    cuentaRegresiva() {
+      this.segundos = JSON.parse(JSON.stringify(this.NUM_SEG));
+      let interval;
+      interval = setInterval(() => {
+        this.segundos--;
+        if (this.segundos <= 0) clearInterval(interval);
+      }, 1000);
+    },
+
+    async pedirCodigo() {
+      try {
+        if (this.inicio_.vector[0]) {
+          const res = await this.pedirCodigoUsuarioExistente();
+        } else {
+          const res = await this.pedirCodigoUsuarioNuevo();
+        }
+        this.resetCodigo();
+        this.cuentaRegresiva();
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async leerCodigo() {
+      const size = this.codigo.toString().length; 
+      if (size === this.SIZE_COD) {
+        this.codigoValido = true; 
+        await this.enviarCodigo();
+      } else if (size > this.SIZE_COD) {
+        this.codigo = parseInt(
+          this.codigo.toString().slice(0, this.SIZE_COD)
+        );
+      } else {
+        this.codigoValido = false; 
+      }
+    },
+
+    async pedirCodigoUsuarioNuevo() {
+      return await axios.post('/api/terminos/generar-codigo', {
+        num_doc: this.logup_.credentials.num_doc,
+        movil: this.logup_.credentials.movil
+      });
+    },
+
+    async pedirCodigoUsuarioExistente() {
+      return await axios.get('/api/terminos/generar-codigo');
+    },
+
+    async enviarCodigo() {
+      try {
+        let res = null;
+        const generalData = {
+          vector: this.inicio_.vector,
+          codigo: this.codigo,
+          dataSimulador: this.simulador_.simulador
+        };
+
+        /*****************
+         * Mode access
+         ****************/
+
+        if (this.inicio_.vector[0] == 1) {
+          console.log("registro usuario existente");
+          res = await axios.post(
+            '/api/users/validate-code',
+            { ...generalData, dataUsuario: this.login_.el }
+          );
+          if (res.data.success) {
+            const response = this.getResponse(res);
+            alertify.alert(response.title, response.content, () =>
+              window.location.href = response.route 
+            );
+          }
+        }
+
+        /*****************
+         * Mode register
+         ****************/
+
+        else if (this.inicio_.vector[0] == 0){
+          res = await axios.post(
+            '/api/users/register/', {
+              ...generalData,
+              dataUsuario: this.logup_.credentials,
+            }
+          );
+          if (res.data.success) {
+            const response = this.getResponse(res);
+            alertify.alert(response.title, response.content, () =>
+              window.location.href = response.route 
+            );
+          }
+        } else {
+          console.error("No existe el vector de estado");
+          alert("Ha ocurrido un error");
+        }
+      } catch (err) {
+        this.errorHandler(err);    
+      }
+    },
+
+    getResponse(res = null) {
+      console.log({ res });
+      const strVector = JSON.stringify(this.inicio_.vector);
+      const msg = {
+        title: "Validación exitosa",
+        content: null,
+        route: null
+      };
+
+      if (strVector == '[0,0,0]') {
+        msg.content = `Su registro se realizó exitosamente, 
+            ingrese la información requerida luego de dar click en el boton`;
+        msg.route = `${URL}/solicitudes/create`;
+      }
+      else if (strVector == '[0,1,0]') {
+        msg.content = `Querido cliente, usted fue registrado en nuestro portal, 
+            a continuación ingrese la información de sus referencias`; 
+        msg.route = `${URL}/referencias/create/${res.data.body.solicitudId}`;
+      } 
+      else if (strVector == '[0,1,1]') {
+        msg.content = `Querido cliente, usted ha sido registrado dentro de nuestro portal, 
+            actualmente usted tiene solicitudes pendientes, a continuación será redirigido a su cuenta.`; 
+        msg.route = `${URL}/cuenta`;
+      }
+      else if (strVector == '[1,0,0]') {
+        msg.content = `Querido cliente, ingrese la información requerida luego de dar click en el boton`;
+        msg.route = `${URL}/solicitudes/create`;
+      }
+      else if (strVector == '[1,1,0]') {
+        msg.content = `Querido cliente, a continuación ingrese la información de sus referencias`;
+        msg.route = `${URL}/referencias/create/${res.data.body.solicitudId}`;
+      }
+      return msg;
+    },
+
+    errorHandler(err) {
+      if (err && err.response) {
+          console.log("sii", err)
+        const myError = err.response.data;
+        if (myError.body.name === 'ValidaError') {
+          console.log(myError.body.message);
+        } else if (myError.body.name === 'SimpleError'){
+          alert(myError.body.message);
+        } else {
+          alertify.alert('Ocurrió un error, comuniquese con un asesor.');
+        }
+      } else {
+          console.error("sino", err.message);
+        alertify.alert('Error', 'Ocurrió un error, comuniquese con un asesor.');
+      }
+    }
+  }
+});
+</script>

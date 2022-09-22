@@ -1,0 +1,40 @@
+<script>
+  const sessionStore = defineStore("session", {
+    state: () => ({
+      el: null,
+      cookieName: 'access_token',
+    }),
+    getters: {},
+    actions: {
+      getCookie() {
+        const cookieArr = document.cookie.split(";");
+        for (let i = 0; i < cookieArr.length; i++) {
+          let cookiePair = cookieArr[i].split("=");
+          if (this.cookieName == cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]); 
+          }
+        }
+        return null;
+      },
+
+      parseJwt(token) {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+      },
+
+      getSession() {
+        const token = this.getCookie();
+        if (token) {
+          this.el = this.parseJwt(token);
+        } else {
+          this.el = null;
+        }
+      }
+    }
+  });
+</script>

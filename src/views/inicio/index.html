@@ -1,0 +1,18 @@
+{% extends  "./template.html" %}
+
+{% block title %} Inicio Gora {% endblock %}
+
+{% block content %}
+<div id="home">
+  {% include "./banner.html" %}  
+  {% include "./steps.html" %}  
+  {% include "../templates/footer.html" %}  
+  <login-component></login-component>
+  <logup-component></logup-component>
+  <terminos-component></terminos-component>  
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {% include "./adicional.html" %}
+{% endblock %}

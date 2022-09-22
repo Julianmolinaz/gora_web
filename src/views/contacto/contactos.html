@@ -1,9 +1,5 @@
 <div id="app-contactos">
-  <form-contactos-component />
 </div>
-
-<script src="../../../js/vue3.js"></script>
-<script src="../../../js/axios.min.js"></script> 
 
 <script type="text/x-template" id="form-contactos-template">
   <form action="">
@@ -85,16 +81,15 @@
 </script>
 
 <script>
-  const { createApp } = Vue;
-  const app = createApp({ 
+  const appContacto = createApp({ 
 	  setup() {} 
   });
-  app.component("contacto-component", {
+  appContacto.component("contacto-component", {
     template: "#contacto-template",
     delimiters: ['[[', ']]'],
     props: ['info'],
   });
-  app.component("form-contactos-component", {
+  appContacto.component("form-contactos-component", {
 	template: "#form-contactos-template",
 	  delimiters: ['[[', ']]'],
 	  data: () => ({
@@ -122,5 +117,5 @@
 	  },
   });
   
-  app.mount("#app-contactos");
+  appContacto.mount("#app-contactos");
 </script>

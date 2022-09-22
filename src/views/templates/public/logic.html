@@ -1,0 +1,54 @@
+<script>
+  const { ref, createApp, onMounted } = Vue;
+  const { createPinia, defineStore } = Pinia;
+</script>
+
+{% include "../../session/store.html" %}
+{% include "../../login/store.html" %}
+
+<script>
+  const navbarApp = createApp({
+    delimiters: ['[[', ']]'],
+    components: {},
+    setup() {
+      const sessionSt = sessionStore();
+      const loginSt = loginStore();
+      const openMenuMobile = ref(false);
+      let navOptionsMobile = null;
+
+      const goCuenta = () => {
+        window.location.href = `${URL}/cuenta`;
+      }
+
+      const logout = () => {
+        window.location.href = `${URL}/auth/logout`;         
+      }
+
+      const openLoginModal = () => {
+        loginSt.showLogin(true, 'access')       
+        navOptionsMobile.classList.remove("nav__options--active");
+      }
+
+      const showMenuMobile = () => {
+        navOptionsMobile.classList.toggle("nav__options--active"); 
+      }
+
+      onMounted(() => {
+        sessionSt.getSession();
+        navOptionsMobile = document.querySelector("#nav-options_")
+      });
+
+      return {
+        openMenuMobile,
+        showMenuMobile,
+        openLoginModal,
+        sessionSt,
+        loginSt,
+        logout,
+        goCuenta,
+      }
+    }
+  });
+  navbarApp.use(createPinia());
+  navbarApp.mount('#navbar-app');
+</script>

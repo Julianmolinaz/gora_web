@@ -1,0 +1,81 @@
+<script>
+  const { ref, createApp, onMounted } = Vue;
+  const { createPinia, defineStore } = Pinia;
+  const emitter = mitt();
+</script>
+
+<!-- STORE -->
+{% include "./../simulador/store.html" %}
+{% include "./auth/login/store.html" %}
+{% include "./auth/logup/store.html" %}
+{% include "./../terminos/store.html" %}
+{% include "./../session/store.html" %}
+{% include "./store/inicio.html" %}
+
+<!-- COMPONENTS -->
+{% include "./../simulador/component.html" %}
+{% include "./auth/login/login_component.html" %}
+{% include "./auth/logup/logup_component.html" %}
+{% include "./../terminos/terminos_component.html" %}
+
+<script>
+  const app = createApp({
+    components: {
+      SimuladorComponent: objSimulador,
+      LoginComponent: objLogin,
+      LogupComponent: objLogup,
+      TerminosComponent: objTerminos,
+    },
+    setup() {
+      const loginSt = loginStore();
+      const logupSt = logupStore();
+      const terminosSt = terminosStore();
+      const sessionSt = sessionStore();
+      const inicioSt = inicioStore();
+      let navOptionsMobile = null; 
+
+      const goCuenta = () => {
+        window.location.href = `${URL}/cuenta`;
+      }
+
+      const logout = () => {
+        window.location.href = `${URL}/auth/logout`;         
+      }
+
+      const openLoginModal = () => {
+        loginSt.showLogin(true, 'access');  
+        navOptionsMobile.classList.remove("nav__options--active");
+      }
+
+      const openMenuMobile = ref(false);
+
+      const showMenuMobile = () => {
+        navOptionsMobile.classList.toggle("nav__options--active"); 
+      }
+
+      onMounted(() => {
+        sessionSt.getSession();
+        navOptionsMobile = document.querySelector("#nav-options_")
+      });
+
+      return {
+        openMenuMobile,
+        showMenuMobile,
+        sessionSt,
+        loginSt,
+        logupSt,
+        inicioSt,
+        goCuenta,
+        logout,
+        openLoginModal,
+      }
+    },
+  });
+  /* Global properties */
+  app.config.globalProperties.$filters = misFilters; 
+  /* Providers */
+  app.provide('emitter', emitter);
+  /* Use */
+  app.use(createPinia());
+  app.mount('#app');
+</script>

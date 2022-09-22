@@ -19,7 +19,7 @@ async function sendSms(from, to, text) {
     };
     if (JSON.parse(process.env.SMS_SEND)) {
       const res = await axios.post(url, body, meta);
-      //console.log(res);
+      return (res.status == 200) ? true : false; 
     } else {
       return false;
     }

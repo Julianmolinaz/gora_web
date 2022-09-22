@@ -1,0 +1,75 @@
+<script>
+class Credentials {
+  constructor() {
+    this.num_doc = null;
+    this.movil = null;
+    this.password = null;
+    this.confirm = null;
+  }
+}
+
+const logupStore = defineStore("logup", {
+  state: () => ({
+    credentials: new Credentials(),
+    show: false,
+    login_: loginStore(),
+    inicio_: inicioStore(),
+  }),
+  getters: {},
+  actions: {
+    loginSolicitud() {
+      this.showLogup(false);
+      this.login_.showLogin(true, "register"); 
+      //this.inicio_.mode = 'register';
+    },
+
+    showLogup(action) {
+      this.show = action;
+    },
+
+    async getTipoUsuario() {
+      try {
+        await this.validation();
+        const res = await axios.post("/api/users/es-usuario", this.credentials);
+        return res.data.body.esUsuario;
+      } catch (err) {
+        throw err;
+      }
+    },
+
+    async onSubmit() {
+      if (! await this.validation()) return false;
+      try {
+        const res = await axios.post("/api/users", this.credentials);
+        alertify.notify(
+          "Se registró el usuario exitosamente",
+          "success", 3, () => {}
+        );
+      } catch (err) {
+        errorHandler(err);
+      }
+    },
+
+    async validation() {
+      let str = '';
+      if (!this.credentials.num_doc) {
+        str += 'El número de documento es requerido<br>';
+      }
+      if (!this.credentials.movil) {
+          str += 'El teléfono celular es requerido<br>';
+      }
+      if (!this.credentials.password) {
+        str += 'La contraseña es requerida<br>';
+      }
+      if (!this.credentials.confirm) {
+          str += 'La confirmación de la contraseña es requerida<br>';
+      }
+      if (this.credentials.password !== this.credentials.confirm) {
+        str += 'La confirmación de la contraseña no coincide'
+      }
+
+      if (str.length) throw str;
+    },
+  }
+});
+</script>

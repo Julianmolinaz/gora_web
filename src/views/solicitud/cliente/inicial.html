@@ -72,8 +72,13 @@
             </div>
             <div class="group">
               <!-- NUM_DOC -->
-              <div class="input-group">
-                <input type="text" v-model="clienteSt.el.num_doc" name="num_doc">
+              <div class="input-group input-group--disabled">
+                <input
+                  type="text"
+                  v-model="clienteSt.el.num_doc"
+                  name="num_doc"
+                  disabled
+                >
                 <label for="num_doc"># Identificación*</label>
               </div>
               <span class="helper-txt error" v-if="v$.num_doc.$error">
@@ -84,8 +89,13 @@
           <div class="col-2">
             <div class="group">
               <!-- MOVIL -->
-              <div class="input-group">
-                <input type="tel" v-model="clienteSt.el.movil" name="movil">
+              <div class="input-group input-group--disabled">
+                <input
+                  type="tel"
+                  v-model="clienteSt.el.movil"
+                  name="movil"
+                  disabled
+                >
                 <label for="movil">Teléfono celular*</label>
               </div>
               <span class="helper-txt" v-if="!v$.movil.$error">
@@ -125,58 +135,6 @@
               </div>
               <span class="helper-txt error" v-if="v$.email.$error">
                 [[ v$.email.$errors[0].$message ]]
-              </span>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="group">
-              <!-- CONTRASEÑA -->
-              <div class="input-group">
-                <input
-                  :type="showPassword ? 'text' : 'password'"
-                  v-model="clienteSt.el.password"
-                  name="password"
-                />
-                <a
-                  href=""
-                  class="material-icons-outlined input-group__icon"
-                  @click.prevent="visibilityPassword()"
-                >
-                  <span v-if="showPassword">visibility</span>
-                  <span v-else>visibility_off</span>
-                </a>
-                <label for="password">Contraseña*</label>
-              </div>
-              <span class="helper-txt" v-if="!v$.password.$error">
-                La constraseña le servirá para ingresar a la plataforma y consultar su estado de cuenta 
-              </span>
-              <span class="helper-txt error" v-if="v$.password.$error">
-                [[ v$.password.$errors[0].$message ]]
-              </span>
-            </div>
-            <div class="group">
-              <!-- CONFIRMACION CONTRASEÑA -->
-              <div class="input-group">
-                <input
-                  :type="showConfirm ? 'text' : 'password'"
-                  v-model="clienteSt.el.confirm"
-                  name="confirm"
-                />
-                <a
-                  href=""
-                  class="material-icons-outlined input-group__icon"
-                  @click.prevent="visibilityConfirm()"
-                >
-                  <span v-if="showConfirm">visibility</span>
-                  <span v-else>visibility_off</span>
-                </a>
-                <label for="confirm">Confirmar*</label>
-              </div>
-              <span class="helper-txt" v-if="!v$.confirm.$error">
-                Confirme su contraseña
-              </span>
-              <span class="helper-txt error" v-if="v$.confirm.$error">
-                [[ v$.confirm.$errors[0].$message ]]
               </span>
             </div>
           </div>
@@ -247,14 +205,6 @@
             required: helpers.withMessage("El correo electrónico es requerido", required),
             email: helpers.withMessage("Correo con formato incorrecto", email),
           },
-          password: {
-            required: helpers.withMessage("La contraseña es requerida", required),
-            minLength: helpers.withMessage("Se requiren mínimo 6 caracteres", minLength(6)),
-          },
-          confirm: {
-            required: helpers.withMessage("La confirmación de la contraseña es requerida", required),
-            sameAsPassword: helpers.withMessage("La confirmación no coincide", sameAs(clienteSt.el.password)),
-          },
         }
       });
 
@@ -280,13 +230,7 @@
         if (this.v$.$error) {
           alertify.notify("Complete los campos correctamente", "error", 3); 
         } else {
-          const usuario = await this.clienteSt.validarExistenciaDeUsuario();
-          if (usuario.existe) {
-            alertify.alert('Atención', 'El usuario ya esta registrado, para acceder de click en ingresar');
-            return false;
-          }
-          await this.clienteSt.generarCodigoTerminos(); 
-          emitter.emit("showModalAceptarTerminos", true);
+          this.clienteSt.ir(2)
         }
       }
     }

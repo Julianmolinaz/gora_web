@@ -7,7 +7,10 @@
 	  <!--PRODUCTO-->
     <div class="group">
       <div class="input-group">
-        <select v-model="st.simulador.productoId">
+        <select
+          v-model="st.simulador.productoId"
+          @change="st.resetTotales()"
+        >
           <option
             :value="producto.id"
             v-for="(producto, i) in st.insumos.productos"
@@ -22,13 +25,16 @@
       <div class="group">
         <!-- TIPO DE VEHICULO -->
         <div class="input-group">
-          <select v-model="st.simulador.tipoVehiculoId">
-            <option
-            v-for="(tipo, i) in st.insumos.tipoVehiculos"
-            :value="tipo.id"
+          <select
+            v-model="st.simulador.tipoVehiculoId"
+            @change="st.resetTotales()"
           >
-            [[ tipo.nombre ]]
-          </option>
+            <option
+              v-for="(tipo, i) in st.insumos.tipoVehiculos"
+              :value="tipo.id"
+            >
+              [[ tipo.nombre ]]
+            </option>
           </select>
           <label for="tipo de vehículo">Tipo de vehículo</label>
         </div>
@@ -36,7 +42,11 @@
       <div class="group">
         <!-- MODELO -->
         <div class="input-group">
-          <input type="number" v-model="st.simulador.modelo">
+          <input
+            type="number"
+            v-model="st.simulador.modelo"
+            @input="st.resetTotales()"
+          />
           <label for="modelo">Modelo</label>
         </div>
       </div>
@@ -45,19 +55,27 @@
       <div class="group">
         <!-- CILINDRAJE -->
         <div class="input-group">
-          <input type="number" v-model="st.simulador.cilindraje">
+          <input
+            type="number"
+            v-model="st.simulador.cilindraje"
+            @input="st.resetTotales()"
+          >
           <label for="cilindraje">Cilindraje</label>
         </div>
       </div>
       <div class="group">
         <!-- PERIODO -->
         <div class="input-group">
-          <select v-model="st.simulador.periodo">
+          <select
+            v-model="st.simulador.periodo"
+            @change="st.resetTotales()"
+          >
             <option
               :value="periodo"
               v-for="(periodo, i) in st.insumos.periodos"
               :key="i"
-            >[[ periodo ]] 
+            >
+              [[ periodo ]] 
             </option>
           </select>
           <label for="Periodo">Periodo</label>
@@ -87,42 +105,64 @@
 	  <div class="calc-form__info-cuota">
 	    <div class="calc-form__valor-cuota">
 	      <p>Valor cuota:</p>
-		  <p>[[ ]]</p>
+		  <p>$ [[ $filters.miles(st.simulador.valorCuota) ]]</p>
 	    </div>
 		<div class="calc-form__detalle-cuota"></div>
 	  </div>
-	  <button class="bt bt__night calc-form__submit" @click="st.calcularCuota($event)">
-		Calcular Cuota
+	  <button
+        class="bt calc-form__submit"
+        @click="st.calcularCuota($event)"
+        v-if="!st.loader"
+      >
+        Calcular Cuota
 	  </button>
+      <div
+        v-else
+        class="loader calc-form__submit"
+        style="width:4rem;height:4rem;"
+      ></div>
 	</form>
   </div>
 </script>
 
 <script>
+  const objSimulador = {
+    template: "#calc-template",
+    delimiters: ['[[', ']]'],
+    setup() {
+      const st = simuladorSt();
 
-const objSimulador = {
-  template: "#calc-template",
-  delimiters: ['[[', ']]'],
-  setup() {
-    const st = simuladorStore();
+      onMounted(() => {
+        st.getInsumos();
+        st.initCuotas();
+      });
 
-    onMounted(() => {
-      st.getInsumos();
-      st.initCuotas();
-    });
-
-    return {
-      st,
-    }
-  },
-};
+      return {
+        st,
+      }
+    },
+    data:() => ({
+        insumos: {},
+    }),
+    computed: {
+      getCuotas() {
+        if (this.st.numCuotas && this.st.periodo === "Quincenal") {
+          return this.st.numCuotas * 2;
+        } else {
+          return this.st.numCuotas;
+        }
+      }
+    },
+    methods: {},
+    created() {}
+  };
 </script>
-
 <style scoped>
   .calc-container {
 	width: 100%;
 	min-width: 32rem;
 	max-width: 36rem;
+    height: fit-content;
 	border-radius: 1rem;
 	padding: 2.2rem;
 	border: .1rem solid rgba(229, 229, 229, 1);

@@ -1,0 +1,51 @@
+<script>
+class Login {
+  constructor() {
+    this.num_doc = null;
+    this.password = null;
+  }
+} 
+const loginStore = defineStore("login", {
+  state: () => ({
+    show: false,
+    el: new Login(),
+    mode: "access",
+  }),
+  getters: {},
+  actions: {
+    /**
+     *  @param {boolean} true: open | false: close
+     **/
+    showLogin(action, mode = "access") {
+      this.show = action;
+      this.mode = mode;
+    },
+
+    async onSubmit() {
+      this.validate();
+      try {
+        const res = await axios.post("/api/auth/login", this.el);
+        if (res.data.success) {
+          alertify.notify(res.data.msg, "success", 2, () => {
+            window.location.href = `${URL}/cuenta`;
+          });
+        }
+      } catch (err) {
+        errorHandler(err);
+      }
+    },
+
+    validate() {
+      let errorStr = "";
+      if (!this.el.num_doc) {
+        errorStr += 'El documento es requerido <br>';
+      }
+      if (!this.el.password) {
+        errorStr += 'La contraseña es requerida';
+      }
+
+      if (errorStr.length) throw errorStr;
+    }
+  }
+});
+</script>
