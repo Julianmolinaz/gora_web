@@ -32,6 +32,7 @@
       const terminosSt = terminosStore();
       const sessionSt = sessionStore();
       const inicioSt = inicioStore();
+      let navOptionsMobile = null; 
 
       const goCuenta = () => {
         window.location.href = `${URL}/cuenta`;
@@ -41,14 +42,20 @@
         window.location.href = `${URL}/auth/logout`;         
       }
 
+      const openLoginModal = () => {
+        loginSt.showLogin(true, 'access');  
+        navOptionsMobile.classList.remove("nav__options--active");
+      }
+
       const openMenuMobile = ref(false);
 
       const showMenuMobile = () => {
-        openMenuMobile.value = !openMenuMobile.value;
+        navOptionsMobile.classList.toggle("nav__options--active"); 
       }
 
       onMounted(() => {
         sessionSt.getSession();
+        navOptionsMobile = document.querySelector("#nav-options_")
       });
 
       return {
@@ -60,6 +67,7 @@
         inicioSt,
         goCuenta,
         logout,
+        openLoginModal,
       }
     },
   });

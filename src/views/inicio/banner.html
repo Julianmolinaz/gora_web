@@ -9,7 +9,13 @@
 	<div class="banner-simulador__box">
       <div class="banner-simulador__title">
         <h1>Crédito para su SOAT</h1>
-        <a href="/solicitudes/create" class="bt bt__default">Solicítalo Ahora</a>
+        <a
+          href=""
+          class="bt bt__default"
+          @click.stop.prevent="inicioSt.solicitar"
+        >
+          Solicítalo Ahora
+        </a>
       </div>
 	  <div class="banner-simulador__container" id="calc">
         <simulador-component></simulador-component>

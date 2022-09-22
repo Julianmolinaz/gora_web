@@ -12,21 +12,42 @@
     <span
         class="material-icons-outlined nav__menu-icon"
         id="nav__menu-icon_"
-        @click="showMenuMobile" 
+        @click.stop.prevent="showMenuMobile" 
     >
       menu
     </span>
   </div>
 </nav>
 <div
-  :class="['nav__options', openMenuMobile ? 'nav__options--active' : '']"
+  class="nav__options"
   id="nav-options_"
 >
   <a class="nav__options-item" href="/">Inicio</a>
   <a class="nav__options-item" href="/nosotros">Nosotros</a>
   <a class="nav__options-item" href="/contacto">Contáctanos</a>
-  <a href="#" class="nav__options-item cuenta"></a>
-  <a class="nav__options-item login" href="#">Ingresar</a>
+  <a
+    v-if="sessionSt.el"
+    href=""
+    class="nav__options-item cuenta"
+  >
+   Ir a mi cuenta 
+  </a>
+  <a
+    v-if="!sessionSt.el"
+    class="nav__options-item"
+    href=""
+    @click.stop.prevent="openLoginModal"
+  >
+    Ingresar
+  </a>
+  <a
+    v-else
+    href=""
+    class="nav__options-item"
+    @click.stop.prevent="logout"
+  >
+    Salir  
+  </a>
   <div class="nav__options-item">
     <div class="nav__social-network">
       <a href="https://www.facebook.com/inversionesgora" target="_blank">
@@ -75,8 +96,9 @@
         </a>
         <a
           v-if="!sessionSt.el"
-          href="#"
+          href=""
           class="desk-nav__options-item login"
+          @click.stop.prevent="openLoginModal"
         >
           Ingresar
         </a>
@@ -115,4 +137,3 @@
     </div>
   </div>
 </nav>
-

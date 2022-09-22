@@ -24,7 +24,10 @@
 </head>
 <body>
   <div>
-    <header id="navbar-app">{% include "./navbar.html" %}</header>
+    <header id="navbar-app">
+      {% include "./navbar.html" %}
+      {% include "./login.html" %}
+    </header>
     <main>
       {% block content %}
         Poner contenido acá
