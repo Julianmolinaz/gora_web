@@ -58,8 +58,17 @@
                 <div class="input-group">
                   <input
                     type="password"
+                    id="input-password-registro"
                     v-model="logupSt.credentials.password"
                   />
+                  <a
+                    href=""
+                    class="material-icons-outlined input-group__icon"
+                    id="show-password-registro"
+                    @click.stop.prevent="showPasswordRegistro('password')"
+                  >
+                    <span id="icon-password-registro">visibility_off</span>
+                  </a>
                   <label for="password">Contraseña *</label>
                 </div> 
                 <span class="helper-txt">Cree una nueva contraseña</span>
@@ -68,8 +77,17 @@
                 <div class="input-group">
                   <input
                     type="password"
+                    id="input-confirm-registro"
                     v-model="logupSt.credentials.confirm"
                   />
+                  <a
+                    href=""
+                    class="material-icons-outlined input-group__icon"
+                    id="show-confirm-registro"
+                    @click.stop.prevent="showPasswordRegistro('confirm')"
+                  >
+                    <span id="icon-confirm-registro">visibility_off</span>
+                  </a>
                   <label for="confirm">Confirmar *</label>
                 </div>
                 <span class="helper-txt">Confirme su contraseña</span>
@@ -116,11 +134,49 @@
         logupSt.loginSolicitud(); 
       }
 
+      /********************/
+
+      let statusShowPasswordRegistro = false;
+      const passwordRegistro = {
+        password: { 
+          status: false,
+          input: null,
+          icon: null,
+        },
+        confirm: { 
+          status: false,
+          input: null,
+          icon: null,
+        }
+      };
+
+      const showPasswordRegistro = (element) => {
+        passwordRegistro[element].status = !passwordRegistro[element].status;
+    
+        if (passwordRegistro[element].status) {
+          passwordRegistro[element].input.type = "text";
+          passwordRegistro[element].icon.innerHTML = "visibility";
+        } else {
+          passwordRegistro[element].input.type = "password";
+          passwordRegistro[element].icon.innerHTML = "visibility_off";
+        }
+      }
+
+      /********************/
+
+      onMounted(() => {
+        passwordRegistro.password.input = document.querySelector("#input-password-registro");
+        passwordRegistro.password.icon = document.querySelector("#icon-password-registro");
+        passwordRegistro.confirm.input = document.querySelector("#input-confirm-registro");
+        passwordRegistro.confirm.icon = document.querySelector("#icon-confirm-registro");
+      });
+
       return {
         logupSt,
         inicioSt,
         registrar,
         loginSolicitud,
+        showPasswordRegistro,
       }
     }
   };

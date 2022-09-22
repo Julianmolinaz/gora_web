@@ -57,6 +57,16 @@
         window.location.href = "/";
       }
 
+      const visibilityOn = (input, icon) => {
+        input.type = "text";
+        icon.innerHTML = "visibility";
+      }
+
+      const visibilityOff = (input, icon) => {
+        input.type = "password";
+        icon.innerHTML = "visibility-off";
+      }
+
       onMounted(() => {
         sessionSt.getSession();
         navOptionsMobile = document.querySelector("#nav-options_")
