@@ -6,6 +6,7 @@ const main = new Sequelize(
   process.env.MAIN_DB_PASS,
   {
     host: process.env.MAIN_DB_HOST,
+    port: process.env.MAIN_DB_PORT,
     dialect: "mysql",
     logging: false
   }
