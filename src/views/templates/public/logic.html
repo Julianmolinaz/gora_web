@@ -14,7 +14,10 @@
       const sessionSt = sessionStore();
       const loginSt = loginStore();
       const openMenuMobile = ref(false);
+      let statusShowPassword = false;
       let navOptionsMobile = null;
+      let inputPassword = null;
+      let iconVisibility = null;
 
       const goCuenta = () => {
         window.location.href = `${URL}/cuenta`;
@@ -33,14 +36,29 @@
         navOptionsMobile.classList.toggle("nav__options--active"); 
       }
 
+      const showPassword = () => {
+        statusShowPassword = !statusShowPassword;
+        if (statusShowPassword) {
+          inputPassword.type="text";     
+          iconVisibility.innerHTML="visibility";
+        } else {
+          inputPassword.type="password";     
+          iconVisibility.innerHTML="visibility_off";
+        }
+      }
+
       onMounted(() => {
         sessionSt.getSession();
         navOptionsMobile = document.querySelector("#nav-options_")
+    
+        inputPassword = document.querySelector("#password");
+        iconVisibility = document.querySelector("#icon-visibility");
       });
 
       return {
         openMenuMobile,
         showMenuMobile,
+        showPassword,
         openLoginModal,
         sessionSt,
         loginSt,

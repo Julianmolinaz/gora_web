@@ -36,6 +36,7 @@
                     href=""
                     class="material-icons-outlined input-group__icon"
                     id="showPassword"
+                    @click.stop.prevent="showPassword"
                   >
                     <span id="icon-visibility">visibility_off</span>
                   </a>
@@ -75,7 +76,28 @@
     delimiters: ['[[', ']]'],
     setup() {
       const loginSt = loginStore();
+      let statusShowPassword = false;
+      let inputPassword = null;
+      let iconVisibility = null;
+      
+      const showPassword = () => {
+        statusShowPassword = !statusShowPassword;
+        if (statusShowPassword) {
+          inputPassword.type="text";     
+          iconVisibility.innerHTML="visibility";
+        } else {
+          inputPassword.type="password";     
+          iconVisibility.innerHTML="visibility_off";
+        }
+      }
+
+      onMounted(() => {
+        inputPassword = document.querySelector("#password");
+        iconVisibility = document.querySelector("#icon-visibility");
+      });
+
       return {
+        showPassword,
         loginSt,
       }
     }

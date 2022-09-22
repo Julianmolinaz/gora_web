@@ -5,6 +5,7 @@ const ValidadorHp = require("./../../helpers/validador");
 const { comparar } = require("./../../helpers/bcrypt"); 
 const { getAccessToken } = require("./../../helpers/getters"); 
 const jwt = require("jsonwebtoken");
+const { SimpleError } = require("../../errors");
 
 /*
  * data = { num_doc: ..., password: ... }
@@ -35,7 +36,7 @@ class Login {
         );
         return token;
       } else {
-        throw "Credenciales invalidas.";
+        throw new SimpleError("El nombre del usuario o la contraseña son incorrectos");
       }
     } catch (error) {
       throw error;
@@ -60,11 +61,11 @@ class Login {
     try {
       this.usuario = await UsuariosRepository.findNumDoc(this.data.num_doc);
       if (!this.usuario) {
-        throw "Credenciales invalidas";
+        throw new SimpleError("El nombre del usuario o la contraseña son incorrectos");
       }
     } catch (error) {
       console.error("error al obtener usuario", error);
-      throw error;
+      throw new SimpleError("El nombre del usuario o la contraseña son incorrectos");
     }
   }
 

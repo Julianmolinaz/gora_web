@@ -13,16 +13,22 @@ function errorArrayToString (arrErrors, separator) {
 }
 
 function errorHandler(err) {
+  console.warn(err);
   if (err && err.response) {
     const myError = err.response.data;
     console.log({ myError });
-    if (myError.body.name === 'ValidationError') {
-      alertify.alert("Erro de validación", errorArrayToString(myError.body.message, "<br>"), () => {});
-    } else if (myError.body.name === 'SimpleError'){
-      alertify.alert('Error', myError.body.message, () => {});
+    if (myError.body) {
+      if (myError.body.name === 'ValidationError') {
+        alertify.alert("Erro de validación", errorArrayToString(myError.body.message, "<br>"), () => {});
+      } else if (myError.body.name === 'SimpleError'){
+        alertify.alert('Error', myError.body.message, () => {});
+      } else {
+        alertify.alert('Error', 'Ocurrió un error, comuniquese con un asesor.');
+      }
     } else {
-      alertify.alert('Error', 'Ocurrió un error, comuniquese con un asesor.');
+      alertify.alert('Error', myError);
     }
+    
   } 
   else if (err.name === "SimpleError") {
     alertify.alert('Error', err.message, () => {});

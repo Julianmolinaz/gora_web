@@ -19,10 +19,12 @@ class AuthController {
       reply(req, res, {
         msg: "Ingreso exitoso"
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.log(err);
       reply(req, res, {
+        status: err.status,
         success: false,
+        body: err,
         msg: "Credenciales invalidas, verifique su documento y contraseña"
       });
     }
