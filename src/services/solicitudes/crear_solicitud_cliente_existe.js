@@ -1,5 +1,6 @@
 const CrearSolicitud = require("./crear_solicitud");
 const { ValidarCodigoTerminos } = require("../../services/terminos");
+const { VincularCliente } = require("../../services/usuarios");
 
 const { ClientesRepository, UsuariosRepository } = require("../../database/repositories");
 
@@ -13,7 +14,6 @@ const NUM_FACT = process.env.MY_NUM_FACT;
 class CrearSolicitudClienteExiste {
   
   constructor (usuarioId, clienteId, dataSimulador, codigo) {
-    console.log("CrearSolicitudClienteExiste");
     this.usuarioId = usuarioId;
     this.clienteId = clienteId;
     this.dataSimulador = dataSimulador;
@@ -38,6 +38,8 @@ class CrearSolicitudClienteExiste {
 
       await this.crearSolicitud();
 
+      await this.vincularCliente();
+
       this.mainTransaction.commit();
       this.localTransaction.commit();
     } catch (err) {
@@ -47,6 +49,14 @@ class CrearSolicitudClienteExiste {
     }
   }
 
+  async vincularCliente() {
+    const vincular = new VincularCliente(
+      this.usuarioId,
+      this.cliente,
+      this.localTransaction
+    );
+    await vincular.exec();
+  }
 
   async getUsuario() {
     this.usuario = await UsuariosRepository.find(this.usuarioId);

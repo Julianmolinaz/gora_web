@@ -7,6 +7,7 @@
 // Services
 const { CrearCliente } = require("../clientes");
 const CrearSolicitud = require("./crear_solicitud");
+const { VincularCliente } = require("../usuarios");
 
 // Persistencia 
 const mainConexion = require("../../database/conexiones/main.conexion");
@@ -41,9 +42,9 @@ class CrearSolicitudCompleta {
 
       await this.crearCliente();
 
-      await this.vincularClienteConUsuario();
-
       await this.crearSolicitud();
+
+      await this.vincularClienteConUsuario();
 
       this.transaction.commit();
       this.localTransaction.commit();
@@ -65,21 +66,12 @@ class CrearSolicitudCompleta {
   }
 
   async vincularClienteConUsuario() {
-    const data = {
-      cliente_id: this.cliente.id,
-      tipo_doc: this.cliente.tipo_doc,
-      email: this.cliente.email,
-      primer_nombre: this.cliente.primer_nombre,
-      segundo_nombre: this.cliente.segundo_nombre,
-      primer_apellido: this.cliente.primer_apellido,
-      segundo_apellido: this.cliente.segundo_apellido
-    };
-
-    this.usuario = await UsuariosRepository.update(
+    const vincular = new VincularCliente(
       this.usuario.id,
-      data,
+      this.cliente,
       this.localTransaction
     );
+    await vincular.exec();
   }
 
   async crearSolicitud() {

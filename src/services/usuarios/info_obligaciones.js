@@ -5,6 +5,7 @@ const {
 } = require("../../database/repositories");
 
 const VentasRepository = require("../../database/repositories/ventas.repository");
+const { SimpleError } = require("../../errors");
 
 class InfoObligaciones {
   constructor(usuarioId) {
@@ -31,6 +32,10 @@ class InfoObligaciones {
     this.cliente = await ClientesRepository.findSome(
       { num_doc: this.usuario.num_doc }
     );
+
+    if (!this.cliente) {
+      throw new SimpleError("No puede acceder a esta cuenta necesita calcular su cuota y solicitar tu crédito");
+    }
   }
 
   async obtenerSolicitudes() {
