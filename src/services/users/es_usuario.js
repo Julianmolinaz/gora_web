@@ -53,7 +53,16 @@ class EsUsuario {
 
     if (tipo.vector[1]) {
       if (tipo.cliente.movil != this.dataUsuario.movil) {
-        throw new SimpleError("No se puede crear la cuenta, comunìquese con un asesor. Gracias!!!");
+        throw new SimpleError(`
+          Querido cliente, no hemos podido validar su identidad, 
+          por favor de click en el link para comunicarse con un asesor. Gracias!!!
+          <br><br>
+          <a href="https://wa.me/3207809668" style="color: blue" target="_blank">
+            <span class="material-icons-outlined">question_answer</span>
+            Click acá para hablar con un asesor ...
+          </a>
+          <br>
+        `);
       } 
     } 
     return tipo.vector;

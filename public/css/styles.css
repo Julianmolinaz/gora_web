@@ -370,6 +370,7 @@ input[type=number] {
   pointer-events: none;
   display: flex;
   transition: opacity .3s;
+  z-index: 1000;
 }
 .modal.modal--show {
   pointer-events: auto;
