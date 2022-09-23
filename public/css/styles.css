@@ -170,7 +170,7 @@ input[type=number] {
   outline-style: none;
   color: var(--medium);
   background: var(--light);
-  width: 93%;
+  width: 80%;
 }
 .input-group select {
   margin-left: 1.2rem;
@@ -370,6 +370,7 @@ input[type=number] {
   pointer-events: none;
   display: flex;
   transition: opacity .3s;
+  z-index: 1000;
 }
 .modal.modal--show {
   pointer-events: auto;

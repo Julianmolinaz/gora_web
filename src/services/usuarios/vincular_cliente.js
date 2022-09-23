@@ -1,18 +1,33 @@
-const UsuariosRepository = require("../../database/repositories/usuarios.repository");
+const { UsuariosRepository, ClientesRepository } = require("../../database/repositories");
 
 class VincularCliente {
-  constructor(usuarioId, clienteId, transaction = null) {
-    this.clienteId = clienteId; 
+  constructor(usuarioId, cliente, localTransaction = null) {
     this.usuarioId = usuarioId;
-    this.transaction = transaction;
+    this.localTransaction = localTransaction;
+    this.cliente = cliente;
+    this.usuario = null;
   }
 
   async exec() {
-    return await UsuariosRepository.update(
+    await this.updateUsuario();
+  }
+
+  async updateUsuario() {
+    const data = {
+      cliente_id: this.cliente.id,
+      tipo_doc: this.cliente.tipo_doc,
+      email: this.cliente.email,
+      primer_nombre: this.cliente.primer_nombre,
+      segundo_nombre: this.cliente.segundo_nombre,
+      primer_apellido: this.cliente.primer_apellido,
+      segundo_apellido: this.cliente.segundo_apellido
+    };
+
+    this.usuario = await UsuariosRepository.update(
       this.usuarioId,
-      { cliente_id: this.clienteId },
-      this.transaction
-    ); 
+      data,
+      this.localTransaction
+    );
   }
 }
 

@@ -128,7 +128,6 @@ class UserController {
   static async update(req, res) {
     try {
       const { data, usuarioId_ } = req.body;
-      console.log(req.body);
       const useCase = new ActualizarUsuario(
         data,
         usuarioId_

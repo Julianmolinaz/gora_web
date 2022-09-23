@@ -10,6 +10,7 @@ const loginStore = defineStore("login", {
     show: false,
     el: new Login(),
     mode: "access",
+    modal: null,
   }),
   getters: {},
   actions: {
@@ -17,7 +18,9 @@ const loginStore = defineStore("login", {
      *  @param {boolean} true: open | false: close
      **/
     showLogin(action, mode = "access") {
-      this.show = action;
+      document.querySelector("#login-template")
+        .classList.toggle("modal--show");
+      //this.show = action;
       this.mode = mode;
     },
 
