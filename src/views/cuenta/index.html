@@ -36,7 +36,8 @@
           </span>
         </div>
         <div class="info-content">
-          <div class="info-title">Solicitud {{ obligacion.solicitud.aprobado | lower }}</div>
+          <div class="info-title">Solicitud #{{ obligacion.solicitud.id }}</div>
+          <div class="info-text">Estado de aprobación: {{ obligacion.solicitud.aprobado | lower }}</div>
           <div class="info-text">Producto: {{ obligacion.productos }}</div>
           <div class="info-text">Fecha de solicitud: {{ ddmmyyyy(obligacion.solicitud.fecha) }}</div>
           <div class="info-text">

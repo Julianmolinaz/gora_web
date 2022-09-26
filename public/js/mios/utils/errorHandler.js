@@ -13,10 +13,9 @@ function errorArrayToString (arrErrors, separator) {
 }
 
 function errorHandler(err) {
-  console.warn(err);
+  console.error(err);
   if (err && err.response) {
     const myError = err.response.data;
-    console.log({ myError });
     if (myError.body) {
       if (myError.body.name === 'ValidationError') {
         alertify.alert("Erro de validación", errorArrayToString(myError.body.message, "<br>"), () => {});
@@ -34,8 +33,7 @@ function errorHandler(err) {
     alertify.alert('Error', err.message, () => {});
   }
   else {
-    console.log("else", err);
-    alertify.alert('Error', err.message);
+    alertify.alert('Error', err.message ?? err);
   }
 }
 
