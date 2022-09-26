@@ -95,9 +95,18 @@
               </div>
             </div>
             <div class="group center">
-              <button class="bt bt__night" @click="registrar">
+              <button
+                class="bt bt__night"
+                @click="registrar"
+                v-if="!logupSt.loader"
+              >
                 Registrarme
               </button>
+              <div
+                v-else
+                class="loader calc-form__submit"
+                style="width:4rem;height:4rem;"
+              ></div>
             </div>
             <div class="col">
               <div class="group center">

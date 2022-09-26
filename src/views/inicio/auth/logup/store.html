@@ -14,6 +14,7 @@ const logupStore = defineStore("logup", {
     show: false,
     login_: loginStore(),
     inicio_: inicioStore(),
+    loader: false,
   }),
   getters: {},
   actions: {
@@ -28,11 +29,14 @@ const logupStore = defineStore("logup", {
     },
 
     async getTipoUsuario() {
+      this.loader = true;
       try {
         await this.validation();
         const res = await axios.post("/api/users/es-usuario", this.credentials);
+        this.loader = false;
         return res.data.body.esUsuario;
       } catch (err) {
+        this.loader = false;
         throw err;
       }
     },
@@ -43,9 +47,11 @@ const logupStore = defineStore("logup", {
         const res = await axios.post("/api/users", this.credentials);
         alertify.notify(
           "Se registró el usuario exitosamente",
-          "success", 3, () => {}
+          "success", 3,
+          () => { this.loader = false }
         );
       } catch (err) {
+        this.loader = false;
         errorHandler(err);
       }
     },
