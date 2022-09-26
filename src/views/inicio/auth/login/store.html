@@ -12,6 +12,7 @@ const loginStore = defineStore("login", {
     inicio_: inicioStore(),
     terminos_: terminosStore(),
     mode: "access",
+    loader: false,
   }),
   getters: {},
   actions: {
@@ -24,6 +25,7 @@ const loginStore = defineStore("login", {
     },
 
     async onSubmit() {
+      this.loader = true;
       try {
         this.validate();
         if (this.mode === "register") {
@@ -33,6 +35,7 @@ const loginStore = defineStore("login", {
           await this.loginAccess();
         }
       } catch (err) {
+        this.loader = false;
         errorHandler(err);
       }
     },
@@ -55,7 +58,9 @@ const loginStore = defineStore("login", {
             "Atención", 
             `Querido cliente, actualmente usted tiene solicitudes pendientes,
               a continuación será redirigido a su cuenta.`,
-            () => { window.location.href = `${URL}/cuenta` }
+            () => {
+              window.location.href = `${URL}/cuenta`;
+            }
           );
         }
         else {

@@ -53,13 +53,21 @@
                 class="bt bt__night"
                 id="btn-ingresar"
                 @click.stop.prevent="loginSt.onSubmit"
+                v-if="!loginSt.loader"
               >
                 Ingresar
               </button>
+              <div
+                v-else
+                class="loader loader calc-form__submit"
+                style="width:4rem;height:4rem;"
+              ></div>
             </div>
             <div class="col">
               <div class="group center">
-                <a href="#" class="modal__link">Olvidé mi contraseña</a>
+                <a href="#" class="modal__link">
+                  Olvidé mi contraseña
+                </a>
               </div>
             </div>
           </form>

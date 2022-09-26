@@ -13,13 +13,15 @@
       <div class="modal__content">
         <p class="acep-term-txt">
           Para aceptar terminos y condiciones de click en "Recibir código",
-          a cambio recibirá un mensaje de texto con el código, por favor digitelo en el cuadro
+          a cambio recibirá un mensaje de texto con el código, por favor 
+          digitelo en el cuadro
         </p>
         <a href="#" @click="terminosSt.leerTerminos" class="link">
           Leer términos y condiciones
         </a>
         <div class="terminos-form">
           <input
+            v-show="terminosSt.showInputBox"
             type="number"
             class="terminos__input-form"
             id="input"
@@ -34,24 +36,14 @@
       </div>
       <div class="modal__footer">
         <div
-          v-if="loader"
+          v-if="terminosSt.loader"
           class="loader"
           style="width:4rem; height:4rem"
         ></div>
-        <!--
-        <a
-          href="#"
-          class="bt bt__sun"
-          @click="aceptarTerminos"
-          v-else-if="!loader && terminosSt.codigoValido"
-        >
-          Envíar código
-        </a>
-        -->
         <a
           href="#"
           class="bt"
-          v-if="!terminosSt.segundos" 
+          v-else-if="!terminosSt.segundos & !terminosSt.loader" 
           @click="terminosSt.pedirCodigo"
         >
           Recibir código

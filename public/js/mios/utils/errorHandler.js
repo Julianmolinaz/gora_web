@@ -35,7 +35,7 @@ function errorHandler(err) {
   }
   else {
     console.log("else", err);
-    alertify.alert('Error', err);
+    alertify.alert('Error', err.message);
   }
 }
 

@@ -5,9 +5,11 @@ const terminosStore = defineStore('terminos', {
     NUM_SEG: '{{ SEG_CODIGO_TERMINOS }}',
     show: false,
     showTxt: false,
+    showInputBox: false,
     codigo: '',
     codigoValido: false,
     segundos: null,
+    loader: false,
     login_: loginStore(),
     logup_: logupStore(),
     inicio_: inicioStore(),
@@ -46,6 +48,13 @@ const terminosStore = defineStore('terminos', {
     },
 
     async pedirCodigo() {
+      this.loader = true;
+      this.showInputBox = true;
+
+      setTimeout(() => {
+        document.querySelector('#input').focus();
+      }, 1000);
+
       try {
         if (this.inicio_.vector[0]) {
           const res = await this.pedirCodigoUsuarioExistente();
@@ -54,8 +63,10 @@ const terminosStore = defineStore('terminos', {
         }
         this.resetCodigo();
         this.cuentaRegresiva();
+        this.loader = false;
       } catch (err) {
-        console.log(err);
+        this.loader = false;
+        errorHandler(err); 
       }
     },
 
@@ -184,7 +195,7 @@ const terminosStore = defineStore('terminos', {
           alertify.alert('Ocurrió un error, comuniquese con un asesor.');
         }
       } else {
-          console.error("sino", err.message);
+        console.error("sino", err.message);
         alertify.alert('Error', 'Ocurrió un error, comuniquese con un asesor.');
       }
     }
