@@ -3,11 +3,13 @@
     <div class="banner-title">
       <h1>Crédito para su SOAT</h1>
       <div class="banner-options">
-        <a href="#calc" class="bt bt__default">Calcular mi cuota</a>
+        <a href="#calc" class="bt bt__default">
+          Calcular mi cuota
+        </a>
         <a
           href=""
           class="bt bt__darken"
-          @click.stop.prevent="openLoginModal(true, 'access')"
+          @click.stop.prevent="goLoginCuenta"
         >
           Ir a mi cuenta
         </a>
@@ -29,7 +31,7 @@
           <a
             href=""
             class="bt bt__darken"
-            @click.stop.prevent="openLoginModal(true, 'access')"
+            @click.stop.prevent="goLoginCuenta"
           >
             Ir a mi cuenta
           </a>

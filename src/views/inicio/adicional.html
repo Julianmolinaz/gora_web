@@ -47,6 +47,14 @@
         navOptionsMobile.classList.remove("nav__options--active");
       }
 
+      const goLoginCuenta = () => {
+        if (sessionSt.el) {
+          goCuenta();
+        } else {
+          loginSt.showLogin(true, 'access');
+        }
+      }
+
       const openMenuMobile = ref(false);
 
       const showMenuMobile = () => {
@@ -74,14 +82,16 @@
 
       return {
         openMenuMobile,
-        showMenuMobile,
-        sessionSt,
         loginSt,
         logupSt,
         inicioSt,
-        goCuenta,
-        logout,
+        // -------
         openLoginModal,
+        logout,
+        goCuenta,
+        goLoginCuenta,
+        showMenuMobile,
+        sessionSt,
         goInicio,
       }
     },
