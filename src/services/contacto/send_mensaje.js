@@ -6,10 +6,20 @@ class SendMensaje {
   }
 
   async execute() {
-    const result = await Mailer.send(
+    const mailer = new Mailer({
+      host: process.env.CONTACT_EMAIL_HOST,
+      port: process.env.CONTACT_EMAIL_PORT,
+      secure: process.env.CONTACT_EMAIL_SECURE,
+      auth: {
+        user: process.env.CONTACT_EMAIL_USER,
+        pass: process.env.CONTACT_EMAIL_PASSWORD
+      }
+    });
+
+    await mailer.send(
       this.email,
-      "test.free.pablo@gmail.com",
-      `Mensaje desde la web ${this.nombre}`,
+      process.env.CONTACT_EMAIL_USER,
+      `Msg-Web ${this.nombre}`,
       this.getMensaje()
     );
   }

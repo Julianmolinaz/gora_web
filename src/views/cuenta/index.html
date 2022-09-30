@@ -41,7 +41,12 @@
           <div class="info-text">Producto: {{ obligacion.productos }}</div>
           <div class="info-text">Fecha de solicitud: {{ ddmmyyyy(obligacion.solicitud.fecha) }}</div>
           <div class="info-text">
-            <a href="/cuenta/{{ obligacion.solicitud.id }}" style="color: var(--sky);">Click para mas información</a>
+            <a
+              href="/cuenta/{{ obligacion.solicitud.id }}"
+              style="color: var(--sky);"
+            >
+              Click para ver los detalles de mi solicitud
+            </a>
           </div>
         </div>
       </div>
