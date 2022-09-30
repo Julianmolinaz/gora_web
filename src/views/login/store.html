@@ -20,8 +20,8 @@ const loginStore = defineStore("login", {
      **/
     showLogin(action, mode = "access") {
       document.querySelector("#login-template")
-        .classList.toggle("modal--show");
-      //this.show = action;
+        .classList
+        .toggle("modal--show");
       this.mode = mode;
     },
 

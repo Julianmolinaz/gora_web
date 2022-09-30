@@ -98,6 +98,7 @@ const terminosStore = defineStore('terminos', {
     async enviarCodigo() {
       try {
         let res = null;
+        this.loader = true;
         const generalData = {
           vector: this.inicio_.vector,
           codigo: this.codigo,
@@ -109,7 +110,6 @@ const terminosStore = defineStore('terminos', {
          ****************/
 
         if (this.inicio_.vector[0] == 1) {
-          console.log("registro usuario existente");
           res = await axios.post(
             '/api/users/validate-code',
             { ...generalData, dataUsuario: this.login_.el }
@@ -119,6 +119,8 @@ const terminosStore = defineStore('terminos', {
             alertify.alert(response.title, response.content, () =>
               window.location.href = response.route 
             );
+          } else {
+            this.loader = false;
           }
         }
 
@@ -138,8 +140,11 @@ const terminosStore = defineStore('terminos', {
             alertify.alert(response.title, response.content, () =>
               window.location.href = response.route 
             );
+          } else {
+            this.loader = false;
           }
         } else {
+          this.loader = false;
           console.error("No existe el vector de estado");
           alert("Ha ocurrido un error");
         }
