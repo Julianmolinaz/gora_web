@@ -17,11 +17,17 @@
             <div class="group">
               <!-- OCUPACION -->
               <div class="input-group">
-                <select name="oficio" v-model="clienteSt.el.ocupacion">
+                <select
+                  name="oficio"
+                  v-model="clienteSt.el.ocupacion"
+                  id="oficio"
+                >
                   <option 
                     :value="oficio.nombre"
                     v-for="oficio in clienteSt.insumos.listOficios"
-                  >[[ oficio.nombre ]]</option>
+                  >
+                    [[ oficio.nombre ]]
+                  </option>
                 </select>
                 <label for="oficio">Ocupación u oficio *</label>
               </div>
@@ -34,11 +40,17 @@
             <div class="group">
               <!-- TIPO ACTIVIDAD -->
               <div class="input-group">
-                <select name="tipo_actividad" v-model="clienteSt.el.tipo_actividad">
+                <select
+                  name="tipo_actividad"
+                  v-model="clienteSt.el.tipo_actividad"
+                  id="tipo_actividad"
+                >
                   <option
                       :value="actividad"
                       v-for="actividad in clienteSt.insumos.listTipoActividad"
-                  >[[ actividad ]]</option>
+                  >
+                    [[ actividad ]]
+                  </option>
                 </select>
                 <label for="tipo_actividad">Actividad económica *</label>
               </div>
@@ -58,7 +70,12 @@
               <div class="group">
                 <!-- NOMBRE EMPRESA -->
                 <div class="input-group">
-                  <input name="empresa" type="text" v-model="clienteSt.el.empresa" />
+                  <input
+                    name="empresa"
+                    type="text"
+                    v-model="clienteSt.el.empresa"
+                    id="empresa"
+                  />
                   <label for="empresa">
                     Nombre de la empresa 
                     [[ (clienteSt.el.tipo_actividad === 'Dependiente') ? " *" : "" ]]
@@ -76,12 +93,16 @@
               <!-- TIPO CONTRATO --> 
               <div class="group">
                 <div class="input-group">
-                  <select name="tipo_contrato" v-model="clienteSt.el.tipo_contrato">
+                  <select
+                    name="tipo_contrato"
+                    v-model="clienteSt.el.tipo_contrato"
+                    id="tipo_contrato"
+                  >
                     <option :value="tipo" v-for="tipo in clienteSt.insumos.listTipoContrato">
                       [[ tipo ]]
                     </option>
                   </select>
-                  <label for="">Tipo de contrato *</label>
+                  <label for="tipo_contrato">Tipo de contrato *</label>
                 </div>
                 <span class="helper-txt error" v-if="v$.tipo_contrato.$error">
                   [[ v$.tipo_contrato.$errors[0].$message ]]
@@ -90,8 +111,13 @@
               <!-- CARGO -->
               <div class="group">
                 <div class="input-group">
-                  <input type="text" name="cargo" v-model="clienteSt.el.cargo" />
-                  <label for="">Cargo *</label>
+                  <input
+                    type="text"
+                    name="cargo"
+                    v-model="clienteSt.el.cargo"
+                    id="cargo"
+                  />
+                  <label for="cargo">Cargo *</label>
                 </div>
                 <span class="helper-txt error" v-if="v$.cargo.$error">
                   [[ v$.cargo.$errors[0].$message ]]
@@ -106,6 +132,7 @@
                     name="doc_empresa"
                     type="text"
                     v-model="clienteSt.el.doc_empresa"
+                    id="doc_empresa"
                   >
                   <label for="doc_empresa">
                     Nit/Cedula
@@ -128,6 +155,7 @@
                     name="dir_empresa"
                     type="text"
                     v-model="clienteSt.el.dir_empresa"
+                    id="dir_empresa"
                   >
                   <label for="dir_empresa">
                     Dirección de la empresa
@@ -150,6 +178,7 @@
                     name="tel_empresa"
                     type="tel"
                     v-model="clienteSt.el.tel_empresa"
+                    id="tel_empresa"
                   >
                   <label for="tel_empresa">
                     Teléfono de la empresa
@@ -158,6 +187,9 @@
                 </div>
                 <span class="helper-txt error" v-if="v$.tel_empresa.$error">
                   [[ v$.tel_empresa.$errors[0].$message ]]
+                </span>
+                <span class="helper-txt" v-else>
+                  ej: 6063222123 o 3207808088 
                 </span>
               </div>
             </div>
@@ -175,6 +207,7 @@
                     name="fecha_vinculacion"
                     type="date"
                     v-model="clienteSt.el.fecha_vinculacion"
+                    id="fecha_vinculacion"
                   >
                   <label for="fecha_vinculacion">Fecha de vinculación *</label>
                 </div>
@@ -193,6 +226,7 @@
                   <textarea
                     name="descripcion_actividad"
                     v-model="clienteSt.el.descripcion_actividad"
+                    id="descripcion_actividad"
                   ></textarea>
                   <label for="descripcion_actividad">Descripción de la actividad *</label>
                 </div>
@@ -261,6 +295,8 @@
         },
         tel_empresa: {
           required: helpers.withMessage("El teléfono de la empresa es requerido", required),
+          size: helpers.withMessage("El teléfono debe tener 10 caracteres", size(10)),
+          integer: helpers.withMessage("Solo se permiten números", integer),
         },
       }
 

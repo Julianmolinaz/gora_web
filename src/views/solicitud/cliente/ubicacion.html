@@ -42,6 +42,7 @@
               <span class="helper-txt error" v-if="v$.fijo.$error">
                 [[ v$.fijo.$errors[0].$message ]]
               </span>
+              <span class="helper-txt" v-else>ej: 6063222435</span>
             </div>
           </div>
           <div class="col-2">
@@ -52,7 +53,9 @@
                   <option
                     :value="departamento.id"
                     v-for="departamento in clienteSt.insumos.listDepartamentos"
-                  >[[ departamento.nombre ]]</option>
+                  >
+                    [[ departamento.nombre ]]
+                  </option>
                 </select>
                 <label for="departamento_id">Departamento *</label>
               </div>
@@ -68,7 +71,9 @@
                       v-if="municipios"
                       :value="municipio.id"
                       v-for="municipio in municipios"
-                  >[[ municipio.nombre ]]</option>
+                  >
+                    [[ municipio.nombre ]]
+                  </option>
                 </select>
                 <label for="municipio_id">Ciudad*</label>
               </div>
@@ -192,6 +197,7 @@
           },
           fijo: {
             size: helpers.withMessage("El teléfono debe tener 10 caracteres", size(10)),
+            integer: helpers.withMessage("Solo se permiten números", integer),
           },
           municipio_id: {
             required: helpers.withMessage("La ciudad es requerida", required),
@@ -205,6 +211,7 @@
           },
           meses_residencia: {
             required: helpers.withMessage("Los meses en residencia son requeridos", required),
+            integer: helpers.withMessage("Solo se permiten números", integer),
           }
         }
       });

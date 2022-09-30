@@ -1,10 +1,10 @@
 <script>
 class Credentials {
   constructor() {
-    this.num_doc = null;
-    this.movil = null;
-    this.password = null;
-    this.confirm = null;
+    this.num_doc = ''; 
+    this.movil = '';
+    this.password = '';
+    this.confirm = '';
   }
 }
 
@@ -63,24 +63,43 @@ const logupStore = defineStore("logup", {
 
     async validation() {
       let str = '';
+      this.clearCredentials();
+
       if (!this.credentials.num_doc) {
         str += 'El número de documento es requerido<br>';
+      } else {
+        if (! /^\d*$/.test(this.credentials.num_doc)) {
+          str += 'El documento solo permite números<br>';
+        }
       }
       if (!this.credentials.movil) {
-          str += 'El teléfono celular es requerido<br>';
+        str += 'El teléfono celular es requerido<br>';
+      } else {
+        if (! /^\d{10}$/.test(this.credentials.movil)) {
+          str += 'El teléfono celular debe tener 10 números, evite espacios y letras<br>';
+        }
       }
       if (!this.credentials.password) {
         str += 'La contraseña es requerida<br>';
+      } else {
+        if (this.credentials.password.length < 4) {
+          str += 'La contraseña debe tener por lo menos 4 caracteres<br>';
+        }
       }
       if (!this.credentials.confirm) {
           str += 'La confirmación de la contraseña es requerida<br>';
-      }
+      }       
       if (this.credentials.password !== this.credentials.confirm) {
         str += 'La confirmación de la contraseña no coincide'
-      }
-
+      } 
       if (str.length) throw str;
     },
+
+    clearCredentials() {
+      Object.keys(this.credentials).forEach(key => {
+        this.credentials[key] = this.credentials[key].trim();
+      });
+    }
   }
 });
 </script>

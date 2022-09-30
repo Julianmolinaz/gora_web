@@ -21,6 +21,7 @@
                   type="text"
                   v-model="clienteSt.el.primer_nombre"
                   name="primer_nombre"
+                  id="primer_nombre"
                 >
                 <label for="primer_nombre">Primer nombre*</label>
               </div>
@@ -31,7 +32,12 @@
             <div class="group">
               <div class="input-group">
                 <!-- SEGUNDO_NOMBRE -->
-                <input type="text" v-model="clienteSt.el.segundo_nombre" name="segundo_nombre">
+                <input
+                  type="text"
+                  v-model="clienteSt.el.segundo_nombre"
+                  name="segundo_nombre"
+                  id="segundo_nombre"
+                >
                 <label for="segundo_nombre">Segundo nombre</label>
               </div>
             </div>
@@ -40,7 +46,12 @@
             <div class="group">
               <!-- PRIMER_APELLIDO -->
               <div class="input-group">
-                <input type="text" v-model="clienteSt.el.primer_apellido" name="primer_apellido">
+                <input
+                  type="text"
+                  v-model="clienteSt.el.primer_apellido"
+                  name="primer_apellido"
+                  id="primer_apellido"
+                >
                 <label for="primer_apellido">Primer apellido*</label>
               </div>
               <span class="helper-txt error" v-if="v$.primer_apellido.$error">
@@ -50,7 +61,12 @@
             <div class="group">
               <!-- SEGUNDO APELLIDO -->
               <div class="input-group">
-                <input type="text" v-model="clienteSt.el.segundo_apellido" name="segundo_apellido">
+                <input
+                  type="text"
+                  v-model="clienteSt.el.segundo_apellido"
+                  name="segundo_apellido"
+                  id="segundo_apellido"
+                >
                 <label for="segundo_apellido">Segundo apellido</label>
               </div>
             </div>
@@ -59,7 +75,7 @@
             <div class="group">
               <!-- TIPO_DOC -->
               <div class="input-group">
-                <select v-model="clienteSt.el.tipo_doc" name="tipo_doc">
+                <select v-model="clienteSt.el.tipo_doc" name="tipo_doc" id="tipo_doc">
                   <option v-for="tipo in clienteSt.insumos.listTipoDoc" :value="tipo">
                     [[ tipo ]]
                   </option>
@@ -113,6 +129,7 @@
                   v-model="clienteSt.el.placa"
                   @input="clienteSt.el.placa = $event.target.value.toUpperCase()"
                   name="placa"
+                  id="placa"
                 >
                 <label for="placa">Placa*</label>
               </div>
@@ -129,6 +146,7 @@
                   type="email"
                   v-model="clienteSt.el.email"
                   name="email"
+                  id="email"
                   autocomplete="off"
                 >
                 <label for="email">Correo electrónico*</label>
@@ -147,11 +165,9 @@
     <div class="solicitud-icono">
       <img src="./../iconos/virtual.svg" alt="icono virtualidad">
     </div>
-    <AceptarTerminos />
   </div>
 </script>
 
-{% include "./components/aceptar_terminos.html" %}
 
 <script>
   const objInicial = {
@@ -160,7 +176,6 @@
     delimiters: ['[[', ']]'],
     components: {
       NodosComponent: objNodos,
-      AceptarTerminos: objAceptarTerminos,
     },
     setup() {
       const clienteSt = clienteStore();
@@ -199,7 +214,8 @@
           },
           placa: {
             required: helpers.withMessage("La placa es requerida", required),
-        },
+            alphaNum: helpers.withMessage("Solo letras y números", alphaNum),
+          },
           email: {
             required: helpers.withMessage("El correo electrónico es requerido", required),
             email: helpers.withMessage("Correo con formato incorrecto", email),

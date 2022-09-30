@@ -42,16 +42,18 @@
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
     const { useVuelidate } = Vuelidate;
-    const { required, email, minLength, sameAs, helpers } = VuelidateValidators;
-    const emitter = mitt();
+    const {
+      required, email, minLength, sameAs, helpers, 
+      alphaNum, integer
+    } = VuelidateValidators;
+    //const emitter = mitt();
   </script> 
 
   <!-- Importación modulos store -->
 
   {% include "./store/cliente.html" %}
-  {% include "./store/simulador.html" %}
+  <!-- {% include "./store/simulador.html" %} -->
   {% include "./store/solicitud.html" %}
-
 
   <!-- Main component vue -->
   {% include "./cliente/index.html" %}
@@ -64,7 +66,6 @@
       setup(){
         const solicitudSt = solicitudStore();
         const clienteSt = clienteStore();
-        const simuladorSt  = simuladorStore();
 
         const getInsumosCliente = async () => {
           try {
@@ -96,7 +97,7 @@
     /* Global properties */
     appSolicitud.config.globalProperties.$filters = misFilters; 
     /* Providers */
-    appSolicitud.provide('emitter', emitter);
+    //appSolicitud.provide('emitter', emitter);
     /* Use */
     appSolicitud.use(pinia);
 
