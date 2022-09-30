@@ -23,7 +23,7 @@
                     v-for="estrato in clienteSt.insumos.listEstrato"
                   >[[ estrato ]]</option>
                 </select>
-                <label for="estrato">Estrato*</label>
+                <label for="estrato">Estrato socioeconómico*</label>
               </div>
               <span class="helper-txt error" v-if="v$.estrato.$error">
                 [[ v$.estrato.$errors[0].$message ]]
@@ -89,7 +89,7 @@
                   type="text"
                   v-model="clienteSt.el.barrio"
                 >
-                <label for="barrio">Barrio/Vereda</label>
+                <label for="barrio">Barrio/Vereda residencia</label>
               </div>
               <span class="helper-txt error" v-if="v$.barrio.$error">
                 [[ v$.barrio.$errors[0].$message ]]

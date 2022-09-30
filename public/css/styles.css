@@ -17,6 +17,7 @@
   --natural: #34D22C;
   --purple: #453d83;
   --danger: red;
+  --darken: #0000008f;
   --shadow: 0px .4rem .4rem rgba(0, 0, 0, 0.12);
 
   /************
@@ -254,6 +255,11 @@ input[type=number] {
 .bt__night {
   background: var(--dark);
   color: var(--light);
+}
+.bt__darken {
+  background: var(--darken);
+  color: var(--light);
+  border: none;
 }
 .bt__sun {
   background: var(--sun);

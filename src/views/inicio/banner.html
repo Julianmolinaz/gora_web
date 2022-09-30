@@ -2,20 +2,38 @@
   <div class="banner-container">
     <div class="banner-title">
       <h1>Crédito para su SOAT</h1>
-      <a href="#calc" class="bt bt__default">Calcular mi cuota</a>
+      <div class="banner-options">
+        <a href="#calc" class="bt bt__default">Calcular mi cuota</a>
+        <a
+          href=""
+          class="bt bt__darken"
+          @click.stop.prevent="openLoginModal(true, 'access')"
+        >
+          Ir a mi cuenta
+        </a>
+      </div>
     </div>
   </div>
   <div class="banner-simulador">
 	<div class="banner-simulador__box">
       <div class="banner-simulador__title">
         <h1>Crédito para su SOAT</h1>
-        <a
-          href=""
-          class="bt bt__default"
-          @click.stop.prevent="inicioSt.solicitar"
-        >
-          Solicítalo Ahora
-        </a>
+        <div class="banner-options">
+          <a
+            href=""
+            class="bt bt__default"
+            @click.stop.prevent="inicioSt.solicitar"
+          >
+            Solicítalo Ahora
+          </a>
+          <a
+            href=""
+            class="bt bt__darken"
+            @click.stop.prevent="openLoginModal(true, 'access')"
+          >
+            Ir a mi cuenta
+          </a>
+        </div>
       </div>
 	  <div class="banner-simulador__container" id="calc">
         <simulador-component></simulador-component>
