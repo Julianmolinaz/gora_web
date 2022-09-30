@@ -28,10 +28,14 @@
            **************************/
 
           if (this.vector[0]) {
-            alertify.alert("Atención",
-              "El usuario ya se encuentra registrado, por favor de click en 'Ya tengo una cuenta'",
-              () => {},
-            ); 
+            alertify.confirm(
+              "Usuario existe",
+              "El usuario ya se encuentra registrado, de click en continuar para ingresar",
+              () => this.logup_.loginSolicitud(),
+              () => {
+                this.logup_.showLogup(false); 
+              },
+            ).set('labels', { ok: 'Continuar', cancel: 'Salir' }); 
           } 
 
           /*****************************

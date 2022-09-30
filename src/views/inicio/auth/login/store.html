@@ -20,8 +20,15 @@ const loginStore = defineStore("login", {
      *  @param {boolean} true: open | false: close
      **/
     showLogin(action, mode) {
+      this.reset();
       this.show = action;
       this.mode = mode;
+    },
+
+    reset() {
+      this.el = new Login();
+      this.mode = "access";
+      this.loader = false;
     },
 
     async onSubmit() {

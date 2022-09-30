@@ -21,10 +21,15 @@ const logupStore = defineStore("logup", {
     loginSolicitud() {
       this.showLogup(false);
       this.login_.showLogin(true, "register"); 
-      //this.inicio_.mode = 'register';
+    },
+
+    reset() {
+      this.credentials = new Credentials();
+      this.loader = false;
     },
 
     showLogup(action) {
+      this.reset();
       this.show = action;
     },
 
