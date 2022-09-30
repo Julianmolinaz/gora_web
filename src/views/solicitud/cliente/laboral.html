@@ -203,7 +203,7 @@
             </div>
           </div>
           <div class="solicitud-bts">
-            <a href="" class="bt">Volver</a>
+            <a href="" class="bt" @click.stop.prevent="volver">Volver</a>
             <button class="bt bt__night" @click="onSubmit">Continuar</button>
           </div>
         </form>
@@ -227,6 +227,8 @@
     setup() {
       const clienteSt = clienteStore();
       const solicitudSt = solicitudStore();
+
+      const volver = () => clienteSt.ir(3);
 
       const listReglas = {
         ocupacion: {
@@ -291,6 +293,7 @@
         clienteSt,
         solicitudSt,
         //....
+        volver,
         v$,
       }
     },

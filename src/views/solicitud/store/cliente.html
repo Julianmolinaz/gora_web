@@ -19,6 +19,7 @@ const clienteStore = defineStore("cliente", {
       this.el.num_doc = usuario.num_doc;
       this.el.movil = usuario.movil;
     },
+
     ir(indice) {
       this.nodos.forEach((nodo) => {
         if (nodo.indice === indice) nodo.activo = true
