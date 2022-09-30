@@ -7,11 +7,15 @@
       terminos_: terminosStore(),
       logup_: logupStore(),
       login_: loginStore(),
+      simulador_: simuladorSt(),
     }),
     getters: {},
     actions: {
       solicitar() {
-        this.logup_.showLogup(true);
+        if (this.simulador_.simulador.valorCuota)
+          this.logup_.showLogup(true);
+        else 
+          alertify.alert('Cuota en $0', 'Es necesario que calcule el valor de la cuota en la calculadora');
       },
 
       /****************************************************
