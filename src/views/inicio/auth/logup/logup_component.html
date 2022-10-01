@@ -30,15 +30,16 @@
                     class="num_doc"
                     type="text"
                     v-model="logupSt.credentials.num_doc"
+                    id="num_doc_register"
                   />
-                  <label for="num_doc">Ingrese su número de documento *</label>
+                  <label for="num_doc_register">Ingrese su número de documento *</label>
                 </div>
                 <span class="helper-txt">
 
                 </span>
               </div>
             </div>
-	    <!-- TELEFONO CELULAR -->
+            <!-- TELEFONO CELULAR -->
             <div class="col">
               <div class="group">
                 <div class="input-group">
@@ -46,14 +47,15 @@
                     class="num_doc"
                     type="tel"
                     v-model="logupSt.credentials.movil"
+                    id="movil_register"
                   />
-                  <label for="num_doc">Ingrese su teléfono Celular *</label>
+                  <label for="movil_register">Ingrese su teléfono Celular *</label>
                 </div>
                 <span class="helper-txt">
                 </span>
               </div>
             </div>
-	    <!-- PASSWORD -->
+            <!-- PASSWORD -->
             <div class="col-1">
               <div class="group">
                 <div class="input-group">
@@ -61,6 +63,7 @@
                     type="password"
                     id="input-password-registro"
                     v-model="logupSt.credentials.password"
+                    id="password_register"
                   />
                   <a
                     href=""
@@ -70,12 +73,12 @@
                   >
                     <span id="icon-password-registro">visibility_off</span>
                   </a>
-                  <label for="password">
+                  <label for="password_register">
                     Cree una contraseña *
                   </label>
                 </div> 
               </div>
-	    </div>
+            </div>
             <div class="col-1">
               <div class="group">
                 <div class="input-group">
@@ -83,6 +86,7 @@
                     type="password"
                     id="input-confirm-registro"
                     v-model="logupSt.credentials.confirm"
+                    id="confirm_register"
                   />
                   <a
                     href=""
@@ -92,7 +96,7 @@
                   >
                     <span id="icon-confirm-registro">visibility_off</span>
                   </a>
-                  <label for="confirm">
+                  <label for="confirm_register">
                     Confirme su contraseña *
                   </label>
                 </div>

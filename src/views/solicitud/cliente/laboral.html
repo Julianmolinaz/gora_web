@@ -236,9 +236,15 @@
               </div>
             </div>
           </div>
-          <div class="solicitud-bts">
+          <div class="solicitud-bts" v-if="!solicitudSt.loader">
             <a href="" class="bt" @click.stop.prevent="volver">Volver</a>
             <button class="bt bt__night" @click="onSubmit">Continuar</button>
+          </div>
+          <div v-else class="center">
+            <span
+              class="loader"
+              style="width:4rem;height:4rem;"
+            ></span>
           </div>
         </form>
       </div>

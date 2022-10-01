@@ -22,8 +22,8 @@
             <div class="col">
               <div class="group">
                 <div class="input-group">
-                  <input type="text" v-model="loginSt.el.num_doc">
-                  <label for="num_doc">Ingrese número de documento *</label>
+                  <input type="text" v-model="loginSt.el.num_doc" id="num_doc_login">
+                  <label for="num_doc_login">Ingrese número de documento *</label>
                 </div>
               </div>
             </div>
@@ -32,8 +32,8 @@
                 <div class="input-group">
                   <input
                     type="password"
-                    id="password"
                     v-model="loginSt.el.password"
+                    id="password_login"
                   >
                   <a
                     href=""
@@ -41,9 +41,9 @@
                     id="showPassword"
                     @click.stop.prevent="showPassword"
                   >
-                    <span id="icon-visibility">visibility_off</span>
+                    <span id="icon-visibility-login">visibility_off</span>
                   </a>
-                  <label for="password">Ingrese su contraseña *</label>
+                  <label for="password_login">Ingrese su contraseña *</label>
                 </div>
               </div>
             </div>
@@ -94,14 +94,14 @@
           inputPassword.type="text";     
           iconVisibility.innerHTML="visibility";
         } else {
-          inputPassword.type="password";     
+          inputPassword.type="password"; 
           iconVisibility.innerHTML="visibility_off";
         }
       }
 
       onMounted(() => {
-        inputPassword = document.querySelector("#password");
-        iconVisibility = document.querySelector("#icon-visibility");
+        inputPassword = document.querySelector("#password_login");
+        iconVisibility = document.querySelector("#icon-visibility-login");
       });
 
       return {

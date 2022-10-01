@@ -10,39 +10,44 @@
         Referencia [[props.index + 1]]
       </span>
     </div>
+    <!-- PARENTESCO -->
     <div class="col">
       <div class="group">
         <div class="input-group">
           <select
             name="parentesco"
             v-model="referencia.parentesco"
+            :id="'parentesco_' + props.index"
           >
             <option selected disabled></option>
             <option :value="parentesco" v-for="parentesco in referenciasSt.ltParentesco">
               [[ parentesco ]]
             </option>
           </select>
-          <label for="parentesto">Parentesco</label>
+          <label :for="'parentesto_' + props.index">Parentesco</label>
         </div>
         <span class="helper-txt error" v-if="v$.parentesco.$error">
           [[ v$.parentesco.$errors[0].$message ]]
         </span>
      </div>
     </div>
+    <!-- NOMBRES Y APELLIDOS -->
     <div class="col">
       <div class="group">
         <div class="input-group">
           <input
             type="text"
             v-model="referencia.nombre"
+            :id="'nombre_' + props.index"
           />
-          <label for="nombre">Nombres y apellidos</label>
+          <label :for="'nombre_' + props.index">Nombres y apellidos</label>
         </div>
         <span class="helper-txt error" v-if="v$.nombre.$error">
           [[ v$.nombre.$errors[0].$message ]]
         </span>
       </div>
     </div>
+    <!-- TELEFONOS -->
     <div class="col">
       <div class="group">
         <div class="input-group">
@@ -50,8 +55,9 @@
             type="tel"
             name="telefonos"
             v-model="referencia.celular"
+            :id="'telefonos_' + props.index"
           />
-          <label for="telefonos">Teléfonos</label>
+          <label :for="'telefonos_' + props.index">Teléfonos</label>
         </div>
         <span class="helper-txt error" v-if="v$.celular.$error">
           [[ v$.celular.$errors[0].$message ]]

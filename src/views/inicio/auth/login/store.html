@@ -23,6 +23,7 @@ const loginStore = defineStore("login", {
       this.reset();
       this.show = action;
       this.mode = mode;
+      document.querySelector('#num_doc_login').focus();
     },
 
     reset() {

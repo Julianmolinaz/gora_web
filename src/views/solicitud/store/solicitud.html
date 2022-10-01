@@ -4,6 +4,7 @@ const solicitudStore = defineStore("solicitud", {
     estado: 'crear',
     solicitudId: null,
     storage: window.localStorage,
+    loader: false,
   }),
   getters: {},
   actions: {
@@ -15,6 +16,7 @@ const solicitudStore = defineStore("solicitud", {
      * las ventas por producto y sus respectivos vehiculos
      **/
     onSubmit() {
+      this.loader = true;
       const data = {
         cliente: clienteStore().el,
         simulador: simuladorStore().simulador
@@ -31,6 +33,7 @@ const solicitudStore = defineStore("solicitud", {
           });
         })
         .catch(error => {
+          this.loader = false;
           const err = error.response.data;
           if (err.name == "ValidationError") {
             alertify.alert("Error", arrToString(err.message, "<br>")); 

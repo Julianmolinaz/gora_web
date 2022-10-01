@@ -1,33 +1,36 @@
-const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
+const {
+  CodigosRepository, SolicitudesRepository 
+} = require("../../database/repositories");
+const ObtenerTipoUsuario = require("../../services/users/obtener_tipo_usuario");
+const moment = require('moment');
 
 class Prevalidacion {
-  constructor(clienteId) {
-    this.clienteId = clienteId;
-    this.errors = [];
+  constructor(numDoc) {
+    this.numDoc = numDoc;
+    this.result = true;
   }
 
   async exec() {
-    try {
-      await this.existenSolicitudesActivas();
-      await this.existenCreditosActivos();
-    } catch (error) {
-      throw error;
-    }   
+    const solActivas = await this.solicitudesActivas();
+    const codConfirmados = await this.codigosConfirmados();
+
+    if (!solActivas && codConfirmados) return true;
+    return false;
   }
 
-  async existenSolicitudesActivas() {
-    const solicitud = SolicitudesRepository.findBySome({
-      cliente_id: this.clienteId,
-    });
-
-    if (solicitud) {
-      this.errors.push(["Existe una solicitud activa para este cliente"]); 
-    }
+  async solicitudesActivas() {
+    const tipoUsuario = new ObtenerTipoUsuario(this.numDoc);
+    const vector = await tipoUsuario.exec();
+    return vector[2] == 1 ? true : false;
   }
 
-  async existenCreditosActivos() {
-
+  async codigosConfirmados() {
+    const codigos = await CodigosRepository.findConfirmado(
+      this.numDoc, moment().format('YYYY-MM-DD') 
+    );
+    return codigos ? true : false;
   }
-
 
 }
+
+module.exports = Prevalidacion;

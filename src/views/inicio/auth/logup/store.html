@@ -31,6 +31,7 @@ const logupStore = defineStore("logup", {
     showLogup(action) {
       this.reset();
       this.show = action;
+      document.querySelector('#num_doc_register').focus();
     },
 
     async getTipoUsuario() {
