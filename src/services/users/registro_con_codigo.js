@@ -35,6 +35,10 @@ const RegistroConCodigo = function (dataUsuario, codigo) {
       await registro.exec();
 
       this.usuario = registro.usuario;
+
+      /*****************************
+       * Obtener cliente 
+       *****************************/
       this.cliente = await getCliente();
 
       /*****************************
@@ -45,8 +49,9 @@ const RegistroConCodigo = function (dataUsuario, codigo) {
       /*****************************
        * Vincular Cliente con usuario 
        *****************************/
-      if (this.cliente)
+      if (this.cliente) {
         await vincularClienteConUsuario(transaction);
+      }
 
       await transaction.commit();
     } catch (err) {

@@ -15,7 +15,6 @@ const { getAccessToken } = require("../../helpers/getters");
 const RegistroConCodigoYSolicitud = function (
   dataUsuario, codigo, dataSimulador
 ) {
-  this.data
   this.usuario = null;
   this.cliente = null;
   this.solicitud = null;
@@ -68,8 +67,9 @@ const RegistroConCodigoYSolicitud = function (
       /*****************************
        * Vincular Cliente con usuario 
        *****************************/
-      if (this.cliente)
+      if (this.cliente) {
         await vincularClienteConUsuario(localTransaction);
+      }
 
       /*****************************
        * Generar Token 
@@ -83,6 +83,10 @@ const RegistroConCodigoYSolicitud = function (
       await localTransaction.rollback();
       throw err;
     }
+  }
+
+  const castDataSolicitud = async () => {
+    return { ...dataSimulador, placa: dataUsuario.placa }
   }
 
   const getCliente = async () => {

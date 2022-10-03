@@ -18,6 +18,7 @@ const { ValidationError, UniqueError } = require("../../errors");
 
 class CrearSolicitudCompleta {
   constructor(dataCliente, dataSimulador, usuarioId) {
+
     // Información inicial 
     this.dataCliente = dataCliente;
     this.dataSimulador = dataSimulador;
@@ -48,9 +49,12 @@ class CrearSolicitudCompleta {
 
       this.transaction.commit();
       this.localTransaction.commit();
+
     } catch (error) {
+
       this.transaction.rollback();
       this.localTransaction.rollback();
+
       throw error;
     }
   }
@@ -76,7 +80,7 @@ class CrearSolicitudCompleta {
 
   async crearSolicitud() {
     const useCase = new CrearSolicitud(
-      this.dataSimulador,
+      { ...this.dataSimulador, placa: this.dataCliente.placa },
       this.cliente.id,
       this.transaction
     );

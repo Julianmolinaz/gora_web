@@ -13,7 +13,7 @@ const Referencia = main.define("Referencia", {
   },
   parentesco: {
     type: DataTypes.ENUM(
-      'Padre','Madre','Hermano/a','Tio/a','Nieto/a','Suegro/a','Cuado/a','Primo/a','Sobrino/a','Abuelo/a','Hijo/a','Yerno','Nuera'
+      'Padre','Madre','Esposo/a','Hermano/a','Tio/a','Nieto/a','Suegro/a','Primo/a','Sobrino/a','Abuelo/a','Hijo/a','Yerno','Nuera'
     ),
     allowNull: false,
   },

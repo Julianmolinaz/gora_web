@@ -15,9 +15,14 @@ const ValidadorHp = require("../../helpers/validador");
 const { ValidationError, UniqueError } = require("../../errors");
 
 // Constantes
-const NUM_FACT = 6; // id consecutivos
+const NUM_FACT = process.env.MY_NUM_FACT; // id consecutivos
 
 class CrearSolicitud {
+  /**
+   * @params {Object} dataSimulador | información capturada en el simulador
+   * @params {Integer} clienteId | cliente id
+   * @params {Object} transaction | transaction de main conexión
+   */
   constructor (dataSimulador, clienteId, transaction) {
     this.dataSimulador = dataSimulador;
     this.clienteId = clienteId;
@@ -210,7 +215,7 @@ class CrearSolicitud {
   castVehiculo() {
     const fechaProximoAno = moment().add(1, "Y").format("YYYY-MM-DD");
     return {
-      placa: "PENDING",
+      placa: this.dataSimulador.placa ?? "PENDING",
       modelo: this.dataSimulador.modelo, 
       cilindraje: this.dataSimulador.cilindraje,
       vencimiento_soat: fechaProximoAno,

@@ -21,8 +21,8 @@ class SolicitudController {
       } else {
         return res.render('errors/403.html'); 
       }
-    } catch(error) {
-      console.log(3475983472598327);
+    } catch(err) {
+      console.log(err);
       return res.render('errors/403.html'); 
     }
   }
