@@ -29,7 +29,8 @@
     "nodemailer": "^6.7.3",
     "nunjucks": "^3.2.3",
     "sequelize": "^6.19.2",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "chai": "^4.3.6",
