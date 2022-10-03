@@ -16,7 +16,7 @@
     </div>
     <div class="docs-list">
       <template v-for="(doc, i) in docsSt.docs">
-        <documento-component :doc="doc"></documento-component>
+        <documento-component v-if ="doc.estado" :doc="doc"></documento-component>
       </template>
     </div>
     <div class="center">
