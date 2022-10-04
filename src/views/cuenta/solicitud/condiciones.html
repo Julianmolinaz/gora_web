@@ -27,6 +27,14 @@
     <span class="detail-item__title">Periodo</span> 
   </div>
   <div class="detail-item">
+    <span class="detail-item__value">{{ currency(data.solicitud.vlr_cuota) }}</span>
+    <span class="detail-item__title">Valor Cuota</span> 
+  </div>
+  <div class="detail-item">
+    <span class="detail-item__value">{{ currency(data.solicitud.vlr_fin) }}</span>
+    <span class="detail-item__title">Valor Crédito</span> 
+  </div>
+  <div class="detail-item">
     <span class="detail-item__value">{{ ddmmyyyy(data.solicitud.fecha) }}</span>
     <span class="detail-item__title">Fecha de solicitud</span> 
   </div>

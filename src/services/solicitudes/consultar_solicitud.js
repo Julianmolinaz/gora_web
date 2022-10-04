@@ -1,9 +1,11 @@
-const VentasRepository = require("../../database/repositories/ventas.repository");
-const ReferenciasRepository = require("../../database/repositories/referencias.repository");
-const SolicitudesRepository = require("../../database/repositories/solicitudes.repository");
-const CreditosRepository = require("../../database/repositories/creditos.repository");
-const DocumentosRepository = require("../../database/repositories/documentos.repository");
-const VariablesRepository = require("../../database/repositories/variables.repository");
+const {
+  VentasRepository,
+  ReferenciasRepository,
+  SolicitudesRepository,
+  CreditosRepository,
+  DocumentosRepository,
+  VariablesRepository
+} = require("../../database/repositories");
 
 class ConsultarSolicitud {
   constructor(solicitudId) {
@@ -43,6 +45,9 @@ class ConsultarSolicitud {
       aprobado: solicitudTemp.aprobado,
       cuotas: solicitudTemp.cuotas,
       periodo: solicitudTemp.periodo,
+      vlr_fin: solicitudTemp.vlr_fin,
+      vlr_cuota: solicitudTemp.vlr_cuota,
+      observaciones: solicitudTemp.observaciones,
       fecha: solicitudTemp.fecha
     }
   }

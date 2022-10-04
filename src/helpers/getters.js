@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
 function getEnum(value) {
   let str = value.substr(5);
@@ -9,11 +10,20 @@ function getEnum(value) {
   return arr; 
 }
 
+function currency(amount) {
+  const numberFormat = new Intl.NumberFormat(process.env.LOCALE);
+  return `$${numberFormat.format(amount)}`;
+}
+
 function capitalizar(value) {
   if (value.length > 0) {
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   }
   return value;
+}
+
+function ddmmyyyy(date) {
+  moment(date).format('DD-MM-YYYY')
 }
 
 function generarCodigo(digitos) {
@@ -41,6 +51,8 @@ async function getAccessToken(usuarioId, nombre, clienteId, add = null) {
 module.exports = {
   getEnum,
   capitalizar,
+  currency,
+  ddmmyyyy,
   generarCodigo,
   getAccessToken,
 }

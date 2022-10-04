@@ -1,5 +1,6 @@
-const InfoObligaciones = require("../services/usuarios/info_obligaciones");
-const ConsultarSolicitud = require("../services/solicitudes/consultar_solicitud");
+const { InfoObligaciones } = require("../services/usuarios");
+const { ConsultarSolicitud } = require("../services/solicitudes");
+const logger = require("../libs/logger");
 
 class CuentaController {
   static async index(req, res, next) {
@@ -11,20 +12,25 @@ class CuentaController {
         info: info.info
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       res.clearCookie("access_token");
       next();
     }
   }
 
   static async show(req, res) {
-    const { solicitudId } = req.params;
-    const solicitud = new ConsultarSolicitud(solicitudId);
-    await solicitud.exec();
+    try {
+      const { solicitudId } = req.params;
+      const solicitud = new ConsultarSolicitud(solicitudId);
+      await solicitud.exec();
 
-    return res.render("cuenta/solicitud/show.html", {
-      data: solicitud.data
-    });
+      return res.render("cuenta/solicitud/show.html", {
+        data: solicitud.data
+      });
+    } catch (err) {
+      logger.error(err);
+      next();
+    }
   }
 }
 
