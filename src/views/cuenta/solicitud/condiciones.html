@@ -7,7 +7,11 @@
     <div class="detail-item__name">Condiciones</div>
   </div>
     <div class="detail-item">
-      <span class="detail-item__value">{{ data.solicitud.aprobado }}</span>
+      {% if data.credito %}
+        <span class="detail-item__value">{{ data.credito.estado }}</span>
+      {% else %}
+        <span class="detail-item__value">{{ data.solicitud.aprobado }}</span>
+      {% endif %}
       <span class="detail-item__title">Estado</span> 
     </div>
   <div class="detail-item">
@@ -19,13 +23,15 @@
     <span class="detail-item__title">Productos</span> 
   </div>
   <div class="detail-item">
-    <span class="detail-item__value">{{ data.solicitud.cuotas }}</span>
-    <span class="detail-item__title">Número de cuotas</span> 
+    <span class="detail-item__value">{{ data.solicitud.cuotas +' - '+ data.solicitud.periodo}}</span>
+    <span class="detail-item__title">Cuotas pactadas</span> 
   </div>
+  {% if data.credito %}
   <div class="detail-item">
-    <span class="detail-item__value">{{ data.solicitud.periodo }}</span>
-    <span class="detail-item__title">Periodo</span> 
+    <span class="detail-item__value">{{ data.credito.cuotas_faltantes }}</span>
+    <span class="detail-item__title">Cuotas faltantes</span> 
   </div>
+  {% endif %}
   <div class="detail-item">
     <span class="detail-item__value">{{ currency(data.solicitud.vlr_cuota) }}</span>
     <span class="detail-item__title">Valor Cuota</span> 
@@ -34,8 +40,29 @@
     <span class="detail-item__value">{{ currency(data.solicitud.vlr_fin) }}</span>
     <span class="detail-item__title">Valor Crédito</span> 
   </div>
+  {% if data.credito %}
+  <div class="detail-item">
+    <span class="detail-item__value">{{ currency(data.credito.saldo) }}</span>
+    <span class="detail-item__title">Saldo Deuda</span> 
+  </div>
+  {% endif %}
+  <div class="detail-item">
+    {% if data.solicitud.periodo == 'Mensual' %}
+      <span class="detail-item__value">{{ data.solicitud.p_fecha }}</span>
+    {% else %}
+      <span class="detail-item__value">{{ data.solicitud.p_fecha +'-'+ data.solicitud.s_fecha}}</span>
+    {% endif %}
+    <span class="detail-item__title">Día de pago</span> 
+  </div>
+  {% if data.credito %}
+  <div class="detail-item">
+    <span class="detail-item__value">{{ ddmmyyyy(data.credito.fecha_pago) }}</span>
+    <span class="detail-item__title">Fecha de pago</span> 
+  </div>
+  {% else %}
   <div class="detail-item">
     <span class="detail-item__value">{{ ddmmyyyy(data.solicitud.fecha) }}</span>
     <span class="detail-item__title">Fecha de solicitud</span> 
   </div>
+  {% endif %}
 </div>

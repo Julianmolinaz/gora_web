@@ -23,7 +23,7 @@ function capitalizar(value) {
 }
 
 function ddmmyyyy(date) {
-  moment(date).format('DD-MM-YYYY');
+  return moment(date).format('DD-MM-YYYY');
 }
 
 function generarCodigo(digitos) {

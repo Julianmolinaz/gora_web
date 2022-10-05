@@ -48,6 +48,8 @@ class ConsultarSolicitud {
       vlr_fin: solicitudTemp.vlr_fin,
       vlr_cuota: solicitudTemp.vlr_cuota,
       observaciones: solicitudTemp.observaciones,
+      p_fecha: solicitudTemp.p_fecha,
+      s_fecha: solicitudTemp.s_fecha,
       fecha: solicitudTemp.fecha
     }
   }

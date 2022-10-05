@@ -21,7 +21,7 @@
   <section class="sheet-header">
     <div class="sheet-title__container">
       <div class="sheet-title">
-        {% if credito %}
+        {% if data.credito %}
           {% set tipoObligacion = 'Crédito' %}
         {% else %}
           {% set tipoObligacion = 'Solicitud' %}
@@ -74,6 +74,8 @@
               {% elif aprobado === 'Desistio' %}
                 Usted desistió de esta solicitud
               {% endif %}
+            {% else %}
+              Su crédito #{{ data.credito.id }} esta en estado: {{ data.credito.estado }}
             {% endif %}
           </div>
         </div>
