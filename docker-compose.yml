@@ -28,4 +28,3 @@ services:
       - 8081:80
 volumes:
   dbdata:
-~

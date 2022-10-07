@@ -23,7 +23,7 @@ class SolicitudController {
         return res.render('errors/403.html'); 
       }
     } catch(err) {
-      logger.error(err);
+      logger.error(err.stack);
       return res.render('errors/403.html'); 
     }
   }
@@ -58,7 +58,7 @@ class SolicitudController {
           }
         });
     } catch (error) {
-      logger.error(error);
+      logger.error(error.stack);
       if (error.name === "UniqueError" || error.name === "ValidationError") {
         return res.status(400).json(error); 
       } else {
