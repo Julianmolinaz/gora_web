@@ -1,0 +1,16 @@
+[2022-10-07 15:27:14] info: Server on port 3000
+[2022-10-07 15:30:48] info: Server on port 3000
+[2022-10-07 15:37:10] info: Server on port 3000
+[2022-10-07 15:38:57] info: Server on port 3000
+[2022-10-07 15:39:04] info: Server on port 3000
+[2022-10-07 15:40:06] info: Server on port 3000
+[2022-10-07 15:42:35] error: undefined
+[2022-10-07 15:42:45] error: TypeError: Cannot read properties of null (reading 'incrementable')
+    at CrearSolicitud.getConsecutivo (/var/www/web-platform/src/services/solicitudes/crear_solicitud.js:123:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async CrearSolicitud.castSolicitud (/var/www/web-platform/src/services/solicitudes/crear_solicitud.js:98:17)
+    at async CrearSolicitud.exec (/var/www/web-platform/src/services/solicitudes/crear_solicitud.js:39:7)
+    at async CrearSolicitudCompleta.crearSolicitud (/var/www/web-platform/src/services/solicitudes/crear_solicitud_completa.js:87:5)
+    at async CrearSolicitudCompleta.exec (/var/www/web-platform/src/services/solicitudes/crear_solicitud_completa.js:46:7)
+    at async storeWithCliente (/var/www/web-platform/src/controllers/solicitud.controller.js:43:7)
+[2022-10-07 16:09:15] info: Server on port 3000

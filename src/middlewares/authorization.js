@@ -27,7 +27,8 @@ const authorization = async (req, res, next) => {
     req.body.nombre_ = data.nombre;
     req.body.clienteId_ = data.ref;
     return next();
-  } catch {
+  } catch (err) {
+	  console.log(err);
     const origin = req.originalUrl.split("/");
 
     if (origin[1] === "api") {
