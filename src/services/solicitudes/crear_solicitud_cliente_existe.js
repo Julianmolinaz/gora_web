@@ -1,6 +1,7 @@
 const CrearSolicitud = require("./crear_solicitud");
 const { ValidarCodigoTerminos } = require("../../services/terminos");
 const { VincularCliente } = require("../../services/usuarios");
+const { NotificarSolicitudAnalisis } = require("../notificaciones");
 
 const { ClientesRepository, UsuariosRepository } = require("../../database/repositories");
 
@@ -39,6 +40,8 @@ class CrearSolicitudClienteExiste {
       await this.crearSolicitud();
 
       await this.vincularCliente();
+
+      await this.notificarAnalisis();
 
       this.mainTransaction.commit();
       this.localTransaction.commit();
@@ -88,6 +91,10 @@ class CrearSolicitudClienteExiste {
     this.solicitud = crearSolicitud.solicitud;
   }
 
+  async notificarAnalisis() {
+    const notificacion = new NotificarSolicitudAnalisis(this.cliente.num_doc);
+    await notificacion.execute();
+  }
 }
 
 module.exports = CrearSolicitudClienteExiste;

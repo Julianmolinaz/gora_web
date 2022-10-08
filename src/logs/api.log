@@ -1,0 +1,102 @@
+[2022-10-07 20:12:13] info: Server on port 3000
+[2022-10-07 20:18:32] info: Server on port 3000
+[2022-10-07 20:18:56] info: Server on port 3000
+[2022-10-07 20:19:48] info: Server on port 3000
+[2022-10-07 20:26:10] info: Server on port 3000
+[2022-10-07 20:28:39] info: Server on port 3000
+[2022-10-07 20:29:42] info: Server on port 3000
+[2022-10-07 20:29:44] info: Server on port 3000
+[2022-10-07 20:30:46] info: Server on port 3000
+[2022-10-07 20:34:09] info: Server on port 3000
+[2022-10-07 20:34:40] info: Server on port 3000
+[2022-10-07 20:34:55] info: Server on port 3000
+[2022-10-07 20:37:14] info: Server on port 3000
+[2022-10-07 20:38:06] info: Server on port 3000
+[2022-10-07 20:39:07] info: Server on port 3000
+[2022-10-07 20:39:22] info: Server on port 3000
+[2022-10-07 20:40:27] info: Server on port 3000
+[2022-10-07 20:41:00] info: Server on port 3000
+[2022-10-07 20:43:40] info: Server on port 3000
+[2022-10-07 20:43:47] info: Server on port 3000
+[2022-10-07 20:44:06] info: Server on port 3000
+[2022-10-07 20:44:26] info: Server on port 3000
+[2022-10-07 20:46:12] info: Server on port 3000
+[2022-10-07 20:46:26] info: Server on port 3000
+[2022-10-07 20:53:56] info: Server on port 3000
+[2022-10-07 20:54:40] info: Server on port 3000
+[2022-10-07 20:55:12] info: Server on port 3000
+[2022-10-07 20:56:02] info: Server on port 3000
+[2022-10-07 20:58:06] info: Server on port 3000
+[2022-10-07 20:58:27] info: Server on port 3000
+[2022-10-07 20:58:55] info: Server on port 3000
+[2022-10-07 20:59:27] info: Server on port 3000
+[2022-10-07 21:00:02] info: Server on port 3000
+[2022-10-07 21:01:43] info: Server on port 3000
+[2022-10-07 21:01:51] info: Server on port 3000
+[2022-10-07 21:03:56] info: Server on port 3000
+[2022-10-07 21:05:29] info: Server on port 3000
+[2022-10-07 21:07:23] info: Server on port 3000
+[2022-10-07 21:08:13] info: Server on port 3000
+[2022-10-07 21:08:32] info: Server on port 3000
+[2022-10-07 21:11:19] info: Server on port 3000
+[2022-10-07 21:14:15] info: Server on port 3000
+[2022-10-07 21:15:52] info: Server on port 3000
+[2022-10-07 21:16:40] info: Server on port 3000
+[2022-10-07 21:16:44] info: Server on port 3000
+[2022-10-07 21:16:49] info: Server on port 3000
+[2022-10-07 21:16:55] info: Server on port 3000
+[2022-10-07 21:18:22] info: Server on port 3000
+[2022-10-07 21:19:11] info: Server on port 3000
+[2022-10-07 21:19:19] info: Server on port 3000
+[2022-10-07 21:20:17] info: Server on port 3000
+[2022-10-07 21:21:33] info: Server on port 3000
+[2022-10-07 21:23:25] info: Server on port 3000
+[2022-10-07 21:25:07] info: Server on port 3000
+[2022-10-07 21:28:00] info: Server on port 3000
+[2022-10-07 21:28:29] info: Server on port 3000
+[2022-10-07 21:33:00] error: TypeError: Cannot read properties of null (reading 'incrementable')
+    at CrearSolicitud.getConsecutivo (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud.js:123:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async CrearSolicitud.castSolicitud (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud.js:98:17)
+    at async CrearSolicitud.exec (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud.js:39:7)
+    at async CrearSolicitudCompleta.crearSolicitud (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud_completa.js:90:5)
+    at async CrearSolicitudCompleta.exec (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud_completa.js:47:7)
+    at async storeWithCliente (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/controllers/solicitud.controller.js:43:7)
+[2022-10-07 21:33:17] error: TypeError: Cannot read properties of null (reading 'incrementable')
+    at CrearSolicitud.getConsecutivo (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud.js:123:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async CrearSolicitud.castSolicitud (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud.js:98:17)
+    at async CrearSolicitud.exec (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud.js:39:7)
+    at async CrearSolicitudCompleta.crearSolicitud (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud_completa.js:90:5)
+    at async CrearSolicitudCompleta.exec (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud_completa.js:47:7)
+    at async storeWithCliente (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/controllers/solicitud.controller.js:43:7)
+[2022-10-07 21:33:38] info: Server on port 3000
+[2022-10-07 21:33:38] error: Error
+    at Query.run (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/node_modules/sequelize/lib/dialects/mysql/query.js:52:25)
+    at /Users/pablo/Documents/misproyectos/gora/projects/web-platform/node_modules/sequelize/lib/sequelize.js:310:28
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async MySQLQueryInterface.insert (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/node_modules/sequelize/lib/dialects/abstract/query-interface.js:297:21)
+    at async model.save (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/node_modules/sequelize/lib/model.js:2424:35)
+    at async Function.create (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/node_modules/sequelize/lib/model.js:1336:12)
+    at async Function.crear (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/database/repositories/solicitudes.repository.js:48:25)
+    at async CrearSolicitud.crearSolicitud (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud.js:164:22)
+    at async CrearSolicitud.exec (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud.js:43:7)
+    at async CrearSolicitudCompleta.crearSolicitud (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud_completa.js:90:5)
+[2022-10-07 21:36:16] info: Server on port 3000
+[2022-10-07 21:36:18] error: TypeError: NotificarSolicitudAnalisis is not a constructor
+    at CrearSolicitudCompleta.notificarAnalisis (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud_completa.js:95:26)
+    at CrearSolicitudCompleta.exec (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/services/solicitudes/crear_solicitud_completa.js:51:18)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async storeWithCliente (/Users/pablo/Documents/misproyectos/gora/projects/web-platform/src/controllers/solicitud.controller.js:43:7)
+[2022-10-07 21:39:22] info: Server on port 3000
+[2022-10-07 21:39:33] info: Server on port 3000
+[2022-10-07 21:40:37] info: Server on port 3000
+[2022-10-07 21:40:50] info: Server on port 3000
+[2022-10-07 21:42:43] info: Server on port 3000
+[2022-10-07 21:42:44] info: Server on port 3000
+[2022-10-07 21:42:46] info: Server on port 3000
+[2022-10-07 21:42:47] info: Server on port 3000
+[2022-10-07 21:43:49] info: Server on port 3000
+[2022-10-07 21:47:16] info: Server on port 3000
+[2022-10-07 21:47:19] info: Server on port 3000
+[2022-10-07 21:47:21] info: Server on port 3000
