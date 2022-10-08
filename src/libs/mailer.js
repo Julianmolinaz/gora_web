@@ -6,11 +6,15 @@ class Mailer {
   }
 
   async send(from, to, subject, text, html = null) {
-    let transporter = nodemailer.createTransport(this.config);
+    let transporter = nodemailer.createTransport(
+      this.config
+    );
 
     let info = await transporter.sendMail({
       from, to, subject, text, html
     });
+
+    return info;
   }
 }
 

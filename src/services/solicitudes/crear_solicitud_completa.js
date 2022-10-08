@@ -8,6 +8,7 @@
 const { CrearCliente } = require("../clientes");
 const CrearSolicitud = require("./crear_solicitud");
 const { VincularCliente } = require("../usuarios");
+const { NotificarSolicitudAnalisis } = require("../notificaciones");
 
 // Persistencia 
 const mainConexion = require("../../database/conexiones/main.conexion");
@@ -46,6 +47,8 @@ class CrearSolicitudCompleta {
       await this.crearSolicitud();
 
       await this.vincularClienteConUsuario();
+
+      await this.notificarAnalisis();
 
       this.transaction.commit();
       this.localTransaction.commit();
@@ -86,6 +89,11 @@ class CrearSolicitudCompleta {
     );
     await useCase.exec();
     this.solicitud = useCase.solicitud;
+  }
+
+  async notificarAnalisis() {
+    const notificacion = new NotificarSolicitudAnalisis(this.cliente.num_doc);
+    await notificacion.execute();
   }
 
 }
