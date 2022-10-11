@@ -1,6 +1,7 @@
 const CrearReferencias = require("../services/referencias/crear_referencias.js"); 
 const ActualizarReferencias = require("../services/referencias/actualizar_referencias.js"); 
 const ReferenciasRepository = require("../database/repositories/referencias.repository.js"); 
+const logger = require("../libs/logger");
 
 class ReferenciaController {
   static async create(req, res) {
@@ -28,10 +29,10 @@ class ReferenciaController {
       return res.status(201).json({
         msg: "Se han creado las referencias exitosamente"
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      logger.error(err.stack);
       // organizar las validaciones
-      return res.status(400).json({ error }); 
+      return res.status(400).json({ err }); 
     }
   }
 
@@ -70,10 +71,10 @@ class ReferenciaController {
       return res.status(201).json({
         msg: "Se han actualizado las referencias exitosamente"
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      logger.error(err.stack);
       // organizar las validaciones
-      return res.status(400).json({ error }); 
+      return res.status(400).json({ err }); 
     }
   }
 }
