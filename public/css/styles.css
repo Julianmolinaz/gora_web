@@ -374,11 +374,13 @@ input[type=number] {
   background-color: #111111bd;
   opacity: 0;
   pointer-events: none;
-  display: flex;
+  /*display: flex;*/
+  display: none;
   transition: opacity .3s;
   z-index: 1000;
 }
 .modal.modal--show {
+  display: flex;
   pointer-events: auto;
 }
 .modal__container {

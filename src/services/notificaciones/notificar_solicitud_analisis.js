@@ -17,12 +17,10 @@ class NotificarSolicitudAnalisis {
           pass: process.env.NOTIFICATION_EMAIL_PASSWORD
         }
       }); 
-      console.log(mailer);
-      console.log(this.numDoc);
 
-      const result = await mailer.send(
+      mailer.send(
         process.env.NOTIFICATION_EMAIL_USER,
-        "etereosum@gmail.com",
+        process.env.NOTIFICATION_EMAIL_USER,
         `Nueva solicitud`,
         `Se ha registrado una nueva solicitud ver doc: ${this.numDoc}`
       );

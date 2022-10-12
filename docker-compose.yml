@@ -9,6 +9,7 @@ services:
       MYSQL_DATABASE: local
       MYSQL_USER: etereosum
       MYSQL_PASSWORD: swnamy9873241M;
+      TZ: America/Bogota
     restart: always
     ports:
       - "6033:3306"
