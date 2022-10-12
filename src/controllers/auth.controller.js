@@ -1,6 +1,7 @@
 const { Login } = require("../services/auth");
 const { LoginConTipoDeUsuario } = require("../services/auth");
 const { reply } = require('../helpers/response');
+const logger = require("../libs/logger");
 
 const cookieParser = require("cookie-parser");
 
@@ -20,7 +21,7 @@ class AuthController {
         msg: "Ingreso exitoso"
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err.stack);
       reply(req, res, {
         status: err.status,
         success: false,
@@ -44,7 +45,7 @@ class AuthController {
         }
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err.stack);
       reply(req, res, {
         status: err.status,
         success: false,

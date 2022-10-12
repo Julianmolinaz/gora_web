@@ -108,6 +108,7 @@ const terminosStore = defineStore('terminos', {
         /*****************
          * Mode access
          ****************/
+          console.log(this.inicio_.vector);
 
         if (this.inicio_.vector[0] == 1) {
           res = await axios.post(
@@ -135,6 +136,7 @@ const terminosStore = defineStore('terminos', {
               dataUsuario: this.logup_.credentials,
             }
           );
+          console.log({ res });
           if (res.data.success) {
             const response = this.getResponse(res);
             alertify.alert(response.title, response.content, () =>
@@ -149,6 +151,7 @@ const terminosStore = defineStore('terminos', {
           alert("Ha ocurrido un error");
         }
       } catch (err) {
+        this.loader = false;
         this.errorHandler(err);    
       }
     },
