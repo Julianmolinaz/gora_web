@@ -80,16 +80,27 @@
 }
 .info-icon {
   font-size: 3.4rem;
+  color: var(--sky);
 }
 .info-content {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
 }
-.info-title, .info-text {
+.info-title {
   font-family: Semibold;
   font-size: 1.4rem;
   color: var(--dark);
+}
+.info-text {
+  font-family: Light;
+  font-size: 1.4rem;
+  color: var(--dark);
+}
+.info-text__estado {
+  font-family: Bold;
+  font-size: 2rem;
+  color: var(--purple);
 }
 /* DOCUMENTOS */
 .sheet-docs {

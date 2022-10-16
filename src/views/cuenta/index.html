@@ -31,13 +31,43 @@
     <div class="info-card">
       <div class="info-card__left">
         <div class="info-icon__container">
-          <span class="material-icons-outlined info-icon">
-            keyboard_double_arrow_right
-          </span>
+          <a href="/cuenta/{{ obligacion.solicitud.id }}">
+              <span class="material-icons-outlined info-icon">
+                keyboard_double_arrow_right
+              </span>
+          </a>
         </div>
         <div class="info-content">
-          <div class="info-title">Solicitud #{{ obligacion.solicitud.id }}</div>
-          <div class="info-text">Estado de aprobación: {{ obligacion.solicitud.aprobado | lower }}</div>
+          {% if credito %}
+            <div class="info-title">Credito #{{ obligacion.credito.id }}</div>
+            <div class="info-text__estado">Estado de aprobación: 
+              {% if obligacion.credito.estado == 'Al dia' %}
+                <span class="info-text__aprobado tag tag--success">{{ obligacion.solicitud.aprobado | lower }}</span>
+              {% elif
+                obligacion.solicitud.aprobado == 'Mora' or 
+                obligacion.solicitud.aprobado == 'Prejuridico' or 
+                obligacion.solicitud.aprobado == 'Juridico' 
+
+              %}
+                <span class="info-text__aprobado tag tag--danger">{{ obligacion.solicitud.aprobado | lower }}</span>
+              {% else %}
+                <span class="info-text__aprobado tag">{{ obligacion.solicitud.aprobado | lower }}</span>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="info-title">Solicitud #{{ obligacion.solicitud.id }}</div>
+            <div class="info-text__estado">Estado de aprobación: 
+              {% if obligacion.solicitud.aprobado == 'Si' %}
+                <span class="info-text__aprobado tag tag--success">{{ obligacion.solicitud.aprobado | lower }}</span>
+              {% elif obligacion.solicitud.aprobado == 'En estudio' %}
+                <span class="info-text__aprobado tag tag--primary">{{ obligacion.solicitud.aprobado | lower }}</span>
+              {% elif obligacion.solicitud.aprobado == 'No' %}
+                <span class="info-text__aprobado tag tag--danger">{{ obligacion.solicitud.aprobado | lower }}</span>
+              {% else %}
+                <span class="info-text__aprobado tag">{{ obligacion.solicitud.aprobado | lower }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
           <div class="info-text">Producto: {{ obligacion.productos }}</div>
           <div class="info-text">Fecha de solicitud: {{ ddmmyyyy(obligacion.solicitud.fecha) }}</div>
           <div class="info-text">

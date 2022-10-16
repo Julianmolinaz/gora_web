@@ -469,3 +469,23 @@ input[type=number] {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.tag {
+  padding: 0 0.8rem;
+  border: none;
+  border-radius: 0.4rem;
+  color: var(--night);
+  background-color: var(--min);
+}
+.tag--success {
+  color: var(--light);
+  background-color: var(--natural);
+}
+.tag--danger {
+  color: var(--light);
+  background-color: var(--danger);
+}
+.tag--primary {
+  color: var(--light);
+  background-color: var(--sky);
+}
