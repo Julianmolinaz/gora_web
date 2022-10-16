@@ -152,6 +152,7 @@ class UserController {
       const {
         vector, codigo, dataSimulador, dataUsuario
       } = req.body;
+      console.log(req.body);
 
       const strVector = JSON.stringify(vector);
 

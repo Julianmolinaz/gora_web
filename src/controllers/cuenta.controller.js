@@ -14,7 +14,7 @@ class CuentaController {
     } catch (err) {
       logger.error(err);
       res.clearCookie("access_token");
-      next();
+      return res.render("errors/403.html", { err: err.message });
     }
   }
 
@@ -24,7 +24,6 @@ class CuentaController {
       const solicitud = new ConsultarSolicitud(solicitudId);
       await solicitud.exec();
 
-      console.log(solicitud.data);
       return res.render("cuenta/solicitud/show.html", {
         data: solicitud.data
       });

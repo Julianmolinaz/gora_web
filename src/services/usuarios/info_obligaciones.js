@@ -34,7 +34,9 @@ class InfoObligaciones {
     );
 
     if (!this.cliente) {
-      throw new SimpleError("No puede acceder a esta cuenta necesita calcular su cuota y solicitar tu crédito");
+      throw new SimpleError(
+        "No puede acceder a esta cuenta, de click en ir al inicio y luego en el boton 'Solicítalo ahora'"
+      );
     }
   }
 

@@ -104,11 +104,11 @@ const terminosStore = defineStore('terminos', {
           codigo: this.codigo,
           dataSimulador: this.simulador_.simulador
         };
+          console.log(generalData);
 
         /*****************
          * Mode access
          ****************/
-          console.log(this.inicio_.vector);
 
         if (this.inicio_.vector[0] == 1) {
           res = await axios.post(

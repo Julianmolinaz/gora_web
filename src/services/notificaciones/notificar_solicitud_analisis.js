@@ -16,8 +16,6 @@ class NotificarSolicitudAnalisis {
           pass: process.env.NOTIFICATION_EMAIL_PASSWORD
         }
       }); 
-      console.log(mailer);
-      console.log(this.numDoc);
 
       const result = await mailer.send(
         process.env.NOTIFICATION_EMAIL_USER,
