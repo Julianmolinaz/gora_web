@@ -1,0 +1,79 @@
+{% extends "../templates/public/main.html" %}
+
+{% block adicionalHeader %}
+  <link rel="stylesheet" href="./css/recovery/mobile.css">
+  <link 
+	rel="stylesheet" 
+	href="./css/recovery/tablet.css"
+	media="screen and (min-width: 768px)"
+  >
+  <link 
+	rel="stylesheet"
+	href="./css/recovery/desktop.css"
+	media="screen and (min-width: 992px)"
+  >
+{% endblock %}
+
+{% block title %} Recuperación GORA {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="modal__container" style="max-width: 36.6rem">
+      <div class="modal__header">
+        <img src="/imagenes/logo.png" alt="logo" class="modal__logo">
+        <div class="modal__titulo">Recuperar contraseña</div>
+        <div class="divider" style="--width-div: 7.8rem"></div>
+        <div class="modal__subtitulo">
+          Por favor ingrese su número de documento
+          y de click en 'Aceptar', a cambio recibirá un mensaje de texto en su
+          teléfono registrado
+        </div>
+      </div>
+      <div class="modal__content">
+        <div class="login-form" style="width:100%">
+          <div class="col">
+            <div class="group">
+              <div class="input-group">
+                <input type="text" id="num_doc">
+                <label for="num_doc">Número de documento</label>
+              </div>
+            </div>
+          </div>
+          <div class="group center">
+            <button
+              class="bt bt__night"
+              id="btn-submit"
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/mios/utils/errorHandler.js"></script>
+<script>
+  class Recovery {
+    constructor() {
+      this.numDoc = document.querySelector("#num_doc");
+      this.btnSubmit = document.querySelector("#btn-submit");
+      this.actions();
+    }
+    
+    actions() {
+      this.btnSubmit.addEventListener("click", () => this.submit());
+    }
+    
+    submit() {
+      if (!this.numDoc.value) {
+        errorHandler("El número de documento es requerido");
+        throw "Error validation";
+      }
+    }
+  } 
+
+  new Recovery();
+</script>
+{% endblock %}

@@ -1,6 +1,9 @@
 /***************************
  * PASOS / REFS / DOCUMENTOS
  ***************************/
+#app-refs {
+  min-height: calc(100vh - (var(--nav-height) + var(--footer-height)));
+}
 .principal-container {
   padding: 4rem 11.4rem;
 }

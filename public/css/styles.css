@@ -1,4 +1,19 @@
 /***************
+ * SKELETON
+ ***************/
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+/***************
  * VARIABLES
  ***************/
 :root {
@@ -26,6 +41,7 @@
   --nav-height: 108px;
   --nav-height-movil: 84px;
   --footer-height: 52.5px;
+  --footer-height-full: 274px;
 }
 
 /*************

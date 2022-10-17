@@ -14,6 +14,12 @@
 {% include "./../utils/cuenta.html" %}
 
 <script>
+  const onLoadFull = () => {
+    const app = document.querySelector("#app");
+    const appLoader = document.querySelector('#app-loader');
+    appLoader.style.display = "none";
+    app.style.opacity = 1; 
+  }
   const session = Session.make("access_token");
   const cuenta = new Cuenta();
 </script>
