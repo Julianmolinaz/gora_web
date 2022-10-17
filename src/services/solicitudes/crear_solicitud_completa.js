@@ -19,7 +19,7 @@ const { ValidationError, UniqueError } = require("../../errors");
 
 class CrearSolicitudCompleta {
   constructor(dataCliente, dataSimulador, usuarioId) {
-
+    console.log("Solicitudes@CrearSolicitudCompleta");
     // Información inicial 
     this.dataCliente = dataCliente;
     this.dataSimulador = dataSimulador;

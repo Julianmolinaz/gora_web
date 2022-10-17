@@ -21,6 +21,7 @@ class UsuarioController {
 
   static async generarCodigoTerminos(req, res) {
     try {
+      console.log("UsuarioController@generarCodigoTerminos");
       const data = req.body;
       const useCase = new GenerarCodigoUsuarioNuevo(data);
       await useCase.exec();
@@ -38,6 +39,7 @@ class UsuarioController {
 
   static async validarCodigoTerminos(req, res) {
     try {
+      console.log("UsuarioController@validarCodigoTerminos");
       const { numDoc, codigo } = req.body;
       const useCase = new ValidarCodigoTerminos(numDoc, codigo);
       const result = await useCase.exec();
@@ -54,6 +56,7 @@ class UsuarioController {
 
   static async validarExistenciaDeUsuario(req, res) {
     try {
+      console.log("UsuarioController@validarExistenciaDeUsuario");
       const { numDoc } = req.body;            
       const usuarioExistente = new UsuarioExistente(numDoc);
       const result = await usuarioExistente.exec();
@@ -76,6 +79,7 @@ class UsuarioController {
 
   static async salvarUsuarioFlujoSolicitud(req, res) {
     try {
+      console.log("UsuarioController@salvarUsuarioFlujoSolicitud");
       const data = req.body;
       const { num_doc, password } = data;
       let clienteExiste = false;
@@ -115,6 +119,7 @@ class UsuarioController {
 
   static async crearUsuarioFlujoInicial(req, res) {
     try {
+      console.log("UsuarioController@crearUsuarioFlujoInicial");
       const { codigo, dataUsuario } = req.body;
       const useCase = new CrearUsuarioFlujoInicial(codigo, dataUsuario);  
       await useCase.exec();

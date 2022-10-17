@@ -1,7 +1,8 @@
 const {
   UsuariosRepository,
   ClientesRepository,
-  SolicitudesRepository
+  SolicitudesRepository,
+  CreditosRepository
 } = require("../../database/repositories");
 
 const VentasRepository = require("../../database/repositories/ventas.repository");
@@ -9,6 +10,7 @@ const { SimpleError } = require("../../errors");
 
 class InfoObligaciones {
   constructor(usuarioId) {
+    console.log("Usuarios@InfoObligaciones");
     this.usuarioId = usuarioId;
     this.usuario = null;
     this.solicitudes = [];
@@ -22,6 +24,7 @@ class InfoObligaciones {
     await this.obtenerSolicitudes();
     await this.castSolicitudes();
     await this.obtenerVentas();
+    await this.getCreditos();
   }
 
   async obtenerUsuario() {
@@ -65,6 +68,13 @@ class InfoObligaciones {
       for (let venta of ventas) {
         element.productos.push(venta.producto);
       }
+    }
+  }
+
+  async getCreditos() {
+    for (let element of this.info) {
+      let credito = await CreditosRepository.findBySolicitud(element.solicitud.id);
+      element.credito = credito || null;
     }
   }
 

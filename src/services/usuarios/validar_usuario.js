@@ -5,6 +5,7 @@ const { ValidationError, UniqueError } = require("./../../errors");
 
 class ValidarUsuario {
   constructor(data) {
+    console.log("Users@ValidarUsuario");
     this.data = data;
     this.errors = [];
   }

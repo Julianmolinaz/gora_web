@@ -38,38 +38,54 @@
           </a>
         </div>
         <div class="info-content">
-          {% if credito %}
+          {% if obligacion.credito %}
             <div class="info-title">Credito #{{ obligacion.credito.id }}</div>
-            <div class="info-text__estado">Estado de aprobación: 
+            <div class="info-text__estado">Estado: 
               {% if obligacion.credito.estado == 'Al dia' %}
-                <span class="info-text__aprobado tag tag--success">{{ obligacion.solicitud.aprobado | lower }}</span>
+                <span class="info-text__aprobado">
+                  {{ obligacion.credito.estado | lower }}
+                </span>
               {% elif
-                obligacion.solicitud.aprobado == 'Mora' or 
-                obligacion.solicitud.aprobado == 'Prejuridico' or 
-                obligacion.solicitud.aprobado == 'Juridico' 
+                obligacion.credito.estado == 'Mora' or 
+                obligacion.credito.estado == 'Prejuridico' or 
+                obligacion.credito.estado == 'Juridico' 
 
               %}
-                <span class="info-text__aprobado tag tag--danger">{{ obligacion.solicitud.aprobado | lower }}</span>
+                <span class="info-text__aprobado">
+                  {{ obligacion.credito.estado | lower }}
+                </span>
               {% else %}
-                <span class="info-text__aprobado tag">{{ obligacion.solicitud.aprobado | lower }}</span>
+                <span class="info-text__aprobado tag">
+                  {{ obligacion.credito.estado | lower }}
+                </span>
               {% endif %}
             </div>
           {% else %}
             <div class="info-title">Solicitud #{{ obligacion.solicitud.id }}</div>
             <div class="info-text__estado">Estado de aprobación: 
               {% if obligacion.solicitud.aprobado == 'Si' %}
-                <span class="info-text__aprobado tag tag--success">{{ obligacion.solicitud.aprobado | lower }}</span>
+                <span class="info-text__aprobado">
+                  {{ obligacion.solicitud.aprobado | lower }}
+                </span>
               {% elif obligacion.solicitud.aprobado == 'En estudio' %}
-                <span class="info-text__aprobado tag tag--primary">{{ obligacion.solicitud.aprobado | lower }}</span>
+                <span class="info-text__aprobado">
+                  {{ obligacion.solicitud.aprobado | lower }}
+                </span>
               {% elif obligacion.solicitud.aprobado == 'No' %}
-                <span class="info-text__aprobado tag tag--danger">{{ obligacion.solicitud.aprobado | lower }}</span>
+                <span class="info-text__aprobado">
+                  {{ obligacion.solicitud.aprobado | lower }}
+                </span>
               {% else %}
-                <span class="info-text__aprobado tag">{{ obligacion.solicitud.aprobado | lower }}</span>
+                <span class="info-text__aprobado tag">
+                  {{ obligacion.solicitud.aprobado | lower }}
+                </span>
               {% endif %}
             </div>
           {% endif %}
           <div class="info-text">Producto: {{ obligacion.productos }}</div>
-          <div class="info-text">Fecha de solicitud: {{ ddmmyyyy(obligacion.solicitud.fecha) }}</div>
+          <div class="info-text">
+            Fecha de solicitud: {{ ddmmyyyy(obligacion.solicitud.fecha) }}
+          </div>
           <div class="info-text">
             <a
               href="/cuenta/{{ obligacion.solicitud.id }}"

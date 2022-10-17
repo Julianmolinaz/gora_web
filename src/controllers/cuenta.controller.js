@@ -5,10 +5,10 @@ const logger = require("../libs/logger");
 class CuentaController {
   static async index(req, res, next) {
     try {
+      console.log("CuentaController@index");
       const { usuarioId_ } = req.body;
       const info = new InfoObligaciones(usuarioId_);
       await info.exec();
-      console.log(info.info);
       return res.render("cuenta/index.html", {
         info: info.info
       });
@@ -21,7 +21,7 @@ class CuentaController {
 
   static async show(req, res, next) {
     try {
-      console.log('params', req.params);
+      console.log('CuentaController@show');
       const { solicitudId } = req.params;
       const solicitud = new ConsultarSolicitud(solicitudId);
       await solicitud.exec();

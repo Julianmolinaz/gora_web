@@ -14,6 +14,7 @@ const {
  */
 
 const ObtenerTipoUsuario = function (num_doc = null) {
+  console.log("Users@ObtenerTipoUsuario");
   if (!num_doc) throw new SimpleError("se requiere el número de documento"); 
   this.usuario = null;
   this.cliente = null;

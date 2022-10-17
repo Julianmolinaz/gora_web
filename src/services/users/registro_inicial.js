@@ -4,6 +4,7 @@ const { ValidationError, UniqueError } = require("../../errors");
 const { UsuariosRepository } = require("../../database/repositories");
 
 const RegistroInicial = function(dataUser, transaction = null) {
+  console.log("Users@RegistroInicial");
   this.dataUser = dataUser;
   this.errors = [];
   this.usuario = null;

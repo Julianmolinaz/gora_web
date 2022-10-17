@@ -15,6 +15,7 @@ const { getAccessToken } = require("../../helpers/getters");
 const RegistroConCodigoYSolicitud = function (
   dataUsuario, codigo, dataSimulador
 ) {
+  console.log("Users@RegistroConCodigoYSolicitud");
   this.usuario = null;
   this.cliente = null;
   this.solicitud = null;

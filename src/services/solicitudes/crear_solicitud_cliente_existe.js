@@ -15,6 +15,7 @@ const NUM_FACT = process.env.MY_NUM_FACT;
 class CrearSolicitudClienteExiste {
   
   constructor (usuarioId, clienteId, dataSimulador, codigo) {
+    console.log("Solicitudes@CrearSolicitudClienteExiste");
     this.usuarioId = usuarioId;
     this.clienteId = clienteId;
     this.dataSimulador = dataSimulador;

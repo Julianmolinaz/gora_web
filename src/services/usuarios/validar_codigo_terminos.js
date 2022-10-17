@@ -2,6 +2,7 @@ const CodigosRepository = require("../../database/repositories/codigos.repositor
 
 class ValidarCodigoTerminos {
   constructor(numDoc, codigo, transaction = null) {
+    console.log("Users@ValidarCodigoTerminos");
     this.numDoc = numDoc;
     this.codigo = codigo;
     this.transaction = transaction;

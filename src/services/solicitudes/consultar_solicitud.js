@@ -9,6 +9,7 @@ const {
 
 class ConsultarSolicitud {
   constructor(solicitudId) {
+    console.log("Solicitudes@ConsultarSolicitud");
     this.solicitudId = solicitudId;
     this.data = {
       solicitud: null, // info solicitud

@@ -3,6 +3,7 @@ const ValidadorHp = require("../../helpers/validador");
 
 class ValidarSolicitud {
   constructor(data, modo) {
+    console.log("Solicitudes@ValidarSolicitud");
     this.data = data;
     this.modo = modo;
     this.errors = [];

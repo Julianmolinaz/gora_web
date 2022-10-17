@@ -2,6 +2,7 @@ const { UsuariosRepository, ClientesRepository } = require("../../database/repos
 
 class VincularCliente {
   constructor(usuarioId, cliente, localTransaction = null) {
+    console.log("Usuarios@VincularCliente");
     this.usuarioId = usuarioId;
     this.localTransaction = localTransaction;
     this.cliente = cliente;

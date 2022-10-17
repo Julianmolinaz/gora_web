@@ -44,7 +44,6 @@ class UsuariosRepository {
   }
 
   static async update(usuarioId, data, transaction = null) {
-    console.log("updateUsurio");
     try {
       const usuario = await Usuario.update(
         data,

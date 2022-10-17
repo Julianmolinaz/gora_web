@@ -6,6 +6,7 @@ const moment = require('moment');
 
 class Prevalidacion {
   constructor(numDoc) {
+    console.log("Solicitudes@prevalidacion");
     this.numDoc = numDoc;
     this.result = true;
   }

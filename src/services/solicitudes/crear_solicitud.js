@@ -24,6 +24,7 @@ class CrearSolicitud {
    * @params {Object} transaction | transaction de main conexión
    */
   constructor (dataSimulador, clienteId, transaction) {
+    console.log("CrearSolicitud");
     this.dataSimulador = dataSimulador;
     this.clienteId = clienteId;
     this.transaction = transaction;

@@ -18,6 +18,7 @@ const { ValidarCodigoTerminos } = require("./../services/terminos");
 class UserController {
   static async esUsuario(req, res) {
     try {
+      console.log("UserController@esUsuario");
       const dataUsuario = req.body;
       const useCase = await EsUsuario.make(dataUsuario);
       reply(req, res, {
@@ -38,8 +39,9 @@ class UserController {
 
   static async register(req, res) {
     try {
+      console.log("UserController@register");
       const { vector, dataUsuario, codigo, dataSimulador } = req.body;
-
+      console.log({vector});
       const strVector = JSON.stringify(vector);
 
       /**
@@ -92,6 +94,7 @@ class UserController {
 
   static async getTipoUsuario(req, res) {
     try {
+      console.log("UserController@getTipoUsuario");
       const { num_doc } = req.params
       const useCase = new ObtenerTipoUsuario(num_doc);
       const result = await useCase.exec();
@@ -103,6 +106,7 @@ class UserController {
 
   static async store(req, res) {
     try {
+      console.log("UserController@store");
       const dataUsuario = req.body;
       const registro = new RegistroInicial(dataUsuario);
       await registro.exec();
@@ -149,12 +153,13 @@ class UserController {
 
   static async validateUserCode(req, res) {
     try {
+      console.log("UserController@validateUserCode");
       const {
         vector, codigo, dataSimulador, dataUsuario
       } = req.body;
-      console.log(req.body);
 
       const strVector = JSON.stringify(vector);
+      console.log("vector: ", vector);
 
       /**
        * Usuario registrado sin cliente ni solicitud activa

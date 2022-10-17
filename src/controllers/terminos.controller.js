@@ -7,6 +7,7 @@ const { reply } = require('../helpers/response');
 class TerminosController {
   static async generarCodigoUsuarioNuevo(req, res) {
     try {
+      console.log("TerminosController@generarCodigoUsuarioNuevo");
       const dataUsuario = req.body;
       const useCase = new GenerarCodigoUsuarioNuevo(dataUsuario);
       await useCase.exec();
@@ -26,6 +27,7 @@ class TerminosController {
 
   static async generarCodigoUsuarioExistente(req, res) {
     try {
+      console.log("TerminosController@generarCodigoUsuarioExistente");
       const { usuarioId_ } = req.body;
       const useCase = new GenerarCodigoUsuarioExistente(usuarioId_);
       await useCase.exec();

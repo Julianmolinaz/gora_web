@@ -6,7 +6,7 @@ const RegistroInicial = require("./registro_inicial")
 const local = require("../../database/conexiones/local.conexion"); 
 
 const RegistroConCodigo = function (dataUsuario, codigo) {
-	console.log('RegistroConCodigo', dataUsuario, codigo);
+  console.log('Users@RegistroConCodigo');
   this.dataUsuario = dataUsuario;
   this.codigo = codigo;
   this.usurio = null;
@@ -79,7 +79,7 @@ const RegistroConCodigo = function (dataUsuario, codigo) {
   const vincularClienteConUsuario = async (transaction) => {
     const vincular = new VincularCliente(
       this.usuario.id,
-      this.cliente.id,
+      this.cliente,
       transaction
     ); 
     await vincular.exec();
