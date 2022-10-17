@@ -34,7 +34,9 @@
           if (this.vector[0]) {
             alertify.confirm(
               "Usuario existe",
-              "El usuario ya se encuentra registrado, de click en continuar para ingresar",
+              `El usuario ya se encuentra registrado, 
+                de click en continuar e ingrese los datos 
+                solicitados para continuar con la solicitud`,
               () => this.logup_.loginSolicitud(),
               () => {
                 this.logup_.showLogup(false); 

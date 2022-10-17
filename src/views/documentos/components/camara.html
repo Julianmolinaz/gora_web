@@ -14,18 +14,18 @@
       const show = (accion) => { 
         if (accion) {
           showModal.value = true;
-          emitter.emit("SHOW_DASHBOARD", false);
+          //emitter.emit("SHOW_DASHBOARD", false);
         } else {
           showModal.value = false;
-          emitter.emit("SHOW_DASHBOARD", true);
+          //emitter.emit("SHOW_DASHBOARD", true);
         }
       }
 
       onMounted(() => {
-        emitter.on("SHOW_MODAL_CAMARA", (doc) => {
-          show(true);
-          abrirCamara();
-        });
+       // emitter.on("SHOW_MODAL_CAMARA", (doc) => {
+       //   show(true);
+       //   abrirCamara();
+       // });
       });
 
       const abrirCamara = () => {
