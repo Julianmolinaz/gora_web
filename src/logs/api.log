@@ -1,16 +1,25 @@
-[2022-10-07 15:27:14] info: Server on port 3000
-[2022-10-07 15:30:48] info: Server on port 3000
-[2022-10-07 15:37:10] info: Server on port 3000
-[2022-10-07 15:38:57] info: Server on port 3000
-[2022-10-07 15:39:04] info: Server on port 3000
-[2022-10-07 15:40:06] info: Server on port 3000
-[2022-10-07 15:42:35] error: undefined
-[2022-10-07 15:42:45] error: TypeError: Cannot read properties of null (reading 'incrementable')
-    at CrearSolicitud.getConsecutivo (/var/www/web-platform/src/services/solicitudes/crear_solicitud.js:123:40)
+[2022-10-12 11:15:08] info: Server on port 3000
+[2022-10-12 11:19:17] info: Server on port 3000
+[2022-10-12 11:22:11] info: Server on port 3000
+[2022-10-12 11:23:43] info: Server on port 3000
+[2022-10-12 11:27:44] info: Server on port 3000
+[2022-10-12 11:28:01] info: Server on port 3000
+[2022-10-12 11:29:04] info: Server on port 3000
+[2022-10-12 12:09:34] error: TypeError: Cannot read properties of null (reading 'num_doc')
+    at create (/var/www/web-platform/src/controllers/solicitud.controller.js:15:55)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    at async CrearSolicitud.castSolicitud (/var/www/web-platform/src/services/solicitudes/crear_solicitud.js:98:17)
-    at async CrearSolicitud.exec (/var/www/web-platform/src/services/solicitudes/crear_solicitud.js:39:7)
-    at async CrearSolicitudCompleta.crearSolicitud (/var/www/web-platform/src/services/solicitudes/crear_solicitud_completa.js:87:5)
-    at async CrearSolicitudCompleta.exec (/var/www/web-platform/src/services/solicitudes/crear_solicitud_completa.js:46:7)
-    at async storeWithCliente (/var/www/web-platform/src/controllers/solicitud.controller.js:43:7)
-[2022-10-07 16:09:15] info: Server on port 3000
+[2022-10-12 19:29:07] info: Server on port 3000
+[2022-10-13 03:29:10] info: Server on port 3000
+[2022-10-13 11:29:14] info: Server on port 3000
+[2022-10-13 19:29:18] info: Server on port 3000
+[2022-10-14 03:29:21] info: Server on port 3000
+[2022-10-14 11:29:23] info: Server on port 3000
+[2022-10-14 19:29:26] info: Server on port 3000
+[2022-10-15 03:29:28] info: Server on port 3000
+[2022-10-15 11:29:32] info: Server on port 3000
+[2022-10-15 19:29:34] info: Server on port 3000
+[2022-10-16 03:29:37] info: Server on port 3000
+[2022-10-16 11:29:40] info: Server on port 3000
+[2022-10-16 19:29:43] info: Server on port 3000
+[2022-10-17 03:29:45] info: Server on port 3000
+[2022-10-17 11:29:49] info: Server on port 3000

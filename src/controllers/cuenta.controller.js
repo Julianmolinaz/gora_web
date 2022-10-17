@@ -12,7 +12,7 @@ class CuentaController {
         info: info.info
       });
     } catch (err) {
-      logger.error(err);
+      logger.error(err.stack);
       res.clearCookie("access_token");
       next();
     }
@@ -20,7 +20,7 @@ class CuentaController {
 
   static async show(req, res, next) {
     try {
-      console.log('show');
+      console.log('params', req.params);
       const { solicitudId } = req.params;
       const solicitud = new ConsultarSolicitud(solicitudId);
       await solicitud.exec();

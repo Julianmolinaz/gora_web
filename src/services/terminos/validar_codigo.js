@@ -3,6 +3,7 @@ const { SimpleError } = require("../../errors");
 
 class ValidarCodigoTerminos {
   constructor(num_doc, codigo, transaction = null) {
+	  console.log("Validar codigo Terminos", num_doc, codigo);
     this.num_doc = num_doc;
     this.codigo = codigo;
     this.transaction = transaction;

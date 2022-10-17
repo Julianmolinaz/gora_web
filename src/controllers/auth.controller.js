@@ -32,8 +32,9 @@ class AuthController {
   }
 
   static async loginSolicitud(req, res) {
+	  console.log('loginSolicitud');
     try {
-      const data = req.body;
+      const data = req.body; console.log(data);
       const login = new LoginConTipoDeUsuario(data); 
       await login.exec();
 

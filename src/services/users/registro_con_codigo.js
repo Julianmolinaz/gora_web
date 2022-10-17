@@ -6,6 +6,7 @@ const RegistroInicial = require("./registro_inicial")
 const local = require("../../database/conexiones/local.conexion"); 
 
 const RegistroConCodigo = function (dataUsuario, codigo) {
+	console.log('RegistroConCodigo', dataUsuario, codigo);
   this.dataUsuario = dataUsuario;
   this.codigo = codigo;
   this.usurio = null;
