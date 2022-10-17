@@ -32,6 +32,7 @@
       <p class="doc-desc">[[ doc.desc ]]</p>
       <input
         ref="fileInput"
+        :id="'file-input_'+doc.codigo"
         type="file"
         @change="loadFile($event)"
         accept=".jpg, .jpeg, .png"
@@ -81,6 +82,7 @@
       const fileInput = ref(null);
       const MAX_WIDTH = 600;
       const loading = ref(false);
+      const millisecondsWait = ref('{{ MSEC_LOAD_DOC }}');
       let docFile = null;
       let docFilename = null;
 
@@ -91,9 +93,9 @@
 
       const loadFile = (e) => {
         loading.value = true;
-
+        
         const file = e.target.files[0];
-	const factorPixel = 1;
+        const factorPixel = 1;
         
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -127,7 +129,8 @@
 
         axios.post(
           `${URL}/api/documentos/${documentosSt.solicitudId}`,
-          data
+          data,
+          { timeout: millisecondsWait.value }
         ).then(res => {
           if (res.data.success) {
             documentosSt.pendientes --;
@@ -138,17 +141,28 @@
             loading.value = false;
             alertify.alert("Ocurrió un error al cargar el documento");
           }
+        }).catch(err => {
+          console.log(err.message);
+          document.getElementById("file-input_" + props.doc.codigo).value = null;
+          documentosSt.pendientes --;
+          if (err.message.includes("timeout")) {
+            alertify.alert("Su red es demaciado lenta, pruebe nuevamente a cargar la image");
+          }
+          loading.value = false;
         });
       }
 
       const showPanelPhoto = (e) => {
         e.preventDefault();
-        emitter.emit("SHOW_MODAL_CAMARA", this.doc);
       }
 
       const deleteDoc =() => {
         documentosSt.deleteDoc(props.doc.id); 
       }
+
+      onMounted(() => {
+        console.log(millisecondsWait.value);
+      });
 
       return {
         fileInput,

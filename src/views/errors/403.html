@@ -19,11 +19,23 @@
     href="/css/erros/desktop.css"
     media="screen and (min-width: 992px)"
   >
+  <style>
+    .main__error {
+      font-family: arial;
+      font-size: 18px;
+      max-width: 360px;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <main class="main">
     <img src="/iconos/parking-barrier.png" alt="talanquera" class="main-icono">  
     <span class="main-mensaje">Acción denegada</span>
+    {% if err %} 
+      <span class="main__error">{{ err }}</span>
+    {% endif %}
     <a href="/" class="main-link">click para ir al inicio</a>
   </main>
 </body>

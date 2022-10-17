@@ -29,6 +29,7 @@
       </div>
     {% endfor %}
   {% endif %}
+  {% if data.solicitud.aprobado == 'En estudio' %}
   <div class="center" style="margin-top: 2rem">
     <a
       href="/referencias/edit/{{ data.solicitud.id }}"
@@ -43,4 +44,5 @@
       "Editar Referencias"
     </span> 
   </div>
+  {% endif %}
 </div>

@@ -8,13 +8,14 @@ class CuentaController {
       const { usuarioId_ } = req.body;
       const info = new InfoObligaciones(usuarioId_);
       await info.exec();
+      console.log(info.info);
       return res.render("cuenta/index.html", {
         info: info.info
       });
     } catch (err) {
       logger.error(err.stack);
       res.clearCookie("access_token");
-      next();
+      return res.render("errors/403.html", { err: err.message });
     }
   }
 

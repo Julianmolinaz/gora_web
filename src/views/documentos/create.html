@@ -28,14 +28,11 @@
   <script src="/js/demi.js"></script>
   <!-- Pinia -->
   <script src="/js/pinia.js"></script>
-  <!-- Emit -->
-  <script src="/js/mitt.js"></script>
 
   <script>
     const { ref, createApp, onMounted, inject } = Vue;  
     const { createPinia, defineStore } = Pinia;
     const pinia = createPinia();
-    const emitter = mitt();
   </script>
 
   {% include "./store/documentos.html" %}
@@ -50,9 +47,6 @@
       },
       setup(){
         let showDashboard = ref(true);
-        emitter.on("SHOW_DASHBOARD", (accion) => {
-          showDashboard.value = accion;
-        });
 
         return {
           showDashboard,
@@ -62,7 +56,6 @@
   </script>
 
   <script>
-    appDocs.provide('emitter', emitter);
     appDocs.use(pinia);
     appDocs.mount("#app-documentos");
   </script>

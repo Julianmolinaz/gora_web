@@ -7,6 +7,25 @@
   <link rel="icon" type="image/x-icon" href="/iconos/support.png">
 
   <link rel="stylesheet" href="/css/styles.css">
+
+  <style>
+    #app {
+      opacity: 0;
+    }
+    #app-loader {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      font-family: arial;
+      font-size: 2rem;
+      gap: 1rem;
+    }
+  </style>
+
   <link rel="stylesheet" href="/css/navbar/movil.css">
   <link 
 	rel="stylesheet" 
@@ -23,19 +42,22 @@
   <!-- Title -->
   <title>{% block title %} title {% endblock %}</title>
 </head>
-<body class="body">
-  <header>{% include "./navbar.html" %}</header> 
-  <main>
-	{% block content %}
-	  Poner acá contenido
-	{% endblock %}
-  </main>
-  
-  {% include "../footer_down.html" %}
-
+<body class="body" onload="onLoadFull();">
+  <div id="app-loader">
+    <div class="loader"></div>
+    <p>Cargando Inversiones GORA ...</p>
+  </div>
+  <div id="app">
+    <header>{% include "./navbar.html" %}</header> 
+    <main>
+      {% block content %}
+        Poner acá contenido
+      {% endblock %}
+    </main>
+    
+    {% include "../footer_down.html" %}
+  </div>
   {% include "./scripts.html" %}
   {% block scripts %} {%endblock%}
-  <script>
-  </script>
 </body>
 </html>

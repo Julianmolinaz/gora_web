@@ -1,4 +1,19 @@
 /***************
+ * SKELETON
+ ***************/
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+/***************
  * VARIABLES
  ***************/
 :root {
@@ -26,6 +41,7 @@
   --nav-height: 108px;
   --nav-height-movil: 84px;
   --footer-height: 52.5px;
+  --footer-height-full: 274px;
 }
 
 /*************
@@ -470,4 +486,24 @@ input[type=number] {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.tag {
+  padding: 0 0.8rem;
+  border: none;
+  border-radius: 0.4rem;
+  color: var(--night);
+  background-color: var(--min);
+}
+.tag--success {
+  color: var(--light);
+  background-color: var(--natural);
+}
+.tag--danger {
+  color: var(--light);
+  background-color: var(--danger);
+}
+.tag--primary {
+  color: var(--light);
+  background-color: var(--sky);
 }

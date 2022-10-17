@@ -18,7 +18,8 @@ const jucks = (app) => {
     .addGlobal('CANTIDAD_REFS', process.env.CANTIDAD_REFS)
     .addGlobal('SEG_CODIGO_TERMINOS', process.env.SEG_CODIGO_TERMINOS)
     .addGlobal('ddmmyyyy', (date) => ddmmyyyy(date))
-    .addGlobal('currency', (amount) => currency(amount));
+    .addGlobal('currency', (amount) => currency(amount))
+    .addGlobal('MSEC_LOAD_DOC', process.env.MSEC_LOAD_DOC);
 }
 
 module.exports = jucks;

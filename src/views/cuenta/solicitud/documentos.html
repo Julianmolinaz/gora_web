@@ -34,6 +34,7 @@
         </div>
       {% endif %}
     {% endfor %}
+    {% if data.solicitud.aprobado == 'En estudio' %}
     <div class="center" style="margin-top: 2rem">
       <a href="/documentos/edit/{{ data.solicitud.id }}" class="bt bt__night bt-doc">Subir documentos</a>
     </div>
@@ -42,5 +43,6 @@
         Si tiene documentos por ingresar de click en el boton
       </span> 
     </div>
+    {% endif %}
   </div>
 </div>
