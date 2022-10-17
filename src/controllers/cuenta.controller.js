@@ -21,7 +21,10 @@ class CuentaController {
 
   static async show(req, res, next) {
     try {
+<<<<<<< HEAD
       console.log('CuentaController@show');
+=======
+>>>>>>> c833dcf56de57b0358ad9e581a3562704ffea624
       const { solicitudId } = req.params;
       const solicitud = new ConsultarSolicitud(solicitudId);
       await solicitud.exec();

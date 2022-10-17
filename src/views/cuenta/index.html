@@ -43,8 +43,13 @@
             <div class="info-text__estado">Estado: 
               {% if obligacion.credito.estado == 'Al dia' %}
                 <span class="info-text__aprobado">
+<<<<<<< HEAD
                   {{ obligacion.credito.estado | lower }}
                 </span>
+=======
+		  {{ obligacion.credito.estado | lower }}
+		</span>
+>>>>>>> c833dcf56de57b0358ad9e581a3562704ffea624
               {% elif
                 obligacion.credito.estado == 'Mora' or 
                 obligacion.credito.estado == 'Prejuridico' or 
@@ -52,12 +57,21 @@
 
               %}
                 <span class="info-text__aprobado">
+<<<<<<< HEAD
                   {{ obligacion.credito.estado | lower }}
                 </span>
               {% else %}
                 <span class="info-text__aprobado tag">
                   {{ obligacion.credito.estado | lower }}
                 </span>
+=======
+		  {{ obligacion.credito.estado | lower }}
+		</span>
+              {% else %}
+                <span class="info-text__aprobado">
+		  {{ obligacion.credito.estado | lower }}
+		</span>
+>>>>>>> c833dcf56de57b0358ad9e581a3562704ffea624
               {% endif %}
             </div>
           {% else %}
@@ -65,6 +79,7 @@
             <div class="info-text__estado">Estado de aprobación: 
               {% if obligacion.solicitud.aprobado == 'Si' %}
                 <span class="info-text__aprobado">
+<<<<<<< HEAD
                   {{ obligacion.solicitud.aprobado | lower }}
                 </span>
               {% elif obligacion.solicitud.aprobado == 'En estudio' %}
@@ -79,6 +94,22 @@
                 <span class="info-text__aprobado tag">
                   {{ obligacion.solicitud.aprobado | lower }}
                 </span>
+=======
+		  {{ obligacion.solicitud.aprobado | lower }}
+		</span>
+              {% elif obligacion.solicitud.aprobado == 'En estudio' %}
+                <span class="info-text__aprobado">
+		  {{ obligacion.solicitud.aprobado | lower }}
+		</span>
+              {% elif obligacion.solicitud.aprobado == 'No' %}
+                <span class="info-text__aprobado tag tag--danger">
+		  {{ obligacion.solicitud.aprobado | lower }}
+		</span>
+              {% else %}
+                <span class="info-text__aprobado tag">
+		  {{ obligacion.solicitud.aprobado | lower }}
+		</span>
+>>>>>>> c833dcf56de57b0358ad9e581a3562704ffea624
               {% endif %}
             </div>
           {% endif %}
