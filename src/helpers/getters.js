@@ -33,20 +33,25 @@ function generarCodigo(digitos) {
     if (i == 0 && digito == 0) digito = 1; 
     codigo += `${digito}`;
   }
-  console.log({ codigo });
+  //console.log({ codigo });
   return codigo;
 }
   
 async function getAccessToken(usuarioId, nombre, clienteId, add = null) {
-    const token = await jwt.sign({
-      nombre,
-      id: usuarioId,
-      ref: clienteId,
-      add
-    }, process.env.TOKEN_SECRET);
+  const data = {
+    nombre,
+    id: usuarioId,
+    ref: clienteId,
+    exp: Math.floor(Date.now() / 1000) + (60 * process.env.MY_SEC_EXP_ACCESS_TOKEN),
+    add
+  }; 
+  const token = await jwt.sign(
+    data,
+    process.env.TOKEN_SECRET,
+  );
 
-    return token;
-  }
+  return token;
+}
 
 module.exports = {
   getEnum,

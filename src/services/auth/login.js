@@ -68,7 +68,6 @@ class Login {
       throw new SimpleError("El nombre del usuario o la contraseña son incorrectos");
     }
   }
-
   
 }
 

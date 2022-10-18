@@ -25,8 +25,8 @@ class AuthController {
       reply(req, res, {
         status: err.status,
         success: false,
-        body: err,
-        msg: "Credenciales invalidas, verifique su documento y contraseña"
+        body: err.message,
+        msg: err.message 
       });
     }
   }

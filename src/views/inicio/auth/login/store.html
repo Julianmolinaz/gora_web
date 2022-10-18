@@ -13,6 +13,7 @@ const loginStore = defineStore("login", {
     terminos_: terminosStore(),
     mode: "access",
     loader: false,
+    millisecondsWait: '{{ MSEC_LOAD_DOC }}'
   }),
   getters: {},
   actions: {
@@ -49,11 +50,24 @@ const loginStore = defineStore("login", {
     },
 
     async loginAccess() {
-      const res = await axios.post("/api/auth/login", this.el);
-      if (res.data.success) {
-        alertify.notify(res.data.msg, "success", 2, () => {
-          window.location.href = `${URL}/cuenta`;
-        });
+      try {
+        const res = await axios.post(
+          "/api/auth/login",
+          this.el,
+          { timeout: this.millisecondsWait }
+        );
+        console.log(res);
+        if (res.data.success) {
+          alertify.notify(res.data.msg, "success", 2, () => {
+            window.location.href = `${URL}/cuenta`;
+          });
+        } else {
+          this.loader = false;
+          errorHandler(res.data.msg); 
+        }
+      } catch (err) {
+        this.loader = false;
+        errorHandler(err);
       }
     },
 
