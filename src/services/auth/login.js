@@ -13,6 +13,7 @@ const { SimpleError } = require("../../errors");
 
 class Login {
   constructor(data) {
+    console.log("Auth@Login");
     this.data = data;
     this.usuario = null;
     this.errors = [];

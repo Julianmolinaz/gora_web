@@ -4,6 +4,7 @@ const { UsuariosRepository } = require("../../database/repositories");
 
 const LoginConTipoDeUsuario = function (data) {
   try {
+    console.log("LoginConTipoDeUsuario");
     this.vector = [0, 0, 0]
     this.token = null;
     

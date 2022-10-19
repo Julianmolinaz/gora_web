@@ -7,6 +7,7 @@ class CuentaController {
     try {
       console.log("CuentaController@index");
       const { usuarioId_ } = req.body;
+	    console.log(usuarioId_);
       const info = new InfoObligaciones(usuarioId_);
       await info.exec();
       return res.render("cuenta/index.html", {

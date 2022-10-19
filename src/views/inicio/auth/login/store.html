@@ -56,7 +56,6 @@ const loginStore = defineStore("login", {
           this.el,
           { timeout: this.millisecondsWait }
         );
-        console.log(res);
         if (res.data.success) {
           alertify.notify(res.data.msg, "success", 2, () => {
             window.location.href = `${URL}/cuenta`;

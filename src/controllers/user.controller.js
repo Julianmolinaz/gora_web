@@ -51,8 +51,9 @@ class UserController {
       if ( strVector === '[0,0,0]' || strVector === '[0,1,1]') {
         const registro = new RegistroConCodigo(dataUsuario, codigo);
         await registro.exec();
-
-        res.cookie('access_token', registro.token);
+	let token = registro.token;
+	console.log(token);
+        res.cookie('access_token', token);
         reply(req, res, {});
       }
 
@@ -65,7 +66,9 @@ class UserController {
           dataUsuario, codigo, dataSimulador
         );
         await registroConSolicitud.exec();
-        res.cookie('access_token', registroConSolicitud.token);
+	let token = registroConSolicitud.token;
+	      console.log(token);
+        res.cookie('access_token', token);
         reply(req, res, { 
           body: { 
             solicitudId: registroConSolicitud.solicitud.id

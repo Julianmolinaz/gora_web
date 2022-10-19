@@ -42,6 +42,7 @@ const RegistroConCodigoYSolicitud = function (
         dataUsuario, localTransaction
       );
       await registro.exec();
+	    console.log('usuario', registro.usuario);
 
       /*****************************
        * Obtener usuario
@@ -106,9 +107,10 @@ const RegistroConCodigoYSolicitud = function (
   }
 
   const vincularClienteConUsuario = async (localTransaction) => {
-    const data = {
+    const cliente = {
       cliente_id: this.cliente.id,
       tipo_doc: this.cliente.tipo_doc,
+      num_doc: this.cliente.num_doc,
       email: this.cliente.email,
       primer_nombre: this.cliente.primer_nombre,
       segundo_nombre: this.cliente.segundo_nombre,
@@ -118,7 +120,7 @@ const RegistroConCodigoYSolicitud = function (
 
     this.usuario = await UsuariosRepository.update(
       this.usuario.id,
-      data,
+      this.cliente,
       localTransaction
     );
   }

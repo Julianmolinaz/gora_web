@@ -33,7 +33,6 @@ function generarCodigo(digitos) {
     if (i == 0 && digito == 0) digito = 1; 
     codigo += `${digito}`;
   }
-  //console.log({ codigo });
   return codigo;
 }
   
@@ -42,7 +41,7 @@ async function getAccessToken(usuarioId, nombre, clienteId, add = null) {
     nombre,
     id: usuarioId,
     ref: clienteId,
-    exp: Math.floor(Date.now() / 1000) + (60 * process.env.MY_SEC_EXP_ACCESS_TOKEN),
+    exp: Math.floor(Date.now() / 1000) + (60 * process.env.MY_EXP_ACCESS_TOKEN),
     add
   }; 
   const token = await jwt.sign(

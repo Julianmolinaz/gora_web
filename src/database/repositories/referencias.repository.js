@@ -31,7 +31,7 @@ class ReferenciasRepository {
       });
       return referencias;
     } catch (err) {
-      console.log(err)
+      console.log(err);
       throw err;
     } 
   }

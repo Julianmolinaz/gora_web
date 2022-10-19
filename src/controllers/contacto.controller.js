@@ -7,7 +7,6 @@ class ContactoController {
   static async index(req, res) {
     const insumosUseCase = new GetInsumosVistaContacto();
     const insumos = await insumosUseCase.execute();
-    console.log(insumos.empresa);
     return res.render("contacto/index.html", { insumos });
   }
 

@@ -128,7 +128,6 @@ const clienteStore = defineStore("cliente", {
         const usuario = JSON.parse(JSON.stringify(this.el));
         delete usuario.id; 
         const res = await axios.post("/api/usuarios", usuario);
-        console.log({ res });
         if (res.data.clienteExiste) {
           alertify.alert("Querido cliente, usted ha tenido solicitudes con nosotros, pongase en contacto con un asesor para ser atendido")
           window.location.href = "/";

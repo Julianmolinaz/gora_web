@@ -10,7 +10,7 @@ const { SimpleError } = require("../../errors");
 
 class InfoObligaciones {
   constructor(usuarioId) {
-    console.log("Usuarios@InfoObligaciones");
+    console.log("Usuarios@InfoObligaciones", usuarioId);
     this.usuarioId = usuarioId;
     this.usuario = null;
     this.solicitudes = [];
