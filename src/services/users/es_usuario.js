@@ -57,7 +57,7 @@ class EsUsuario {
           Querido cliente, no hemos podido validar su identidad, 
           por favor de click en el link para comunicarse con un asesor. Gracias!!!
           <br><br>
-          <a href="https://wa.me/3207809668" style="color: blue" target="_blank">
+          <a href="https://wa.me/${process.env.MY_CONTACT_NUMBER}" style="color: blue" target="_blank">
             <span class="material-icons-outlined">question_answer</span>
             Click acá para hablar con un asesor ...
           </a>

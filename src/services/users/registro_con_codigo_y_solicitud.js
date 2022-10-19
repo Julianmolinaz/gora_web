@@ -42,7 +42,6 @@ const RegistroConCodigoYSolicitud = function (
         dataUsuario, localTransaction
       );
       await registro.exec();
-	    console.log('usuario', registro.usuario);
 
       /*****************************
        * Obtener usuario
@@ -97,7 +96,7 @@ const RegistroConCodigoYSolicitud = function (
     );    
   }
 
-  const getToken = async () => {
+  const getToken = async (usuarioId) => {
     this.token = await getAccessToken(
       this.usuario.id,
       `${this.cliente.primer_nombre} ${this.cliente.primer_apellido}` ,
@@ -118,9 +117,9 @@ const RegistroConCodigoYSolicitud = function (
       segundo_apellido: this.cliente.segundo_apellido
     };
 
-    this.usuario = await UsuariosRepository.update(
+    await UsuariosRepository.update(
       this.usuario.id,
-      this.cliente,
+      cliente,
       localTransaction
     );
   }
