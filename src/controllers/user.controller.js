@@ -2,6 +2,7 @@ const cookieParser = require("cookie-parser");
 
 const { reply } = require('../helpers/response');
 const { getAccessToken } = require("../helpers/getters");
+const logger = require("../libs/logger");
 
 const {
   EsUsuario,
@@ -27,7 +28,7 @@ class UserController {
         msg: 'ok'
       });
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       reply(req, res, {
         status: err.status || 500,
         success: false,
@@ -52,7 +53,6 @@ class UserController {
         const registro = new RegistroConCodigo(dataUsuario, codigo);
         await registro.exec();
 	let token = registro.token;
-	console.log(token);
         res.cookie('access_token', token);
         reply(req, res, {});
       }
@@ -67,7 +67,6 @@ class UserController {
         );
         await registroConSolicitud.exec();
 	let token = registroConSolicitud.token;
-	      console.log(token);
         res.cookie('access_token', token);
         reply(req, res, { 
           body: { 
@@ -85,7 +84,7 @@ class UserController {
       }
      
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       reply(req, res, {
         status: err.status,
         success: false,
@@ -102,8 +101,9 @@ class UserController {
       const useCase = new ObtenerTipoUsuario(num_doc);
       const result = await useCase.exec();
       return res.send(result);
-    } catch (error) {
-      return res.send(error);
+    } catch (err) {
+      logger.error(err)
+      return res.send(err);
     }
   }
 
@@ -121,13 +121,13 @@ class UserController {
         body: { usuario: registro.usuario },
         msg: 'El usuario fue creado exitosamente.'
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      logger.log(err);
       reply(req, res, {
         status: 404,
         success: false,
         msg: 'Ocurrio un error',
-        body: error
+        body: err
       });
     }
   }
@@ -197,7 +197,7 @@ class UserController {
       }
 
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       reply(req, res, {
         status: err.status,
         success: false,

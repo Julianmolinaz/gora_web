@@ -49,6 +49,7 @@ class UsuariosRepository {
         data,
         {
           where: { id: usuarioId },
+          returning: true,
           transaction
         },
       );
