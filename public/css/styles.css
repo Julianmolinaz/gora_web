@@ -507,3 +507,12 @@ input[type=number] {
   color: var(--light);
   background-color: var(--sky);
 }
+
+/****************
+ * CHAT
+ ****************/
+.chat {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+}
