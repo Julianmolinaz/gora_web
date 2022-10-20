@@ -25,7 +25,7 @@ class AuthController {
       reply(req, res, {
         status: err.status,
         success: false,
-        body: err.message,
+        body: err,
         msg: err.message 
       });
     }
