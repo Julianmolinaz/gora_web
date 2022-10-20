@@ -8,6 +8,7 @@
   const { ref, createApp, onMounted } = Vue;
   const { createPinia, defineStore } = Pinia;
   const emitter = mitt();
+  console.log(window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue);
 </script>
 
 <!-- STORE -->
@@ -106,7 +107,7 @@
   /* Global properties */
   app.config.globalProperties.$filters = misFilters; 
   /* Providers */
-  app.provide('emitter', emitter);
+  /*app.provide('emitter', emitter);*/
   /* Use */
   app.use(createPinia());
   app.mount('#app');
