@@ -6,8 +6,10 @@
 	  class="footer__logo"
 	>
   </a>
-  <p class="footer__text">Cr 4 # 6-45 Pereira Risaralda </p>
-  <p class="footer__text">Tel: 3207809668</p>
+  <p class="footer__text">{{ GORA_DIRECCION }}</p>
+  <p class="footer__text">
+    Tel: {{ GORA_TELEFONO_1 }} - {{ GORA_TELEFONO_2 }}
+  </p>
   <div class="footer__networks">
 	<a href="https://www.facebook.com/inversionesgora" target="_blank">
 	  <img
@@ -21,7 +23,10 @@
 		alt="link instagram inversiones gora"
 	  >
 	</a>
-	<a href="https://wa.me/3207809668" target="_blank">
+	<a
+      href="https://wa.me/{{ MY_CONTACT_NUMBER }}"
+      target="_blank"
+    >
 	  <img
 		src="/iconos/whatsapp.png"
 		alt="link whatsapp inversiones gora"
@@ -31,8 +36,10 @@
   </div>
 
   <p class="footer__copyright">
-    Creado por www.etereosum.com <br>
-    Copyright 2021 Inversiones Gora SAS
+   <a href="https://www.etereosum.com/" target="_blank">
+     Creado por www.etereosum.com
+   </a>
+   <span>Copyright 2021 Inversiones Gora SAS</span>
   </p>
 
   {% include "./footer_down.html" %}

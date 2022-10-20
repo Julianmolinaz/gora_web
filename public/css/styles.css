@@ -311,10 +311,18 @@ input[type=number] {
   text-decoration: none; 
 }
 .footer__copyright {
-    margin-top: .4rem;
-    margin-bottom: 1.6rem;
-    font-family: Light;
-    font-size: 1.2rem;
+  margin-top: .4rem;
+  margin-bottom: 1.6rem;
+  font-family: Light;
+  font-size: 1.2rem;
+}
+.footer__copyright * {
+  text-decoration: none;
+  color: var(--dark);
+  display: block;
+}
+.footer__copyright a {
+  color: var(--sky);
 }
 .footer__down {
     text-align: center;

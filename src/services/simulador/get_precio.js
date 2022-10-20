@@ -39,16 +39,18 @@ class GetPrecio {
   }
 
   getPrecio() {
+    let precio = 0;
     if (this.producto.id === RTM_ID) {
-      return this.tarifa.valor2;
+      precio = this.tarifa.valor2;
     } else if (this.producto.id === SOAT_ID) {
-      return this.tarifa.valor1 + parseFloat(process.env.MY_COMMISION_1);
+      precio = this.tarifa.valor1 + parseFloat(process.env.MY_COMMISION_1);
     } else if (this.producto.id === KIT_ID) {
-      return 
+      precio = 
         this.tarifa.valor1 + 
         this.tarifa.valor2 +
         parseFloat(process.env.MY_COMMISION_1);
     }
+    return precio;
   }
 
   obtenerTarifaUnica(tarifas) {
