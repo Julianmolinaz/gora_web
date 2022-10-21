@@ -125,28 +125,29 @@
           base64: docFile,
           nombre: props.doc.codigo
         };
-        documentosSt.pendientes++;
 
         axios.post(
           `${URL}/api/documentos/${documentosSt.solicitudId}`,
           data,
           { timeout: millisecondsWait.value }
         ).then(res => {
+          loading.value = false;
           if (res.data.success) {
-            documentosSt.pendientes --;
-            loading.value = false;
             props.doc.file = docFile;
             props.doc.id = res.data.documento.id;
           } else {
-            loading.value = false;
             alertify.alert("Ocurrió un error al cargar el documento");
           }
         }).catch(err => {
           console.log(err.message);
           document.getElementById("file-input_" + props.doc.codigo).value = null;
-          documentosSt.pendientes --;
           if (err.message.includes("timeout")) {
-            alertify.alert("Su red es demaciado lenta, pruebe nuevamente a cargar la image");
+            alertify.alert(
+              "Error",
+              `Su red es demaciado lenta, 
+                pruebe nuevamente a cargar la imagen, 
+                si ya cargó obvie este mensaje`
+            );
           }
           loading.value = false;
         });
