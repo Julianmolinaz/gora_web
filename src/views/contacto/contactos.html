@@ -105,6 +105,9 @@
 			.catch(error => alert(error.message));
 		},
 		getCiudades() {
+          this.ciudades = "";
+          this.ciudadId = null;
+          this.contactos = [];
 		  axios.get(`/api/contactos/get-ciudades/${this.departamentoId}`)
 			.then(res => this.ciudades = res.data.ciudades)
 			.catch(error => alert(error.message)) 
