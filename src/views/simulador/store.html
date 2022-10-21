@@ -63,7 +63,9 @@
             }, 500);
         } catch (err) {
           const error = err.response.data.error;
-          alertify.alert("Ocurrió un error", error);
+            alertify.alert("Ocurrió un error", error, () => {
+              this.loader = false;
+            });
         }
       },
       getInsumos() {
