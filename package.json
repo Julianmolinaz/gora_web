@@ -30,6 +30,7 @@
     "nunjucks": "^3.2.3",
     "sequelize": "^6.19.2",
     "validator": "^13.7.0",
+    "vue": "^3.2.41",
     "winston": "^3.8.2"
   },
   "devDependencies": {
