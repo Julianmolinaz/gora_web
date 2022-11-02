@@ -37,7 +37,7 @@
         <div class="input-group">
           <input
             type="text"
-            v-model="referencia.nombre"
+            v-model.trim="referencia.nombre"
             :id="'nombre_' + props.index"
           />
           <label :for="'nombre_' + props.index">Nombres y apellidos</label>
@@ -54,7 +54,7 @@
           <input
             type="tel"
             name="telefonos"
-            v-model="referencia.celular"
+            v-model.trim="referencia.celular"
             :id="'telefonos_' + props.index"
           />
           <label :for="'telefonos_' + props.index">Teléfonos</label>

@@ -50,6 +50,7 @@ class CrearCliente {
     }
     this.data["user_create_id"] = process.env.USER_ID_DEFAULT;
     this.data["created_at"] = new Date();
+    this.data["updated_at"] = new Date();
   }
 }
 
