@@ -29,10 +29,9 @@ class NotificarSolicitudAnalisis {
                 margin-top: 30px;
               "
             >
-              <div class="container"
+              <div
                 style="
                   display:flex;
-                  flex-direction: column;
                   align-items: center;
                   gap: 10px;
                   min-width: 400px;
@@ -41,6 +40,7 @@ class NotificarSolicitudAnalisis {
                   border-radius: 4px;
                   padding: 20px 10px;
                   font-family: arial, verdana;
+                  flex-direction: column;
                 "
                 >
                 <span class="titulo"
@@ -63,7 +63,7 @@ class NotificarSolicitudAnalisis {
                     font-weigth: 900;
                   "
                 >
-                  Doc: 9873241
+                  Doc: ${this.numDoc}
                 </span>
                 <a href="" class="btn"
                   style="
