@@ -30,6 +30,7 @@ class CrearSolicitud {
     this.transaction = transaction;
     this.ventas = [];
     this.vehiculos = [];
+    this.now = moment().format('YYYY-DD-MM HH:mm:ss');
   }
 
   async exec() {
@@ -114,6 +115,8 @@ class CrearSolicitud {
       cuota_inicial: 0,
       aprobado: "En estudio",      
       observaciones: "",
+      created_at: this.now,
+      updated_at: this.now, 
       user_create_id: process.env.USER_ID_DEFAULT,
       version: 4 
     };
