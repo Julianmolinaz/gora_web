@@ -1,5 +1,5 @@
 exports.reply = (req, res, info) => {
-  const success = (info.success == undefined || info.sucess == true)
+  const success = (info.success == undefined || info.success == true)
     ? true : false;
   const status = info.status || 200;
   const msg = info.msg || 'Ok';
