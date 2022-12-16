@@ -30,7 +30,7 @@ class CrearSolicitud {
     this.transaction = transaction;
     this.ventas = [];
     this.vehiculos = [];
-    this.now = moment().format('YYYY-DD-MM HH:mm:ss');
+    this.now = moment().format('YYYY-MM-DD HH:mm:ss');
   }
 
   async exec() {

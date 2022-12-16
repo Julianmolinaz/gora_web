@@ -20,8 +20,8 @@ class NotificarSolicitudAnalisis {
       mailer.send(
         process.env.NOTIFICATION_EMAIL_USER,
         process.env.NOTIFICATION_EMAIL_USER,
-        `Nueva solicitud`,
-        `Se ha registrado una nueva solicitud ver doc: ${this.numDoc}`,
+        `Nueva solicitud ${this.numDoc}`,
+        `${this.numDoc}`,
         `<div 
               style="
                 display: flex;

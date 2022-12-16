@@ -73,7 +73,7 @@ const referenciasStore = defineStore("referencias", {
           if (tempRef.celular == this.refs[j].celular) {
             throw 'Lo sentimos, no pueden existir teléfonos duplicados';
           }
-          if (tempRef.nombre == this.refs[i].nombre) {
+          if (tempRef.nombre == this.refs[j].nombre) {
             throw 'Lo sentimos, no pueden existir nombres duplicados';
           }
         }
