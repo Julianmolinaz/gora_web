@@ -219,7 +219,7 @@ class CrearSolicitud {
   castVehiculo() {
     const fechaProximoAno = moment().add(1, "Y").format("YYYY-MM-DD");
     return {
-      placa: this.dataSimulador.placa ?? "PENDING",
+      placa: this.dataSimulador.placa ? this.dataSimulador.placa : "PENDING",
       modelo: this.dataSimulador.modelo, 
       cilindraje: this.dataSimulador.cilindraje,
       vencimiento_soat: fechaProximoAno,
