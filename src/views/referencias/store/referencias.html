@@ -18,7 +18,7 @@ const referenciasStore = defineStore("referencias", {
       } else if (this.estado == 'editar'){
         for (let i = 0; i < this.numReferencias; i++) {
           if (!this.refs[i]) {
-              this.refs.push(new Referencia({}));
+            this.refs.push(new Referencia({}));
           }
         }
       }
@@ -26,6 +26,7 @@ const referenciasStore = defineStore("referencias", {
     async onSubmit() {
       if (this.loader) return false;
       this.loader = true;
+
       // validacion de formularios
       this.refsValidas = 0;
       emitter.emit("SUBMIT_REF");
@@ -41,6 +42,8 @@ const referenciasStore = defineStore("referencias", {
       const data = { referencias: this.refs }
 
       try {
+        this.compareRefs();
+
         const res = (this.estado == "crear") 
           ? await axios.post(route, data)
           : await axios.put(route, data);
@@ -61,6 +64,21 @@ const referenciasStore = defineStore("referencias", {
         alertify.alert("Ocurrió un error", err);
       }
     },
-  }
+  
+    compareRefs() {
+      for (let i=0; i < this.refs.length; i++) {
+        const tempRef = this.refs[i];
+
+        for (let j = i+1; j < this.refs.length; j++) {
+          if (tempRef.celular == this.refs[j].celular) {
+            throw 'Lo sentimos, no pueden existir teléfonos duplicados';
+          }
+          if (tempRef.nombre == this.refs[j].nombre) {
+            throw 'Lo sentimos, no pueden existir nombres duplicados';
+          }
+        }
+      }
+    }
+  },
 });
 </script>

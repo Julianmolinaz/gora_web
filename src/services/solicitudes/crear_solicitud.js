@@ -30,6 +30,7 @@ class CrearSolicitud {
     this.transaction = transaction;
     this.ventas = [];
     this.vehiculos = [];
+    this.now = moment().format('YYYY-MM-DD HH:mm:ss');
   }
 
   async exec() {
@@ -114,6 +115,8 @@ class CrearSolicitud {
       cuota_inicial: 0,
       aprobado: "En estudio",      
       observaciones: "",
+      created_at: this.now,
+      updated_at: this.now, 
       user_create_id: process.env.USER_ID_DEFAULT,
       version: 4 
     };
@@ -216,7 +219,7 @@ class CrearSolicitud {
   castVehiculo() {
     const fechaProximoAno = moment().add(1, "Y").format("YYYY-MM-DD");
     return {
-      placa: this.dataSimulador.placa ?? "PENDING",
+      placa: this.dataSimulador.placa ? this.dataSimulador.placa : "PENDING",
       modelo: this.dataSimulador.modelo, 
       cilindraje: this.dataSimulador.cilindraje,
       vencimiento_soat: fechaProximoAno,
