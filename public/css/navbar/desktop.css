@@ -18,6 +18,10 @@
     width: 13.9rem;
     height: 7.5rem;
 }
+.desk-nav__red {
+    width: 13.9rem;
+    height: 7.5rem;
+}
 .desk-nav__right {
     display: flex;
     align-items: center;
