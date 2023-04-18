@@ -26,6 +26,13 @@
   margin: auto;
   cursor: pointer;
 }
+.nav__255 {
+  width: 8.75rem;
+  height: 5rem;
+  display: block;
+  margin: auto;
+  cursor: pointer;
+}
 .nav__menu-icon {
   float: right;
   margin-top: -3.8rem;
