@@ -22,8 +22,15 @@
 .nav__logo {
   width: 8.75rem;
   height: 5rem;
-  display: block;
-  margin: auto;
+  display: inline-block;
+  float: left;
+  cursor: pointer;
+}
+.nav__red {
+  width: 8.75rem;
+  height: 5rem;
+  display: inline-block;
+  margin: right;
   cursor: pointer;
 }
 .nav__255 {

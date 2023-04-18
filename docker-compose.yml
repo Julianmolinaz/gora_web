@@ -7,8 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: swnamy135Ma 
       MYSQL_DATABASE: local
-      MYSQL_USER: etereosum
-      MYSQL_PASSWORD: swnamy9873241M;
+      MYSQL_USER: root
+      MYSQL_PASSWORD: swnamy135Ma
       TZ: America/Bogota
     restart: always
     ports:
